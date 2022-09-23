@@ -2,7 +2,7 @@ const dashboardIcons = [
   {
     title: 'My Classes',
     blueColor: 'blue',
-    link: '/classes/', // :teacherId
+    link: '/classes/teacher/', // :teacherId
     linkId: true,
   },
   {
@@ -24,9 +24,9 @@ const dashboardIcons = [
     linkId: false,
   },
   {
-    title: 'Update Account',
+    title: 'Account',
     blueColor: 'blue',
-    link: '/profile/', // :teacherId
+    link: '/account/', // :teacherId
     linkId: true,
   },
   {

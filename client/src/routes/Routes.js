@@ -22,15 +22,16 @@ import Challenge from '../features/Challenge';
 import FourOhFour from '../features/FourOhFour';
 import Unauthorized from '../features/Unauthorized';
 import { UserContext } from '../App';
+import TeacherClasses from '../features/Classes/TeacherClasses';
+import CreateClass from '../features/Classes/CreateClass';
+import CreateChallenge from '../features/Challenge/CreateChallenge';
+import Account from '../features/Account';
+import Logout from '../features/Logout';
 
 const PrivateRoute = ({ children, ...props }) => {
   const location = useLocation();
   const { authService: service } = useContext(UserContext);
 
-  // Testing
-  // const isLoggedIn = false;
-  // console.log(service.role);
-  // console.log(user);
   if (!service.isLoggedIn) {
     return (
       <Navigate
@@ -157,6 +158,15 @@ const Routes = () => {
         }
         exact
       />
+      <Route path="/challenge/create" element={<CreateChallenge />} exact />
+      <Route
+        path="/classes/teacher/:teacherId"
+        element={<TeacherClasses />}
+        exact
+      />
+      <Route path="/account/:user" element={<Account />} exact />
+      <Route path="/classes/create" element={<CreateClass />} exact />
+      <Route path="/logout" element={<Logout />} exact />
       <Route path="*" element={<FourOhFour />} />
       <Route path="/unauthorized" element={<Unauthorized />} exact />
     </RouteWrapper>

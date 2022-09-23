@@ -16,7 +16,7 @@ const AdultLogin = () => {
     authService
       .login(values)
       .then(() => {
-        navigate('/adult');
+        navigate('/dashboard');
         notification.success({
           message: 'Login Successful',
           description: 'You are now currently logged in.',

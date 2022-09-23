@@ -5,16 +5,8 @@ const StyledDashboardContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 export default StyledDashboardContainer;
-
-/*
-  background-color: ${({ theme }) => theme.colors.lightGrey};
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-*/

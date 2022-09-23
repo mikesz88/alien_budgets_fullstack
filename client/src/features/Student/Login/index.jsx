@@ -15,7 +15,7 @@ const StudentLogin = () => {
     authService
       .login(values)
       .then(() => {
-        navigate('/student');
+        navigate('/aliendashboard');
         notification.success({
           message: 'Login Successful',
           description: 'You are now currently logged in.',
