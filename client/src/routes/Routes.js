@@ -9,8 +9,8 @@ import {
   useLocation,
 } from 'react-router-dom';
 import Hero from '../features/Hero';
-import StudentDashboard from '../features/Student';
-import AdultDashboard from '../features/Adult';
+import StudentDashboard from '../features/Student/AlienDashboard';
+import AdultDashboard from '../features/Adult/Dashboard';
 import AdultLogin from '../features/Adult/Login';
 import RegisterAdultPart1 from '../features/Adult/RegisterPart1';
 import RegisterAdultPart2 from '../features/Adult/RegisterPart2';
@@ -149,7 +149,7 @@ const Routes = () => {
         exact
       />
       <Route
-        path="/challenge/:challengeId"
+        path="/challenge/play/:challengeId"
         element={
           <ChallengeRoute>
             <Challenge />
@@ -157,7 +157,7 @@ const Routes = () => {
         }
         exact
       />
-      <Route path="/:any" element={<FourOhFour />} />
+      <Route path="*" element={<FourOhFour />} />
       <Route path="/unauthorized" element={<Unauthorized />} exact />
     </RouteWrapper>
   );

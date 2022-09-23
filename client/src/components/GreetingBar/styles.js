@@ -9,6 +9,10 @@ export const StyledAdultGreetingContainer = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.colors.white};
   padding: 0.5rem 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 export const StyledTitleFont = styled.div`
@@ -30,6 +34,10 @@ export const StyledStudentGreetingContainer = styled.div`
   padding: 0.5rem 2rem;
   font-family: ${({ theme }) => theme.fontFamily.creepster};
   font-size: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 export const StyledButton = styled(Button)`
