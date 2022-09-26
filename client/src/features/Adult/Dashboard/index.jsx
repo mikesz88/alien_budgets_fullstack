@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import GreetingBar from '../../../components/GreetingBar';
 import dashboardIcons from './helper';
 import { UserContext } from '../../../App';
-import Card from '../../../components/Card';
-import StyledDashboardContainer from '../../../components/Dashboard/DashboardContainer';
-import StyledDashboardWrapper from '../../../components/Dashboard/DashboardWrapper';
+import Card from '../../../components/Dashboard/Card';
+import StyledDashboardContainer from '../../../components/Dashboard/Container';
+import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
 
 const Dashboard = () => {
   const { authService } = useContext(UserContext);

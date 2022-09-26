@@ -258,7 +258,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
-// @desc Update User Details
+// @desc Update Adult Details
 // @route PUT /api/v1/auth/adult/updatedetails
 // @access PRIVATE
 exports.adultUpdateDetails = asyncHandler(async (req, res, next) => {
@@ -266,8 +266,8 @@ exports.adultUpdateDetails = asyncHandler(async (req, res, next) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    avatarURL: req.body.avatarURL,
-    avatarColor: req.body.avatarColor,
+    // avatarURL: req.body.avatarURL,
+    // avatarColor: req.body.avatarColor,
     gradeLevel: req.body.gradeLevel,
     classrooms: req.body.classrooms,
   };
@@ -283,16 +283,42 @@ exports.adultUpdateDetails = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc Update User Details
+// @desc Update Avatar Details
+// @route PUT /api/v1/auth/updateAvatar
+// @access PRIVATE
+exports.updateAvatar = asyncHandler(async (req, res, next) => {
+  const { avatarURL, avatarColor } = req.body;
+  const fieldsToUpdate = {
+    avatarURL,
+    avatarColor,
+  };
+
+  const user = req.adult
+    ? await Adult.findByIdAndUpdate(req.adult.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true,
+      })
+    : await Student.findByIdAndUpdate(req.adult.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true,
+      });
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+});
+
+// @desc Update Student Details
 // @route PUT /api/v1/auth/student/updatedetails
 // @access PRIVATE
 exports.studentUpdateDetails = asyncHandler(async (req, res, next) => {
   const fieldsToUpdate = {
     firstName: req.body.firstName,
     lastInitial: req.body.lastInitial,
-    username: req.body.username,
-    avatarURL: req.body.avatarURL,
-    avatarColor: req.body.avatarColor,
+    // username: req.body.username,
+    // avatarURL: req.body.avatarURL,
+    // avatarColor: req.body.avatarColor,
     classroomCode: req.body.classroomCode,
   };
 
@@ -308,7 +334,7 @@ exports.studentUpdateDetails = asyncHandler(async (req, res, next) => {
 });
 
 // @desc Update User Password
-// @route POST /api/v1/auth/updatepassword
+// @route PUT /api/v1/auth/updatepassword
 // @access PRIVATE
 exports.updatePassword = asyncHandler(async (req, res, next) => {
   let user;

@@ -8,7 +8,8 @@ const StyledButton = styled(Button)`
     type === 'primary' ? theme.colors.primaryBlue : ''};
   border-color: ${({ type, theme }) =>
     type === 'primary' ? theme.colors.primaryBlue : ''};
-  color: ${({ theme }) => theme.colors.lightGrey};
+  color: ${({ type, theme }) =>
+    type === 'primary' ? theme.colors.lightGrey : theme.colors.primaryBlue};
   box-shadow: 0px 10px 15px grey;
   border-radius: 50px;
   margin: 1rem;

@@ -12,6 +12,7 @@ function adultService(User) {
       this.email = '';
       this.password = '';
       this.gradeLevel = '';
+      this.classrooms = [];
       this.adultRegisterPart1 = false;
     }
 
@@ -48,6 +49,7 @@ function adultService(User) {
       avatarURL,
       avatarColor,
       role,
+      classrooms,
     }) {
       this.id = _id;
       this.firstName = firstName;
@@ -58,6 +60,7 @@ function adultService(User) {
       this.avatarURL = avatarURL;
       this.avatarColor = avatarColor;
       this.role = role;
+      this.classrooms = classrooms;
     }
 
     getAdultData() {

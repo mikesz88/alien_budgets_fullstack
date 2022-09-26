@@ -183,6 +183,47 @@ class AuthService extends extender(adultService, studentService) {
       throw error;
     }
   }
+
+  async updateAdultProfile(body) {
+    const headers = this.getBearerHeader();
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.updateAdultProfile,
+        body,
+        headers
+      );
+      this.setAdultData(response.data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateStudentProfile(body) {
+    const headers = this.getBearerHeader();
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.updateStudentProfile,
+        body,
+        headers
+      );
+      this.setAdultData(response.data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updatePassword(currentPassword, newPassword) {
+    const headers = this.getBearerHeader();
+    try {
+      await axios.put(
+        Endpoints.updatePassword,
+        { currentPassword, newPassword },
+        headers
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default AuthService;

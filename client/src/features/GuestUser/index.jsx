@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext, useMemo } from 'react';
-import { Form, input, Pagination, Modal, notification, Row, Radio } from 'antd';
+import { Form, Pagination, Modal, notification, Row, Radio } from 'antd';
 import { faker } from '@faker-js/faker';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';

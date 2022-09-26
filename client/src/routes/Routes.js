@@ -163,7 +163,7 @@ const Routes = () => {
         element={<TeacherClasses />}
         exact
       />
-      <Route path="/account/:user" element={<Account />} exact />
+      <Route path="/account" element={<Account />} exact />
       <Route path="/classes/create" element={<CreateClass />} exact />
       <Route path="/logout" element={<Logout />} exact />
       <Route path="*" element={<FourOhFour />} />

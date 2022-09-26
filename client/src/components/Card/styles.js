@@ -1,15 +1,11 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import PrimaryButton from '../PrimaryButton';
 
-export const StyledLink = styled(Link)`
-  background-color: ${({ theme, bluecolor }) =>
-    bluecolor === 'blue' ? theme.colors.primaryBlue : theme.colors.white};
-  color: ${({ theme, bluecolor }) =>
-    bluecolor === 'blue' ? theme.colors.white : theme.colors.primaryBlue};
-  font-size: 24px;
-  padding: 4rem 2rem;
+export const StyledPrimaryButton = styled(PrimaryButton)`
+  padding: 4rem 2rem 6rem;
   border-radius: 20px;
   margin: 1rem;
+  font-size: 24px;
 `;
 
 export const StyledText = styled.div`

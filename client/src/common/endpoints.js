@@ -19,6 +19,9 @@ const Endpoints = {
   getLoggedInUser: `${URL_AUTH}/me`,
   login: `${URL_AUTH}/login`,
   logout: `${URL_AUTH}/logout`,
+  updateAdultProfile: `${URL_AUTH}/adult/updatedetails`,
+  updateStudentProfile: `${URL_AUTH}/student/updatedetails`,
+  updatePassword: `${URL_AUTH}/updatepassword`,
 };
 
 export default Endpoints;

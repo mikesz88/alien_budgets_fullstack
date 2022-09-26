@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { StyledLink, StyledText } from './styles';
+import { StyledPrimaryButton, StyledText } from './styles';
 
-const Card = ({ title, link, bluecolor }) => (
-  <StyledLink bluecolor={bluecolor} to={link}>
+const Card = ({ type, title, ...props }) => (
+  <StyledPrimaryButton {...props} type={type}>
     <StyledText>{title}</StyledText>
-  </StyledLink>
+  </StyledPrimaryButton>
 );
 
 export default Card;

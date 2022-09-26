@@ -26,8 +26,8 @@ const dashboardIcons = [
   {
     title: 'Account',
     blueColor: 'blue',
-    link: '/account/', // :user
-    linkId: true,
+    link: '/account',
+    linkId: false,
   },
   {
     title: 'Logout',

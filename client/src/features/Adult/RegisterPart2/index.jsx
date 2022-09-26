@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Form,
-  Input,
   Pagination,
   Radio,
   Modal,
@@ -64,7 +62,7 @@ const RegisterAdultPart2 = () => {
       .then((res) => {
         setAvatarURL(res.avatarURL);
       })
-      .catch((error) => {
+      .catch(() => {
         notification.error({
           message: 'error',
           description: 'Bad connection. Try again later',

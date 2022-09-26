@@ -83,13 +83,16 @@ const RegisterAdult = () => {
           rules={[
             {
               type: 'text',
-              required: true,
               message: 'Please input your last name.',
             },
             {
-              pattern: /.{3,}$/gm,
+              pattern: /[a-zA-Z]{3,}/gm,
               required: true,
-              message: 'Pleas write at least three letters.',
+              message: 'Must be minimum 3 letters.',
+            },
+            {
+              required: true,
+              message: 'You are required to write a name.',
             },
           ]}
         >
@@ -99,6 +102,10 @@ const RegisterAdult = () => {
           name="email"
           register="true"
           rules={[
+            {
+              type: 'email',
+              message: 'Please input a valid email',
+            },
             {
               required: true,
               message: 'Please input your Email!',

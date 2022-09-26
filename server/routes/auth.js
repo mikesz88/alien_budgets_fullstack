@@ -1,7 +1,7 @@
 const express = require('express');
 
-const { 
-  registerAdult, 
+const {
+  registerAdult,
   registerStudent,
   login,
   logout,
@@ -12,7 +12,7 @@ const {
   forgotQuestion,
   adultUpdateDetails,
   studentUpdateDetails,
-  updatePassword
+  updatePassword,
 } = require('../controllers/auth');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -25,9 +25,14 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.get('/me', protect, getLoggedInUser);
 router.post('/adult/forgotpassword', adultForgotPassword);
-router.put('/adult/updatedetails', protect, authorizedAdult(), adultUpdateDetails);
+router.put(
+  '/adult/updatedetails',
+  protect,
+  authorizedAdult(),
+  adultUpdateDetails
+);
 router.put('/student/updatedetails', protect, studentUpdateDetails);
-router.post('/updatepassword', protect, updatePassword);
+router.put('/updatepassword', protect, updatePassword);
 router.post('/forgotpassword', forgotPassword);
 router.get('/forgotquestion/:user', forgotQuestion);
 router.put('/resetpassword/:resettoken', resetPassword);

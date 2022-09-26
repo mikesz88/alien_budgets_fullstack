@@ -1,11 +1,9 @@
 /* eslint-disable import/no-cycle */
-/* eslint-disable no-unused-vars */
-import React, { useState, createContext, useContext, useEffect } from 'react';
+import React, { useState, createContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 import theme from './theme';
 import AvatarService from './services/avatarService';
-import StudentService from './services/studentService';
 import ClassCodeService from './services/classCodeService';
 import AuthService from './services/authService';
 import Routes from './routes/Routes';
