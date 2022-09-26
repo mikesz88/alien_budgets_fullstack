@@ -112,7 +112,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: {},
+    message: 'You are officially logged out.',
   });
 });
 

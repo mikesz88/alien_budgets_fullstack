@@ -26,7 +26,7 @@ const dashboardIcons = [
   {
     title: 'Account',
     blueColor: 'blue',
-    link: '/account/', // :teacherId
+    link: '/account/', // :user
     linkId: true,
   },
   {

@@ -30,6 +30,28 @@ class AuthService extends extender(adultService, studentService) {
     };
   }
 
+  resetUser() {
+    this.id = '';
+    this.firstName = '';
+    this.lastName = '';
+    this.lastInitial = '';
+    this.username = '';
+    this.avatarURL = '';
+    this.avatarColor = '';
+    this.forgotPasswordQuestion = '';
+    this.forgotPasswordAnswer = '';
+    this.role = '';
+    this.setIsLoggedIn(false);
+    this.email = '';
+    this.password = '';
+    this.gradeLevel = [];
+    this.adultRegisterPart1 = false;
+    this.studentRegisterPart1 = false;
+    this.classroomCode = '';
+    this.setAuthToken('');
+    this.setBearerHeader('');
+  }
+
   getBearerHeader() {
     return this.bearerHeader;
   }
@@ -145,6 +167,18 @@ class AuthService extends extender(adultService, studentService) {
       localStorage.setItem('token', response.token);
       this.setIsLoggedIn(true);
       this.getUser();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async logout() {
+    const headers = this.getBearerHeader();
+    try {
+      const { data: response } = await axios.get(Endpoints.logout, headers);
+      localStorage.removeItem('token');
+      this.resetUser();
+      return response.message;
     } catch (error) {
       throw error;
     }

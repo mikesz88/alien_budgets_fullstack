@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
-import HeroScreenDivWrapper from '../../../components/Hero/HeroScreenDivWrapper';
-import theme from '../../../theme';
 import dashboardIcons from './helper';
 import { UserContext } from '../../../App';
 import Card from '../../../components/Card';

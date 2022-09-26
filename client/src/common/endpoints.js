@@ -18,6 +18,7 @@ const Endpoints = {
   registerAdult: `${URL_AUTH}/register/adult`,
   getLoggedInUser: `${URL_AUTH}/me`,
   login: `${URL_AUTH}/login`,
+  logout: `${URL_AUTH}/logout`,
 };
 
 export default Endpoints;

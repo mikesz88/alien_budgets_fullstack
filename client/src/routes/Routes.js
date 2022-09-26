@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable import/no-cycle */
 import React, { useContext, useEffect } from 'react';
 import {
   Routes as RouteWrapper,
@@ -28,11 +27,11 @@ import CreateChallenge from '../features/Challenge/CreateChallenge';
 import Account from '../features/Account';
 import Logout from '../features/Logout';
 
-const PrivateRoute = ({ children, ...props }) => {
+export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
   const { authService: service } = useContext(UserContext);
 
-  if (!service.isLoggedIn) {
+  if (!service.isLoggedIn && service.role !== user) {
     return (
       <Navigate
         {...props}
@@ -46,7 +45,7 @@ const PrivateRoute = ({ children, ...props }) => {
   return children;
 };
 
-const ChallengeRoute = ({ children, ...props }) => {
+export const ChallengeRoute = ({ children, ...props }) => {
   const location = useLocation();
   const { authService: service } = useContext(UserContext);
 
@@ -59,7 +58,7 @@ const ChallengeRoute = ({ children, ...props }) => {
   return children;
 };
 
-const Part1RegisterRequire = ({ user, children, ...props }) => {
+export const Part1RegisterRequire = ({ user, children, ...props }) => {
   const location = useLocation();
   const { authService: service } = useContext(UserContext);
 
@@ -134,7 +133,7 @@ const Routes = () => {
       <Route
         path="/aliendashboard"
         element={
-          <PrivateRoute>
+          <PrivateRoute user="student">
             <StudentDashboard />
           </PrivateRoute>
         }
@@ -143,7 +142,7 @@ const Routes = () => {
       <Route
         path="/dashboard"
         element={
-          <PrivateRoute>
+          <PrivateRoute user="adult">
             <AdultDashboard />
           </PrivateRoute>
         }
