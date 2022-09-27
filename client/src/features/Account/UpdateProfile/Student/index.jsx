@@ -9,7 +9,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
     useContext(UserContext);
   const [form] = Form.useForm();
 
-  const getAllClassCodes = useMemo(
+  const getAllClassCodes = useCallback(
     () => classCodeService.getAllClassCodes(),
     []
   );
@@ -23,21 +23,33 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
     getAllClassCodes();
   }, []);
 
+  // eslint-disable-next-line consistent-return
   const onFinish = (values) => {
     console.log(values);
-    if (!Object.keys(values).length) {
+    if (values.classroomCode) {
+      if (!isValidClassCode(values.classroomCode)) {
+        return notification.error({
+          message: 'error',
+          description: 'Invalid Classroom Code',
+        });
+      }
+    }
+    const body = {};
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key of Object.keys(values)) {
+      if (values[key]) {
+        body[key] = values[key];
+      }
+    }
+    if (!Object.keys(body).length) {
       notification.error({
         message: 'Empty!',
         description: 'You must change at least one.',
       });
-    } else if (!isValidClassCode(values.classroomCode)) {
-      notification.error({
-        message: 'error',
-        description: 'Invalid Classroom Code',
-      });
     } else {
+      console.log(body);
       authService
-        .updateStudentProfile(values)
+        .updateStudentProfile(body)
         .then(() => {
           notification.success({
             message: 'Success',
@@ -50,7 +62,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
         .catch(() =>
           notification.error({
             message: 'Connection error',
-            description: 'There was something wrong with the conenction',
+            description: 'There was something wrong with the connection',
           })
         );
     }
@@ -90,7 +102,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
         rules={[
           () => ({
             validator(_, value) {
-              if (value !== authService.lastName) {
+              if (value !== authService.lastInitial) {
                 return Promise.resolve();
               }
               return Promise.reject(
@@ -99,32 +111,15 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
             },
           }),
           {
-            pattern: /[a-zA-Z]{3,}/gm,
-            message: 'Must be minimum 3 letters.',
+            pattern: /^[a-zA-Z]{1}$/gm,
+            message: 'Please only write one letter.',
           },
         ]}
       >
         <Input type="text" />
       </Form.Item>
-      <Form.Item
-        name="classroomCode"
-        rules={[
-          {
-            required: true,
-            message: 'Please write in a valid Class Code.',
-          },
-        ]}
-      >
-        <Input type="text" placeholder="Type your class code in now" />
-      </Form.Item>
-      <Form.Item name="gradeLevel" label="Grade Level">
-        <Checkbox.Group>
-          <Row>
-            <Checkbox value="4th">4th</Checkbox>
-            <Checkbox value="5th">5th</Checkbox>
-            <Checkbox value="6th">6th</Checkbox>
-          </Row>
-        </Checkbox.Group>
+      <Form.Item label="Classroom Code" name="classroomCode">
+        <Input type="text" />
       </Form.Item>
       <Form.Item>
         <StyledButton larger="true" type="primary" htmlType="submit">

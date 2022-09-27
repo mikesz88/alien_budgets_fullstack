@@ -13,7 +13,8 @@ const Endpoints = {
   getAvatarAdjective: `${URL_AVATAR}/adjective`,
   getAllClassCodes: `${URL_ADULT}/classcodelist`,
   getAllForgotQuestions: URL_FORGOT_QUESTION,
-  getOneForgotQuestion: `${URL_FORGOT_QUESTION}/:id`,
+  getOneForgotQuestion: `${URL_FORGOT_QUESTION}`,
+  updateForgotQuestionAnswer: `${URL_AUTH}/updateforgot`,
   registerStudent: `${URL_AUTH}/register/student`,
   registerAdult: `${URL_AUTH}/register/adult`,
   getLoggedInUser: `${URL_AUTH}/me`,
@@ -22,6 +23,8 @@ const Endpoints = {
   updateAdultProfile: `${URL_AUTH}/adult/updatedetails`,
   updateStudentProfile: `${URL_AUTH}/student/updatedetails`,
   updatePassword: `${URL_AUTH}/updatepassword`,
+  deleteSelf: `${URL_AUTH}/deleteaccount`,
+  updateAvatar: `${URL_AUTH}/updateavatar`,
 };
 
 export default Endpoints;

@@ -3,8 +3,7 @@ import axios from 'axios';
 import Endpoints from '../common/endpoints';
 
 class AvatarService {
-  async getAvatarList(page) {
-    const limit = 10;
+  async getAvatarList(page, limit = 10) {
     const currentPage = page || 1;
     try {
       const { data: response } = await axios.get(

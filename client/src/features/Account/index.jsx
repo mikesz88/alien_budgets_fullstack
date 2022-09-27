@@ -28,19 +28,7 @@ const Account = () => {
   return (
     <>
       <StyledDashboardWrapper>
-        {authService.role === 'adult' ? (
-          <GreetingBar
-            adult
-            firstName={authService.firstName}
-            lastName={authService.lastName}
-          />
-        ) : (
-          <GreetingBar
-            student
-            username={authService.username}
-            playGame={() => console.log('test')}
-          />
-        )}
+        <GreetingBar template="Account Services" />
         <StyledDashboardContainer>
           {dashboardIcons.map((card) => (
             <Card

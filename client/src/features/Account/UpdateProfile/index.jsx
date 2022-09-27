@@ -6,13 +6,12 @@ import UpdateStudentProfile from './Student';
 
 const UpdateProfile = ({ closeDrawer }) => {
   const { authService } = useContext(UserContext);
-  const { role } = authService.role;
 
   return (
     <>
       <div>Current Details</div>
       <div>FirstName: {authService.firstName}</div>
-      {role === 'adult' ? (
+      {authService.role === 'student' ? (
         <>
           <div>Last Initial: {authService.lastInitial}</div>
           <div>Classroom Code: {authService.classroomCode}</div>

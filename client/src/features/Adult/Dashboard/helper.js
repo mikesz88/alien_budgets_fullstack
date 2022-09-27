@@ -1,37 +1,37 @@
 const dashboardIcons = [
   {
     title: 'My Classes',
-    blueColor: 'blue',
+    type: 'primary',
     link: '/classes/teacher/', // :teacherId
     linkId: true,
   },
   {
     title: 'Create a Class',
-    blueColor: 'white',
+    type: 'default',
     link: '/classes/create',
     linkId: false,
   },
   {
     title: 'Create Challenge',
-    blueColor: 'blue',
+    type: 'primary',
     link: '/challenge/create',
     linkId: false,
   },
   {
     title: 'Play as a Guest',
-    blueColor: 'white',
+    type: 'default',
     link: '/guestuser',
     linkId: false,
   },
   {
     title: 'Account',
-    blueColor: 'blue',
+    type: 'primary',
     link: '/account',
     linkId: false,
   },
   {
     title: 'Logout',
-    blueColor: 'white',
+    type: 'default',
     link: '/logout',
     linkId: false,
   },

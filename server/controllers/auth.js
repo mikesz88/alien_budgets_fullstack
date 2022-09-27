@@ -224,6 +224,28 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc Update Forgot Question & Answer
+// @route PUT /api/v1/auth/updateforgot
+// @access PRIVATE
+exports.updateForgotQuestionAnswer = asyncHandler(async (req, res, next) => {
+  // const user = await User.findById(req.user.id).select('+forgotPasswordAnswer');
+  const user = req.adult
+    ? await Adult.findById(req.adult.id).select('+forgotPasswordAnswer')
+    : await Student.findById(req.student.id).select('+forgotPasswordAnswer');
+  if (!(await user.matchForgotAnswer(req.body.currentForgotAnswer))) {
+    return next(new ErrorResponse('Your answer is incorrect', 401));
+  }
+
+  user.forgotPasswordQuestion = req.body.newForgotPasswordQuestion;
+  user.forgotPasswordAnswer = req.body.newForgotPasswordAnswer;
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    forgotQuestion: user.forgotPasswordQuestion,
+  });
+});
+
 // @desc POST Reset Password
 // @route GET /api/v1/auth/resetpassword/:resettoken
 // @access PUBLIC
@@ -283,32 +305,6 @@ exports.adultUpdateDetails = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc Update Avatar Details
-// @route PUT /api/v1/auth/updateAvatar
-// @access PRIVATE
-exports.updateAvatar = asyncHandler(async (req, res, next) => {
-  const { avatarURL, avatarColor } = req.body;
-  const fieldsToUpdate = {
-    avatarURL,
-    avatarColor,
-  };
-
-  const user = req.adult
-    ? await Adult.findByIdAndUpdate(req.adult.id, fieldsToUpdate, {
-        new: true,
-        runValidators: true,
-      })
-    : await Student.findByIdAndUpdate(req.adult.id, fieldsToUpdate, {
-        new: true,
-        runValidators: true,
-      });
-
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
-});
-
 // @desc Update Student Details
 // @route PUT /api/v1/auth/student/updatedetails
 // @access PRIVATE
@@ -326,6 +322,36 @@ exports.studentUpdateDetails = asyncHandler(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+});
+
+// @desc Update Avatar (and Username if student)
+// @route PUT /api/v1/auth/updateavatar
+// @access PRIVATE
+exports.updateAvatar = asyncHandler(async (req, res, next) => {
+  const fieldsToUpdate = {
+    avatarURL: req.body.avatarURL,
+    avatarColor: req.body.avatarColor,
+    username: req.body.username,
+  };
+  console.log(req.adult);
+  console.log(req.student);
+  const user = req.adult
+    ? await Adult.findByIdAndUpdate(req.adult.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true,
+      })
+    : await Student.findByIdAndUpdate(req.student.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true,
+      });
+  if (!user) {
+    return next(new ErrorResponse('Unable to find User'), 401);
+  }
 
   res.status(200).json({
     success: true,
@@ -353,6 +379,25 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   await user.save();
 
   sendTokenResponse(user, 200, res);
+});
+
+// @desc Delete my own account
+// @route PUT /api/v1/auth/deleteaccount
+// @access PRIVATE
+exports.deleteSelf = asyncHandler(async (req, res, next) => {
+  const user = req.adult
+    ? await Adult.findByIdAndDelete(req.adult.id)
+    : await Student.findByIdAndDelete(req.student.id);
+
+  if (!user) {
+    return next(new ErrorResponse('Unable to find User'), 401);
+  }
+
+  res.status(200).json({
+    success: true,
+    data: {},
+    message: 'The user has been deleted',
+  });
 });
 
 const sendTokenResponse = (user, statusCode, res) => {

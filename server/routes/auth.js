@@ -13,6 +13,9 @@ const {
   adultUpdateDetails,
   studentUpdateDetails,
   updatePassword,
+  updateForgotQuestionAnswer,
+  deleteSelf,
+  updateAvatar,
 } = require('../controllers/auth');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -33,8 +36,11 @@ router.put(
 );
 router.put('/student/updatedetails', protect, studentUpdateDetails);
 router.put('/updatepassword', protect, updatePassword);
+router.put('/updateavatar', protect, updateAvatar);
 router.post('/forgotpassword', forgotPassword);
+router.put('/updateforgot', protect, updateForgotQuestionAnswer);
 router.get('/forgotquestion/:user', forgotQuestion);
 router.put('/resetpassword/:resettoken', resetPassword);
+router.put('/deleteaccount', protect, deleteSelf);
 
 module.exports = router;

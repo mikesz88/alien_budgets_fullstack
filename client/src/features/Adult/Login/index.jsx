@@ -34,7 +34,7 @@ const AdultLogin = () => {
 
   return (
     <>
-      <StyledTitle>RETURNING ALIEN</StyledTitle>
+      <StyledTitle>RETURNING ADULT</StyledTitle>
       <Form form={form} name="loginStudent" onFinish={onFinish}>
         <Form.Item
           name="email"
@@ -63,7 +63,7 @@ const AdultLogin = () => {
             Login
           </StyledButton>
           <StyledButton larger="true" type="primary">
-            <Link to="/register/adult/part1">New Alien</Link>
+            <Link to="/register/adult/part1">New Adult</Link>
           </StyledButton>
         </Form.Item>
       </Form>

@@ -26,6 +26,9 @@ import CreateClass from '../features/Classes/CreateClass';
 import CreateChallenge from '../features/Challenge/CreateChallenge';
 import Account from '../features/Account';
 import Logout from '../features/Logout';
+import DeletedAccount from '../features/DeletedAccount';
+import Stats from '../features/Stats';
+import Leaderboard from '../features/Classes/Leaderboard';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -163,11 +166,18 @@ const Routes = () => {
         element={<TeacherClasses />}
         exact
       />
+      <Route
+        path="/classes/leaderboard/:class"
+        element={<Leaderboard />}
+        exact
+      />
+      <Route path="/stats/:user" element={<Stats />} exact />
       <Route path="/account" element={<Account />} exact />
       <Route path="/classes/create" element={<CreateClass />} exact />
       <Route path="/logout" element={<Logout />} exact />
       <Route path="*" element={<FourOhFour />} />
       <Route path="/unauthorized" element={<Unauthorized />} exact />
+      <Route path="/deleted" element={<DeletedAccount />} exact />
     </RouteWrapper>
   );
 };

@@ -108,13 +108,21 @@ const RegisterAdultPart2 = () => {
   }, [avatarURL]);
 
   const onFinish = (values) => {
-    authService.registerAdult(values).then(() => {
-      navigate('/dashboard');
-      notification.success({
-        message: 'Sign Up Successful',
-        description: 'You are now currently logged in.',
-      });
-    });
+    authService
+      .registerAdult(values)
+      .then(() => {
+        navigate('/dashboard');
+        notification.success({
+          message: 'Sign Up Successful',
+          description: 'You are now currently logged in.',
+        });
+      })
+      .catch(() =>
+        notification.error({
+          message: 'Error',
+          description: 'Please try again!',
+        })
+      );
   };
 
   return (
@@ -161,7 +169,16 @@ const RegisterAdultPart2 = () => {
           </Form.Item>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Form.Item name="gradeLevel" label="Grade Level">
+          <Form.Item
+            name="gradeLevel"
+            label="Grade Level"
+            rules={[
+              {
+                required: true,
+                message: 'Please select a grade level!',
+              },
+            ]}
+          >
             <Checkbox.Group>
               <Row>
                 <Checkbox value="4th">4th</Checkbox>
@@ -234,9 +251,6 @@ const RegisterAdultPart2 = () => {
           </Form.Item>
         </Form.Item>
       </Form>
-
-      <div>Test</div>
-      <div>Test</div>
     </>
   );
 };

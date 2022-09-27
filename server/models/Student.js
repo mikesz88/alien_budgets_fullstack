@@ -6,12 +6,12 @@ const StudentSchema = new mongoose.Schema({
   firstName: {
     type: String,
     trim: true,
-    required: [true, 'Please add a name']
+    required: [true, 'Please add a name'],
   },
   lastInitial: {
     type: String,
     maxLength: 1,
-    required: [true, 'Please add a last Initial']
+    required: [true, 'Please add a last Initial'],
   },
   username: {
     type: String,
@@ -24,16 +24,17 @@ const StudentSchema = new mongoose.Schema({
     required: [true, 'Please add a link to the image'],
     match: [
       /^(https:\/\/alienbudgets\.s3\.amazonaws\.com\/).+(\.png)$/gm,
-      'Please add a valid s3 url'
-    ]
+      'Please add a valid s3 url',
+    ],
+  },
+  score: {
+    type: Number,
+    default: 0,
   },
   avatarColor: {
     type: String,
     required: [true, 'Please add a background color to your avatar'],
-    match: [
-      /^(#)([A-Za-z0-9]{6}$)/gm,
-      'Please write a proper HEX code'
-    ]
+    match: [/^(#)([A-Za-z0-9]{6}$)/gm, 'Please write a proper HEX code'],
   },
   classroomCode: {
     type: String,
@@ -45,11 +46,11 @@ const StudentSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a password'],
     minlength: 8,
-    select: false
+    select: false,
   },
   role: {
     type: String,
-    default: 'student'
+    default: 'student',
   },
   forgotPasswordQuestion: {
     type: String,
@@ -64,37 +65,42 @@ const StudentSchema = new mongoose.Schema({
   resetPasswordExpired: Date,
   createAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-StudentSchema.pre('save', async function(next) {
+StudentSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-})
+});
 
-StudentSchema.pre('save', async function(next) {
+StudentSchema.pre('save', async function (next) {
   if (!this.isModified('forgotPasswordAnswer')) {
     next();
   }
   const salt = await bcrypt.genSalt(10);
-  this.forgotPasswordAnswer = await bcrypt.hash(this.forgotPasswordAnswer, salt);
+  this.forgotPasswordAnswer = await bcrypt.hash(
+    this.forgotPasswordAnswer,
+    salt
+  );
 });
 
 // Sign JWT and return
-StudentSchema.methods.getSignedJwt = function() {
+StudentSchema.methods.getSignedJwt = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+    expiresIn: process.env.JWT_EXPIRE,
   });
-}
-
-StudentSchema.methods.matchPassword = async function(enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-}
-
-StudentSchema.methods.matchForgotAnswer = async function(enteredForgotAnswer) {
-  return await bcrypt.compare(enteredForgotAnswer, this.forgotPasswordAnswer);
 };
 
+StudentSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+StudentSchema.methods.matchForgotAnswer = async function (enteredForgotAnswer) {
+  return await bcrypt.compare(enteredForgotAnswer, this.forgotPasswordAnswer);
+};
 
 module.exports = mongoose.model('Student', StudentSchema);

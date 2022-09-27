@@ -79,6 +79,32 @@ class AuthService extends extender(adultService, studentService) {
     }
   }
 
+  async getOneForgotQuestion(questionId) {
+    try {
+      const { data: response } = await axios.get(
+        `${Endpoints.getOneForgotQuestion}/${questionId}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateForgotQuestionAnswer(body) {
+    const headers = this.getBearerHeader();
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.updateForgotQuestionAnswer,
+        body,
+        headers
+      );
+      this.forgotPasswordQuestion = response.forgotQuestion;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async registerStudent(userData) {
     this.registerStudentPart2(userData);
     const body = this.getStudentData();
@@ -206,7 +232,24 @@ class AuthService extends extender(adultService, studentService) {
         body,
         headers
       );
-      this.setAdultData(response.data);
+      this.setStudentData(response.data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateAvatar(body) {
+    const headers = this.getBearerHeader();
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.updateAvatar,
+        body,
+        headers
+      );
+      this.avatarColor = response.data.avatarColor;
+      this.avatarURL = response.data.avatarURL;
+      this.username = response.data.username ? response.data.username : '';
+      return response;
     } catch (error) {
       throw error;
     }
@@ -220,6 +263,18 @@ class AuthService extends extender(adultService, studentService) {
         { currentPassword, newPassword },
         headers
       );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteSelf() {
+    const headers = this.getBearerHeader();
+    try {
+      const { data: response } = await axios.put(Endpoints.deleteSelf, headers);
+      localStorage.removeItem('token');
+      this.resetUser();
+      return response;
     } catch (error) {
       throw error;
     }

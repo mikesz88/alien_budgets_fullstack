@@ -33,7 +33,7 @@ export const StyledStudentGreetingContainer = styled.div`
   color: ${({ theme }) => theme.colors.white};
   padding: 0.5rem 2rem;
   font-family: ${({ theme }) => theme.fontFamily.creepster};
-  font-size: 40px;
+  font-size: 30px;
   position: absolute;
   top: 0;
   left: 0;
