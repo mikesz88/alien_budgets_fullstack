@@ -11,7 +11,7 @@ import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
 
 const RegisterStudentPart2 = () => {
-  const { avatarService, authService } = useContext(UserContext);
+  const { avatarService, authService, updateService } = useContext(UserContext);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -150,6 +150,7 @@ const RegisterStudentPart2 = () => {
           description: 'You are now currently logged in.',
         });
         form.resetFields();
+        updateService();
       })
       .catch(() => {
         notification.error({

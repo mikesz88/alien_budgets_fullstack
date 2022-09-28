@@ -22,6 +22,7 @@ const students = require('./server/routes/students');
 const auth = require('./server/routes/auth');
 const avatars = require('./server/routes/avatars');
 const forgotQuestions = require('./server/routes/forgotQuestions');
+const classrooms = require('./server/routes/classrooms.js');
 
 const PORT = process.env.PORT || 5000;
 
@@ -60,6 +61,7 @@ app.use('/api/v1/students', students);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/avatars', avatars);
 app.use('/api/v1/forgotquestions', forgotQuestions);
+app.use('/api/v1/classrooms', classrooms);
 
 // Error Handler must come after mount files
 app.use(errorHandler);

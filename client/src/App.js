@@ -4,12 +4,12 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 import theme from './theme';
 import AvatarService from './services/avatarService';
-import ClassCodeService from './services/classCodeService';
+import ClassroomService from './services/classroomService';
 import AuthService from './services/authService';
 import Routes from './routes/Routes';
 
 const avatarService = new AvatarService();
-const classCodeService = new ClassCodeService();
+const classroomService = new ClassroomService();
 const authService = new AuthService();
 export const UserContext = createContext();
 
@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const context = {
     authService,
     avatarService,
-    classCodeService,
+    classroomService,
     updateService: () => setContextServices({ ...contextServices }),
   };
 

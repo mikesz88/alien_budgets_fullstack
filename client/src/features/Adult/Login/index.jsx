@@ -9,7 +9,7 @@ import { UserContext } from '../../../App';
 const AdultLogin = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { authService } = useContext(UserContext);
+  const { authService, updateService } = useContext(UserContext);
 
   const onFinish = (values) => {
     console.log('values =>', values);
@@ -22,6 +22,7 @@ const AdultLogin = () => {
           description: 'You are now currently logged in.',
         });
         form.resetFields();
+        updateService();
       })
       .catch((error) => {
         console.error(error);

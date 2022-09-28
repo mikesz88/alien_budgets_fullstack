@@ -8,7 +8,7 @@ import { UserContext } from '../../../App';
 const StudentLogin = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { authService } = useContext(UserContext);
+  const { authService, updateService } = useContext(UserContext);
 
   const onFinish = (values) => {
     console.log('values =>', values);
@@ -20,6 +20,7 @@ const StudentLogin = () => {
           message: 'Login Successful',
           description: 'You are now currently logged in.',
         });
+        updateService();
       })
       .catch(() => {
         form.resetFields();

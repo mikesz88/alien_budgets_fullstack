@@ -162,18 +162,18 @@ const Routes = () => {
       />
       <Route path="/challenge/create" element={<CreateChallenge />} exact />
       <Route
-        path="/classes/teacher/:teacherId"
+        path="/classrooms/teacher/:teacherId"
         element={<TeacherClasses />}
         exact
       />
       <Route
-        path="/classes/leaderboard/:class"
+        path="/classrooms/leaderboard/:class"
         element={<Leaderboard />}
         exact
       />
+      <Route path="/classrooms/create" element={<CreateClass />} exact />
       <Route path="/stats/:user" element={<Stats />} exact />
       <Route path="/account" element={<Account />} exact />
-      <Route path="/classes/create" element={<CreateClass />} exact />
       <Route path="/logout" element={<Logout />} exact />
       <Route path="*" element={<FourOhFour />} />
       <Route path="/unauthorized" element={<Unauthorized />} exact />

@@ -179,6 +179,7 @@ class AuthService extends extender(adultService, studentService) {
       } else {
         this.setAdultData(response.data);
       }
+      return response.data;
     } catch (error) {
       throw error;
     }

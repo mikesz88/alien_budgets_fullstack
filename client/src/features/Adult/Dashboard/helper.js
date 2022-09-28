@@ -2,13 +2,13 @@ const dashboardIcons = [
   {
     title: 'My Classes',
     type: 'primary',
-    link: '/classes/teacher/', // :teacherId
+    link: '/classrooms/teacher/', // :teacherId
     linkId: true,
   },
   {
     title: 'Create a Class',
     type: 'default',
-    link: '/classes/create',
+    link: '/classrooms/create',
     linkId: false,
   },
   {

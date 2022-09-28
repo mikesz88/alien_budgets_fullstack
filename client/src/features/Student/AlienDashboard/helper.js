@@ -8,7 +8,7 @@ const dashboardIcons = [
   {
     title: 'Class Leaderboard',
     type: 'default',
-    link: '/classes/leaderboard/', // :class
+    link: '/classrooms/leaderboard/', // :class
     linkId: true,
   },
   {

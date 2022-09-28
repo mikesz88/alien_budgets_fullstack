@@ -31,7 +31,7 @@ router.post('/adult/forgotpassword', adultForgotPassword);
 router.put(
   '/adult/updatedetails',
   protect,
-  authorizedAdult(),
+  authorizedAdult,
   adultUpdateDetails
 );
 router.put('/student/updatedetails', protect, studentUpdateDetails);

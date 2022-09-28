@@ -7,12 +7,12 @@ import { UserContext } from '../../../App';
 
 const RegisterStudentPart1 = () => {
   const [questionList, setQuestionList] = useState([]);
-  const { authService, classCodeService } = useContext(UserContext);
+  const { authService, classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
   const getAllClassCodes = useCallback(
-    () => classCodeService.getAllClassCodes(),
+    () => classroomService.getAllClassrooms(),
     []
   );
 
@@ -51,7 +51,7 @@ const RegisterStudentPart1 = () => {
   };
 
   const isValidClassCode = useCallback(
-    (classCode) => classCodeService.classCodeList.includes(classCode),
+    (classCode) => classroomService.classroomCodes.includes(classCode),
     []
   );
 

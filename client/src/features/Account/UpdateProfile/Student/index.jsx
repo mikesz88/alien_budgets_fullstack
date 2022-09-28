@@ -5,17 +5,17 @@ import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 
 const UpdateStudentProfile = ({ closeDrawer }) => {
-  const { authService, updateService, classCodeService } =
+  const { authService, updateService, classroomService } =
     useContext(UserContext);
   const [form] = Form.useForm();
 
   const getAllClassCodes = useCallback(
-    () => classCodeService.getAllClassCodes(),
+    () => classroomService.getAllClassrooms(),
     []
   );
 
   const isValidClassCode = useCallback(
-    (classCode) => classCodeService.classCodeList.includes(classCode),
+    (classCode) => classroomService.classroomCodes.includes(classCode),
     []
   );
 

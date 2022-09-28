@@ -17,7 +17,7 @@ import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
 
 const RegisterAdultPart2 = () => {
-  const { avatarService, authService } = useContext(UserContext);
+  const { avatarService, authService, updateService } = useContext(UserContext);
   const [avatarList, setAvatarList] = useState([]);
   const [avatarURL, setAvatarURL] = useState('');
   const [userBackgroundColor, setUserBackgroundColor] = useState('');
@@ -116,6 +116,7 @@ const RegisterAdultPart2 = () => {
           message: 'Sign Up Successful',
           description: 'You are now currently logged in.',
         });
+        updateService();
       })
       .catch(() =>
         notification.error({

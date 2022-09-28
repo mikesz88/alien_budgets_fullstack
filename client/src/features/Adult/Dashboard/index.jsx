@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import dashboardIcons from './helper';
@@ -8,8 +8,18 @@ import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
 import Card from '../../../components/Card';
 
 const Dashboard = () => {
+  const [id, setId] = useState('');
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    authService
+      .getUser()
+      // eslint-disable-next-line no-underscore-dangle
+      .then((response) => setId(response._id));
+  }, [authService]);
+  console.log(id);
+  console.log(authService.id);
 
   return (
     <StyledDashboardWrapper>
@@ -22,7 +32,7 @@ const Dashboard = () => {
         {dashboardIcons.map((card) => {
           let newCardLink = card.link;
           if (card.linkId) {
-            newCardLink = `${card.link}${authService.id}`;
+            newCardLink = `${card.link}${id}`;
           }
           return (
             <Card

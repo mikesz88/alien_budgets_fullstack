@@ -12,33 +12,34 @@ const forgotPasswordQuestions = [
   'What Is your favorite book?',
   'What is the name of the road you grew up on?',
   'What was the first company that you worked for?',
-  'Where did you meet your spouse?'
+  'Where did you meet your spouse?',
 ];
 
-const avatarList = JSON
-  .parse(
-    fs.readFileSync(
-      `${__dirname}/Avatar.json`
-    ));
+const avatarList = JSON.parse(fs.readFileSync(`${__dirname}/Avatar.json`));
 
-const generateBgColor = () => '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+const generateBgColor = () =>
+  '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
 
 const selectAvatar = () => faker.helpers.arrayElement(avatarList);
 
-const create10Adults = () => {
+const create10Adults = (classes) => {
   const adults = [];
 
   for (let index = 0; index < 10; index++) {
+    console.log('adult number =>', index);
     const { avatarURL } = selectAvatar();
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email(firstName, lastName);
-    const password = faker.internet.password(8, false, /[a-zA-Z0-9-#$^+_!*()@%&]/);
+    const password = 'AlienBudgets123';
     const avatarColor = generateBgColor();
-    const gradeLevel = faker.helpers.arrayElements(['4th','5th','6th']);
-    const forgotPasswordQuestion = faker.helpers.arrayElement(forgotPasswordQuestions);
-    const forgotPasswordAnswer = faker.lorem.word();
-    
+    const gradeLevel = faker.helpers.arrayElements(['4th', '5th', '6th']);
+    const forgotPasswordQuestion = faker.helpers.arrayElement(
+      forgotPasswordQuestions
+    );
+    const forgotPasswordAnswer = 'AlienBudgets123!';
+    const classrooms = [classes[index]];
+
     adults.push({
       firstName,
       lastName,
@@ -48,12 +49,12 @@ const create10Adults = () => {
       avatarColor,
       gradeLevel,
       forgotPasswordQuestion,
-      forgotPasswordAnswer
-    })
+      forgotPasswordAnswer,
+      classrooms,
+    });
   }
 
   return adults;
-}
+};
 
 module.exports = create10Adults;
-

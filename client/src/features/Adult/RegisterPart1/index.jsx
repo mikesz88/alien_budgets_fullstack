@@ -8,7 +8,7 @@ import { UserContext } from '../../../App';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);
-  const { authService, classCodeService } = useContext(UserContext);
+  const { authService, classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const RegisterAdult = () => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
 
   const getAllClassCodes = useCallback(
-    () => classCodeService.getAllClassCodes(),
+    () => classroomService.getAllClassrooms(),
     []
   );
 
