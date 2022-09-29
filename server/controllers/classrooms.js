@@ -17,9 +17,9 @@ exports.getAllClassrooms = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/classrooms/:adultId
 // @access PRIVATE
 exports.getAllClassroomsOfAdult = asyncHandler(async (req, res, next) => {
-  const classroom = await Classroom.find({ adult: req.params.adultid });
+  const classrooms = await Classroom.find({ adult: req.params.adultid });
 
-  if (!classroom) {
+  if (!classrooms) {
     return next(
       new ErrorResponse(
         `Adult with id ${req.params.classid} does not have any classrooms`,
@@ -27,23 +27,20 @@ exports.getAllClassroomsOfAdult = asyncHandler(async (req, res, next) => {
       )
     );
   }
-  res.status(200).json({ success: true, data: classroom });
+  res.status(200).json({ success: true, data: classrooms });
 });
 
-// @desc Get all classroom codes
-// @route GET /api/v1/classrooms/
-// @access PUBLIC
-// exports.getAllClassCodes = asyncHandler(async (req, res, next) => {
-//   const classCodes = await Adult.find().select('classrooms');
-//   const list = [];
-//   if (!classCodes) {
-//     return next(new ErrorResponse(`No class codes found.`, 404));
-//   }
+// @desc Get specific Class
+// @route GET /api/v1/classrooms/single/:classId
+// @access PRIVATE
+exports.getSingleClassroom = asyncHandler(async (req, res, next) => {
+  const classroom = await Classroom.findOne({ _id: req.params.classid });
 
-//   for (const classroom of classCodes) {
-//     list.push(...classroom.classrooms)
-//   }
-//   const uniqueClassCodes = Array.from(new Set(list))
+  if (!classroom) {
+    return next(
+      new ErrorResponse(`There is no class with id ${req.params.classid}`, 404)
+    );
+  }
 
-//   res.status(200).json({ success: true, data: uniqueClassCodes });
-// })
+  res.status(200).json({ success: true, data: classroom });
+});

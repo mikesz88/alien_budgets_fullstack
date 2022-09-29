@@ -29,6 +29,7 @@ import Logout from '../features/Logout';
 import DeletedAccount from '../features/DeletedAccount';
 import Stats from '../features/Stats';
 import Leaderboard from '../features/Classes/Leaderboard';
+import ClassDetails from '../features/Classes/TeacherClasses/ClassDetails';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -164,6 +165,11 @@ const Routes = () => {
       <Route
         path="/classrooms/teacher/:teacherId"
         element={<TeacherClasses />}
+        exact
+      />
+      <Route
+        path="/classrooms/teacher/details/:classId"
+        element={<ClassDetails />}
         exact
       />
       <Route

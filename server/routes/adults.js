@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAdult } = require('../controllers/adults');
+const { getAdult, resetStudentPassword } = require('../controllers/adults');
 
-const { protect } = require('../middleware/auth');
+const { protect, authorizedAdult } = require('../middleware/auth');
 
-router.route('/class/:classid').get(protect, getAdult);
+router.get('/class/:classid', protect, getAdult);
+
+router.put('/:studentid', protect, authorizedAdult, resetStudentPassword);
 
 module.exports = router;

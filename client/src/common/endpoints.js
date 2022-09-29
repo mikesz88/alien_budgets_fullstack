@@ -26,6 +26,7 @@ const Endpoints = {
   deleteSelf: `${URL_AUTH}/deleteaccount`,
   updateAvatar: `${URL_AUTH}/updateavatar`,
   getClassrooms: URL_CLASSROOMS,
+  getSpecificClassroom: `${URL_CLASSROOMS}/single`,
 };
 
 export default Endpoints;

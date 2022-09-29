@@ -30,7 +30,7 @@ const columns = [
     key: 'viewClass',
     render: (text) => (
       <StyledButton type="primary">
-        <Link to={`/classrooms/details/${text}`}>Details</Link>
+        <Link to={`/classrooms/teacher/details/${text}`}>Details</Link>
       </StyledButton>
     ),
     width: '25%',

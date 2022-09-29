@@ -6,18 +6,17 @@ const Student = require('../models/Student');
 const {
   getStudents,
   getStudent,
-  getClassStudents
+  getClassStudents,
 } = require('../controllers/students');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
 
-router.route('/')
-  .get(protect, authorizedAdult(), filteredResults(Student), getStudents);
-  
-router.route('/:id')
-  .get(protect, authorizedAdult(), getStudent);
+router
+  .route('/')
+  .get(protect, authorizedAdult, filteredResults(Student), getStudents);
 
-router.route('/class/:classid')
-  .get(protect, getClassStudents);
+router.route('/:id').get(protect, authorizedAdult, getStudent);
+
+router.route('/class/:classid').get(protect, getClassStudents);
 
 module.exports = router;

@@ -246,7 +246,7 @@ exports.updateForgotQuestionAnswer = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc POST Reset Password
+// @desc PUT Reset Password
 // @route GET /api/v1/auth/resetpassword/:resettoken
 // @access PUBLIC
 exports.resetPassword = asyncHandler(async (req, res, next) => {

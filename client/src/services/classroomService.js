@@ -39,6 +39,18 @@ class ClassroomService {
       throw error;
     }
   }
+
+  async getSpecificClassroom(headers, classId) {
+    try {
+      const { data: response } = await axios.get(
+        `${Endpoints.getSpecificClassroom}/${classId}`,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default ClassroomService;

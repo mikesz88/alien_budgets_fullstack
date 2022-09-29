@@ -103,4 +103,16 @@ StudentSchema.methods.matchForgotAnswer = async function (enteredForgotAnswer) {
   return await bcrypt.compare(enteredForgotAnswer, this.forgotPasswordAnswer);
 };
 
+StudentSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString('hex');
+
+  this.resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  this.resetPasswordExpired = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
+
 module.exports = mongoose.model('Student', StudentSchema);
