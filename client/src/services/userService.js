@@ -8,6 +8,23 @@ class User {
     this.forgotPasswordAnswer = '';
     this.role = '';
     this.isLoggedIn = false;
+    this.authToken = '';
+    this.bearerHeader = {};
+  }
+
+  setAuthToken(token) {
+    this.authToken = token;
+  }
+
+  setBearerHeader(token) {
+    this.bearerHeader = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  getBearerHeader() {
+    return this.bearerHeader;
   }
 
   setIsLoggedIn(loggedIn) {

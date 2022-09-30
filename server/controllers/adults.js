@@ -44,10 +44,47 @@ exports.resetStudentPassword = asyncHandler(async (req, res, next) => {
   student.password = newPassword;
   student.save();
 
-  res
-    .status(200)
-    .json({
-      success: true,
-      data: `Your new password is ${newPassword}. You will not be able to retrieve once you exit.`,
-    });
+  res.status(200).json({
+    success: true,
+    data: {
+      firstName: student.firstName,
+      lastInitial: student.lastInitial,
+      username: student.username,
+      newPassword,
+      message: `You will not be able to retrieve it once you close the modal.`,
+    },
+  });
+});
+
+// @desc Reset Students password
+// @route GET /api/v1/adults/updatestudent/:studentid
+// @access PRIVATE
+exports.updateStudentByAdult = asyncHandler(async (req, res, next) => {
+  const fieldsToUpdate = {
+    firstName: req.body.firstName,
+    lastInitial: req.body.lastInitial,
+    username: req.body.username,
+    avatarURL: req.body.avatarURL,
+    avatarColor: req.body.avatarColor,
+  };
+
+  const student = await Student.findByIdAndUpdate(
+    req.params.studentid,
+    fieldsToUpdate,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!student) {
+    return next(
+      new ErrorResponse(`No Student with id ${req.params.studentid}`, 404)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    data: student,
+  });
 });

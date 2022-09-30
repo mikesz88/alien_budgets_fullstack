@@ -74,6 +74,33 @@ function adultService(User) {
         avatarColor: this.avatarColor,
       };
     }
+
+    async resetStudentPassword(studentId) {
+      const headers = this.getBearerHeader();
+      try {
+        const { data: response } = await axios.put(
+          `${Endpoints.resetStudentPassword}/${studentId}`,
+          headers
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    async updateStudentByAdult(studentId, body) {
+      const headers = this.getBearerHeader();
+      try {
+        const { data: response } = await axios.put(
+          `${Endpoints.updateStudentByAdult}/${studentId}`,
+          body,
+          headers
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
   }
   return AdultService;
 }

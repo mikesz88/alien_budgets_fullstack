@@ -71,7 +71,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
     <Form
       layout="vertical"
       form={form}
-      name="update adult profile"
+      name="update student profile"
       onFinish={onFinish}
     >
       <Form.Item

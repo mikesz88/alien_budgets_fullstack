@@ -27,6 +27,10 @@ const Endpoints = {
   updateAvatar: `${URL_AUTH}/updateavatar`,
   getClassrooms: URL_CLASSROOMS,
   getSpecificClassroom: `${URL_CLASSROOMS}/single`,
+  resetStudentPassword: URL_ADULT,
+  getStudentInfo: URL_STUDENT,
+  updateStudentByAdult: `${URL_ADULT}/updatestudent`,
+  updateStudentInClassroom: `${URL_CLASSROOMS}/updateStudent`,
 };
 
 export default Endpoints;

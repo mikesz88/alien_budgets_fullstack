@@ -5,6 +5,11 @@ import Endpoints from '../common/endpoints';
 class ClassroomService {
   constructor() {
     this.classroomCodes = [];
+    this.currentClassUpdated = '';
+  }
+
+  setCurrentClassUpdate(date) {
+    this.currentClassUpdated = date;
   }
 
   setClassroomCodes(list) {
@@ -46,6 +51,20 @@ class ClassroomService {
         `${Endpoints.getSpecificClassroom}/${classId}`,
         headers
       );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateStudentInClassroom(headers, body) {
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.updateStudentInClassroom,
+        body,
+        headers
+      );
+      this.setCurrentClassUpdate(response.data.updatedOn);
       return response.data;
     } catch (error) {
       throw error;

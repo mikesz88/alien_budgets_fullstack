@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
@@ -15,19 +16,6 @@ const extender = (...parts) => parts.reduce(creator, User);
 class AuthService extends extender(adultService, studentService) {
   constructor() {
     super();
-    this.authToken = '';
-    this.bearerHeader = {};
-  }
-
-  setAuthToken(token) {
-    this.authToken = token;
-  }
-
-  setBearerHeader(token) {
-    this.bearerHeader = {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    };
   }
 
   resetUser() {
@@ -50,10 +38,6 @@ class AuthService extends extender(adultService, studentService) {
     this.classroomCode = '';
     this.setAuthToken('');
     this.setBearerHeader('');
-  }
-
-  getBearerHeader() {
-    return this.bearerHeader;
   }
 
   setForgotQuestionList(list) {

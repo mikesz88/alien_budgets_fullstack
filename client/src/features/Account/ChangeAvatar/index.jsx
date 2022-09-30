@@ -46,10 +46,16 @@ const ChangeAvatar = ({ closeDrawer }) => {
   };
 
   const currentAvatar = () => {
+    const underscore = authService.username.search('_');
+    const title = authService.username
+      .split('')
+      .slice(underscore + 1, authService.username.length - 3)
+      .join('');
     setUserAvatar({
       avatarURL: authService.avatarURL,
       avatarColor: authService.avatarColor,
       username: authService.username,
+      title,
     });
   };
 

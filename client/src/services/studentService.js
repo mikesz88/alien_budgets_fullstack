@@ -75,6 +75,19 @@ function studentService(User) {
       this.avatarColor = avatarColor;
       this.classroomCode = gradeLevel;
     }
+
+    async getStudentInfo(studentId) {
+      const headers = this.getBearerHeader();
+      try {
+        const { data: response } = await axios.get(
+          `${Endpoints.getStudentInfo}/${studentId}`,
+          headers
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
   }
   return StudentService;
 }

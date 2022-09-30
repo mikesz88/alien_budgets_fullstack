@@ -44,3 +44,41 @@ exports.getSingleClassroom = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: classroom });
 });
+
+// @desc Update student in class
+// @route PUT /api/v1/classrooms/updateStudent
+// @access PRIVATE
+exports.updateStudentData = asyncHandler(async (req, res, next) => {
+  const classroom = await Classroom.findOne({
+    classroomCode: req.body.classroomCode,
+  });
+
+  if (!classroom) {
+    return next(
+      new ErrorResponse(
+        `There is no class with id ${req.body.classroomCode}`,
+        404
+      )
+    );
+  }
+
+  const findStudentIndex = classroom.students.findIndex(
+    (student) => student._id.toString() === req.body._id
+  );
+
+  classroom.students[findStudentIndex] = {
+    _id: req.body._id,
+    score: req.body.score,
+    firstName: req.body.firstName,
+    lastInitial: req.body.lastInitial,
+    username: req.body.username,
+    avatarURL: req.body.avatarURL,
+    avatarColor: req.body.avatarColor,
+  };
+
+  classroom.updatedOn = Date.now();
+
+  classroom.save();
+
+  res.status(200).json({ success: true, data: classroom });
+});

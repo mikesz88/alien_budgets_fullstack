@@ -1,19 +1,9 @@
 const fs = require('fs');
 const { faker } = require('@faker-js/faker');
 
-const forgotPasswordQuestions = [
-  "What is your mother's maiden name?",
-  'What is the name of your first pet?',
-  'What was your first car?',
-  'What elementary school did you attend?',
-  'What high school did you attend?',
-  'What college did you attend?',
-  'What is the name of the town where you were born?',
-  'What Is your favorite book?',
-  'What is the name of the road you grew up on?',
-  'What was the first company that you worked for?',
-  'Where did you meet your spouse?',
-];
+const forgotPasswordQuestions = JSON.parse(
+  fs.readFileSync(`${__dirname}/ForgotQuestionList.json`)
+);
 
 const avatarList = JSON.parse(fs.readFileSync(`${__dirname}/Avatar.json`));
 

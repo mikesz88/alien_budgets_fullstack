@@ -25,7 +25,7 @@ const createClassrooms = async () => {
       const students = await Student.find({
         classroomCode: adult.classrooms[0],
       }).select(
-        '_id firstName lastInitial username avatarURL avatarColor score +password'
+        '_id firstName lastInitial username avatarURL avatarColor score'
       );
       console.log(students);
       const newClassroom = {

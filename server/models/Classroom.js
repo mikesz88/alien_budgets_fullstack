@@ -24,12 +24,14 @@ const ClassroomSchema = new mongoose.Schema({
         firstName: String,
         lastInitial: String,
         username: String,
-        password: String,
         avatarURL: String,
         avatarColor: String,
         score: Number,
       },
     ],
+  },
+  updatedOn: {
+    type: Date || '',
   },
 });
 
