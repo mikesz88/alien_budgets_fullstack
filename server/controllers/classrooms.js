@@ -1,4 +1,5 @@
 const Classroom = require('../models/Classroom');
+const Student = require('../models/Student');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 
@@ -78,7 +79,67 @@ exports.updateStudentData = asyncHandler(async (req, res, next) => {
 
   classroom.updatedOn = Date.now();
 
-  classroom.save();
+  await classroom.save();
+
+  res.status(200).json({ success: true, data: classroom });
+});
+
+// @desc Create Classroom
+// @route POST /api/v1/classrooms
+// @access PRIVATE
+exports.createClassroom = asyncHandler(async (req, res, next) => {
+  const { classroomCode, gradeLevel, students, adult } = req.body;
+
+  const registeredStudents = await Student.create(students);
+
+  const classroom = await Classroom.create({
+    adult,
+    classroomCode,
+    gradeLevel,
+    students: registeredStudents,
+  });
+
+  res.status(200).json({
+    success: true,
+    data: {
+      id: classroom._id,
+      adult,
+      classroomCode,
+      students,
+    },
+  });
+});
+
+// @desc Add new student to Classroom
+// @route PUT /api/v1/classrooms/addstudent
+// @access PUBLIC
+exports.addStudentToClassroom = asyncHandler(async (req, res, next) => {
+  const classroom = await Classroom.findOne({
+    classroomCode: req.body.classroomCode,
+  });
+
+  if (!classroom) {
+    return next(
+      new ErrorResponse(
+        `There is no class with id ${req.body.classroomCode}`,
+        404
+      )
+    );
+  }
+
+  classroom.students.push({
+    _id: req.body._id,
+    score: req.body.score,
+    firstName: req.body.firstName,
+    lastInitial: req.body.lastInitial,
+    username: req.body.username,
+    avatarURL: req.body.avatarURL,
+    avatarColor: req.body.avatarColor,
+  });
+
+  classroom.updatedOn = Date.now();
+
+  await classroom.save();
 
   res.status(200).json({ success: true, data: classroom });
 });

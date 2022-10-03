@@ -31,6 +31,7 @@ const Endpoints = {
   getStudentInfo: URL_STUDENT,
   updateStudentByAdult: `${URL_ADULT}/updatestudent`,
   updateStudentInClassroom: `${URL_CLASSROOMS}/updateStudent`,
+  addStudentToClassroom: `${URL_CLASSROOMS}/addstudent`,
 };
 
 export default Endpoints;

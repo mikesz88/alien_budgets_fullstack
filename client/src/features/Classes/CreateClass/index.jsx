@@ -1,20 +1,26 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useCallback, useEffect } from 'react';
-import { Form, Radio, Row, Space, Input, Button } from 'antd';
+import { Form, Radio, Row, Space, Input, Button, notification } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { faker } from '@faker-js/faker';
+import { useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import { UserContext } from '../../../App';
-import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
 import theme from '../../../theme';
 import StyledButton from '../../../components/PrimaryButton';
 
 const CreateClass = () => {
   const [classroomCode, setClassroomCode] = useState('');
   const [loading, setLoading] = useState(false);
-  const { authService, avatarService } = useContext(UserContext);
+  const [newClassId, setNewClassId] = useState({});
+  const [newClassroomRoster, setNewClassroomRoster] = useState(false);
+  const [newStudentData, setNewStudentData] = useState([]);
+  const { authService, avatarService, classroomService } =
+    useContext(UserContext);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   // Create Class Code
   const createClassroomCode = useCallback(
@@ -73,7 +79,7 @@ const CreateClass = () => {
   const onFinish = async (values) => {
     setLoading(true);
     let students = [];
-    if (values.students.length) {
+    if (values.students) {
       const studentListWithInfo = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const student of values.students) {
@@ -91,15 +97,39 @@ const CreateClass = () => {
           avatarURL: randomAvatar.avatarURL,
           avatarColor: generateBgColor(),
           password: newPassword(),
+          score: 0,
         });
       }
       students = studentListWithInfo;
     }
-    console.log({
+    const body = {
       classroomCode: values.classroomCode,
       gradeLevel: values.gradeLevel,
       students,
-    });
+      adult: authService.id,
+    };
+
+    classroomService
+      .createClassroom(authService.getBearerHeader(), body)
+      .then((res) => {
+        console.log(res);
+        setNewClassId(res.id);
+        setNewStudentData(res.students);
+        setNewClassroomRoster(true);
+        notification.success({
+          message: 'Class Created!',
+          description:
+            'Please print the cards below to hand out to the students to sign in.',
+        });
+      })
+      .catch((error) => {
+        notification.error({
+          message: 'Error',
+          description: 'There was a connection error. Please try again later',
+        });
+        console.error(error);
+      });
+
     setLoading(false);
   };
 
@@ -108,98 +138,214 @@ const CreateClass = () => {
       style={{
         backgroundColor: theme.colors.lightGrey,
         display: 'flex',
+        justifyContent: 'center',
         padding: '8rem 0',
         height: '100vh',
       }}
     >
       <GreetingBar template="New Class" />
-      <Form form={form} name="Create new class" onFinish={onFinish}>
-        <Form.Item name="classroomCode">
-          <StyledButton onClick={handleRandomClassroomCode}>
-            {classroomCode}
-          </StyledButton>
-        </Form.Item>
-        <Form.Item
-          name="gradeLevel"
-          label="Grade Level"
-          rules={[
-            {
-              required: true,
-              message: 'Please select a grade level!',
-            },
-          ]}
+      {!newClassroomRoster && (
+        <Form form={form} name="Create new class" onFinish={onFinish}>
+          <Form.Item name="classroomCode">
+            <StyledButton onClick={handleRandomClassroomCode}>
+              {classroomCode}
+            </StyledButton>
+          </Form.Item>
+          <Form.Item
+            name="gradeLevel"
+            label="Grade Level"
+            rules={[
+              {
+                required: true,
+                message: 'Please select a grade level!',
+              },
+            ]}
+          >
+            <Radio.Group>
+              <Row>
+                <Radio value="4th">4th</Radio>
+                <Radio value="5th">5th</Radio>
+                <Radio value="6th">6th</Radio>
+              </Row>
+            </Radio.Group>
+          </Form.Item>
+          <Form.List name="students">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{
+                      display: 'flex',
+                      marginBottom: 8,
+                    }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'firstName']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Missing first name',
+                        },
+                        {
+                          pattern: /[a-zA-Z]{3,}/gm,
+                          required: true,
+                          message: 'Must be minimum 3 letters.',
+                        },
+                      ]}
+                    >
+                      <Input placeholder="First Name" />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'lastInitial']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Missing last name',
+                        },
+                        {
+                          pattern: /^[a-zA-Z]{1}$/gm,
+                          required: true,
+                          message: 'Please only write one letter.',
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Last Initial" />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Add field
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+          <Form.Item register="true" style={{ textAlign: 'center' }}>
+            <StyledButton
+              loading={loading}
+              larger="true"
+              type="primary"
+              htmlType="submit"
+            >
+              Create Class
+            </StyledButton>
+          </Form.Item>
+        </Form>
+      )}
+      {newClassroomRoster && (
+        <div
+          style={{
+            backgroundColor: theme.colors.lightGrey,
+            height: '100%',
+          }}
         >
-          <Radio.Group>
-            <Row>
-              <Radio value="4th">4th</Radio>
-              <Radio value="5th">5th</Radio>
-              <Radio value="6th">6th</Radio>
-            </Row>
-          </Radio.Group>
-        </Form.Item>
-        <Form.List name="students">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Space
-                  key={key}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <h1
+              style={{ textAlign: 'center', fontFamily: theme.fontFamily.hind }}
+            >
+              Class Roster
+            </h1>
+            <StyledButton
+              type="primary"
+              onClick={() =>
+                navigate(`/classrooms/teacher/details/${newClassId}`)
+              }
+            >
+              Go to Class Details
+            </StyledButton>
+          </div>
+          <div
+            style={{
+              padding: '1rem',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+          >
+            {newStudentData.map((student) => (
+              <div
+                style={{
+                  border: '1px solid transparent',
+                  borderRadius: '8px',
+                  boxShadow: '0px 10px 10px grey',
+                  margin: '1rem',
+                  padding: '0.5rem',
+                  width: '300px',
+                  height: '300px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  flexDirection: 'column',
+                }}
+                key={student._id}
+              >
+                <div
                   style={{
                     display: 'flex',
-                    marginBottom: 8,
+                    flexDirection: 'column',
+                    margin: '1rem',
                   }}
-                  align="baseline"
                 >
-                  <Form.Item
-                    {...restField}
-                    name={[name, 'firstName']}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Missing first name',
-                      },
-                    ]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                  <Form.Item
-                    {...restField}
-                    name={[name, 'lastInitial']}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Missing last name',
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Last Initial" />
-                  </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
+                  <div>
+                    <span style={{ fontWeight: 'bold' }}>First Name:</span>{' '}
+                    {student.firstName}
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 'bold' }}>Last Initial:</span>{' '}
+                    {student.lastInitial}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: '1rem',
+                  }}
                 >
-                  Add field
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-        <Form.Item register="true" style={{ textAlign: 'center' }}>
-          <StyledButton
-            loading={loading}
-            larger="true"
-            type="primary"
-            htmlType="submit"
-          >
-            Create Class
-          </StyledButton>
-        </Form.Item>
-      </Form>
+                  <div>
+                    <span style={{ fontWeight: 'bold' }}>Username:</span>{' '}
+                    {student.username}
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 'bold' }}>Password:</span>{' '}
+                    {student.password}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: '1rem',
+                  }}
+                >
+                  <div>
+                    <span style={{ fontWeight: 'bold' }}>
+                      Forgot Password Question:
+                    </span>{' '}
+                    {student.forgotPasswordQuestion}
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 'bold' }}>
+                      Forgot Password Answer:
+                    </span>{' '}
+                    {student.forgotPasswordAnswer}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

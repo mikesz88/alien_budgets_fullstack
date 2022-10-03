@@ -70,6 +70,31 @@ class ClassroomService {
       throw error;
     }
   }
+
+  async createClassroom(headers, body) {
+    try {
+      const { data: response } = await axios.post(
+        Endpoints.getClassrooms,
+        body,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async addStudentToClassroom(body) {
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.addStudentToClassroom,
+        body
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default ClassroomService;
