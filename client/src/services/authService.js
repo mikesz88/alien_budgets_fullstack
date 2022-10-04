@@ -104,6 +104,7 @@ class AuthService extends extender(adultService, studentService) {
       localStorage.setItem('token', response.token);
       this.setIsLoggedIn(true);
       await this.getUser();
+      return response;
     } catch (error) {
       throw error;
     }
@@ -259,6 +260,21 @@ class AuthService extends extender(adultService, studentService) {
       const { data: response } = await axios.put(Endpoints.deleteSelf, headers);
       localStorage.removeItem('token');
       this.resetUser();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteSelectedStudents(students) {
+    const headers = this.getBearerHeader();
+    const body = students;
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.deleteSelectedStudents,
+        body,
+        headers
+      );
       return response;
     } catch (error) {
       throw error;

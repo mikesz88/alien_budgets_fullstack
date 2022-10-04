@@ -4,7 +4,7 @@ import {
   Routes as RouteWrapper,
   Route,
   Navigate,
-  // useNavigate,
+  useNavigate,
   useLocation,
 } from 'react-router-dom';
 import Hero from '../features/Hero';
@@ -82,12 +82,21 @@ export const Part1RegisterRequire = ({ user, children, ...props }) => {
 
 const Routes = () => {
   const { authService } = useContext(UserContext);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     const loggedInUser = localStorage.getItem('token');
     if (loggedInUser) {
       const foundToken = loggedInUser;
-      authService.foundUser(foundToken);
+      authService
+        .foundUser(foundToken)
+        .then((res) => {
+          if (res.role === 'adult') {
+            navigate('/dashboard');
+          } else {
+            navigate('/aliendashboard');
+          }
+        })
+        .catch((error) => console.error(error));
     }
   }, []);
 

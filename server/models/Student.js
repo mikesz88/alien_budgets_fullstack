@@ -11,12 +11,15 @@ const StudentSchema = new mongoose.Schema({
   lastInitial: {
     type: String,
     maxLength: 1,
+    uppercase: true,
     required: [true, 'Please add a last Initial'],
   },
   username: {
     type: String,
     required: [true, 'Please add a username'],
     unique: true,
+    lowercase: true,
+    trim: true,
     minlength: 8,
   },
   avatarURL: {

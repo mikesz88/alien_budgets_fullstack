@@ -95,6 +95,31 @@ class ClassroomService {
       throw error;
     }
   }
+
+  async deleteAllClassroomsByTeacher(headers, id) {
+    try {
+      const { data: response } = await axios.delete(
+        `${Endpoints.deleteAllClassroomsByTeacher}/${id}`,
+        { headers }
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteSingleStudent(headers, body) {
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.deleteSingleStudent,
+        body,
+        headers
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default ClassroomService;

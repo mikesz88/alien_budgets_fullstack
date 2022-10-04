@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { UserContext } from '../../../App';
 import UpdateAdultProfile from './Adult';

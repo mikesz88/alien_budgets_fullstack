@@ -10,6 +10,8 @@ const {
   getSingleClassroom,
   updateStudentData,
   addStudentToClassroom,
+  deleteAllClassroomsByTeacher,
+  deleteSingleStudent,
 } = require('../controllers/classrooms');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -20,7 +22,12 @@ router.get('/:adultid', protect, getAllClassroomsOfAdult);
 router.get('/single/:classid', protect, getSingleClassroom);
 router.put('/updateStudent', protect, updateStudentData);
 router.put('/addstudent', addStudentToClassroom);
-
-/* Add this addstudent function to the register student page 2 */
+router.delete(
+  '/deleteteacher/:adultid',
+  protect,
+  authorizedAdult,
+  deleteAllClassroomsByTeacher
+);
+router.put('/deletestudent', protect, deleteSingleStudent);
 
 module.exports = router;

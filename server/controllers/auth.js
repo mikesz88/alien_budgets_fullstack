@@ -84,8 +84,10 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   const user = email
-    ? await Adult.findOne({ email }).select('+password')
-    : await Student.findOne({ username }).select('+password');
+    ? await Adult.findOne({ email: email.toLowerCase() }).select('+password')
+    : await Student.findOne({ username: username.toLowerCase() }).select(
+        '+password'
+      );
 
   if (!user) {
     return next(new ErrorResponse('Invalid Credentials', 401));
@@ -400,6 +402,21 @@ exports.deleteSelf = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc Delete my own account
+// @route delete /api/v1/auth/deletestudents
+// @access PRIVATE
+exports.deleteSelectedStudents = asyncHandler(async (req, res, next) => {
+  const results = await Student.deleteMany({
+    _id: { $in: req.body },
+  });
+
+  if (!results) {
+    return next(new ErrorResponse("Unable to students with given id's"), 401);
+  }
+
+  res.status(200).json({ success: true, results });
+});
+
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwt();
 
@@ -417,5 +434,5 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie('token', token, options)
-    .json({ success: true, token });
+    .json({ success: true, token, user });
 };

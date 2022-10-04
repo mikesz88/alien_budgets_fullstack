@@ -11,7 +11,8 @@ import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
 
 const RegisterStudentPart2 = () => {
-  const { avatarService, authService, updateService } = useContext(UserContext);
+  const { avatarService, authService, classroomService, updateService } =
+    useContext(UserContext);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -143,12 +144,31 @@ const RegisterStudentPart2 = () => {
   const onFinish = (values) => {
     authService
       .registerStudent(values)
-      .then(() => {
-        navigate('/aliendashboard');
+      .then((res) => {
+        console.log(res);
         notification.success({
           message: 'Sign Up Successful',
           description: 'You are now currently logged in.',
         });
+        classroomService
+          .addStudentToClassroom(res.user)
+          .then((response) => {
+            console.log(response);
+            notification.success({
+              message: 'Added to Classroom',
+              description:
+                'The student has officially been added to the classroom.',
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            notification.error({
+              message: 'Error',
+              description:
+                'There was an issue with adding the student. The student was not added to the class.',
+            });
+          });
+        navigate('/aliendashboard');
         form.resetFields();
         updateService();
       })

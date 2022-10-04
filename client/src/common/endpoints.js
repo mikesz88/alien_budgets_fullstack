@@ -32,6 +32,9 @@ const Endpoints = {
   updateStudentByAdult: `${URL_ADULT}/updatestudent`,
   updateStudentInClassroom: `${URL_CLASSROOMS}/updateStudent`,
   addStudentToClassroom: `${URL_CLASSROOMS}/addstudent`,
+  deleteAllClassroomsByTeacher: `${URL_CLASSROOMS}/deleteteacher`,
+  deleteSelectedStudents: `${URL_AUTH}/deletestudents`,
+  deleteSingleStudent: `${URL_CLASSROOMS}/deletestudent`,
 };
 
 export default Endpoints;

@@ -110,6 +110,33 @@ exports.createClassroom = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc delete student from Classroom
+// @route PUT /api/v1/classrooms/deletestudent
+// @access PRIVATE
+exports.deleteSingleStudent = asyncHandler(async (req, res, next) => {
+  const classroom = await Classroom.findOne({
+    classroomCode: req.body.classroomCode,
+  });
+
+  if (!classroom) {
+    return next(
+      new ErrorResponse(
+        `There is no class with id ${req.body.classroomCode}`,
+        404
+      )
+    );
+  }
+
+  classroom.students = classroom.students.filter(
+    (student) => student._id.toString() !== req.body.id
+  );
+
+  classroom.updatedOn = Date.now();
+
+  await classroom.save();
+
+  res.status(200).json({ success: true, data: classroom });
+});
 // @desc Add new student to Classroom
 // @route PUT /api/v1/classrooms/addstudent
 // @access PUBLIC
@@ -143,3 +170,89 @@ exports.addStudentToClassroom = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: classroom });
 });
+
+// @desc delete all classrooms based on adult id
+// @route delete /api/v1/classrooms/deleteteacher/:adultid
+// @access PRIVATE
+exports.deleteAllClassroomsByTeacher = asyncHandler(async (req, res, next) => {
+  const classrooms = await Classroom.find({ adult: req.params.adultid });
+
+  if (!classrooms) {
+    return next(
+      new ErrorResponse(`There is no class with id ${req.params.adultid}`, 404)
+    );
+  }
+
+  const students = [];
+  classrooms
+    .map((classroom) => classroom.students)
+    .forEach((classroom) =>
+      classroom.forEach((student) => students.push(student._id))
+    );
+  await Classroom.deleteMany({ adult: req.params.adultid });
+
+  res.status(200).json({
+    success: true,
+    message: `The classrooms with the adult id ${req.params.adultid} have been deleted.`,
+    students,
+  });
+});
+
+// @desc move student to another classroom
+// @route PUT /api/v1/classrooms/transferstudent
+// @access PRIVATE
+exports.transferStudentToDifferentClassroom = asyncHandler(
+  async (req, res, next) => {
+    const currentClassroom = await Classroom.findOne({
+      classroomCode: req.body.currentClassroomCode,
+    });
+    const newClassroom = await Classroom.findOne({
+      classroomCode: req.body.newClassroomCode,
+    });
+
+    if (!currentClassroom) {
+      return next(
+        new ErrorResponse(
+          `There is no class with id ${req.body.currentClassroomCode}`,
+          404
+        )
+      );
+    }
+
+    if (!newClassroom) {
+      return next(
+        new ErrorResponse(
+          `There is no class with id ${req.body.newClassroomCode}`,
+          404
+        )
+      );
+    }
+
+    currentClassroom.students = currentClassroom.students.filter(
+      (student) => student._id.toString() !== req.body.id
+    );
+
+    newClassroom.students.push({
+      _id: req.body._id,
+      score: req.body.score,
+      firstName: req.body.firstName,
+      lastInitial: req.body.lastInitial,
+      username: req.body.username,
+      avatarURL: req.body.avatarURL,
+      avatarColor: req.body.avatarColor,
+    });
+
+    currentClassroom.updatedOn = Date.now();
+    newClassroom.updatedOn = Date.now();
+
+    await currentClassroom.save();
+    await newClassroom.save();
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        data: { oldClassroom: currentClassroom, newClassroom },
+      });
+  }
+);

@@ -16,6 +16,7 @@ const {
   updateForgotQuestionAnswer,
   deleteSelf,
   updateAvatar,
+  deleteSelectedStudents,
 } = require('../controllers/auth');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -42,5 +43,6 @@ router.put('/updateforgot', protect, updateForgotQuestionAnswer);
 router.get('/forgotquestion/:user', forgotQuestion);
 router.put('/resetpassword/:resettoken', resetPassword);
 router.put('/deleteaccount', protect, deleteSelf);
+router.put('/deletestudents', protect, deleteSelectedStudents);
 
 module.exports = router;
