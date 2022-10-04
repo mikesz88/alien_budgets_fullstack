@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
 import { Table } from 'antd';
 import { useParams } from 'react-router-dom';
@@ -11,6 +10,7 @@ import columns from './helper';
 const TeacherClasses = () => {
   const { teacherId } = useParams();
   const [classrooms, setClassrooms] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { authService, classroomService } = useContext(UserContext);
 
   const data = (classes) =>
@@ -23,10 +23,12 @@ const TeacherClasses = () => {
     }));
 
   useEffect(() => {
+    setLoading(true);
     classroomService
       .getAllTeacherClassrooms(authService.getBearerHeader(), teacherId)
       .then((response) => setClassrooms(data(response)))
       .catch((error) => console.error(error));
+    setLoading(false);
   }, []);
 
   return (
@@ -37,6 +39,7 @@ const TeacherClasses = () => {
         pagination={false}
         columns={columns}
         dataSource={classrooms}
+        loading={loading}
       />
     </StyledDashboardWrapper>
   );

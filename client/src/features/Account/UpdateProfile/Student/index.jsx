@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useMemo, useCallback, useEffect } from 'react';
+import React, {
+  useState,
+  useContext,
+  useMemo,
+  useCallback,
+  useEffect,
+} from 'react';
 import { Form, Input, Checkbox, Row, notification } from 'antd';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
@@ -7,6 +13,9 @@ import StyledButton from '../../../../components/PrimaryButton';
 const UpdateStudentProfile = ({ closeDrawer }) => {
   const { authService, updateService, classroomService } =
     useContext(UserContext);
+  const [currentClassroomCode, setCurrentClassroomCode] = useState(
+    authService.classroomCode
+  );
   const [form] = Form.useForm();
 
   const getAllClassCodes = useCallback(
@@ -50,7 +59,27 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
       console.log(body);
       authService
         .updateStudentProfile(body)
-        .then(() => {
+        .then((res) => {
+          if (body.classroomCode) {
+            const classroomBody = {
+              ...res,
+              currentClassroomCode,
+              newClassroomCode: body.classroomCode,
+            };
+            classroomService
+              .transferStudentToDifferentClass(
+                authService.getBearerHeader(),
+                classroomBody
+              )
+              .then((response) => console.log(response))
+              .catch((error) => {
+                console.error(error);
+                notification.error({
+                  message: 'Class Error',
+                  description: 'You were not swapped to your new class.',
+                });
+              });
+          }
           notification.success({
             message: 'Success',
             description: 'Your profile has been successfully updated.',

@@ -2,23 +2,29 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
 import { Table, Button, Popconfirm, Modal } from 'antd';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../../components/GreetingBar';
 import { UserContext } from '../../../../App';
 import theme from '../../../../theme';
 import StyledButton from '../../../../components/PrimaryButton';
 import Avatar from '../../../../components/Avatar';
 import EditCloseModal from './EditCloseModal';
+import DeleteModal from './DeleteModal';
+import NewStudentModal from './NewStudentModal';
 
 const ClassDetails = () => {
   const { classId } = useParams();
   const [students, setStudents] = useState([]);
   const [classroomCode, setClassroomCode] = useState('');
   const [resetMessageObject, setResetMessageObject] = useState({});
+  const [loading, setLoading] = useState(false);
   const [studentInfo, setStudentInfo] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openEditStudentModal, setOpenEditStudentModal] = useState(false);
+  const [openDeleteClassModal, setOpenDeleteClassModal] = useState(false);
+  const [openNewStudentModal, setOpenNewStudentModal] = useState(false);
   const { authService, classroomService } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const data = (studentsInClass) =>
     studentsInClass.map((student) => ({
@@ -33,6 +39,7 @@ const ClassDetails = () => {
     }));
 
   useEffect(() => {
+    setLoading(true);
     classroomService
       .getSpecificClassroom(authService.getBearerHeader(), classId)
       .then((res) => {
@@ -40,6 +47,7 @@ const ClassDetails = () => {
         setStudents(data(res.students));
       })
       .catch((error) => console.error(error));
+    setLoading(false);
 
     return classroomService.setCurrentClassUpdate('');
   }, [classroomService.currentClassUpdated]);
@@ -64,6 +72,12 @@ const ClassDetails = () => {
     setOpenEditStudentModal(false);
     setStudentInfo({});
   };
+
+  const handleOpenDeleteModal = () => setOpenDeleteClassModal(true);
+  const handleCloseDeleteModal = () => setOpenDeleteClassModal(false);
+
+  const handleOpenNewStudentModal = () => setOpenNewStudentModal(true);
+  const handleCloseNewStudentModal = () => setOpenNewStudentModal(false);
 
   const editStudentInfo = (studentId) => {
     authService
@@ -162,19 +176,46 @@ const ClassDetails = () => {
       style={{
         backgroundColor: theme.colors.lightGrey,
         display: 'flex',
+        flexDirection: 'column',
         padding: '8rem 0',
       }}
     >
       <GreetingBar template={`Class: ${classroomCode}`} />
       <Table
-        style={{ width: '100%', margin: '0 3rem' }}
+        style={{ margin: '0 3rem' }}
         columns={columns}
+        loading={loading}
         pagination={{
           pageSize: 10,
-          position: ['topRight'],
+          position: ['bottomCenter'],
         }}
         dataSource={students}
       />
+      <div
+        style={{ display: 'flex', justifyContent: 'center', margin: '0 3rem' }}
+      >
+        <StyledButton
+          size="large"
+          type="primary"
+          onClick={handleOpenNewStudentModal}
+        >
+          Add New Student
+        </StyledButton>
+        <StyledButton
+          size="large"
+          type="primary"
+          onClick={() => navigate(`/classrooms/teacher/${authService.id}`)}
+        >
+          Back to My Classes
+        </StyledButton>
+        <StyledButton
+          size="large"
+          type="primary"
+          onClick={handleOpenDeleteModal}
+        >
+          Delete Class
+        </StyledButton>
+      </div>
       <Modal
         open={openModal}
         title="Password has been reset"
@@ -199,6 +240,21 @@ const ClassDetails = () => {
           open={openEditStudentModal}
           close={handleEditStudentClose}
           data={studentInfo}
+        />
+      )}
+      {openDeleteClassModal && (
+        <DeleteModal
+          open={openDeleteClassModal}
+          close={handleCloseDeleteModal}
+          classId={classId}
+        />
+      )}
+      {openNewStudentModal && (
+        <NewStudentModal
+          open={openNewStudentModal}
+          close={handleCloseNewStudentModal}
+          classId={classId}
+          classroomCode={classroomCode}
         />
       )}
     </div>

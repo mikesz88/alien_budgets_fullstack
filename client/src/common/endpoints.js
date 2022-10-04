@@ -35,6 +35,9 @@ const Endpoints = {
   deleteAllClassroomsByTeacher: `${URL_CLASSROOMS}/deleteteacher`,
   deleteSelectedStudents: `${URL_AUTH}/deletestudents`,
   deleteSingleStudent: `${URL_CLASSROOMS}/deletestudent`,
+  transferStudentToDifferentClass: `${URL_CLASSROOMS}/transferstudent`,
+  deleteSingleClassroomByTeacher: `${URL_CLASSROOMS}/delete`,
+  createNewStudentInClassroom: `${URL_CLASSROOMS}/createstudent`,
 };
 
 export default Endpoints;

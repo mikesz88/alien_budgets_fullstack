@@ -219,6 +219,7 @@ class AuthService extends extender(adultService, studentService) {
         headers
       );
       this.setStudentData(response.data);
+      return response.data;
     } catch (error) {
       throw error;
     }

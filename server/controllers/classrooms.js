@@ -137,6 +137,7 @@ exports.deleteSingleStudent = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: classroom });
 });
+
 // @desc Add new student to Classroom
 // @route PUT /api/v1/classrooms/addstudent
 // @access PUBLIC
@@ -172,7 +173,7 @@ exports.addStudentToClassroom = asyncHandler(async (req, res, next) => {
 });
 
 // @desc delete all classrooms based on adult id
-// @route delete /api/v1/classrooms/deleteteacher/:adultid
+// @route PUT /api/v1/classrooms/deleteteacher/:adultid
 // @access PRIVATE
 exports.deleteAllClassroomsByTeacher = asyncHandler(async (req, res, next) => {
   const classrooms = await Classroom.find({ adult: req.params.adultid });
@@ -197,6 +198,34 @@ exports.deleteAllClassroomsByTeacher = asyncHandler(async (req, res, next) => {
     students,
   });
 });
+
+// @desc delete all classrooms based on adult id
+// @route DELETE /api/v1/classrooms/delete/:classroomid
+// @access PRIVATE
+exports.deleteSingleClassroomByTeacher = asyncHandler(
+  async (req, res, next) => {
+    const classroom = await Classroom.findById(req.params.classroomid);
+
+    if (!classroom) {
+      return next(
+        new ErrorResponse(
+          `There is no class with classroomid ${req.params.classroomid}`,
+          404
+        )
+      );
+    }
+
+    const students = [];
+    classroom.students.forEach((student) => students.push(student._id));
+    await Classroom.deleteOne({ _id: req.params.classroomid });
+
+    res.status(200).json({
+      success: true,
+      message: `The classrooms with the classroom code ${req.params.classroomid} have been deleted.`,
+      students,
+    });
+  }
+);
 
 // @desc move student to another classroom
 // @route PUT /api/v1/classrooms/transferstudent
@@ -248,11 +277,32 @@ exports.transferStudentToDifferentClassroom = asyncHandler(
     await currentClassroom.save();
     await newClassroom.save();
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: { oldClassroom: currentClassroom, newClassroom },
-      });
+    res.status(200).json({
+      success: true,
+      data: { oldClassroom: currentClassroom, newClassroom },
+    });
   }
 );
+
+// @desc Create New Student & auto assign to Classroom
+// @route PUT /api/v1/classrooms/createstudent
+// @access PRIVATE
+exports.createNewStudentInClassroom = asyncHandler(async (req, res, next) => {
+  const classroom = await Classroom.findById(req.body.classId);
+
+  if (!classroom) {
+    return next(
+      new ErrorResponse(`There is no class with id ${req.body.classId}`, 404)
+    );
+  }
+
+  await Student.create(req.body.students);
+  req.body.students.forEach((student) => classroom.students.push(student));
+  classroom.updatedOn = Date.now();
+  await classroom.save();
+
+  res.status(200).json({
+    success: true,
+    data: { classroom, students: req.body.students },
+  });
+});

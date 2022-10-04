@@ -120,6 +120,44 @@ class ClassroomService {
       throw error;
     }
   }
+
+  async transferStudentToDifferentClass(headers, body) {
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.transferStudentToDifferentClass,
+        body,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteSingleClassroomByTeacher(headers, classId) {
+    try {
+      const { data: response } = await axios.delete(
+        `${Endpoints.deleteSingleClassroomByTeacher}/${classId}`
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createNewStudentInClassroom(headers, body) {
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.createNewStudentInClassroom,
+        body,
+        headers
+      );
+      this.setCurrentClassUpdate(Date.now());
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default ClassroomService;

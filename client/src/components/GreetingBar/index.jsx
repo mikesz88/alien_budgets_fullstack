@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
 import { UserContext } from '../../App';
 import {
   StyledAdultGreetingContainer,
@@ -30,13 +29,13 @@ const GreetingBar = ({
     <>
       {adult && (
         <StyledAdultGreetingContainer>
-          <Button
-            style={{ height: 'fit-content', color: 'white' }}
+          <StyledButton
+            style={{ height: 'fit-content' }}
             type="text"
             onClick={backToHome}
           >
             <StyledTitleFont>ALIEN BUDGETS</StyledTitleFont>
-          </Button>
+          </StyledButton>
           <StyledAdultName>
             Welcome {firstName} {lastName}
           </StyledAdultName>
@@ -44,15 +43,16 @@ const GreetingBar = ({
       )}
       {student && (
         <StyledStudentGreetingContainer>
-          <Button
-            style={{ height: 'fit-content', color: 'white' }}
+          <StyledButton
+            style={{ height: 'fit-content' }}
             type="text"
             onClick={backToHome}
           >
-            <div>ALIEN BUDGETS</div>
-          </Button>
+            <StyledTitleFont>ALIEN BUDGETS</StyledTitleFont>
+          </StyledButton>
           <div>
             <StyledButton
+              style={{ height: 'fit-content' }}
               type="text"
               onClick={() => navigate('/challenge/play/')}
             >
@@ -64,13 +64,13 @@ const GreetingBar = ({
       )}
       {template && (
         <StyledAdultGreetingContainer>
-          <Button
-            style={{ height: 'fit-content', color: 'white' }}
+          <StyledButton
+            style={{ height: 'fit-content' }}
             type="text"
             onClick={backToHome}
           >
             <StyledTitleFont>ALIEN BUDGETS</StyledTitleFont>
-          </Button>
+          </StyledButton>
           <StyledAdultName>{template}</StyledAdultName>
         </StyledAdultGreetingContainer>
       )}
