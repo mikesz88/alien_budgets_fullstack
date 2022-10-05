@@ -10,6 +10,7 @@ const Challenge = () => {
   const [secondNumber, setSecondNumber] = useState(null);
   const [previousNumbers, setPreviousNumbers] = useState([]);
   const [currentAnswer, setCurrentAnswer] = useState('');
+  const [count, setCount] = useState(0);
 
   const randomNumber = useCallback(() => Math.ceil(Math.random() * 12), []);
 
@@ -95,11 +96,13 @@ const Challenge = () => {
           onPressEnter={() => {
             confirmAnswer(+currentAnswer);
             setCurrentAnswer('');
+            setCount(count + 1);
           }}
           type="text"
           ref={inputRef}
         />
       </div>
+      {count === 20 && <div>You did 20 questions</div>}
       {/* <div>Previous Numbers:</div>
       {previousNumbers.map((set) => {
         console.log(previousNumbers);
