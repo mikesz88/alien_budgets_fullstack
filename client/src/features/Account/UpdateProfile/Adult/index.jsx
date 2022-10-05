@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Input, Checkbox, Row, notification } from 'antd';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 
 const UpdateAdultProfile = ({ closeDrawer }) => {
+  const [loading, setLoading] = useState(false);
   const { authService, updateService } = useContext(UserContext);
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
+    setLoading(true);
     console.log(values);
     const body = {};
     // eslint-disable-next-line no-restricted-syntax
@@ -42,7 +44,8 @@ const UpdateAdultProfile = ({ closeDrawer }) => {
             message: 'Connection error',
             description: 'There was something wrong with the conenction',
           })
-        );
+        )
+        .finally(() => setLoading(false));
     }
   };
 
@@ -120,7 +123,12 @@ const UpdateAdultProfile = ({ closeDrawer }) => {
         </Checkbox.Group>
       </Form.Item>
       <Form.Item>
-        <StyledButton larger="true" type="primary" htmlType="submit">
+        <StyledButton
+          loading={loading}
+          larger="true"
+          type="primary"
+          htmlType="submit"
+        >
           Submit Changes
         </StyledButton>
       </Form.Item>

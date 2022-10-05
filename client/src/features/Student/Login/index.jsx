@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input, notification } from 'antd';
 import StyledTitle from '../../../components/Title';
@@ -6,11 +6,13 @@ import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 
 const StudentLogin = () => {
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { authService, updateService } = useContext(UserContext);
 
   const onFinish = (values) => {
+    setLoading(true);
     console.log('values =>', values);
     authService
       .login(values)
@@ -28,7 +30,8 @@ const StudentLogin = () => {
           message: 'error',
           description: 'Please try again!',
         });
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -58,7 +61,12 @@ const StudentLogin = () => {
           <Input.Password type="password" placeholder="Password" />
         </Form.Item>
         <Form.Item>
-          <StyledButton larger="true" type="primary" htmlType="submit">
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
             Login
           </StyledButton>
           <StyledButton larger="true" type="primary">

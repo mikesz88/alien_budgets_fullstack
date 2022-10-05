@@ -13,6 +13,7 @@ import StyledTitle from '../../../components/Title';
 const RegisterStudentPart2 = () => {
   const { avatarService, authService, classroomService, updateService } =
     useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -142,6 +143,7 @@ const RegisterStudentPart2 = () => {
   }, [userAvatar]);
 
   const onFinish = (values) => {
+    setLoading(true);
     authService
       .registerStudent(values)
       .then((res) => {
@@ -177,7 +179,8 @@ const RegisterStudentPart2 = () => {
           message: 'error',
           description: 'You made a mistake',
         });
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -322,7 +325,12 @@ const RegisterStudentPart2 = () => {
         </Form.Item>
         <Form.Item register="true" style={{ textAlign: 'center' }}>
           <div>By signing up you agree to our terms and policies.</div>
-          <StyledButton larger="true" type="primary" htmlType="submit">
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
             Register
           </StyledButton>
         </Form.Item>

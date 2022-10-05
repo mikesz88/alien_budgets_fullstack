@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Input, Button, Form, notification } from 'antd';
 import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 
 const UpdatePassword = ({ closeDrawer }) => {
+  const [loading, setLoading] = useState(false);
   const { authService } = useContext(UserContext);
   const [form] = Form.useForm();
 
@@ -12,6 +13,7 @@ const UpdatePassword = ({ closeDrawer }) => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
 
   const onFinish = (values) => {
+    setLoading(true);
     console.log(values);
     const { currentPassword, newPassword } = values;
     if (currentPassword === newPassword) {
@@ -35,7 +37,8 @@ const UpdatePassword = ({ closeDrawer }) => {
             message: error.response.data.error,
             description: 'The current password is not correct.',
           });
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -111,7 +114,12 @@ const UpdatePassword = ({ closeDrawer }) => {
         <Input.Password />
       </Form.Item>
       <Form.Item>
-        <StyledButton larger="true" type="primary" htmlType="submit">
+        <StyledButton
+          loading={loading}
+          larger="true"
+          type="primary"
+          htmlType="submit"
+        >
           Submit Changes
         </StyledButton>
       </Form.Item>

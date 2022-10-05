@@ -6,6 +6,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 
 const ForgotQA = ({ closeDrawer }) => {
+  const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const { authService, updateService } = useContext(UserContext);
@@ -38,6 +39,7 @@ const ForgotQA = ({ closeDrawer }) => {
   }, []);
 
   const onFinish = (values) => {
+    setLoading(true);
     console.log(values);
     authService
       .updateForgotQuestionAnswer(values)
@@ -57,7 +59,8 @@ const ForgotQA = ({ closeDrawer }) => {
           description: 'Incorrect Answer',
         });
         console.log(error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -118,7 +121,12 @@ const ForgotQA = ({ closeDrawer }) => {
         <Input type="text" placeholder="Forgot Password Answer" />
       </Form.Item>
       <Form.Item>
-        <StyledButton larger="true" type="primary" htmlType="submit">
+        <StyledButton
+          loading={loading}
+          larger="true"
+          type="primary"
+          htmlType="submit"
+        >
           Submit Changes
         </StyledButton>
       </Form.Item>

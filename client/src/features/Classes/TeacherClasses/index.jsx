@@ -27,15 +27,15 @@ const TeacherClasses = () => {
     classroomService
       .getAllTeacherClassrooms(authService.getBearerHeader(), teacherId)
       .then((response) => setClassrooms(data(response)))
-      .catch((error) => console.error(error));
-    setLoading(false);
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <StyledDashboardWrapper>
       <GreetingBar template="My Classes" />
       <Table
-        style={{ width: '100%', margin: '0 3rem' }}
+        style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}
         pagination={false}
         columns={columns}
         dataSource={classrooms}

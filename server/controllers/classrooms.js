@@ -46,6 +46,21 @@ exports.getSingleClassroom = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: classroom });
 });
 
+// @desc Get specific Class by classroom code
+// @route GET /api/v1/classrooms/student/:classroomcode
+// @access PRIVATE
+exports.getClassroomFromStudent = asyncHandler(async (req, res, next) => {
+  const classroom = await Classroom.findOne({ _id: req.params.classroomcode });
+
+  if (!classroom) {
+    return next(
+      new ErrorResponse(`There is no class with id ${req.params.classid}`, 404)
+    );
+  }
+
+  res.status(200).json({ success: true, data: classroom });
+});
+
 // @desc Update student in class
 // @route PUT /api/v1/classrooms/updateStudent
 // @access PRIVATE
@@ -111,9 +126,9 @@ exports.createClassroom = asyncHandler(async (req, res, next) => {
 });
 
 // @desc delete student from Classroom
-// @route PUT /api/v1/classrooms/deletestudent
+// @route PUT /api/v1/classrooms/delete/studentinclass
 // @access PRIVATE
-exports.deleteSingleStudent = asyncHandler(async (req, res, next) => {
+exports.deleteStudentFromClass = asyncHandler(async (req, res, next) => {
   const classroom = await Classroom.findOne({
     classroomCode: req.body.classroomCode,
   });
@@ -296,13 +311,52 @@ exports.createNewStudentInClassroom = asyncHandler(async (req, res, next) => {
     );
   }
 
-  await Student.create(req.body.students);
-  req.body.students.forEach((student) => classroom.students.push(student));
+  const students = await Student.create(req.body.students);
+  students.forEach((student) => classroom.students.push(student));
   classroom.updatedOn = Date.now();
   await classroom.save();
 
   res.status(200).json({
     success: true,
     data: { classroom, students: req.body.students },
+  });
+});
+
+// @desc Delete Student & remove from Classroom
+// @route PUT /api/v1/classrooms/delete/student
+// @access PRIVATE
+exports.deleteStudent = asyncHandler(async (req, res, next) => {
+  const student = await Student.findByIdAndDelete(req.body.studentId);
+  const classroom = await Classroom.findOne({
+    classroomCode: req.body.classroomCode,
+  });
+
+  if (!student) {
+    return next(
+      new ErrorResponse(
+        `There is no student with id ${req.body.studentId}`,
+        404
+      )
+    );
+  }
+
+  if (!classroom) {
+    return next(
+      new ErrorResponse(
+        `There is no class with code ${req.body.classroomCode}`,
+        404
+      )
+    );
+  }
+
+  classroom.students = classroom.students.filter(
+    (student) => student._id.toString() !== req.body.studentId
+  );
+  classroom.updatedOn = Date.now();
+  await classroom.save();
+
+  res.status(200).json({
+    success: true,
+    data: classroom,
   });
 });

@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { notification } from 'antd';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 
 const DeleteAccount = () => {
+  const [loading, setLoading] = useState(false);
   const { authService, classroomService } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -22,16 +23,18 @@ const DeleteAccount = () => {
           description: 'There was a connection error',
         });
         console.error(error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const deleteStudent = () => {
+    setLoading(true);
     const body = {
       classroomCode: authService.classroomCode,
       id: authService.id,
     };
     classroomService
-      .deleteSingleStudent(authService.getBearerHeader(), body)
+      .deleteStudentFromClass(authService.getBearerHeader(), body)
       .then(() =>
         notification.success({
           message: 'Deleted from Classroom',
@@ -49,6 +52,7 @@ const DeleteAccount = () => {
   };
 
   const deleteAdult = () => {
+    setLoading(true);
     classroomService
       .deleteAllClassroomsByTeacher(
         authService.getBearerHeader(),
@@ -105,7 +109,7 @@ const DeleteAccount = () => {
           enrolled into them will also be deleted as well.
         </div>
       )}
-      <StyledButton type="primary" onClick={handleDelete}>
+      <StyledButton loading={loading} type="primary" onClick={handleDelete}>
         Confirm Deletion
       </StyledButton>
     </>

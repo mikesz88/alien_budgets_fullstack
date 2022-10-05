@@ -9,6 +9,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 
 const ChangeAvatar = ({ closeDrawer }) => {
+  const [loading, setLoading] = useState(false);
   const { avatarService, authService, updateService } = useContext(UserContext);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
@@ -134,6 +135,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
   );
 
   const onFinish = (values) => {
+    setLoading(true);
     console.log(values);
     if (
       values.avatarURL === authService.avatarURL &&
@@ -162,7 +164,8 @@ const ChangeAvatar = ({ closeDrawer }) => {
             message: 'Error',
             description: 'Please try again later!',
           });
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -288,7 +291,12 @@ const ChangeAvatar = ({ closeDrawer }) => {
         </Form.Item>
       )}
       <Form.Item>
-        <StyledButton larger="true" type="primary" htmlType="submit">
+        <StyledButton
+          loading={loading}
+          larger="true"
+          type="primary"
+          htmlType="submit"
+        >
           Save Changes
         </StyledButton>
       </Form.Item>

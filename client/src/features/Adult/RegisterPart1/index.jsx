@@ -8,6 +8,7 @@ import { UserContext } from '../../../App';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { authService, classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const RegisterAdult = () => {
   };
 
   const onFinish = (values) => {
+    setLoading(true);
     console.log(values);
     try {
       authService.registerAdultPart1(values);
@@ -48,10 +50,12 @@ const RegisterAdult = () => {
       });
       navigate('/register/adult/part2');
     } catch (error) {
-      notification.error({
-        message: 'error',
-        description: 'You made a mistake test1',
-      });
+      notification
+        .error({
+          message: 'error',
+          description: 'You made a mistake test1',
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -210,7 +214,12 @@ const RegisterAdult = () => {
         </Form.Item>
         <Form.Item register="true" style={{ textAlign: 'center' }}>
           <div>By signing up you agree to our terms and policies.</div>
-          <StyledButton larger="true" type="primary" htmlType="submit">
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
             Next Page
           </StyledButton>
           <div>

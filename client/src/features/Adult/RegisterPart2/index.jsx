@@ -18,6 +18,7 @@ import StyledTitle from '../../../components/Title';
 
 const RegisterAdultPart2 = () => {
   const { avatarService, authService, updateService } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [avatarList, setAvatarList] = useState([]);
   const [avatarURL, setAvatarURL] = useState('');
   const [userBackgroundColor, setUserBackgroundColor] = useState('');
@@ -108,6 +109,7 @@ const RegisterAdultPart2 = () => {
   }, [avatarURL]);
 
   const onFinish = (values) => {
+    setLoading(true);
     authService
       .registerAdult(values)
       .then(() => {
@@ -123,7 +125,8 @@ const RegisterAdultPart2 = () => {
           message: 'Error',
           description: 'Please try again!',
         })
-      );
+      )
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -191,7 +194,12 @@ const RegisterAdultPart2 = () => {
         </div>
         <Form.Item register="true" style={{ textAlign: 'center' }}>
           <div>By signing up you agree to our terms and policies.</div>
-          <StyledButton larger="true" type="primary" htmlType="submit">
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
             Register
           </StyledButton>
         </Form.Item>

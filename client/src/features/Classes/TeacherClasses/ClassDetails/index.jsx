@@ -8,7 +8,7 @@ import { UserContext } from '../../../../App';
 import theme from '../../../../theme';
 import StyledButton from '../../../../components/PrimaryButton';
 import Avatar from '../../../../components/Avatar';
-import EditCloseModal from './EditCloseModal';
+import EditCloseModal from './EditStudentModal';
 import DeleteModal from './DeleteModal';
 import NewStudentModal from './NewStudentModal';
 
@@ -46,8 +46,8 @@ const ClassDetails = () => {
         setClassroomCode(res.classroomCode);
         setStudents(data(res.students));
       })
-      .catch((error) => console.error(error));
-    setLoading(false);
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
 
     return classroomService.setCurrentClassUpdate('');
   }, [classroomService.currentClassUpdated]);
@@ -181,18 +181,8 @@ const ClassDetails = () => {
       }}
     >
       <GreetingBar template={`Class: ${classroomCode}`} />
-      <Table
-        style={{ margin: '0 3rem' }}
-        columns={columns}
-        loading={loading}
-        pagination={{
-          pageSize: 10,
-          position: ['bottomCenter'],
-        }}
-        dataSource={students}
-      />
       <div
-        style={{ display: 'flex', justifyContent: 'center', margin: '0 3rem' }}
+        style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
       >
         <StyledButton
           size="large"
@@ -216,6 +206,17 @@ const ClassDetails = () => {
           Delete Class
         </StyledButton>
       </div>
+      <Table
+        style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}
+        columns={columns}
+        loading={loading}
+        pagination={{
+          pageSize: 10,
+          position: ['topCenter'],
+        }}
+        dataSource={students}
+      />
+
       <Modal
         open={openModal}
         title="Password has been reset"

@@ -57,6 +57,18 @@ class ClassroomService {
     }
   }
 
+  async getClassroomFromStudent(headers, classroomCode) {
+    try {
+      const { data: response } = await axios.get(
+        `${Endpoints.getClassroomFromStudent}/${classroomCode}`,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateStudentInClassroom(headers, body) {
     try {
       const { data: response } = await axios.put(
@@ -108,10 +120,10 @@ class ClassroomService {
     }
   }
 
-  async deleteSingleStudent(headers, body) {
+  async deleteStudentFromClass(headers, body) {
     try {
       const { data: response } = await axios.put(
-        Endpoints.deleteSingleStudent,
+        Endpoints.deleteStudentFromClass,
         body,
         headers
       );
@@ -152,8 +164,26 @@ class ClassroomService {
         body,
         headers
       );
-      this.setCurrentClassUpdate(Date.now());
-      return response;
+      this.setCurrentClassUpdate(response.data.updatedOn);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteStudent(headers, studentId, classroomCode) {
+    const body = {
+      studentId,
+      classroomCode,
+    };
+    try {
+      const { data: response } = await axios.put(
+        Endpoints.deleteStudent,
+        body,
+        headers
+      );
+      this.setCurrentClassUpdate(response.data.updatedOn);
+      return response.data;
     } catch (error) {
       throw error;
     }

@@ -11,10 +11,12 @@ const {
   updateStudentData,
   addStudentToClassroom,
   deleteAllClassroomsByTeacher,
-  deleteSingleStudent,
+  deleteStudentFromClass,
   transferStudentToDifferentClassroom,
   deleteSingleClassroomByTeacher,
   createNewStudentInClassroom,
+  deleteStudent,
+  getClassroomFromStudent,
 } = require('../controllers/classrooms');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -23,6 +25,7 @@ router.get('/', getAllClassrooms);
 router.post('/', protect, authorizedAdult, createClassroom);
 router.get('/:adultid', protect, getAllClassroomsOfAdult);
 router.get('/single/:classid', protect, getSingleClassroom);
+router.get('/student/:classroomcode', protect, getClassroomFromStudent);
 router.put('/updateStudent', protect, updateStudentData);
 router.put('/addstudent', addStudentToClassroom);
 router.delete(
@@ -31,7 +34,7 @@ router.delete(
   authorizedAdult,
   deleteAllClassroomsByTeacher
 );
-router.put('/deletestudent', protect, deleteSingleStudent);
+router.put('/delete/studentinclass', protect, deleteStudentFromClass);
 router.put('/transferstudent', protect, transferStudentToDifferentClassroom);
 router.delete(
   '/delete/:classroomid',
@@ -45,5 +48,6 @@ router.put(
   authorizedAdult,
   createNewStudentInClassroom
 );
+router.put('/delete/student', protect, authorizedAdult, deleteStudent);
 
 module.exports = router;

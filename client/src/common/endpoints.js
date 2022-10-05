@@ -27,6 +27,7 @@ const Endpoints = {
   updateAvatar: `${URL_AUTH}/updateavatar`,
   getClassrooms: URL_CLASSROOMS,
   getSpecificClassroom: `${URL_CLASSROOMS}/single`,
+  getClassroomFromStudent: `${URL_CLASSROOMS}/student`,
   resetStudentPassword: URL_ADULT,
   getStudentInfo: URL_STUDENT,
   updateStudentByAdult: `${URL_ADULT}/updatestudent`,
@@ -34,10 +35,11 @@ const Endpoints = {
   addStudentToClassroom: `${URL_CLASSROOMS}/addstudent`,
   deleteAllClassroomsByTeacher: `${URL_CLASSROOMS}/deleteteacher`,
   deleteSelectedStudents: `${URL_AUTH}/deletestudents`,
-  deleteSingleStudent: `${URL_CLASSROOMS}/deletestudent`,
+  deleteStudentFromClass: `${URL_CLASSROOMS}/delete/studentinclass`,
   transferStudentToDifferentClass: `${URL_CLASSROOMS}/transferstudent`,
   deleteSingleClassroomByTeacher: `${URL_CLASSROOMS}/delete`,
   createNewStudentInClassroom: `${URL_CLASSROOMS}/createstudent`,
+  deleteStudent: `${URL_CLASSROOMS}/delete/student`,
 };
 
 export default Endpoints;

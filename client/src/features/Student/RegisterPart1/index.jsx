@@ -6,6 +6,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 
 const RegisterStudentPart1 = () => {
+  const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState([]);
   const { authService, classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
@@ -34,6 +35,7 @@ const RegisterStudentPart1 = () => {
   };
 
   const completeStudentData = (userData) => {
+    setLoading(true);
     try {
       authService.registerStudentPart1(userData);
       form.resetFields();
@@ -47,6 +49,8 @@ const RegisterStudentPart1 = () => {
         message: 'error',
         description: 'You made a mistake!',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -153,7 +157,12 @@ const RegisterStudentPart1 = () => {
         </Form.Item>
         <Form.Item register="true" style={{ textAlign: 'center' }}>
           <div>By signing up you agree to our terms and policies.</div>
-          <StyledButton larger="true" type="primary" htmlType="submit">
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
             Next Page
           </StyledButton>
           <div>

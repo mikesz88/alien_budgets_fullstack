@@ -13,9 +13,8 @@ import StyledButton from '../../../../components/PrimaryButton';
 const UpdateStudentProfile = ({ closeDrawer }) => {
   const { authService, updateService, classroomService } =
     useContext(UserContext);
-  const [currentClassroomCode, setCurrentClassroomCode] = useState(
-    authService.classroomCode
-  );
+  const [loading, setLoading] = useState(false);
+  const [currentClassroomCode] = useState(authService.classroomCode);
   const [form] = Form.useForm();
 
   const getAllClassCodes = useCallback(
@@ -34,6 +33,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
 
   // eslint-disable-next-line consistent-return
   const onFinish = (values) => {
+    setLoading(true);
     console.log(values);
     if (values.classroomCode) {
       if (!isValidClassCode(values.classroomCode)) {
@@ -93,7 +93,8 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
             message: 'Connection error',
             description: 'There was something wrong with the connection',
           })
-        );
+        )
+        .finally(() => setLoading(false));
     }
   };
   return (
@@ -151,7 +152,12 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
         <Input type="text" />
       </Form.Item>
       <Form.Item>
-        <StyledButton larger="true" type="primary" htmlType="submit">
+        <StyledButton
+          loading={loading}
+          larger="true"
+          type="primary"
+          htmlType="submit"
+        >
           Submit Changes
         </StyledButton>
       </Form.Item>
