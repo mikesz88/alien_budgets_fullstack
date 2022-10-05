@@ -153,7 +153,8 @@ const Routes = () => {
         exact
       />
       <Route
-        path="/challenge/play/:challengeId"
+        // path="/challenge/play/:challengeId"
+        path="/challenge/play"
         element={
           <ChallengeRoute>
             <Challenge />

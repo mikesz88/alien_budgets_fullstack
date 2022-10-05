@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import {
@@ -19,6 +20,11 @@ const GreetingBar = ({
 }) => {
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
+  const [randomGameNumber, setrandomGameNumber] = useState(null);
+
+  // useEffect(() => {
+  // using their classroom code, they are filtered by which game it randomly chosen for them.
+  // }, [])
 
   const backToHome = () =>
     authService.role === 'adult'
@@ -54,7 +60,8 @@ const GreetingBar = ({
             <StyledButton
               style={{ height: 'fit-content' }}
               type="text"
-              onClick={() => navigate('/challenge/play/')}
+              // onClick={() => navigate(`/challenge/play/${randomGameNumber}`)}
+              onClick={() => navigate(`/challenge/play`)}
             >
               Play Game
             </StyledButton>

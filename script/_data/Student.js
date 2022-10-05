@@ -33,6 +33,7 @@ const create250Students = (classes) => {
       forgotPasswordQuestions
     );
     const forgotPasswordAnswer = 'AlienBudgets123';
+    const score = faker.datatype.number({ max: 100000, min: 0 });
 
     students.push({
       firstName,
@@ -44,6 +45,7 @@ const create250Students = (classes) => {
       classroomCode,
       forgotPasswordQuestion,
       forgotPasswordAnswer,
+      score,
     });
   }
 

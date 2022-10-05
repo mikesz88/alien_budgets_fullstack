@@ -4,8 +4,9 @@ import { Table } from 'antd';
 import { useParams } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import { UserContext } from '../../../App';
-import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
+// import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
 import columns from './helper';
+import theme from '../../../theme';
 
 const TeacherClasses = () => {
   const { teacherId } = useParams();
@@ -32,7 +33,16 @@ const TeacherClasses = () => {
   }, []);
 
   return (
-    <StyledDashboardWrapper>
+    <div
+      style={{
+        backgroundColor: theme.colors.lightGrey,
+        width: '100vw',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '8rem 0',
+      }}
+    >
       <GreetingBar template="My Classes" />
       <Table
         style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}
@@ -41,7 +51,7 @@ const TeacherClasses = () => {
         dataSource={classrooms}
         loading={loading}
       />
-    </StyledDashboardWrapper>
+    </div>
   );
 };
 

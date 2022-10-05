@@ -44,4 +44,22 @@ export const StyledButton = styled(Button)`
   font-family: ${({ theme }) => theme.fontFamily.creepster};
   font-size: 40px;
   color: ${({ theme }) => theme.colors.white};
+
+  &:hover {
+    /* background-color: ${({ theme }) => theme.colors.yellow}; */
+    /* border-color: ${({ theme }) => theme.colors.yellow}; */
+    color: ${({ theme }) => theme.colors.yellow};
+  }
+
+  &:focus {
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  &:active {
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  &:visited {
+    color: ${({ theme }) => theme.colors.white};
+  }
 `;

@@ -50,11 +50,16 @@ exports.getSingleClassroom = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/classrooms/student/:classroomcode
 // @access PRIVATE
 exports.getClassroomFromStudent = asyncHandler(async (req, res, next) => {
-  const classroom = await Classroom.findOne({ _id: req.params.classroomcode });
+  const classroom = await Classroom.findOne({
+    classroomCode: req.params.classroomcode,
+  });
 
   if (!classroom) {
     return next(
-      new ErrorResponse(`There is no class with id ${req.params.classid}`, 404)
+      new ErrorResponse(
+        `There is no class with code ${req.params.classroomcode}`,
+        404
+      )
     );
   }
 

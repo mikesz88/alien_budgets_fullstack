@@ -27,16 +27,26 @@ const ClassDetails = () => {
   const navigate = useNavigate();
 
   const data = (studentsInClass) =>
-    studentsInClass.map((student) => ({
-      key: student._id,
-      avatar: [student.avatarColor, student.avatarURL],
-      firstName: student.firstName,
-      lastInitial: student.lastInitial,
-      username: student.username,
-      password: student._id,
-      score: student.score,
-      editStudent: student._id,
-    }));
+    studentsInClass
+      .map((student) => ({
+        key: student._id,
+        avatar: [student.avatarColor, student.avatarURL],
+        firstName: student.firstName,
+        lastInitial: student.lastInitial,
+        username: student.username,
+        password: student._id,
+        score: student.score,
+        editStudent: student._id,
+      }))
+      .sort((a, z) => {
+        if (a.username < z.username) {
+          return -1;
+        }
+        if (a.username > z.username) {
+          return 1;
+        }
+        return 0;
+      });
 
   useEffect(() => {
     setLoading(true);
@@ -152,6 +162,8 @@ const ClassDetails = () => {
       key: 'score',
       width: '14%',
       align: 'center',
+      sorter: (a, b) => a.score - b.score,
+      sortDirections: ['descend'],
     },
     {
       title: 'Edit Student',
@@ -175,6 +187,8 @@ const ClassDetails = () => {
     <div
       style={{
         backgroundColor: theme.colors.lightGrey,
+        width: '100vw',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         padding: '8rem 0',
