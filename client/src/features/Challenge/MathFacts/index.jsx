@@ -1,7 +1,15 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
 import { Input } from 'antd';
+import { UserContext } from '../../../App';
 
 const MathFacts = () => {
+  const { gameService, updateService } = useContext(UserContext);
   const inputRef = useRef(true);
   const [firstNumber, setFirstNumber] = useState(null);
   const [secondNumber, setSecondNumber] = useState(null);
@@ -50,11 +58,20 @@ const MathFacts = () => {
     inputRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    if (count === 20) {
+      console.log(percentages);
+      gameService.setPushMathFactResult(`${percentages}%`);
+      updateService();
+      console.log(gameService.getMathFactResults());
+    }
+  }, [count === 20]);
+
   return (
     <>
       {count < 20 && (
         <>
-          <div>Questions left: {20 - count}</div>
+          <h1 style={{ textAlign: 'center' }}>Questions left: {20 - count}</h1>
           <div
             style={{
               border: '1px solid transparent',
@@ -64,7 +81,7 @@ const MathFacts = () => {
               height: '300px',
               fontSize: '3rem',
               padding: '0rem 3rem',
-              margin: 'auto',
+              margin: '2rem auto',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
