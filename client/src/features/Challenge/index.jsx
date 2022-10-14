@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import GreetingBar from '../../components/GreetingBar';
 import theme from '../../theme';
@@ -10,14 +11,14 @@ const Challenge = () => {
   const [openMathFacts, setOpenMathFacts] = useState(false);
   const [openBattleShips, setOpenBattleShips] = useState(false);
 
+  // useEffect(() => {
+  //   setOpenMathFacts(false);
+  //   setOpenBattleShips(true);
+  // }, [gameService.mathFactResults.length]);
+
   useEffect(() => {
     setOpenMathFacts(false);
     setOpenBattleShips(true);
-  }, [gameService.mathFactResults.length]);
-
-  useEffect(() => {
-    setOpenMathFacts(true);
-    setOpenBattleShips(false);
   }, []);
 
   return (
