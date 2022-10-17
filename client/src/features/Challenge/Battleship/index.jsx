@@ -5,11 +5,11 @@ import Header from './Header';
 
 import './css/style.css';
 
-const Battleship = () => (
-  <>
+const Battleship = ({ changeView }) => (
+  <div onContextMenu={(e) => e.preventDefault()}>
     <Header />
-    <Game />
-  </>
+    <Game changeView={changeView} />
+  </div>
 );
 
 // {

@@ -5,11 +5,35 @@ import theme from '../../theme';
 import MathFacts from './MathFacts';
 import { UserContext } from '../../App';
 import Battleship from './Battleship';
+import Template from './Template';
 
 const Challenge = () => {
   const { gameService } = useContext(UserContext);
   const [openMathFacts, setOpenMathFacts] = useState(false);
   const [openBattleShips, setOpenBattleShips] = useState(false);
+  const [openTemplate, setOpenTemplate] = useState(false);
+
+  const changeView = (view) => {
+    switch (view) {
+      case 'mathFacts':
+        setOpenBattleShips(false);
+        setOpenTemplate(false);
+        setOpenMathFacts(true);
+        break;
+      case 'battleships':
+        setOpenTemplate(false);
+        setOpenMathFacts(false);
+        setOpenBattleShips(true);
+        break;
+      case 'template':
+        setOpenBattleShips(false);
+        setOpenMathFacts(false);
+        setOpenTemplate(true);
+        break;
+      default:
+        break;
+    }
+  };
 
   // useEffect(() => {
   //   setOpenMathFacts(false);
@@ -17,8 +41,9 @@ const Challenge = () => {
   // }, [gameService.mathFactResults.length]);
 
   useEffect(() => {
-    setOpenMathFacts(false);
-    setOpenBattleShips(true);
+    setOpenTemplate(false);
+    setOpenBattleShips(false);
+    setOpenMathFacts(true);
   }, []);
 
   return (
@@ -33,8 +58,9 @@ const Challenge = () => {
       }}
     >
       <GreetingBar template="Game Time!" />
-      {openMathFacts ? <MathFacts /> : null}
-      {openBattleShips ? <Battleship /> : null}
+      {openMathFacts ? <MathFacts changeView={changeView} /> : null}
+      {openBattleShips ? <Battleship changeView={changeView} /> : null}
+      {openTemplate ? <Template changeView={changeView} /> : null}
     </div>
   );
 };

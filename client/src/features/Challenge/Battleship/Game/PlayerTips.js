@@ -7,6 +7,7 @@ const PlayerTips = ({
   hitsByPlayer,
   hitsByComputer,
   winner,
+  changeView,
 }) => {
   const numberOfHits = hitsByPlayer.length;
   const numberOfSuccessfulHits = hitsByPlayer.filter(
@@ -19,6 +20,8 @@ const PlayerTips = ({
     (hit) => hit.type === 'hit'
   ).length;
 
+  const backToGame = () => changeView('template');
+
   const gameOverPanel = (
     <div>
       <div className="tip-box-title">Game Over!</div>
@@ -27,6 +30,9 @@ const PlayerTips = ({
           ? 'You win! 🎉'
           : 'You lose 😭. Better luck next time! '}
       </p>
+      <button type="button" onClick={backToGame}>
+        Advance to the next month
+      </button>
     </div>
   );
 

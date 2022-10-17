@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable no-param-reassign */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import GameView from './GameView';
 import {
   placeAllComputerShips,
@@ -13,6 +13,7 @@ import {
   updateSunkShips,
   coordsToIndex,
 } from './layoutHelpers';
+import { UserContext } from '../../../../App';
 
 const AVAILABLE_SHIPS = [
   {
@@ -42,7 +43,8 @@ const AVAILABLE_SHIPS = [
   },
 ];
 
-const Game = () => {
+const Game = ({ changeView }) => {
+  const { gameService, updateService } = useContext(UserContext);
   const [gameState, setGameState] = useState('placement');
   const [winner, setWinner] = useState(null);
 
@@ -53,9 +55,17 @@ const Game = () => {
   const [hitsByPlayer, setHitsByPlayer] = useState([]);
   const [hitsByComputer, setHitsByComputer] = useState([]);
 
-  console.log('computer ships =>', computerShips);
-  console.log('available ships =>', availableShips);
-  console.log('placed ships =>', placedShips);
+  const updateBattleshipResult = () => {
+    console.log('test');
+    const score =
+      computerShips.filter((ship) => ship.sunk).length -
+      placedShips.filter((ship) => ship.sunk).length;
+    gameService.setPushBattleshipResult(score);
+    gameService.nextMonth();
+    updateService();
+    console.log('score =>', gameService.getBattleshipResults());
+    console.log('month =>', gameService.month);
+  };
 
   const sunkSoundRef = useRef(null);
   const clickSoundRef = useRef(null);
@@ -249,6 +259,7 @@ const Game = () => {
 
     if (successfulComputerHits === 17 || successfulPlayerHits === 17) {
       setGameState('game-over');
+      updateBattleshipResult();
 
       if (successfulComputerHits === 17) {
         setWinner('computer');
@@ -312,6 +323,7 @@ const Game = () => {
         winner={winner}
         setComputerShips={setComputerShips}
         playSound={playSound}
+        changeView={changeView}
       />
     </>
   );

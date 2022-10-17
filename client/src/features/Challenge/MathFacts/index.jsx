@@ -8,7 +8,7 @@ import React, {
 import { Input } from 'antd';
 import { UserContext } from '../../../App';
 
-const MathFacts = () => {
+const MathFacts = ({ changeView }) => {
   const { gameService, updateService } = useContext(UserContext);
   const inputRef = useRef(true);
   const [firstNumber, setFirstNumber] = useState(null);
@@ -62,8 +62,11 @@ const MathFacts = () => {
     if (count === 20) {
       console.log(percentages);
       gameService.setPushMathFactResult(`${percentages}%`);
+      gameService.nextMonth();
       updateService();
+      changeView('template');
       console.log(gameService.getMathFactResults());
+      console.log(gameService.month);
     }
   }, [count === 20]);
 

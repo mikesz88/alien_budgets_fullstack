@@ -22,6 +22,22 @@ class GameService {
   getMathFactResults() {
     return this.mathFactResults;
   }
+
+  setPushBattleshipResult(score) {
+    this.battleshipResults.push(score);
+  }
+
+  getBattleshipResults() {
+    return this.battleshipResults;
+  }
+
+  nextMonth() {
+    this.month += 1;
+
+    // if (this.month = 12) {
+    //   // add end of game here.
+    // }
+  }
 }
 
 export default GameService;

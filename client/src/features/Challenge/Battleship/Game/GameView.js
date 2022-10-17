@@ -26,6 +26,7 @@ const GameView = ({
   winner,
   setComputerShips,
   playSound,
+  changeView,
 }) => (
   <section id="game-screen">
     {gameState !== 'placement' ? (
@@ -34,6 +35,7 @@ const GameView = ({
         hitsByPlayer={hitsByPlayer}
         hitsByComputer={hitsByComputer}
         winner={winner}
+        changeView={changeView}
       />
     ) : (
       <PlayerFleet
