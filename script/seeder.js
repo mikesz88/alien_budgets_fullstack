@@ -15,6 +15,8 @@ const Student = require('../server/models/Student');
 const Avatar = require('../server/models/Avatar');
 const ForgotQuestion = require('../server/models/ForgotQuestion');
 const Classroom = require('../server/models/Classroom');
+const Job = require('../server/models/Job');
+const Dwelling = require('../server/models/Dwelling');
 
 // Connect DB
 mongoose.connect(process.env.MONGO_URI, {
@@ -26,6 +28,10 @@ mongoose.connect(process.env.MONGO_URI, {
 const avatars = JSON.parse(fs.readFileSync(`${__dirname}/_data/Avatar.json`));
 const forgotQuestionList = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/ForgotQuestionList.json`)
+);
+const jobs = JSON.parse(fs.readFileSync(`${__dirname}/_data/JobList.json`));
+const dwellings = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/Dwelling.json`)
 );
 
 // Create Classes
@@ -50,9 +56,11 @@ const importAdults = async () => {
   try {
     // await ForgotQuestion.create(forgotQuestionList);
     // await Avatar.create(avatars);
-    await Adult.create(adults);
-    await Student.create(students);
-    await createClassrooms();
+    // await Adult.create(adults);
+    // await Student.create(students);
+    // await createClassrooms();
+    // await Job.create(jobs);
+    await Dwelling.create(dwellings);
     console.log('data imported...');
     process.exit();
   } catch (error) {
@@ -65,9 +73,11 @@ const deleteAdults = async () => {
   try {
     // await ForgotQuestion.deleteMany();
     // await Avatar.deleteMany();
-    await Classroom.deleteMany();
-    await Adult.deleteMany();
-    await Student.deleteMany();
+    // await Classroom.deleteMany();
+    // await Adult.deleteMany();
+    // await Student.deleteMany();
+    // await Job.deleteMany();
+    await Dwelling.deleteMany();
     console.log('data deleted...');
     process.exit();
   } catch (error) {

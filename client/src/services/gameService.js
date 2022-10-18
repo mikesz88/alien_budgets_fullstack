@@ -7,7 +7,7 @@ class GameService {
   constructor() {
     this.mathFactResults = [];
     this.battleshipResults = [];
-    this.month = 1;
+    this.month = 0;
     this.job = '';
     this.salary = 0;
     this.liveInHouseHold = 0;
@@ -37,6 +37,35 @@ class GameService {
     // if (this.month = 12) {
     //   // add end of game here.
     // }
+  }
+
+  async getRandomJob() {
+    try {
+      const { data: response } = await axios.get(Endpoints.getJob);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllDwellings() {
+    try {
+      const { data: response } = await axios.get(Endpoints.getDwellings);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getDwellingById(dwellingId) {
+    try {
+      const { data: response } = await axios.get(
+        `${Endpoints.getDwellings}/${dwellingId}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

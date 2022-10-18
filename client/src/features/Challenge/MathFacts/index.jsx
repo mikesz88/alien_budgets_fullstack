@@ -60,11 +60,11 @@ const MathFacts = ({ changeView }) => {
 
   useEffect(() => {
     if (count === 20) {
-      console.log(percentages);
-      gameService.setPushMathFactResult(`${percentages}%`);
+      gameService.setPushMathFactResult(percentages);
       gameService.nextMonth();
       updateService();
       changeView('template');
+      console.log(percentages);
       console.log(gameService.getMathFactResults());
       console.log(gameService.month);
     }

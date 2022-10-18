@@ -41,9 +41,9 @@ const Challenge = () => {
   // }, [gameService.mathFactResults.length]);
 
   useEffect(() => {
-    setOpenTemplate(false);
     setOpenBattleShips(false);
-    setOpenMathFacts(true);
+    setOpenMathFacts(false);
+    setOpenTemplate(true);
   }, []);
 
   return (

@@ -8,6 +8,8 @@ const URL_ADULT = `${BASE_URL}/adults`;
 const URL_AVATAR = `${BASE_URL}/avatars`;
 const URL_CLASSROOMS = `${BASE_URL}/classrooms`;
 const URL_FORGOT_QUESTION = `${BASE_URL}/forgotquestions`;
+const URL_JOB = `${BASE_URL}/jobs`;
+const URL_DWELLING = `${BASE_URL}/dwellings`;
 
 const Endpoints = {
   getAvatars: URL_AVATAR,
@@ -40,6 +42,8 @@ const Endpoints = {
   deleteSingleClassroomByTeacher: `${URL_CLASSROOMS}/delete`,
   createNewStudentInClassroom: `${URL_CLASSROOMS}/createstudent`,
   deleteStudent: `${URL_CLASSROOMS}/delete/student`,
+  getJob: URL_JOB,
+  getDwellings: URL_DWELLING,
 };
 
 export default Endpoints;

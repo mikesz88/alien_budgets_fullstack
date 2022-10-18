@@ -1,0 +1,3757 @@
+[
+  {
+    "jobTitle": "Chief Executive",
+    "hourlyAverage": 102.41,
+    "salaryAverage": 213020
+  },
+  {
+    "jobTitle": "General and Operations Manager",
+    "hourlyAverage": 55.41,
+    "salaryAverage": 115250
+  },
+  {
+    "jobTitle": "Legislator",
+    "hourlyAverage": 27.46,
+    "salaryAverage": 57110
+  },
+  {
+    "jobTitle": "Advertising and Promotions Manager",
+    "hourlyAverage": 68.68,
+    "salaryAverage": 142860
+  },
+  {
+    "jobTitle": "Marketing Manager",
+    "hourlyAverage": 73.77,
+    "salaryAverage": 153440
+  },
+  {
+    "jobTitle": "Sales Manager",
+    "hourlyAverage": 68.46,
+    "salaryAverage": 142390
+  },
+  {
+    "jobTitle": "Public Relations Manager",
+    "hourlyAverage": 66.35,
+    "salaryAverage": 138000
+  },
+  {
+    "jobTitle": "Fundraising Manager",
+    "hourlyAverage": 57.4,
+    "salaryAverage": 119400
+  },
+  {
+    "jobTitle": "Administrative Services Manager",
+    "hourlyAverage": 54.34,
+    "salaryAverage": 113030
+  },
+  {
+    "jobTitle": "Facilities Manager",
+    "hourlyAverage": 49.03,
+    "salaryAverage": 101970
+  },
+  {
+    "jobTitle": "Computer and Information Systems Manager",
+    "hourlyAverage": 78.33,
+    "salaryAverage": 162930
+  },
+  {
+    "jobTitle": "Financial Manager",
+    "hourlyAverage": 73.78,
+    "salaryAverage": 153460
+  },
+  {
+    "jobTitle": "Industrial Production Manager",
+    "hourlyAverage": 56.62,
+    "salaryAverage": 117780
+  },
+  {
+    "jobTitle": "Purchasing Manager",
+    "hourlyAverage": 64.71,
+    "salaryAverage": 134590
+  },
+  {
+    "jobTitle": "Transportation, Storage, and Distribution Manager",
+    "hourlyAverage": 50.76,
+    "salaryAverage": 105580
+  },
+  {
+    "jobTitle": "Compensation and Benefits Manager",
+    "hourlyAverage": 67.05,
+    "salaryAverage": 139470
+  },
+  {
+    "jobTitle": "Human Resources Manager",
+    "hourlyAverage": 65.67,
+    "salaryAverage": 136590
+  },
+  {
+    "jobTitle": "Training and Development Manager",
+    "hourlyAverage": 61.92,
+    "salaryAverage": 128800
+  },
+  {
+    "jobTitle": "Farmers, Ranchers, and Other Agricultural Manager",
+    "hourlyAverage": 37.71,
+    "salaryAverage": 78440
+  },
+  {
+    "jobTitle": "Construction Manager",
+    "hourlyAverage": 52.02,
+    "salaryAverage": 108210
+  },
+  {
+    "jobTitle": "Education and Childcare Administrator, Preschool and Daycare",
+    "hourlyAverage": 25.87,
+    "salaryAverage": 53800
+  },
+  {
+    "jobTitle": "Education Administrator, Kindergarten through Secondary",
+    "hourlyAverage": 49.35,
+    "salaryAverage": 102650
+  },
+  {
+    "jobTitle": "Education Administrator, Postsecondary",
+    "hourlyAverage": 53.49,
+    "salaryAverage": 111260
+  },
+  {
+    "jobTitle": "Education Administrator, All Other",
+    "hourlyAverage": 45.54,
+    "salaryAverage": 94730
+  },
+  {
+    "jobTitle": "Architectural and Engineering Manager",
+    "hourlyAverage": 76.43,
+    "salaryAverage": 158970
+  },
+  {
+    "jobTitle": "Food Service Manager",
+    "hourlyAverage": 30.75,
+    "salaryAverage": 63970
+  },
+  {
+    "jobTitle": "Gambling Manager",
+    "hourlyAverage": 42.88,
+    "salaryAverage": 89190
+  },
+  {
+    "jobTitle": "Entertainment and Recreation Manager, Except Gambling",
+    "hourlyAverage": 35.48,
+    "salaryAverage": 73810
+  },
+  {
+    "jobTitle": "Lodging Manager",
+    "hourlyAverage": 32.58,
+    "salaryAverage": 67770
+  },
+  {
+    "jobTitle": "Medical and Health Services Manager",
+    "hourlyAverage": 57.61,
+    "salaryAverage": 119840
+  },
+  {
+    "jobTitle": "Natural Sciences Manager",
+    "hourlyAverage": 75.05,
+    "salaryAverage": 156110
+  },
+  {
+    "jobTitle": "Postmasters and Mail Superintendent",
+    "hourlyAverage": 39.34,
+    "salaryAverage": 81820
+  },
+  {
+    "jobTitle": "Property, Real Estate, and Community Association Manager",
+    "hourlyAverage": 33.67,
+    "salaryAverage": 70030
+  },
+  {
+    "jobTitle": "Social and Community Service Manager",
+    "hourlyAverage": 36.92,
+    "salaryAverage": 76790
+  },
+  {
+    "jobTitle": "Emergency Management Director",
+    "hourlyAverage": 40.77,
+    "salaryAverage": 84800
+  },
+  {
+    "jobTitle": "Funeral Home Manager",
+    "hourlyAverage": 39.86,
+    "salaryAverage": 82900
+  },
+  {
+    "jobTitle": "Personal Service Manager, All Other",
+    "hourlyAverage": 28.65,
+    "salaryAverage": 59580
+  },
+  {
+    "jobTitle": "Manager, All Other",
+    "hourlyAverage": 62.36,
+    "salaryAverage": 129710
+  },
+  {
+    "jobTitle": "Agent and Business Manager of Artists, Performers, and Athletes",
+    "hourlyAverage": 55.97,
+    "salaryAverage": 116410
+  },
+  {
+    "jobTitle": "Buyers and Purchasing Agent",
+    "hourlyAverage": 34.88,
+    "salaryAverage": 72540
+  },
+  {
+    "jobTitle": "Claims Adjuster, Examiner, and Investigator",
+    "hourlyAverage": 34.11,
+    "salaryAverage": 70960
+  },
+  {
+    "jobTitle": "Insurance Appraiser, Auto Damage",
+    "hourlyAverage": 32.78,
+    "salaryAverage": 68180
+  },
+  {
+    "jobTitle": "Compliance Officer",
+    "hourlyAverage": 36.45,
+    "salaryAverage": 75810
+  },
+  {
+    "jobTitle": "Cost Estimator",
+    "hourlyAverage": 35.45,
+    "salaryAverage": 73740
+  },
+  {
+    "jobTitle": "Human Resources Specialist",
+    "hourlyAverage": 34.0,
+    "salaryAverage": 70720
+  },
+  {
+    "jobTitle": "Farm Labor Contractor",
+    "hourlyAverage": 26.16,
+    "salaryAverage": 54400
+  },
+  {
+    "jobTitle": "Labor Relations Specialist",
+    "hourlyAverage": 37.05,
+    "salaryAverage": 77070
+  },
+  {
+    "jobTitle": "Logistician",
+    "hourlyAverage": 38.09,
+    "salaryAverage": 79230
+  },
+  {
+    "jobTitle": "Project Management Specialist",
+    "hourlyAverage": 47.32,
+    "salaryAverage": 98420
+  },
+  {
+    "jobTitle": "Management Analyst",
+    "hourlyAverage": 48.33,
+    "salaryAverage": 100530
+  },
+  {
+    "jobTitle": "Meeting, Convention, and Event Planner",
+    "hourlyAverage": 27.81,
+    "salaryAverage": 57850
+  },
+  {
+    "jobTitle": "Fundraiser",
+    "hourlyAverage": 31.19,
+    "salaryAverage": 64870
+  },
+  {
+    "jobTitle": "Compensation, Benefits, and Job Analysis Specialist",
+    "hourlyAverage": 35.49,
+    "salaryAverage": 73810
+  },
+  {
+    "jobTitle": "Training and Development Specialist",
+    "hourlyAverage": 32.51,
+    "salaryAverage": 67620
+  },
+  {
+    "jobTitle": "Market Research Analyst and Marketing Specialist",
+    "hourlyAverage": 36.58,
+    "salaryAverage": 76080
+  },
+  {
+    "jobTitle": "Business Operations Specialist, All Other",
+    "hourlyAverage": 38.1,
+    "salaryAverage": 79240
+  },
+  {
+    "jobTitle": "Accountant and Auditor",
+    "hourlyAverage": 40.37,
+    "salaryAverage": 83980
+  },
+  {
+    "jobTitle": "Property Appraiser and Assessor",
+    "hourlyAverage": 33.68,
+    "salaryAverage": 70050
+  },
+  {
+    "jobTitle": "Budget Analyst",
+    "hourlyAverage": 40.5,
+    "salaryAverage": 84240
+  },
+  {
+    "jobTitle": "Credit Analyst",
+    "hourlyAverage": 42.32,
+    "salaryAverage": 88030
+  },
+  {
+    "jobTitle": "Financial and Investment Analyst",
+    "hourlyAverage": 49.53,
+    "salaryAverage": 103020
+  },
+  {
+    "jobTitle": "Personal Financial Advisor",
+    "hourlyAverage": 57.67,
+    "salaryAverage": 119960
+  },
+  {
+    "jobTitle": "Insurance Underwriter",
+    "hourlyAverage": 38.43,
+    "salaryAverage": 79940
+  },
+  {
+    "jobTitle": "Financial Risk Specialist",
+    "hourlyAverage": 53.18,
+    "salaryAverage": 110610
+  },
+  {
+    "jobTitle": "Financial Examiner",
+    "hourlyAverage": 46.24,
+    "salaryAverage": 96180
+  },
+  {
+    "jobTitle": "Credit Counselor",
+    "hourlyAverage": 24.25,
+    "salaryAverage": 50430
+  },
+  {
+    "jobTitle": "Loan Officer",
+    "hourlyAverage": 38.74,
+    "salaryAverage": 80570
+  },
+  {
+    "jobTitle": "Tax Examiner and Collector, and Revenue Agent",
+    "hourlyAverage": 30.38,
+    "salaryAverage": 63200
+  },
+  {
+    "jobTitle": "Tax Preparer",
+    "hourlyAverage": 24.56,
+    "salaryAverage": 51080
+  },
+  {
+    "jobTitle": "Financial Specialist, All Other",
+    "hourlyAverage": 38.64,
+    "salaryAverage": 80370
+  },
+  {
+    "jobTitle": "Information Security Analyst",
+    "hourlyAverage": 54.46,
+    "salaryAverage": 113270
+  },
+  {
+    "jobTitle": "Computer and Information Research Scientist",
+    "hourlyAverage": 68.58,
+    "salaryAverage": 142650
+  },
+  {
+    "jobTitle": "Computer Network Support Specialist",
+    "hourlyAverage": 34.3,
+    "salaryAverage": 71350
+  },
+  {
+    "jobTitle": "Computer User Support Specialist",
+    "hourlyAverage": 27.72,
+    "salaryAverage": 57650
+  },
+  {
+    "jobTitle": "Computer Network Architect",
+    "hourlyAverage": 58.01,
+    "salaryAverage": 120650
+  },
+  {
+    "jobTitle": "Database Administrator",
+    "hourlyAverage": 46.42,
+    "salaryAverage": 96550
+  },
+  {
+    "jobTitle": "Database Architect",
+    "hourlyAverage": 58.58,
+    "salaryAverage": 121840
+  },
+  {
+    "jobTitle": "Network and Computer Systems Administrator",
+    "hourlyAverage": 43.87,
+    "salaryAverage": 91250
+  },
+  {
+    "jobTitle": "Computer Programmer",
+    "hourlyAverage": 46.46,
+    "salaryAverage": 96650
+  },
+  {
+    "jobTitle": "Software Developer",
+    "hourlyAverage": 58.17,
+    "salaryAverage": 120990
+  },
+  {
+    "jobTitle": "Software Quality Assurance Analysts and Tester",
+    "hourlyAverage": 46.97,
+    "salaryAverage": 97710
+  },
+  {
+    "jobTitle": "Web Developer",
+    "hourlyAverage": 39.09,
+    "salaryAverage": 81320
+  },
+  {
+    "jobTitle": "Web and Digital Interface Designer",
+    "hourlyAverage": 45.9,
+    "salaryAverage": 95460
+  },
+  {
+    "jobTitle": "Computer Occupation, All Other",
+    "hourlyAverage": 47.2,
+    "salaryAverage": 98180
+  },
+  {
+    "jobTitle": "Actuary",
+    "hourlyAverage": 60.24,
+    "salaryAverage": 125300
+  },
+  {
+    "jobTitle": "Mathematician",
+    "hourlyAverage": 54.05,
+    "salaryAverage": 112430
+  },
+  {
+    "jobTitle": "Operations Research Analyst",
+    "hourlyAverage": 46.07,
+    "salaryAverage": 95830
+  },
+  {
+    "jobTitle": "Statistician",
+    "hourlyAverage": 47.81,
+    "salaryAverage": 99450
+  },
+  {
+    "jobTitle": "Data Scientist",
+    "hourlyAverage": 52.24,
+    "salaryAverage": 108660
+  },
+  {
+    "jobTitle": "Mathematical Science Occupation, All Other",
+    "hourlyAverage": 37.48,
+    "salaryAverage": 77960
+  },
+  {
+    "jobTitle": "Architect, Except Landscape and Naval",
+    "hourlyAverage": 44.19,
+    "salaryAverage": 91900
+  },
+  {
+    "jobTitle": "Cartographer",
+    "hourlyAverage": 35.34,
+    "salaryAverage": 73510
+  },
+  {
+    "jobTitle": "Surveyor",
+    "hourlyAverage": 33.12,
+    "salaryAverage": 68880
+  },
+  {
+    "jobTitle": "Aerospace Engineer",
+    "hourlyAverage": 59.12,
+    "salaryAverage": 122970
+  },
+  {
+    "jobTitle": "Agricultural Engineer",
+    "hourlyAverage": 41.99,
+    "salaryAverage": 87350
+  },
+  {
+    "jobTitle": "Bioengineer and Biomedical Engineer",
+    "hourlyAverage": 48.57,
+    "salaryAverage": 101020
+  },
+  {
+    "jobTitle": "Chemical Engineer",
+    "hourlyAverage": 58.58,
+    "salaryAverage": 121840
+  },
+  {
+    "jobTitle": "Civil Engineer",
+    "hourlyAverage": 45.91,
+    "salaryAverage": 95490
+  },
+  {
+    "jobTitle": "Computer Hardware Engineer",
+    "hourlyAverage": 65.5,
+    "salaryAverage": 136230
+  },
+  {
+    "jobTitle": "Electrical Engineer",
+    "hourlyAverage": 51.87,
+    "salaryAverage": 107890
+  },
+  {
+    "jobTitle": "Electronics Engineer, Except Computer",
+    "hourlyAverage": 55.53,
+    "salaryAverage": 115490
+  },
+  {
+    "jobTitle": "Environmental Engineer",
+    "hourlyAverage": 48.18,
+    "salaryAverage": 100220
+  },
+  {
+    "jobTitle": "Health and Safety Engineer, Except Mining Safety Engineers and Inspectors",
+    "hourlyAverage": 47.93,
+    "salaryAverage": 99700
+  },
+  {
+    "jobTitle": "Industrial Engineer",
+    "hourlyAverage": 45.77,
+    "salaryAverage": 95200
+  },
+  {
+    "jobTitle": "Marine Engineer and Naval Architect",
+    "hourlyAverage": 47.03,
+    "salaryAverage": 97820
+  },
+  {
+    "jobTitle": "Materials Engineer",
+    "hourlyAverage": 49.02,
+    "salaryAverage": 101950
+  },
+  {
+    "jobTitle": "Mechanical Engineer",
+    "hourlyAverage": 46.64,
+    "salaryAverage": 97000
+  },
+  {
+    "jobTitle": "Mining and Geological Engineer, Including Mining Safety Engineer",
+    "hourlyAverage": 48.29,
+    "salaryAverage": 100450
+  },
+  {
+    "jobTitle": "Nuclear Engineer",
+    "hourlyAverage": 58.54,
+    "salaryAverage": 121760
+  },
+  {
+    "jobTitle": "Petroleum Engineer",
+    "hourlyAverage": 70.06,
+    "salaryAverage": 145720
+  },
+  {
+    "jobTitle": "Engineer, All Other",
+    "hourlyAverage": 51.83,
+    "salaryAverage": 107800
+  },
+  {
+    "jobTitle": "Architectural and Civil Drafter",
+    "hourlyAverage": 29.14,
+    "salaryAverage": 60620
+  },
+  {
+    "jobTitle": "Electrical and Electronics Drafter",
+    "hourlyAverage": 32.26,
+    "salaryAverage": 67090
+  },
+  {
+    "jobTitle": "Mechanical Drafter",
+    "hourlyAverage": 30.12,
+    "salaryAverage": 62650
+  },
+  {
+    "jobTitle": "Drafter, All Other",
+    "hourlyAverage": 28.04,
+    "salaryAverage": 58330
+  },
+  {
+    "jobTitle": "Aerospace Engineering and Operations Technologist and Technician",
+    "hourlyAverage": 35.34,
+    "salaryAverage": 73510
+  },
+  {
+    "jobTitle": "Civil Engineering Technologist and Technician",
+    "hourlyAverage": 27.89,
+    "salaryAverage": 58000
+  },
+  {
+    "jobTitle": "Electrical and Electronic Engineering Technologist and Technician",
+    "hourlyAverage": 33.21,
+    "salaryAverage": 69070
+  },
+  {
+    "jobTitle": "Electro-Mechanical and Mechatronic Technologists and Technician",
+    "hourlyAverage": 30.71,
+    "salaryAverage": 63880
+  },
+  {
+    "jobTitle": "Environmental Engineering Technologist and Technician",
+    "hourlyAverage": 27.21,
+    "salaryAverage": 56590
+  },
+  {
+    "jobTitle": "Industrial Engineering Technologist and Technician",
+    "hourlyAverage": 29.44,
+    "salaryAverage": 61230
+  },
+  {
+    "jobTitle": "Mechanical Engineering Technologist and Technician",
+    "hourlyAverage": 30.47,
+    "salaryAverage": 63390
+  },
+  {
+    "jobTitle": "Calibration Technologist and Technician",
+    "hourlyAverage": 30.19,
+    "salaryAverage": 62800
+  },
+  {
+    "jobTitle": "Engineering Technologist and Technician, Except Drafters, All Other",
+    "hourlyAverage": 32.83,
+    "salaryAverage": 68290
+  },
+  {
+    "jobTitle": "Surveying and Mapping Technician",
+    "hourlyAverage": 23.95,
+    "salaryAverage": 49810
+  },
+  {
+    "jobTitle": "Animal Scientist",
+    "hourlyAverage": 38.65,
+    "salaryAverage": 80390
+  },
+  {
+    "jobTitle": "Food Scientists and Technologist",
+    "hourlyAverage": 40.46,
+    "salaryAverage": 84150
+  },
+  {
+    "jobTitle": "Biochemists and Biophysicist",
+    "hourlyAverage": 54.55,
+    "salaryAverage": 113460
+  },
+  {
+    "jobTitle": "Microbiologist",
+    "hourlyAverage": 42.22,
+    "salaryAverage": 87820
+  },
+  {
+    "jobTitle": "Zoologists and Wildlife Biologist",
+    "hourlyAverage": 33.8,
+    "salaryAverage": 70300
+  },
+  {
+    "jobTitle": "Biological Scientist, All Other",
+    "hourlyAverage": 43.27,
+    "salaryAverage": 90010
+  },
+  {
+    "jobTitle": "Conservation Scientist",
+    "hourlyAverage": 32.81,
+    "salaryAverage": 68230
+  },
+  {
+    "jobTitle": "Forester",
+    "hourlyAverage": 32.56,
+    "salaryAverage": 67710
+  },
+  {
+    "jobTitle": "Epidemiologist",
+    "hourlyAverage": 41.7,
+    "salaryAverage": 86740
+  },
+  {
+    "jobTitle": "Medical Scientist, Except Epidemiologist",
+    "hourlyAverage": 50.02,
+    "salaryAverage": 104050
+  },
+  {
+    "jobTitle": "Life Scientist, All Other",
+    "hourlyAverage": 45.4,
+    "salaryAverage": 94430
+  },
+  {
+    "jobTitle": "Astronomer",
+    "hourlyAverage": 67.02,
+    "salaryAverage": 139410
+  },
+  {
+    "jobTitle": "Physicists",
+    "hourlyAverage": 72.88,
+    "salaryAverage": 151580
+  },
+  {
+    "jobTitle": "Atmospheric and Space Scientist",
+    "hourlyAverage": 46.58,
+    "salaryAverage": 96880
+  },
+  {
+    "jobTitle": "Chemist",
+    "hourlyAverage": 42.85,
+    "salaryAverage": 89130
+  },
+  {
+    "jobTitle": "Materials Scientist",
+    "hourlyAverage": 50.38,
+    "salaryAverage": 104790
+  },
+  {
+    "jobTitle": "Environmental Scientist and Specialist, Including Health",
+    "hourlyAverage": 39.06,
+    "salaryAverage": 81240
+  },
+  {
+    "jobTitle": "Geoscientist, Except Hydrologist and Geographer",
+    "hourlyAverage": 49.78,
+    "salaryAverage": 103550
+  },
+  {
+    "jobTitle": "Hydrologist",
+    "hourlyAverage": 45.57,
+    "salaryAverage": 94780
+  },
+  {
+    "jobTitle": "Physical Scientist, All Other",
+    "hourlyAverage": 54.43,
+    "salaryAverage": 113220
+  },
+  {
+    "jobTitle": "Economist",
+    "hourlyAverage": 58.09,
+    "salaryAverage": 120830
+  },
+  {
+    "jobTitle": "Survey Researcher",
+    "hourlyAverage": 31.1,
+    "salaryAverage": 64690
+  },
+  {
+    "jobTitle": "Industrial-Organizational Psychologist",
+    "hourlyAverage": 54.48,
+    "salaryAverage": 113320
+  },
+  {
+    "jobTitle": "Clinical and Counseling Psychologist",
+    "hourlyAverage": 47.9,
+    "salaryAverage": 99640
+  },
+  {
+    "jobTitle": "School Psychologist",
+    "hourlyAverage": 39.8,
+    "salaryAverage": 82770
+  },
+  {
+    "jobTitle": "Psychologist, All Other",
+    "hourlyAverage": 47.12,
+    "salaryAverage": 98010
+  },
+  {
+    "jobTitle": "Sociologist",
+    "hourlyAverage": 46.28,
+    "salaryAverage": 96260
+  },
+  {
+    "jobTitle": "Urban and Regional Planner",
+    "hourlyAverage": 39.09,
+    "salaryAverage": 81310
+  },
+  {
+    "jobTitle": "Anthropologists and Archeologist",
+    "hourlyAverage": 32.12,
+    "salaryAverage": 66800
+  },
+  {
+    "jobTitle": "Geographer",
+    "hourlyAverage": 41.7,
+    "salaryAverage": 86740
+  },
+  {
+    "jobTitle": "Historian",
+    "hourlyAverage": 34.68,
+    "salaryAverage": 72130
+  },
+  {
+    "jobTitle": "Political Scientist",
+    "hourlyAverage": 57.9,
+    "salaryAverage": 120430
+  },
+  {
+    "jobTitle": "Social Scientist and Related Worker, All Other",
+    "hourlyAverage": 43.7,
+    "salaryAverage": 90900
+  },
+  {
+    "jobTitle": "Agricultural Technician",
+    "hourlyAverage": 21.56,
+    "salaryAverage": 44850
+  },
+  {
+    "jobTitle": "Food Science Technician",
+    "hourlyAverage": 23.01,
+    "salaryAverage": 47870
+  },
+  {
+    "jobTitle": "Biological Technician",
+    "hourlyAverage": 24.89,
+    "salaryAverage": 51770
+  },
+  {
+    "jobTitle": "Chemical Technician",
+    "hourlyAverage": 26.46,
+    "salaryAverage": 55040
+  },
+  {
+    "jobTitle": "Environmental Science and Protection Technician, Including Health",
+    "hourlyAverage": 24.3,
+    "salaryAverage": 50550
+  },
+  {
+    "jobTitle": "Geological Technician, Except Hydrologic Technician",
+    "hourlyAverage": 28.4,
+    "salaryAverage": 59080
+  },
+  {
+    "jobTitle": "Hydrologic Technician",
+    "hourlyAverage": 34.5,
+    "salaryAverage": 71760
+  },
+  {
+    "jobTitle": "Nuclear Technician",
+    "hourlyAverage": 45.77,
+    "salaryAverage": 95200
+  },
+  {
+    "jobTitle": "Social Science Research Assistant",
+    "hourlyAverage": 27.13,
+    "salaryAverage": 56430
+  },
+  {
+    "jobTitle": "Forest and Conservation Technician",
+    "hourlyAverage": 20.87,
+    "salaryAverage": 43420
+  },
+  {
+    "jobTitle": "Forensic Science Technician",
+    "hourlyAverage": 32.14,
+    "salaryAverage": 66850
+  },
+  {
+    "jobTitle": "Life, Physical, and Social Science Technician, All Other",
+    "hourlyAverage": 26.65,
+    "salaryAverage": 55420
+  },
+  {
+    "jobTitle": "Occupational Health and Safety Specialist",
+    "hourlyAverage": 37.86,
+    "salaryAverage": 78740
+  },
+  {
+    "jobTitle": "Occupational Health and Safety Technician",
+    "hourlyAverage": 27.67,
+    "salaryAverage": 57560
+  },
+  {
+    "jobTitle": "Educational, Guidance, and Career Counselor and Advisor",
+    "hourlyAverage": 30.33,
+    "salaryAverage": 63090
+  },
+  {
+    "jobTitle": "Marriage and Family Therapist",
+    "hourlyAverage": 28.69,
+    "salaryAverage": 59660
+  },
+  {
+    "jobTitle": "Rehabilitation Counselor",
+    "hourlyAverage": 21.51,
+    "salaryAverage": 44740
+  },
+  {
+    "jobTitle": "Counselor, All Other",
+    "hourlyAverage": 23.91,
+    "salaryAverage": 49730
+  },
+  {
+    "jobTitle": "Child, Family, and School Social Worker",
+    "hourlyAverage": 26.39,
+    "salaryAverage": 54880
+  },
+  {
+    "jobTitle": "Healthcare Social Worker",
+    "hourlyAverage": 29.96,
+    "salaryAverage": 62310
+  },
+  {
+    "jobTitle": "Mental Health and Substance Abuse Social Worker",
+    "hourlyAverage": 27.79,
+    "salaryAverage": 57800
+  },
+  {
+    "jobTitle": "Social Worker, All Other",
+    "hourlyAverage": 30.29,
+    "salaryAverage": 63010
+  },
+  {
+    "jobTitle": "Health Education Specialist",
+    "hourlyAverage": 31.22,
+    "salaryAverage": 64930
+  },
+  {
+    "jobTitle": "Probation Officer and Correctional Treatment Specialist",
+    "hourlyAverage": 30.43,
+    "salaryAverage": 63290
+  },
+  {
+    "jobTitle": "Social and Human Service Assistant",
+    "hourlyAverage": 19.45,
+    "salaryAverage": 40460
+  },
+  {
+    "jobTitle": "Community Health Worker",
+    "hourlyAverage": 22.97,
+    "salaryAverage": 47780
+  },
+  {
+    "jobTitle": "Community and Social Service Specialist, All Other",
+    "hourlyAverage": 24.28,
+    "salaryAverage": 50510
+  },
+  {
+    "jobTitle": "Clergy",
+    "hourlyAverage": 27.51,
+    "salaryAverage": 57230
+  },
+  {
+    "jobTitle": "Director, Religious Activities and Education",
+    "hourlyAverage": 25.42,
+    "salaryAverage": 52880
+  },
+  {
+    "jobTitle": "Religious Worker, All Other",
+    "hourlyAverage": 20.81,
+    "salaryAverage": 43290
+  },
+  {
+    "jobTitle": "Trial Lawyer",
+    "hourlyAverage": 71.17,
+    "salaryAverage": 148030
+  },
+  {
+    "jobTitle": "Judicial Law Clerk",
+    "hourlyAverage": 30.16,
+    "salaryAverage": 62730
+  },
+  {
+    "jobTitle": "Administrative Law Judge, Adjudicator, and Hearing Officer",
+    "hourlyAverage": 50.08,
+    "salaryAverage": 104160
+  },
+  {
+    "jobTitle": "Judge",
+    "hourlyAverage": 68.52,
+    "salaryAverage": 142520
+  },
+  {
+    "jobTitle": "Paralegal/Legal Assistant",
+    "hourlyAverage": 28.04,
+    "salaryAverage": 58330
+  },
+  {
+    "jobTitle": "Title Examiner, Abstractor, and Searcher",
+    "hourlyAverage": 25.19,
+    "salaryAverage": 52390
+  },
+  {
+    "jobTitle": "Legal Support Worker, All Other",
+    "hourlyAverage": 35.1,
+    "salaryAverage": 73000
+  },
+  {
+    "jobTitle": "College Business Teacher",
+    "hourlyAverage": 50.83,
+    "salaryAverage": 105720
+  },
+  {
+    "jobTitle": "College Computer Science Teacher",
+    "hourlyAverage": 43.08,
+    "salaryAverage": 89610
+  },
+  {
+    "jobTitle": "College Mathematical Science Teacher",
+    "hourlyAverage": 42.3,
+    "salaryAverage": 87980
+  },
+  {
+    "jobTitle": "College Engineering Teacher",
+    "hourlyAverage": 55.57,
+    "salaryAverage": 115590
+  },
+  {
+    "jobTitle": "College Agricultural Sciences Teacher",
+    "hourlyAverage": 46.88,
+    "salaryAverage": 97520
+  },
+  {
+    "jobTitle": "College Biological Science Teacher",
+    "hourlyAverage": 47.46,
+    "salaryAverage": 98710
+  },
+  {
+    "jobTitle": "College Forestry and Conservation Science Teacher",
+    "hourlyAverage": 44.96,
+    "salaryAverage": 93510
+  },
+  {
+    "jobTitle": "College Atmospheric, Earth, Marine, and Space Sciences Teacher",
+    "hourlyAverage": 49.44,
+    "salaryAverage": 102840
+  },
+  {
+    "jobTitle": "College Chemistry Teacher",
+    "hourlyAverage": 45.22,
+    "salaryAverage": 94060
+  },
+  {
+    "jobTitle": "College Environmental Science Teacher",
+    "hourlyAverage": 44.33,
+    "salaryAverage": 92210
+  },
+  {
+    "jobTitle": "College Physics Teacher",
+    "hourlyAverage": 47.83,
+    "salaryAverage": 99480
+  },
+  {
+    "jobTitle": "College Anthropology and Archeology Teacher",
+    "hourlyAverage": 49.09,
+    "salaryAverage": 102110
+  },
+  {
+    "jobTitle": "College Area, Ethnic, and Cultural Studies Teacher",
+    "hourlyAverage": 44.08,
+    "salaryAverage": 91680
+  },
+  {
+    "jobTitle": "College Economics Teacher",
+    "hourlyAverage": 59.66,
+    "salaryAverage": 124090
+  },
+  {
+    "jobTitle": "College Geography Teacher",
+    "hourlyAverage": 42.38,
+    "salaryAverage": 88150
+  },
+  {
+    "jobTitle": "College Political Science Teacher",
+    "hourlyAverage": 47.59,
+    "salaryAverage": 98980
+  },
+  {
+    "jobTitle": "College Psychology Teacher",
+    "hourlyAverage": 42.5,
+    "salaryAverage": 88390
+  },
+  {
+    "jobTitle": "College Sociology Teacher",
+    "hourlyAverage": 42.24,
+    "salaryAverage": 87850
+  },
+  {
+    "jobTitle": "College Social Sciences Teacher",
+    "hourlyAverage": 41.98,
+    "salaryAverage": 87320
+  },
+  {
+    "jobTitle": "College Health Specialties Teacher",
+    "hourlyAverage": 64.09,
+    "salaryAverage": 133310
+  },
+  {
+    "jobTitle": "College Nursing Instructors and Teacher",
+    "hourlyAverage": 39.44,
+    "salaryAverage": 82040
+  },
+  {
+    "jobTitle": "College Education Teacher",
+    "hourlyAverage": 37.01,
+    "salaryAverage": 76990
+  },
+  {
+    "jobTitle": "College Library Science Teacher",
+    "hourlyAverage": 38.87,
+    "salaryAverage": 80850
+  },
+  {
+    "jobTitle": "College Criminal Justice and Law Enforcement Teacher",
+    "hourlyAverage": 39.29,
+    "salaryAverage": 81730
+  },
+  {
+    "jobTitle": "College Law Teacher",
+    "hourlyAverage": 62.89,
+    "salaryAverage": 130820
+  },
+  {
+    "jobTitle": "College Social Work Teacher",
+    "hourlyAverage": 37.33,
+    "salaryAverage": 77650
+  },
+  {
+    "jobTitle": "College Art, Drama, and Music Teacher",
+    "hourlyAverage": 41.46,
+    "salaryAverage": 86240
+  },
+  {
+    "jobTitle": "College Communications Teacher",
+    "hourlyAverage": 40.66,
+    "salaryAverage": 84580
+  },
+  {
+    "jobTitle": "College English Language and Literature Teacher",
+    "hourlyAverage": 39.75,
+    "salaryAverage": 82680
+  },
+  {
+    "jobTitle": "College Foreign Language and Literature Teacher",
+    "hourlyAverage": 39.9,
+    "salaryAverage": 82990
+  },
+  {
+    "jobTitle": "College History Teacher",
+    "hourlyAverage": 41.57,
+    "salaryAverage": 86460
+  },
+  {
+    "jobTitle": "College Philosophy and Religion Teacher",
+    "hourlyAverage": 42.43,
+    "salaryAverage": 88260
+  },
+  {
+    "jobTitle": "College Family and Consumer Sciences Teacher",
+    "hourlyAverage": 44.82,
+    "salaryAverage": 93230
+  },
+  {
+    "jobTitle": "College Recreation and Fitness Studies Teacher",
+    "hourlyAverage": 38.02,
+    "salaryAverage": 79080
+  },
+  {
+    "jobTitle": "College Career/Technical Education Teacher",
+    "hourlyAverage": 30.35,
+    "salaryAverage": 63130
+  },
+  {
+    "jobTitle": "College Teacher",
+    "hourlyAverage": 44.33,
+    "salaryAverage": 92200
+  },
+  {
+    "jobTitle": "Preschool Teacher, Except Special Education",
+    "hourlyAverage": 17.53,
+    "salaryAverage": 36460
+  },
+  {
+    "jobTitle": "Kindergarten Teacher, Except Special Education",
+    "hourlyAverage": 31.0,
+    "salaryAverage": 64490
+  },
+  {
+    "jobTitle": "Elementary School Teacher, Except Special Education",
+    "hourlyAverage": 32.25,
+    "salaryAverage": 67080
+  },
+  {
+    "jobTitle": "Middle School Teacher",
+    "hourlyAverage": 32.15,
+    "salaryAverage": 66880
+  },
+  {
+    "jobTitle": "Middle School Career/Technical Education Teacher",
+    "hourlyAverage": 33.37,
+    "salaryAverage": 69410
+  },
+  {
+    "jobTitle": "High School Teacher",
+    "hourlyAverage": 33.43,
+    "salaryAverage": 69530
+  },
+  {
+    "jobTitle": "High School Career/Technical Education Teacher",
+    "hourlyAverage": 33.15,
+    "salaryAverage": 68960
+  },
+  {
+    "jobTitle": "Preschool Special Education Teacher",
+    "hourlyAverage": 34.6,
+    "salaryAverage": 71970
+  },
+  {
+    "jobTitle": "Kindergarten and Elementary Special Education Teacher",
+    "hourlyAverage": 32.25,
+    "salaryAverage": 67090
+  },
+  {
+    "jobTitle": "Middle School Special Education Teacher",
+    "hourlyAverage": 33.11,
+    "salaryAverage": 68860
+  },
+  {
+    "jobTitle": "High School Special Education Teacher",
+    "hourlyAverage": 33.7,
+    "salaryAverage": 70100
+  },
+  {
+    "jobTitle": "Special Education Teacher",
+    "hourlyAverage": 34.29,
+    "salaryAverage": 71330
+  },
+  {
+    "jobTitle": "English as a Second Language Teacher",
+    "hourlyAverage": 29.16,
+    "salaryAverage": 60650
+  },
+  {
+    "jobTitle": "Short-Term Substitute Teacher",
+    "hourlyAverage": 18.47,
+    "salaryAverage": 38410
+  },
+  {
+    "jobTitle": "Tutor",
+    "hourlyAverage": 20.09,
+    "salaryAverage": 41780
+  },
+  {
+    "jobTitle": "Archivist",
+    "hourlyAverage": 29.75,
+    "salaryAverage": 61880
+  },
+  {
+    "jobTitle": "Curator",
+    "hourlyAverage": 30.71,
+    "salaryAverage": 63880
+  },
+  {
+    "jobTitle": "Museum Technician and Conservator",
+    "hourlyAverage": 25.02,
+    "salaryAverage": 52030
+  },
+  {
+    "jobTitle": "Librarians and Media Collections Specialist",
+    "hourlyAverage": 30.86,
+    "salaryAverage": 64180
+  },
+  {
+    "jobTitle": "Library Technician",
+    "hourlyAverage": 18.79,
+    "salaryAverage": 39070
+  },
+  {
+    "jobTitle": "Farm and Home Management Educator",
+    "hourlyAverage": 27.9,
+    "salaryAverage": 58040
+  },
+  {
+    "jobTitle": "Instructional Coordinator",
+    "hourlyAverage": 33.92,
+    "salaryAverage": 70560
+  },
+  {
+    "jobTitle": "College Teaching Assistant",
+    "hourlyAverage": 19.79,
+    "salaryAverage": 41170
+  },
+  {
+    "jobTitle": "Teaching Assistant",
+    "hourlyAverage": 15.27,
+    "salaryAverage": 31760
+  },
+  {
+    "jobTitle": "Educational Instruction and Library Worker",
+    "hourlyAverage": 23.87,
+    "salaryAverage": 49650
+  },
+  {
+    "jobTitle": "Art Director",
+    "hourlyAverage": 55.5,
+    "salaryAverage": 115430
+  },
+  {
+    "jobTitle": "Craft Artist",
+    "hourlyAverage": 19.58,
+    "salaryAverage": 40730
+  },
+  {
+    "jobTitle": "Fine Artist(Painter, Sculptor, and Illustrator)",
+    "hourlyAverage": 33.18,
+    "salaryAverage": 69010
+  },
+  {
+    "jobTitle": "Special Effects Artist and Animator",
+    "hourlyAverage": 41.45,
+    "salaryAverage": 86220
+  },
+  {
+    "jobTitle": "Fashion Designer",
+    "hourlyAverage": 40.22,
+    "salaryAverage": 83650
+  },
+  {
+    "jobTitle": "Floral Designer",
+    "hourlyAverage": 15.43,
+    "salaryAverage": 32100
+  },
+  {
+    "jobTitle": "Graphic Designer",
+    "hourlyAverage": 28.83,
+    "salaryAverage": 59970
+  },
+  {
+    "jobTitle": "Interior Designer",
+    "hourlyAverage": 30.08,
+    "salaryAverage": 62570
+  },
+  {
+    "jobTitle": "Merchandise Displayer and Window Trimmer",
+    "hourlyAverage": 17.08,
+    "salaryAverage": 35520
+  },
+  {
+    "jobTitle": "Set and Exhibit Designer",
+    "hourlyAverage": 30.27,
+    "salaryAverage": 62960
+  },
+  {
+    "jobTitle": "Minor Actor",
+    "hourlyAverage": 31.31,
+    "salaryAverage": 65124.8
+  },
+  {
+    "jobTitle": "Producer/Director",
+    "hourlyAverage": 49.01,
+    "salaryAverage": 101950
+  },
+  {
+    "jobTitle": "Semi Athletes and Sports Competitor",
+    "hourlyAverage": 56.22,
+    "salaryAverage": 116930
+  },
+  {
+    "jobTitle": "Semi Coach/Scout",
+    "hourlyAverage": 24.3,
+    "salaryAverage": 50550
+  },
+  {
+    "jobTitle": "Referee",
+    "hourlyAverage": 24.86,
+    "salaryAverage": 51710
+  },
+  {
+    "jobTitle": "Dancer",
+    "hourlyAverage": 24.49,
+    "salaryAverage": 50939.2
+  },
+  {
+    "jobTitle": "Choreographer",
+    "hourlyAverage": 23.86,
+    "salaryAverage": 49630
+  },
+  {
+    "jobTitle": "Music Director and Composer",
+    "hourlyAverage": 31.29,
+    "salaryAverage": 65080
+  },
+  {
+    "jobTitle": "Musician and Singer",
+    "hourlyAverage": 41.46,
+    "salaryAverage": 86236.8
+  },
+  {
+    "jobTitle": "Disc Jockey",
+    "hourlyAverage": 21.82,
+    "salaryAverage": 45385.6
+  },
+  {
+    "jobTitle": "Entertainer",
+    "hourlyAverage": 24.62,
+    "salaryAverage": 51209.6
+  },
+  {
+    "jobTitle": "Broadcast Announcers and Radio Disc Jockey",
+    "hourlyAverage": 26.97,
+    "salaryAverage": 56110
+  },
+  {
+    "jobTitle": "News Analyst",
+    "hourlyAverage": 30.4,
+    "salaryAverage": 63230
+  },
+  {
+    "jobTitle": "Public Relations Specialist",
+    "hourlyAverage": 35.22,
+    "salaryAverage": 73250
+  },
+  {
+    "jobTitle": "Editor",
+    "hourlyAverage": 36.73,
+    "salaryAverage": 76400
+  },
+  {
+    "jobTitle": "Technical Writer",
+    "hourlyAverage": 39.17,
+    "salaryAverage": 81470
+  },
+  {
+    "jobTitle": "Writer",
+    "hourlyAverage": 39.0,
+    "salaryAverage": 81120
+  },
+  {
+    "jobTitle": "Interpreter/Translator",
+    "hourlyAverage": 28.08,
+    "salaryAverage": 58400
+  },
+  {
+    "jobTitle": "Court Reporter",
+    "hourlyAverage": 31.36,
+    "salaryAverage": 65240
+  },
+  {
+    "jobTitle": "Audio and Video Technician",
+    "hourlyAverage": 26.59,
+    "salaryAverage": 55310
+  },
+  {
+    "jobTitle": "Broadcast Technician",
+    "hourlyAverage": 24.66,
+    "salaryAverage": 51280
+  },
+  {
+    "jobTitle": "Sound Engineering Technician",
+    "hourlyAverage": 32.38,
+    "salaryAverage": 67360
+  },
+  {
+    "jobTitle": "Lighting Technician",
+    "hourlyAverage": 27.89,
+    "salaryAverage": 58020
+  },
+  {
+    "jobTitle": "Photographer",
+    "hourlyAverage": 23.18,
+    "salaryAverage": 48210
+  },
+  {
+    "jobTitle": "Camera Operator",
+    "hourlyAverage": 29.69,
+    "salaryAverage": 61740
+  },
+  {
+    "jobTitle": "Film and Video Editor",
+    "hourlyAverage": 36.54,
+    "salaryAverage": 76000
+  },
+  {
+    "jobTitle": "Media and Communication Equipment Worker",
+    "hourlyAverage": 33.31,
+    "salaryAverage": 69290
+  },
+  {
+    "jobTitle": "Chiropractor",
+    "hourlyAverage": 39.06,
+    "salaryAverage": 81240
+  },
+  {
+    "jobTitle": "Dentist",
+    "hourlyAverage": 80.37,
+    "salaryAverage": 167160
+  },
+  {
+    "jobTitle": "Surgeon",
+    "hourlyAverage": 149.74,
+    "salaryAverage": 311460
+  },
+  {
+    "jobTitle": "Orthodontist",
+    "hourlyAverage": 128.5,
+    "salaryAverage": 267280
+  },
+  {
+    "jobTitle": "Prosthodontist",
+    "hourlyAverage": 69.1,
+    "salaryAverage": 143730
+  },
+  {
+    "jobTitle": "Dietitian/Nutritionist",
+    "hourlyAverage": 31.55,
+    "salaryAverage": 65620
+  },
+  {
+    "jobTitle": "Optometrist",
+    "hourlyAverage": 60.31,
+    "salaryAverage": 125440
+  },
+  {
+    "jobTitle": "Pharmacist",
+    "hourlyAverage": 60.43,
+    "salaryAverage": 125690
+  },
+  {
+    "jobTitle": "Physician Assistant",
+    "hourlyAverage": 57.43,
+    "salaryAverage": 119460
+  },
+  {
+    "jobTitle": "Podiatrist",
+    "hourlyAverage": 76.15,
+    "salaryAverage": 158380
+  },
+  {
+    "jobTitle": "Occupational Therapist",
+    "hourlyAverage": 43.02,
+    "salaryAverage": 89470
+  },
+  {
+    "jobTitle": "Physical Therapist",
+    "hourlyAverage": 44.67,
+    "salaryAverage": 92920
+  },
+  {
+    "jobTitle": "Radiation Therapist",
+    "hourlyAverage": 45.19,
+    "salaryAverage": 94000
+  },
+  {
+    "jobTitle": "Recreational Therapist",
+    "hourlyAverage": 25.91,
+    "salaryAverage": 53900
+  },
+  {
+    "jobTitle": "Respiratory Therapist",
+    "hourlyAverage": 32.78,
+    "salaryAverage": 68190
+  },
+  {
+    "jobTitle": "Speech-Language Pathologist",
+    "hourlyAverage": 41.26,
+    "salaryAverage": 85820
+  },
+  {
+    "jobTitle": "Exercise Physiologist",
+    "hourlyAverage": 25.98,
+    "salaryAverage": 54030
+  },
+  {
+    "jobTitle": "Veterinarian",
+    "hourlyAverage": 52.84,
+    "salaryAverage": 109920
+  },
+  {
+    "jobTitle": "Registered Nurse",
+    "hourlyAverage": 39.78,
+    "salaryAverage": 82750
+  },
+  {
+    "jobTitle": "Nurse Anesthetist",
+    "hourlyAverage": 97.34,
+    "salaryAverage": 202470
+  },
+  {
+    "jobTitle": "Nurse Practitioner",
+    "hourlyAverage": 56.75,
+    "salaryAverage": 118040
+  },
+  {
+    "jobTitle": "Audiologist",
+    "hourlyAverage": 41.37,
+    "salaryAverage": 86050
+  },
+  {
+    "jobTitle": "Anesthesiologist",
+    "hourlyAverage": 159.22,
+    "salaryAverage": 331190
+  },
+  {
+    "jobTitle": "Cardiologist",
+    "hourlyAverage": 170.18,
+    "salaryAverage": 353970
+  },
+  {
+    "jobTitle": "Dermatologist",
+    "hourlyAverage": 145.55,
+    "salaryAverage": 302740
+  },
+  {
+    "jobTitle": "Emergency Medicine Physician",
+    "hourlyAverage": 149.35,
+    "salaryAverage": 310640
+  },
+  {
+    "jobTitle": "Family Medicine Physician",
+    "hourlyAverage": 113.43,
+    "salaryAverage": 235930
+  },
+  {
+    "jobTitle": "General Internal Medicine Physician",
+    "hourlyAverage": 116.44,
+    "salaryAverage": 242190
+  },
+  {
+    "jobTitle": "Neurologist",
+    "hourlyAverage": 128.68,
+    "salaryAverage": 267660
+  },
+  {
+    "jobTitle": "Pediatrician",
+    "hourlyAverage": 95.4,
+    "salaryAverage": 198420
+  },
+  {
+    "jobTitle": "Physician",
+    "hourlyAverage": 128.45,
+    "salaryAverage": 267180
+  },
+  {
+    "jobTitle": "Psychiatrist",
+    "hourlyAverage": 120.08,
+    "salaryAverage": 249760
+  },
+  {
+    "jobTitle": "Radiologist",
+    "hourlyAverage": 145.06,
+    "salaryAverage": 301720
+  },
+  {
+    "jobTitle": "Ophthalmologist",
+    "hourlyAverage": 129.85,
+    "salaryAverage": 270090
+  },
+  {
+    "jobTitle": "Orthopedic Surgeon",
+    "hourlyAverage": 147.22,
+    "salaryAverage": 306220
+  },
+  {
+    "jobTitle": "Pediatric Surgeon",
+    "hourlyAverage": 139.57,
+    "salaryAverage": 290310
+  },
+  {
+    "jobTitle": "Acupuncturist",
+    "hourlyAverage": 34.51,
+    "salaryAverage": 71770
+  },
+  {
+    "jobTitle": "Dental Hygienist",
+    "hourlyAverage": 39.12,
+    "salaryAverage": 81360
+  },
+  {
+    "jobTitle": "Healthcare Diagnosing or Treating Practitioners",
+    "hourlyAverage": 54.44,
+    "salaryAverage": 113230
+  },
+  {
+    "jobTitle": "Clinical Laboratory Technologist and Technician",
+    "hourlyAverage": 27.36,
+    "salaryAverage": 56910
+  },
+  {
+    "jobTitle": "Cardiovascular Technologist and Technician",
+    "hourlyAverage": 29.82,
+    "salaryAverage": 62020
+  },
+  {
+    "jobTitle": "Diagnostic Medical Sonographer",
+    "hourlyAverage": 38.79,
+    "salaryAverage": 80680
+  },
+  {
+    "jobTitle": "Nuclear Medicine Technologist",
+    "hourlyAverage": 40.79,
+    "salaryAverage": 84850
+  },
+  {
+    "jobTitle": "Radiologic Technologist and Technician",
+    "hourlyAverage": 31.97,
+    "salaryAverage": 66490
+  },
+  {
+    "jobTitle": "Magnetic Resonance Imaging Technologist",
+    "hourlyAverage": 37.41,
+    "salaryAverage": 77820
+  },
+  {
+    "jobTitle": "Medical Dosimetrist",
+    "hourlyAverage": 59.98,
+    "salaryAverage": 124750
+  },
+  {
+    "jobTitle": "Emergency Medical Technician",
+    "hourlyAverage": 17.64,
+    "salaryAverage": 36690
+  },
+  {
+    "jobTitle": "Paramedic",
+    "hourlyAverage": 23.8,
+    "salaryAverage": 49500
+  },
+  {
+    "jobTitle": "Dietetic Technician",
+    "hourlyAverage": 16.42,
+    "salaryAverage": 34160
+  },
+  {
+    "jobTitle": "Pharmacy Technician",
+    "hourlyAverage": 18.25,
+    "salaryAverage": 37970
+  },
+  {
+    "jobTitle": "Psychiatric Technician",
+    "hourlyAverage": 18.27,
+    "salaryAverage": 38000
+  },
+  {
+    "jobTitle": "Surgical Technologist",
+    "hourlyAverage": 25.77,
+    "salaryAverage": 53590
+  },
+  {
+    "jobTitle": "Veterinary Technologist and Technician",
+    "hourlyAverage": 18.39,
+    "salaryAverage": 38250
+  },
+  {
+    "jobTitle": "Ophthalmic Medical Technician",
+    "hourlyAverage": 19.77,
+    "salaryAverage": 41120
+  },
+  {
+    "jobTitle": "Medical Records Specialist",
+    "hourlyAverage": 23.23,
+    "salaryAverage": 48310
+  },
+  {
+    "jobTitle": "Optician",
+    "hourlyAverage": 20.7,
+    "salaryAverage": 43060
+  },
+  {
+    "jobTitle": "Orthotist/Prosthetist",
+    "hourlyAverage": 38.38,
+    "salaryAverage": 79820
+  },
+  {
+    "jobTitle": "Hearing Aid Specialist",
+    "hourlyAverage": 28.83,
+    "salaryAverage": 59960
+  },
+  {
+    "jobTitle": "Athletic Trainer",
+    "hourlyAverage": 26.27,
+    "salaryAverage": 54650
+  },
+  {
+    "jobTitle": "Counselor",
+    "hourlyAverage": 41.65,
+    "salaryAverage": 86640
+  },
+  {
+    "jobTitle": "Surgical Assistant",
+    "hourlyAverage": 28.45,
+    "salaryAverage": 59170
+  },
+  {
+    "jobTitle": "Home Health and Personal Care Aide",
+    "hourlyAverage": 14.07,
+    "salaryAverage": 29260
+  },
+  {
+    "jobTitle": "Nursing Assistant",
+    "hourlyAverage": 15.99,
+    "salaryAverage": 33250
+  },
+  {
+    "jobTitle": "Orderly",
+    "hourlyAverage": 16.08,
+    "salaryAverage": 33440
+  },
+  {
+    "jobTitle": "Psychiatric Aide",
+    "hourlyAverage": 16.65,
+    "salaryAverage": 34640
+  },
+  {
+    "jobTitle": "Occupational Therapy Assistant",
+    "hourlyAverage": 30.56,
+    "salaryAverage": 63560
+  },
+  {
+    "jobTitle": "Physical Therapist Assistant",
+    "hourlyAverage": 29.2,
+    "salaryAverage": 60740
+  },
+  {
+    "jobTitle": "Physical Therapist Aide",
+    "hourlyAverage": 14.6,
+    "salaryAverage": 30370
+  },
+  {
+    "jobTitle": "Massage Therapist",
+    "hourlyAverage": 23.68,
+    "salaryAverage": 49260
+  },
+  {
+    "jobTitle": "Dental Assistant",
+    "hourlyAverage": 20.44,
+    "salaryAverage": 42510
+  },
+  {
+    "jobTitle": "Medical Equipment Preparer",
+    "hourlyAverage": 20.4,
+    "salaryAverage": 42420
+  },
+  {
+    "jobTitle": "Medical Transcriptionist",
+    "hourlyAverage": 16.45,
+    "salaryAverage": 34220
+  },
+  {
+    "jobTitle": "Pharmacy Aide",
+    "hourlyAverage": 16.61,
+    "salaryAverage": 34560
+  },
+  {
+    "jobTitle": "Veterinary Assistant and Laboratory Animal Caretaker",
+    "hourlyAverage": 15.28,
+    "salaryAverage": 31780
+  },
+  {
+    "jobTitle": "Phlebotomist",
+    "hourlyAverage": 18.49,
+    "salaryAverage": 38450
+  },
+  {
+    "jobTitle": "First-Line Supervisor of Correctional Officer",
+    "hourlyAverage": 33.53,
+    "salaryAverage": 69750
+  },
+  {
+    "jobTitle": "First-Line Supervisor of Police and Detectives",
+    "hourlyAverage": 47.48,
+    "salaryAverage": 98760
+  },
+  {
+    "jobTitle": "First-Line Supervisor of Firefighting and Prevention Workers",
+    "hourlyAverage": 40.03,
+    "salaryAverage": 83270
+  },
+  {
+    "jobTitle": "First-Line Supervisor of Security Workers",
+    "hourlyAverage": 26.48,
+    "salaryAverage": 55080
+  },
+  {
+    "jobTitle": "First-Line Supervisor of Protective Service Workers, All Other",
+    "hourlyAverage": 30.73,
+    "salaryAverage": 63910
+  },
+  {
+    "jobTitle": "Firefighter",
+    "hourlyAverage": 26.58,
+    "salaryAverage": 55290
+  },
+  {
+    "jobTitle": "Fire Inspector and Investigator",
+    "hourlyAverage": 33.5,
+    "salaryAverage": 69680
+  },
+  {
+    "jobTitle": "Forest Fire Inspector and Prevention Specialist",
+    "hourlyAverage": 26.12,
+    "salaryAverage": 54340
+  },
+  {
+    "jobTitle": "Bailiff",
+    "hourlyAverage": 25.16,
+    "salaryAverage": 52340
+  },
+  {
+    "jobTitle": "Correctional Officer and Jailer",
+    "hourlyAverage": 25.69,
+    "salaryAverage": 53420
+  },
+  {
+    "jobTitle": "Detectives and Criminal Investigator",
+    "hourlyAverage": 43.45,
+    "salaryAverage": 90370
+  },
+  {
+    "jobTitle": "Fish and Game Warden",
+    "hourlyAverage": 27.98,
+    "salaryAverage": 58190
+  },
+  {
+    "jobTitle": "Parking Enforcement Worker",
+    "hourlyAverage": 22.14,
+    "salaryAverage": 46050
+  },
+  {
+    "jobTitle": "Police and Sheriff's Patrol Officer",
+    "hourlyAverage": 34.02,
+    "salaryAverage": 70750
+  },
+  {
+    "jobTitle": "Transit and Railroad Police",
+    "hourlyAverage": 33.45,
+    "salaryAverage": 69570
+  },
+  {
+    "jobTitle": "Animal Control Worker",
+    "hourlyAverage": 20.49,
+    "salaryAverage": 42620
+  },
+  {
+    "jobTitle": "Private Detective/Investigator",
+    "hourlyAverage": 29.31,
+    "salaryAverage": 60970
+  },
+  {
+    "jobTitle": "Gambling Surveillance Officer/Gambling Investigator",
+    "hourlyAverage": 18.31,
+    "salaryAverage": 38080
+  },
+  {
+    "jobTitle": "Security Guard",
+    "hourlyAverage": 17.23,
+    "salaryAverage": 35830
+  },
+  {
+    "jobTitle": "Crossing Guard",
+    "hourlyAverage": 17.15,
+    "salaryAverage": 35670
+  },
+  {
+    "jobTitle": "Lifeguards, Ski Patrol",
+    "hourlyAverage": 13.14,
+    "salaryAverage": 27320
+  },
+  {
+    "jobTitle": "Transportation Security Screener",
+    "hourlyAverage": 22.3,
+    "salaryAverage": 46380
+  },
+  {
+    "jobTitle": "School Bus Monitor",
+    "hourlyAverage": 14.53,
+    "salaryAverage": 30220
+  },
+  {
+    "jobTitle": "Secret Service",
+    "hourlyAverage": 20.27,
+    "salaryAverage": 42160
+  },
+  {
+    "jobTitle": "Chef",
+    "hourlyAverage": 27.37,
+    "salaryAverage": 56920
+  },
+  {
+    "jobTitle": "Food Preparation and Serving Workers Superviser",
+    "hourlyAverage": 18.82,
+    "salaryAverage": 39150
+  },
+  {
+    "jobTitle": "Fast Food Cook",
+    "hourlyAverage": 12.25,
+    "salaryAverage": 25490
+  },
+  {
+    "jobTitle": "Cafeteria Cook",
+    "hourlyAverage": 15.15,
+    "salaryAverage": 31520
+  },
+  {
+    "jobTitle": "Private Household Cook",
+    "hourlyAverage": 20.8,
+    "salaryAverage": 43260
+  },
+  {
+    "jobTitle": "Restaurant Cook",
+    "hourlyAverage": 15.21,
+    "salaryAverage": 31630
+  },
+  {
+    "jobTitle": "Short Order Cook",
+    "hourlyAverage": 13.51,
+    "salaryAverage": 28110
+  },
+  {
+    "jobTitle": "Cook",
+    "hourlyAverage": 16.05,
+    "salaryAverage": 33390
+  },
+  {
+    "jobTitle": "Food Preparation Worker",
+    "hourlyAverage": 13.85,
+    "salaryAverage": 28810
+  },
+  {
+    "jobTitle": "Fast Food and Counter Worker",
+    "hourlyAverage": 12.53,
+    "salaryAverage": 26060
+  },
+  {
+    "jobTitle": "Server Assistant",
+    "hourlyAverage": 13.95,
+    "salaryAverage": 29010
+  },
+  {
+    "jobTitle": "Dishwasher",
+    "hourlyAverage": 13.15,
+    "salaryAverage": 27350
+  },
+  {
+    "jobTitle": "Host",
+    "hourlyAverage": 12.5,
+    "salaryAverage": 26000
+  },
+  {
+    "jobTitle": "Janitor Supervisor",
+    "hourlyAverage": 21.68,
+    "salaryAverage": 45100
+  },
+  {
+    "jobTitle": "Landscapting Server",
+    "hourlyAverage": 25.61,
+    "salaryAverage": 53270
+  },
+  {
+    "jobTitle": "Janitor",
+    "hourlyAverage": 15.32,
+    "salaryAverage": 31860
+  },
+  {
+    "jobTitle": "Housekeeper",
+    "hourlyAverage": 14.22,
+    "salaryAverage": 29580
+  },
+  {
+    "jobTitle": "Building Cleaner",
+    "hourlyAverage": 18.52,
+    "salaryAverage": 38530
+  },
+  {
+    "jobTitle": "Pest Control",
+    "hourlyAverage": 19.54,
+    "salaryAverage": 40640
+  },
+  {
+    "jobTitle": "Landscaping and Groundskeeping Worker",
+    "hourlyAverage": 16.94,
+    "salaryAverage": 35240
+  },
+  {
+    "jobTitle": "Pesticide Handler",
+    "hourlyAverage": 19.47,
+    "salaryAverage": 40500
+  },
+  {
+    "jobTitle": "Tree Trimmer",
+    "hourlyAverage": 22.81,
+    "salaryAverage": 47450
+  },
+  {
+    "jobTitle": "Grounds Maintenance Worker",
+    "hourlyAverage": 18.81,
+    "salaryAverage": 39120
+  },
+  {
+    "jobTitle": "Gambling Services Supervisor",
+    "hourlyAverage": 25.28,
+    "salaryAverage": 52590
+  },
+  {
+    "jobTitle": "Entertainment and Recreation Supervisor",
+    "hourlyAverage": 22.66,
+    "salaryAverage": 47130
+  },
+  {
+    "jobTitle": "Personal Service Supervisor",
+    "hourlyAverage": 21.99,
+    "salaryAverage": 45730
+  },
+  {
+    "jobTitle": "Animal Trainer",
+    "hourlyAverage": 18.38,
+    "salaryAverage": 38230
+  },
+  {
+    "jobTitle": "Animal Caretaker",
+    "hourlyAverage": 14.19,
+    "salaryAverage": 29520
+  },
+  {
+    "jobTitle": "Motion Picture Projectionist",
+    "hourlyAverage": 15.85,
+    "salaryAverage": 32970
+  },
+  {
+    "jobTitle": "Usher",
+    "hourlyAverage": 12.69,
+    "salaryAverage": 26390
+  },
+  {
+    "jobTitle": "Amusement and Recreation Attendant",
+    "hourlyAverage": 12.55,
+    "salaryAverage": 26110
+  },
+  {
+    "jobTitle": "Costume Attendant",
+    "hourlyAverage": 26.25,
+    "salaryAverage": 54590
+  },
+  {
+    "jobTitle": "Coatroom and Dressing Room Attendant",
+    "hourlyAverage": 14.53,
+    "salaryAverage": 30220
+  },
+  {
+    "jobTitle": "Barber",
+    "hourlyAverage": 17.16,
+    "salaryAverage": 35700
+  },
+  {
+    "jobTitle": "Cosmetologist",
+    "hourlyAverage": 17.3,
+    "salaryAverage": 35990
+  },
+  {
+    "jobTitle": "Makeup Artist",
+    "hourlyAverage": 59.8,
+    "salaryAverage": 124380
+  },
+  {
+    "jobTitle": "Manicurist and Pedicurist",
+    "hourlyAverage": 14.65,
+    "salaryAverage": 30480
+  },
+  {
+    "jobTitle": "Shampooer",
+    "hourlyAverage": 12.09,
+    "salaryAverage": 25160
+  },
+  {
+    "jobTitle": "Skincare Specialist",
+    "hourlyAverage": 20.05,
+    "salaryAverage": 41700
+  },
+  {
+    "jobTitle": "Baggage Bellhop",
+    "hourlyAverage": 14.44,
+    "salaryAverage": 30040
+  },
+  {
+    "jobTitle": "Concierge",
+    "hourlyAverage": 18.04,
+    "salaryAverage": 37520
+  },
+  {
+    "jobTitle": "Childcare Worker",
+    "hourlyAverage": 13.31,
+    "salaryAverage": 27680
+  },
+  {
+    "jobTitle": "Exercise Trainers and Group Fitness Instructor",
+    "hourlyAverage": 22.05,
+    "salaryAverage": 45870
+  },
+  {
+    "jobTitle": "Recreation Worker",
+    "hourlyAverage": 15.39,
+    "salaryAverage": 32020
+  },
+  {
+    "jobTitle": "Residential Advisor",
+    "hourlyAverage": 16.81,
+    "salaryAverage": 34950
+  },
+  {
+    "jobTitle": "Retail Sales Supervisor",
+    "hourlyAverage": 22.54,
+    "salaryAverage": 46890
+  },
+  {
+    "jobTitle": "Cashier",
+    "hourlyAverage": 12.87,
+    "salaryAverage": 26770
+  },
+  {
+    "jobTitle": "Rental Clerk",
+    "hourlyAverage": 17.39,
+    "salaryAverage": 36170
+  },
+  {
+    "jobTitle": "Parts Salesperson",
+    "hourlyAverage": 17.75,
+    "salaryAverage": 36920
+  },
+  {
+    "jobTitle": "Retail Salesperson",
+    "hourlyAverage": 15.35,
+    "salaryAverage": 31920
+  },
+  {
+    "jobTitle": "Advertising Sales Agent",
+    "hourlyAverage": 31.99,
+    "salaryAverage": 66540
+  },
+  {
+    "jobTitle": "Insurance Sales Agent",
+    "hourlyAverage": 33.34,
+    "salaryAverage": 69340
+  },
+  {
+    "jobTitle": "Travel Agent",
+    "hourlyAverage": 22.39,
+    "salaryAverage": 46580
+  },
+  {
+    "jobTitle": "Product Promoter",
+    "hourlyAverage": 17.78,
+    "salaryAverage": 36990
+  },
+  {
+    "jobTitle": "Real Estate Broker",
+    "hourlyAverage": 41.58,
+    "salaryAverage": 86490
+  },
+  {
+    "jobTitle": "Real Estate Sales Agent",
+    "hourlyAverage": 29.56,
+    "salaryAverage": 61480
+  },
+  {
+    "jobTitle": "Sales Engineer",
+    "hourlyAverage": 57.03,
+    "salaryAverage": 118630
+  },
+  {
+    "jobTitle": "Telemarketer",
+    "hourlyAverage": 14.74,
+    "salaryAverage": 30670
+  },
+  {
+    "jobTitle": "Door-to-Door Sales Worker",
+    "hourlyAverage": 16.81,
+    "salaryAverage": 34970
+  },
+  {
+    "jobTitle": "Switchboard Operator",
+    "hourlyAverage": 16.63,
+    "salaryAverage": 34590
+  },
+  {
+    "jobTitle": "Telephone Operator",
+    "hourlyAverage": 18.93,
+    "salaryAverage": 39370
+  },
+  {
+    "jobTitle": "Communications Equipment Operators, All Other",
+    "hourlyAverage": 23.79,
+    "salaryAverage": 49470
+  },
+  {
+    "jobTitle": "Bill and Account Collector",
+    "hourlyAverage": 19.85,
+    "salaryAverage": 41280
+  },
+  {
+    "jobTitle": "Billing and Posting Clerk",
+    "hourlyAverage": 20.55,
+    "salaryAverage": 42750
+  },
+  {
+    "jobTitle": "Bookkeeper",
+    "hourlyAverage": 21.7,
+    "salaryAverage": 45140
+  },
+  {
+    "jobTitle": "Payroll Clerk",
+    "hourlyAverage": 23.83,
+    "salaryAverage": 49560
+  },
+  {
+    "jobTitle": "Procurement Clerk",
+    "hourlyAverage": 21.6,
+    "salaryAverage": 44930
+  },
+  {
+    "jobTitle": "Teller",
+    "hourlyAverage": 16.79,
+    "salaryAverage": 34930
+  },
+  {
+    "jobTitle": "Court Clerk",
+    "hourlyAverage": 21.57,
+    "salaryAverage": 44870
+  },
+  {
+    "jobTitle": "Credit Authorizer Clerk",
+    "hourlyAverage": 21.42,
+    "salaryAverage": 44540
+  },
+  {
+    "jobTitle": "Customer Service Representative",
+    "hourlyAverage": 18.79,
+    "salaryAverage": 39070
+  },
+  {
+    "jobTitle": "File Clerks",
+    "hourlyAverage": 17.7,
+    "salaryAverage": 36820
+  },
+  {
+    "jobTitle": "Hotel, Motel, and Resort Desk Clerk",
+    "hourlyAverage": 13.48,
+    "salaryAverage": 28040
+  },
+  {
+    "jobTitle": "Library Assistant",
+    "hourlyAverage": 15.62,
+    "salaryAverage": 32490
+  },
+  {
+    "jobTitle": "Loan Clerk",
+    "hourlyAverage": 21.59,
+    "salaryAverage": 44910
+  },
+  {
+    "jobTitle": "New Accounts Clerk",
+    "hourlyAverage": 19.83,
+    "salaryAverage": 41250
+  },
+  {
+    "jobTitle": "Order Clerk",
+    "hourlyAverage": 20.11,
+    "salaryAverage": 41820
+  },
+  {
+    "jobTitle": "Receptionists and Information Clerk",
+    "hourlyAverage": 15.82,
+    "salaryAverage": 32910
+  },
+  {
+    "jobTitle": "Reservation and Transportation Ticket Agent and Travel Clerk",
+    "hourlyAverage": 21.94,
+    "salaryAverage": 45630
+  },
+  {
+    "jobTitle": "Cargo and Freight Agent",
+    "hourlyAverage": 23.28,
+    "salaryAverage": 48420
+  },
+  {
+    "jobTitle": "Courier",
+    "hourlyAverage": 16.48,
+    "salaryAverage": 34270
+  },
+  {
+    "jobTitle": "Public Safety Telecommunicator",
+    "hourlyAverage": 22.61,
+    "salaryAverage": 47030
+  },
+  {
+    "jobTitle": "Dispatcher",
+    "hourlyAverage": 22.43,
+    "salaryAverage": 46650
+  },
+  {
+    "jobTitle": "Meter Reader",
+    "hourlyAverage": 22.81,
+    "salaryAverage": 47430
+  },
+  {
+    "jobTitle": "Postal Service Clerk",
+    "hourlyAverage": 25.58,
+    "salaryAverage": 53210
+  },
+  {
+    "jobTitle": "Postal Service Mail Carrier",
+    "hourlyAverage": 26.14,
+    "salaryAverage": 54370
+  },
+  {
+    "jobTitle": "Postal Service Mail Sorter",
+    "hourlyAverage": 24.52,
+    "salaryAverage": 51010
+  },
+  {
+    "jobTitle": "Shipping, Receiving, and Inventory Clerk",
+    "hourlyAverage": 18.37,
+    "salaryAverage": 38210
+  },
+  {
+    "jobTitle": "Executive Assistant",
+    "hourlyAverage": 32.15,
+    "salaryAverage": 66870
+  },
+  {
+    "jobTitle": "Legal Assistant",
+    "hourlyAverage": 25.26,
+    "salaryAverage": 52540
+  },
+  {
+    "jobTitle": "Medical Assistant",
+    "hourlyAverage": 19.11,
+    "salaryAverage": 39740
+  },
+  {
+    "jobTitle": "Typists",
+    "hourlyAverage": 20.85,
+    "salaryAverage": 43370
+  },
+  {
+    "jobTitle": "Insurance Claims and Policy Processing Clerk",
+    "hourlyAverage": 22.02,
+    "salaryAverage": 45790
+  },
+  {
+    "jobTitle": "Office Clerk",
+    "hourlyAverage": 18.75,
+    "salaryAverage": 38990
+  },
+  {
+    "jobTitle": "Proofreader",
+    "hourlyAverage": 22.12,
+    "salaryAverage": 46010
+  },
+  {
+    "jobTitle": "Statistical Assistant",
+    "hourlyAverage": 25.68,
+    "salaryAverage": 53420
+  },
+  {
+    "jobTitle": "Office and Administrative Support Worker",
+    "hourlyAverage": 20.47,
+    "salaryAverage": 42580
+  },
+  {
+    "jobTitle": "Farming, Fishing, and Forestry Supervisor",
+    "hourlyAverage": 26.18,
+    "salaryAverage": 54450
+  },
+  {
+    "jobTitle": "Agricultural Inspector",
+    "hourlyAverage": 22.8,
+    "salaryAverage": 47430
+  },
+  {
+    "jobTitle": "Agricultural Equipment Operators",
+    "hourlyAverage": 17.44,
+    "salaryAverage": 36280
+  },
+  {
+    "jobTitle": "Farmworker",
+    "hourlyAverage": 15.11,
+    "salaryAverage": 31440
+  },
+  {
+    "jobTitle": "Agricultural Worker",
+    "hourlyAverage": 17.88,
+    "salaryAverage": 37190
+  },
+  {
+    "jobTitle": "Forest and Conservation Worker",
+    "hourlyAverage": 16.2,
+    "salaryAverage": 33690
+  },
+  {
+    "jobTitle": "Logging Equipment Operator",
+    "hourlyAverage": 21.14,
+    "salaryAverage": 43960
+  },
+  {
+    "jobTitle": "Log Graders and Scaler",
+    "hourlyAverage": 19.96,
+    "salaryAverage": 41520
+  },
+  {
+    "jobTitle": "Logging Worker",
+    "hourlyAverage": 21.84,
+    "salaryAverage": 45430
+  },
+  {
+    "jobTitle": "Construction Trades and Extraction Supervisor",
+    "hourlyAverage": 36.09,
+    "salaryAverage": 75060
+  },
+  {
+    "jobTitle": "Brickmason",
+    "hourlyAverage": 29.53,
+    "salaryAverage": 61430
+  },
+  {
+    "jobTitle": "Stonemason",
+    "hourlyAverage": 24.12,
+    "salaryAverage": 50170
+  },
+  {
+    "jobTitle": "Carpenter",
+    "hourlyAverage": 26.53,
+    "salaryAverage": 55190
+  },
+  {
+    "jobTitle": "Carpet Installer",
+    "hourlyAverage": 23.42,
+    "salaryAverage": 48710
+  },
+  {
+    "jobTitle": "Floor Layer",
+    "hourlyAverage": 25.9,
+    "salaryAverage": 53880
+  },
+  {
+    "jobTitle": "Floor Sander and Finisher",
+    "hourlyAverage": 21.34,
+    "salaryAverage": 44380
+  },
+  {
+    "jobTitle": "Tile and Stone Setter",
+    "hourlyAverage": 25.64,
+    "salaryAverage": 53330
+  },
+  {
+    "jobTitle": "Cement Masons and Concrete Finisher",
+    "hourlyAverage": 24.47,
+    "salaryAverage": 50900
+  },
+  {
+    "jobTitle": "Terrazzo Worker and Finisher",
+    "hourlyAverage": 28.07,
+    "salaryAverage": 58380
+  },
+  {
+    "jobTitle": "Construction Laborer",
+    "hourlyAverage": 21.22,
+    "salaryAverage": 44130
+  },
+  {
+    "jobTitle": "Paving, Surfacing, and Tamping Equipment Operator",
+    "hourlyAverage": 24.32,
+    "salaryAverage": 50590
+  },
+  {
+    "jobTitle": "Pile Driver Operator",
+    "hourlyAverage": 36.51,
+    "salaryAverage": 75950
+  },
+  {
+    "jobTitle": "Drywall and Ceiling Tile Installer",
+    "hourlyAverage": 26.35,
+    "salaryAverage": 54810
+  },
+  {
+    "jobTitle": "Taper",
+    "hourlyAverage": 31.32,
+    "salaryAverage": 65140
+  },
+  {
+    "jobTitle": "Electrician",
+    "hourlyAverage": 30.44,
+    "salaryAverage": 63310
+  },
+  {
+    "jobTitle": "Glazier",
+    "hourlyAverage": 24.98,
+    "salaryAverage": 51950
+  },
+  {
+    "jobTitle": "Insulation Worker",
+    "hourlyAverage": 21.54,
+    "salaryAverage": 44810
+  },
+  {
+    "jobTitle": "Painter",
+    "hourlyAverage": 22.66,
+    "salaryAverage": 47140
+  },
+  {
+    "jobTitle": "Paperhanger",
+    "hourlyAverage": 24.79,
+    "salaryAverage": 51560
+  },
+  {
+    "jobTitle": "Pipelayer",
+    "hourlyAverage": 23.32,
+    "salaryAverage": 48510
+  },
+  {
+    "jobTitle": "Plumber",
+    "hourlyAverage": 30.46,
+    "salaryAverage": 63350
+  },
+  {
+    "jobTitle": "Reinforcing Iron and Rebar Worker",
+    "hourlyAverage": 28.35,
+    "salaryAverage": 58960
+  },
+  {
+    "jobTitle": "Roofer",
+    "hourlyAverage": 23.51,
+    "salaryAverage": 48890
+  },
+  {
+    "jobTitle": "Sheet Metal Worker",
+    "hourlyAverage": 28.25,
+    "salaryAverage": 58760
+  },
+  {
+    "jobTitle": "Structural Iron and Steel Worker",
+    "hourlyAverage": 29.46,
+    "salaryAverage": 61270
+  },
+  {
+    "jobTitle": "Solar Photovoltaic Installer",
+    "hourlyAverage": 24.38,
+    "salaryAverage": 50710
+  },
+  {
+    "jobTitle": "Construction and Building Inspector",
+    "hourlyAverage": 32.93,
+    "salaryAverage": 68480
+  },
+  {
+    "jobTitle": "Elevator and Escalator Installer and Repairer",
+    "hourlyAverage": 43.91,
+    "salaryAverage": 91320
+  },
+  {
+    "jobTitle": "Hazardous Materials Removal Worker",
+    "hourlyAverage": 23.69,
+    "salaryAverage": 49280
+  },
+  {
+    "jobTitle": "Highway Maintenance Worker",
+    "hourlyAverage": 21.32,
+    "salaryAverage": 44340
+  },
+  {
+    "jobTitle": "Rail-Track Laying and Maintenance Equipment Operator",
+    "hourlyAverage": 29.22,
+    "salaryAverage": 60770
+  },
+  {
+    "jobTitle": "Septic Tank Servicer and Sewer Pipe Cleaner",
+    "hourlyAverage": 21.82,
+    "salaryAverage": 45390
+  },
+  {
+    "jobTitle": "Excavator",
+    "hourlyAverage": 23.97,
+    "salaryAverage": 49850
+  },
+  {
+    "jobTitle": "Earth Driller",
+    "hourlyAverage": 25.77,
+    "salaryAverage": 53600
+  },
+  {
+    "jobTitle": "Explosives Worker",
+    "hourlyAverage": 27.44,
+    "salaryAverage": 57070
+  },
+  {
+    "jobTitle": "Roof Bolter",
+    "hourlyAverage": 28.45,
+    "salaryAverage": 59170
+  },
+  {
+    "jobTitle": "Underground Mining Machine Operator",
+    "hourlyAverage": 28.99,
+    "salaryAverage": 60290
+  },
+  {
+    "jobTitle": "Rock Splitter",
+    "hourlyAverage": 20.02,
+    "salaryAverage": 41630
+  },
+  {
+    "jobTitle": "Office Machine Repairer",
+    "hourlyAverage": 21.24,
+    "salaryAverage": 44170
+  },
+  {
+    "jobTitle": "Radio, Cellular, and Tower Equipment Installer and Repairer",
+    "hourlyAverage": 30.05,
+    "salaryAverage": 62500
+  },
+  {
+    "jobTitle": "Telecommunications Equipment Installer and Repairer",
+    "hourlyAverage": 29.02,
+    "salaryAverage": 60350
+  },
+  {
+    "jobTitle": "Avionics Technician",
+    "hourlyAverage": 33.59,
+    "salaryAverage": 69860
+  },
+  {
+    "jobTitle": "Electric Motor, Power Tool Repairer",
+    "hourlyAverage": 23.43,
+    "salaryAverage": 48740
+  },
+  {
+    "jobTitle": "Electrical and Electronics Installer and Repairer",
+    "hourlyAverage": 33.97,
+    "salaryAverage": 70650
+  },
+  {
+    "jobTitle": "Electronic Equipment Installer and Repairer",
+    "hourlyAverage": 21.01,
+    "salaryAverage": 43690
+  },
+  {
+    "jobTitle": "Audiovisual Equipment Installers and Repairers",
+    "hourlyAverage": 22.18,
+    "salaryAverage": 46120
+  },
+  {
+    "jobTitle": "Security and Fire Alarm System Installer",
+    "hourlyAverage": 25.08,
+    "salaryAverage": 52170
+  },
+  {
+    "jobTitle": "Aircraft Mechanics and Service Technician",
+    "hourlyAverage": 33.4,
+    "salaryAverage": 69470
+  },
+  {
+    "jobTitle": "Automotive Body Repairer",
+    "hourlyAverage": 24.36,
+    "salaryAverage": 50660
+  },
+  {
+    "jobTitle": "Automotive Glass Installer and Repairer",
+    "hourlyAverage": 19.56,
+    "salaryAverage": 40690
+  },
+  {
+    "jobTitle": "Automotive Service Technician and Mechanic",
+    "hourlyAverage": 23.07,
+    "salaryAverage": 47990
+  },
+  {
+    "jobTitle": "Bus and Truck Mechanic and Diesel Engine Specialist",
+    "hourlyAverage": 25.49,
+    "salaryAverage": 53020
+  },
+  {
+    "jobTitle": "Farm Equipment Mechanic and Service Technician",
+    "hourlyAverage": 22.71,
+    "salaryAverage": 47250
+  },
+  {
+    "jobTitle": "Rail Car Repairer",
+    "hourlyAverage": 29.04,
+    "salaryAverage": 60400
+  },
+  {
+    "jobTitle": "Motorboat Mechanic and Service Technician",
+    "hourlyAverage": 22.43,
+    "salaryAverage": 46660
+  },
+  {
+    "jobTitle": "Motorcycle Mechanic",
+    "hourlyAverage": 20.18,
+    "salaryAverage": 41970
+  },
+  {
+    "jobTitle": "Outdoor Power Equipment and Other Small Engine Mechanic",
+    "hourlyAverage": 19.41,
+    "salaryAverage": 40360
+  },
+  {
+    "jobTitle": "Bicycle Repairer",
+    "hourlyAverage": 16.52,
+    "salaryAverage": 34360
+  },
+  {
+    "jobTitle": "Recreational Vehicle Service Technician",
+    "hourlyAverage": 21.6,
+    "salaryAverage": 44930
+  },
+  {
+    "jobTitle": "Tire Repairer and Changer",
+    "hourlyAverage": 15.63,
+    "salaryAverage": 32520
+  },
+  {
+    "jobTitle": "Mechanical Door Repairer",
+    "hourlyAverage": 21.88,
+    "salaryAverage": 45520
+  },
+  {
+    "jobTitle": "Heating, Air Conditioning, and Refrigeration Mechanic and Installer",
+    "hourlyAverage": 26.29,
+    "salaryAverage": 54690
+  },
+  {
+    "jobTitle": "Home Appliance Repairer",
+    "hourlyAverage": 21.8,
+    "salaryAverage": 45340
+  },
+  {
+    "jobTitle": "Industrial Machinery Mechanic",
+    "hourlyAverage": 28.26,
+    "salaryAverage": 58780
+  },
+  {
+    "jobTitle": "Electrical Power-Line Installer and Repairer",
+    "hourlyAverage": 38.01,
+    "salaryAverage": 79060
+  },
+  {
+    "jobTitle": "Telecommunications Line Installer and Repairer",
+    "hourlyAverage": 29.93,
+    "salaryAverage": 62250
+  },
+  {
+    "jobTitle": "Camera and Photographic Equipment Repairer",
+    "hourlyAverage": 21.28,
+    "salaryAverage": 44260
+  },
+  {
+    "jobTitle": "Medical Equipment Repairer",
+    "hourlyAverage": 27.13,
+    "salaryAverage": 56420
+  },
+  {
+    "jobTitle": "Musical Instrument Repairer and Tuner",
+    "hourlyAverage": 19.11,
+    "salaryAverage": 39740
+  },
+  {
+    "jobTitle": "Watch and Clock Repairer",
+    "hourlyAverage": 21.86,
+    "salaryAverage": 45460
+  },
+  {
+    "jobTitle": "Wind Turbine Service Technician",
+    "hourlyAverage": 28.16,
+    "salaryAverage": 58580
+  },
+  {
+    "jobTitle": "Coin, Vending, and Amusement Machine Servicer and Repairer",
+    "hourlyAverage": 20.2,
+    "salaryAverage": 42010
+  },
+  {
+    "jobTitle": "Commercial Diver",
+    "hourlyAverage": 39.43,
+    "salaryAverage": 82010
+  },
+  {
+    "jobTitle": "Locksmith and Safe Repairer",
+    "hourlyAverage": 22.98,
+    "salaryAverage": 47810
+  },
+  {
+    "jobTitle": "Manufactured Building and Mobile Home Installer",
+    "hourlyAverage": 17.23,
+    "salaryAverage": 35830
+  },
+  {
+    "jobTitle": "Aircraft Structure, Surfaces, Rigging, and Systems Assembler",
+    "hourlyAverage": 26.63,
+    "salaryAverage": 55380
+  },
+  {
+    "jobTitle": "Engine and Other Machine Assembler",
+    "hourlyAverage": 23.13,
+    "salaryAverage": 48110
+  },
+  {
+    "jobTitle": "Structural Metal Fabricator and Fitter",
+    "hourlyAverage": 21.99,
+    "salaryAverage": 45730
+  },
+  {
+    "jobTitle": "Fiberglass Laminator and Fabricator",
+    "hourlyAverage": 19.4,
+    "salaryAverage": 40360
+  },
+  {
+    "jobTitle": "Baker",
+    "hourlyAverage": 15.53,
+    "salaryAverage": 32300
+  },
+  {
+    "jobTitle": "Butcher",
+    "hourlyAverage": 17.15,
+    "salaryAverage": 35670
+  },
+  {
+    "jobTitle": "Meat, Poultry, and Fish Cutter and Trimmer",
+    "hourlyAverage": 15.23,
+    "salaryAverage": 31680
+  },
+  {
+    "jobTitle": "Slaughterer and Meat Packer",
+    "hourlyAverage": 15.39,
+    "salaryAverage": 32010
+  },
+  {
+    "jobTitle": "Food Cooking Machine Operator and Tender",
+    "hourlyAverage": 17.03,
+    "salaryAverage": 35430
+  },
+  {
+    "jobTitle": "Machinist",
+    "hourlyAverage": 23.57,
+    "salaryAverage": 49020
+  },
+  {
+    "jobTitle": "Metal-Refining Furnace Operator and Tender",
+    "hourlyAverage": 22.33,
+    "salaryAverage": 46440
+  },
+  {
+    "jobTitle": "Model Maker",
+    "hourlyAverage": 28.4,
+    "salaryAverage": 59080
+  },
+  {
+    "jobTitle": "Welder",
+    "hourlyAverage": 23.21,
+    "salaryAverage": 48290
+  },
+  {
+    "jobTitle": "Tool Grinder",
+    "hourlyAverage": 20.99,
+    "salaryAverage": 43660
+  },
+  {
+    "jobTitle": "Printing Press Operator",
+    "hourlyAverage": 19.77,
+    "salaryAverage": 41120
+  },
+  {
+    "jobTitle": "Print Binding and Finishing Worker",
+    "hourlyAverage": 17.82,
+    "salaryAverage": 37060
+  },
+  {
+    "jobTitle": "Laundry and Dry-Cleaning Worker",
+    "hourlyAverage": 13.38,
+    "salaryAverage": 27830
+  },
+  {
+    "jobTitle": "Sewing Machine Operator",
+    "hourlyAverage": 14.85,
+    "salaryAverage": 30880
+  },
+  {
+    "jobTitle": "Shoe and Leather Worker and Repairer",
+    "hourlyAverage": 16.77,
+    "salaryAverage": 34890
+  },
+  {
+    "jobTitle": "Shoe Machine Operator and Tender",
+    "hourlyAverage": 14.38,
+    "salaryAverage": 29920
+  },
+  {
+    "jobTitle": "Sewer",
+    "hourlyAverage": 15.07,
+    "salaryAverage": 31350
+  },
+  {
+    "jobTitle": "Tailor",
+    "hourlyAverage": 17.03,
+    "salaryAverage": 35430
+  },
+  {
+    "jobTitle": "Textile Bleaching and Dyeing Machine Operator and Tender",
+    "hourlyAverage": 15.36,
+    "salaryAverage": 31940
+  },
+  {
+    "jobTitle": "Textile Cutting Machine Setters, Operators, and Tenders",
+    "hourlyAverage": 15.91,
+    "salaryAverage": 33100
+  },
+  {
+    "jobTitle": "Textile Knitting and Weaving Machine Setter, Operator",
+    "hourlyAverage": 16.17,
+    "salaryAverage": 33640
+  },
+  {
+    "jobTitle": "Upholsterer",
+    "hourlyAverage": 18.38,
+    "salaryAverage": 38220
+  },
+  {
+    "jobTitle": "Cabinetmakers and Bench Carpenter",
+    "hourlyAverage": 19.27,
+    "salaryAverage": 40070
+  },
+  {
+    "jobTitle": "Furniture Finisher",
+    "hourlyAverage": 17.94,
+    "salaryAverage": 37310
+  },
+  {
+    "jobTitle": "Wood Model Makers",
+    "hourlyAverage": 28.87,
+    "salaryAverage": 60040
+  },
+  {
+    "jobTitle": "Nuclear Power Reactor Operator",
+    "hourlyAverage": 53.47,
+    "salaryAverage": 111220
+  },
+  {
+    "jobTitle": "Power Distributors and Dispatcher",
+    "hourlyAverage": 45.92,
+    "salaryAverage": 95520
+  },
+  {
+    "jobTitle": "Power Plant Operator",
+    "hourlyAverage": 40.26,
+    "salaryAverage": 83740
+  },
+  {
+    "jobTitle": "Stationary Engineer and Boiler Operator",
+    "hourlyAverage": 33.9,
+    "salaryAverage": 70510
+  },
+  {
+    "jobTitle": "Water and Wastewater Treatment Plant and System Operator",
+    "hourlyAverage": 25.15,
+    "salaryAverage": 52320
+  },
+  {
+    "jobTitle": "Chemical Plant and System Operator",
+    "hourlyAverage": 33.18,
+    "salaryAverage": 69020
+  },
+  {
+    "jobTitle": "Gas Plant Operator",
+    "hourlyAverage": 37.01,
+    "salaryAverage": 76970
+  },
+  {
+    "jobTitle": "Petroleum Pump System Operator",
+    "hourlyAverage": 38.7,
+    "salaryAverage": 80500
+  },
+  {
+    "jobTitle": "Chemical Equipment Operator and Tender",
+    "hourlyAverage": 25.22,
+    "salaryAverage": 52450
+  },
+  {
+    "jobTitle": "Inspector",
+    "hourlyAverage": 21.54,
+    "salaryAverage": 44810
+  },
+  {
+    "jobTitle": "Jewelers and Precious Stone and Metal Worker",
+    "hourlyAverage": 22.64,
+    "salaryAverage": 47090
+  },
+  {
+    "jobTitle": "Dental Laboratory Technician",
+    "hourlyAverage": 22.75,
+    "salaryAverage": 47320
+  },
+  {
+    "jobTitle": "Medical Appliance Technician",
+    "hourlyAverage": 22.27,
+    "salaryAverage": 46320
+  },
+  {
+    "jobTitle": "Semiconductor Processing Technicians",
+    "hourlyAverage": 22.07,
+    "salaryAverage": 45910
+  },
+  {
+    "jobTitle": "Photographic Process Worker/Processing Machine Operator",
+    "hourlyAverage": 19.37,
+    "salaryAverage": 40300
+  },
+  {
+    "jobTitle": "Computer Numerically Controlled Tool Operator",
+    "hourlyAverage": 22.23,
+    "salaryAverage": 46240
+  },
+  {
+    "jobTitle": "Computer Numerically Controlled Tool Programmer",
+    "hourlyAverage": 29.98,
+    "salaryAverage": 62360
+  },
+  {
+    "jobTitle": "Adhesive Bonding Machine Operators and Tender",
+    "hourlyAverage": 18.55,
+    "salaryAverage": 38580
+  },
+  {
+    "jobTitle": "Cleaning, Washing, and Metal Pickling Equipment Operators and Tenders",
+    "hourlyAverage": 17.22,
+    "salaryAverage": 35820
+  },
+  {
+    "jobTitle": "Cooling and Freezing Equipment Operator and Tender",
+    "hourlyAverage": 20.63,
+    "salaryAverage": 42910
+  },
+  {
+    "jobTitle": "Etcher/Engraver",
+    "hourlyAverage": 17.77,
+    "salaryAverage": 36970
+  },
+  {
+    "jobTitle": "Molders, Shapers, and Casters, Except Metal and Plastic",
+    "hourlyAverage": 18.76,
+    "salaryAverage": 39020
+  },
+  {
+    "jobTitle": "Paper Goods Machine Setter, Operator, and Tender",
+    "hourlyAverage": 21.24,
+    "salaryAverage": 44180
+  },
+  {
+    "jobTitle": "Tire Builder",
+    "hourlyAverage": 23.0,
+    "salaryAverage": 47840
+  },
+  {
+    "jobTitle": "Helpers--Production Worker",
+    "hourlyAverage": 15.82,
+    "salaryAverage": 32910
+  },
+  {
+    "jobTitle": "Aircraft Cargo Handling Supervisor",
+    "hourlyAverage": 29.84,
+    "salaryAverage": 62080
+  },
+  {
+    "jobTitle": "First-Line Supervisor of Transportation and Material Moving Workers",
+    "hourlyAverage": 28.16,
+    "salaryAverage": 58580
+  },
+  {
+    "jobTitle": "Airline Pilot, Copilot, and Flight Engineer",
+    "hourlyAverage": 95.28,
+    "salaryAverage": 198190
+  },
+  {
+    "jobTitle": "Commercial Pilot",
+    "hourlyAverage": 55.33,
+    "salaryAverage": 115080
+  },
+  {
+    "jobTitle": "Air Traffic Controller",
+    "hourlyAverage": 61.5,
+    "salaryAverage": 127920
+  },
+  {
+    "jobTitle": "Airfield Operations Specialist",
+    "hourlyAverage": 26.13,
+    "salaryAverage": 54360
+  },
+  {
+    "jobTitle": "Flight Attendant",
+    "hourlyAverage": 29.94,
+    "salaryAverage": 62280
+  },
+  {
+    "jobTitle": "Ambulance Driver and Attendants",
+    "hourlyAverage": 14.93,
+    "salaryAverage": 31060
+  },
+  {
+    "jobTitle": "Driver/Sales Worker",
+    "hourlyAverage": 15.37,
+    "salaryAverage": 31970
+  },
+  {
+    "jobTitle": "Heavy and Tractor-Trailer Truck Driver",
+    "hourlyAverage": 24.2,
+    "salaryAverage": 50340
+  },
+  {
+    "jobTitle": "Light Truck Driver",
+    "hourlyAverage": 20.5,
+    "salaryAverage": 42630
+  },
+  {
+    "jobTitle": "School Bus Driver",
+    "hourlyAverage": 18.63,
+    "salaryAverage": 38750
+  },
+  {
+    "jobTitle": "Bus Driver, Transit and Intercity",
+    "hourlyAverage": 24.67,
+    "salaryAverage": 51310
+  },
+  {
+    "jobTitle": "Shuttle Driver/Chauffeur",
+    "hourlyAverage": 15.66,
+    "salaryAverage": 32570
+  },
+  {
+    "jobTitle": "Taxi Driver",
+    "hourlyAverage": 14.45,
+    "salaryAverage": 30050
+  },
+  {
+    "jobTitle": "Motor Vehicle Operators",
+    "hourlyAverage": 17.51,
+    "salaryAverage": 36410
+  },
+  {
+    "jobTitle": "Locomotive Engineer",
+    "hourlyAverage": 35.07,
+    "salaryAverage": 72940
+  },
+  {
+    "jobTitle": "Rail Yard Engineer",
+    "hourlyAverage": 27.92,
+    "salaryAverage": 58070
+  },
+  {
+    "jobTitle": "Railroad Brake, Signal, and Switch Operator and Locomotive Firer",
+    "hourlyAverage": 30.31,
+    "salaryAverage": 63050
+  },
+  {
+    "jobTitle": "Railroad Conductor and Yardmaster",
+    "hourlyAverage": 32.21,
+    "salaryAverage": 66990
+  },
+  {
+    "jobTitle": "Subway and Streetcar Operator",
+    "hourlyAverage": 34.38,
+    "salaryAverage": 71520
+  },
+  {
+    "jobTitle": "Sailor/Marine Oiler",
+    "hourlyAverage": 27.79,
+    "salaryAverage": 57800
+  },
+  {
+    "jobTitle": "Captain and Pilots of Water Vessel",
+    "hourlyAverage": 47.27,
+    "salaryAverage": 98330
+  },
+  {
+    "jobTitle": "Motorboat Operator",
+    "hourlyAverage": 21.35,
+    "salaryAverage": 44410
+  },
+  {
+    "jobTitle": "Ship Engineer",
+    "hourlyAverage": 46.59,
+    "salaryAverage": 96910
+  },
+  {
+    "jobTitle": "Bridge and Lock Tender",
+    "hourlyAverage": 21.52,
+    "salaryAverage": 44760
+  },
+  {
+    "jobTitle": "Parking Attendant",
+    "hourlyAverage": 14.04,
+    "salaryAverage": 29210
+  },
+  {
+    "jobTitle": "Automotive and Watercraft Service Attendant",
+    "hourlyAverage": 14.4,
+    "salaryAverage": 29960
+  },
+  {
+    "jobTitle": "Aircraft Service Attendant",
+    "hourlyAverage": 18.58,
+    "salaryAverage": 38640
+  },
+  {
+    "jobTitle": "Traffic Technician",
+    "hourlyAverage": 25.58,
+    "salaryAverage": 53210
+  },
+  {
+    "jobTitle": "Transportation Inspector",
+    "hourlyAverage": 37.32,
+    "salaryAverage": 77620
+  },
+  {
+    "jobTitle": "Passenger Attendant",
+    "hourlyAverage": 16.53,
+    "salaryAverage": 34380
+  },
+  {
+    "jobTitle": "Transportation Worker",
+    "hourlyAverage": 19.23,
+    "salaryAverage": 39990
+  },
+  {
+    "jobTitle": "Conveyor Operators and Tender",
+    "hourlyAverage": 17.8,
+    "salaryAverage": 37010
+  },
+  {
+    "jobTitle": "Crane and Tower Operator",
+    "hourlyAverage": 31.38,
+    "salaryAverage": 65270
+  },
+  {
+    "jobTitle": "Dredge Operator",
+    "hourlyAverage": 24.29,
+    "salaryAverage": 50530
+  },
+  {
+    "jobTitle": "Hoist and Winch Operator",
+    "hourlyAverage": 28.1,
+    "salaryAverage": 58450
+  },
+  {
+    "jobTitle": "Industrial Truck and Tractor Operator",
+    "hourlyAverage": 19.69,
+    "salaryAverage": 40950
+  },
+  {
+    "jobTitle": "Vehicles and Equipment Cleaner",
+    "hourlyAverage": 14.69,
+    "salaryAverage": 30550
+  },
+  {
+    "jobTitle": "Freight, Stock, and Material Movers, Hand Laborer",
+    "hourlyAverage": 16.8,
+    "salaryAverage": 34950
+  },
+  {
+    "jobTitle": "Machine Feeder and Offbearer",
+    "hourlyAverage": 17.63,
+    "salaryAverage": 36660
+  },
+  {
+    "jobTitle": "Stocker and Order Filler",
+    "hourlyAverage": 15.87,
+    "salaryAverage": 33020
+  },
+  {
+    "jobTitle": "Gas Compressor and Gas Pumping Station Operator",
+    "hourlyAverage": 32.27,
+    "salaryAverage": 67130
+  },
+  {
+    "jobTitle": "Pump Operator",
+    "hourlyAverage": 26.15,
+    "salaryAverage": 54400
+  },
+  {
+    "jobTitle": "Wellhead Pumper",
+    "hourlyAverage": 32.29,
+    "salaryAverage": 67170
+  },
+  {
+    "jobTitle": "Refuse and Recyclable Material Collector",
+    "hourlyAverage": 20.57,
+    "salaryAverage": 42780
+  },
+  {
+    "jobTitle": "Tank Car, Truck, and Ship Loader",
+    "hourlyAverage": 26.6,
+    "salaryAverage": 55330
+  },
+  {
+    "jobTitle": "Material Moving Worker",
+    "hourlyAverage": 19.32,
+    "salaryAverage": 40190
+  },
+  {
+    "jobTitle": "Advertising, Marketing, Promotion, Public Relation, and Sales Manager",
+    "hourlyAverage": 69.77,
+    "salaryAverage": 145130
+  },
+  {
+    "jobTitle": "Operations Specialties Manager",
+    "hourlyAverage": 67.26,
+    "salaryAverage": 139900
+  },
+  {
+    "jobTitle": "Business Operations Specialist",
+    "hourlyAverage": 38.64,
+    "salaryAverage": 80380
+  },
+  {
+    "jobTitle": "Financial Specialist",
+    "hourlyAverage": 41.99,
+    "salaryAverage": 87350
+  },
+  {
+    "jobTitle": "Computer Occupation",
+    "hourlyAverage": 47.89,
+    "salaryAverage": 99620
+  },
+  {
+    "jobTitle": "Mathematical Science Occupation",
+    "hourlyAverage": 49.9,
+    "salaryAverage": 103800
+  },
+  {
+    "jobTitle": "Architect, Surveyor, and Cartographer",
+    "hourlyAverage": 39.85,
+    "salaryAverage": 82880
+  },
+  {
+    "jobTitle": "Engineer",
+    "hourlyAverage": 50.0,
+    "salaryAverage": 104000
+  },
+  {
+    "jobTitle": "Drafter, Engineering Technician, and Mapping Technician",
+    "hourlyAverage": 30.01,
+    "salaryAverage": 62420
+  },
+  {
+    "jobTitle": "Life Scientist",
+    "hourlyAverage": 44.8,
+    "salaryAverage": 93190
+  },
+  {
+    "jobTitle": "Physical Scientist",
+    "hourlyAverage": 46.32,
+    "salaryAverage": 96340
+  },
+  {
+    "jobTitle": "Social Scientist and Related Worker",
+    "hourlyAverage": 43.66,
+    "salaryAverage": 90810
+  },
+  {
+    "jobTitle": "Life, Physical, and Social Science Technician",
+    "hourlyAverage": 25.91,
+    "salaryAverage": 53890
+  },
+  {
+    "jobTitle": "Occupational Health and Safety Specialist and Technician",
+    "hourlyAverage": 36.13,
+    "salaryAverage": 75150
+  },
+  {
+    "jobTitle": "Social Worker",
+    "hourlyAverage": 25.94,
+    "salaryAverage": 53950
+  },
+  {
+    "jobTitle": "Religious Worker",
+    "hourlyAverage": 26.13,
+    "salaryAverage": 54340
+  },
+  {
+    "jobTitle": "Lawyer",
+    "hourlyAverage": 69.46,
+    "salaryAverage": 144470
+  },
+  {
+    "jobTitle": "Legal Support Worker",
+    "hourlyAverage": 28.46,
+    "salaryAverage": 59190
+  },
+  {
+    "jobTitle": "College Teachers",
+    "hourlyAverage": 45.77,
+    "salaryAverage": 95200
+  },
+  {
+    "jobTitle": "Preschool, Elementary, Middle, Secondary, and Special Education Teachers",
+    "hourlyAverage": 31.19,
+    "salaryAverage": 64870
+  },
+  {
+    "jobTitle": "Instructional Coach/Interventionist",
+    "hourlyAverage": 22.35,
+    "salaryAverage": 46490
+  },
+  {
+    "jobTitle": "Librarian",
+    "hourlyAverage": 26.69,
+    "salaryAverage": 55520
+  },
+  {
+    "jobTitle": "Art and Design Worker",
+    "hourlyAverage": 28.32,
+    "salaryAverage": 58910
+  },
+  {
+    "jobTitle": "Entertainers and Performer, Sports and Related Worker",
+    "hourlyAverage": 34.55,
+    "salaryAverage": 71870
+  },
+  {
+    "jobTitle": "Media and Communication Worker",
+    "hourlyAverage": 34.5,
+    "salaryAverage": 71760
+  },
+  {
+    "jobTitle": "Healthcare Diagnosing or Treating Practitioner",
+    "hourlyAverage": 53.92,
+    "salaryAverage": 112160
+  },
+  {
+    "jobTitle": "Health Technologist and Technician",
+    "hourlyAverage": 24.18,
+    "salaryAverage": 50300
+  },
+  {
+    "jobTitle": "Occupational Therapy and Physical Therapist Assistant and Aide",
+    "hourlyAverage": 25.91,
+    "salaryAverage": 53900
+  },
+  {
+    "jobTitle": "Protective Service Workers Supervisor",
+    "hourlyAverage": 38.95,
+    "salaryAverage": 81010
+  },
+  {
+    "jobTitle": "Firefighting and Prevention Worker",
+    "hourlyAverage": 26.88,
+    "salaryAverage": 55910
+  },
+  {
+    "jobTitle": "Law Enforcement Worker",
+    "hourlyAverage": 31.91,
+    "salaryAverage": 66370
+  },
+  {
+    "jobTitle": "Food Preparation and Serving Worker Supervisor",
+    "hourlyAverage": 19.77,
+    "salaryAverage": 41130
+  },
+  {
+    "jobTitle": "Cooks and Food Preparation Worker",
+    "hourlyAverage": 14.13,
+    "salaryAverage": 29380
+  },
+  {
+    "jobTitle": "Food and Beverage Serving Worker",
+    "hourlyAverage": 13.23,
+    "salaryAverage": 27520
+  },
+  {
+    "jobTitle": "Building and Grounds Cleaning and Maintenance Supervisor",
+    "hourlyAverage": 23.38,
+    "salaryAverage": 48620
+  },
+  {
+    "jobTitle": "Building Cleaning and Pest Control Worker",
+    "hourlyAverage": 15.19,
+    "salaryAverage": 31590
+  },
+  {
+    "jobTitle": "Personal Care and Service Supervisor",
+    "hourlyAverage": 22.57,
+    "salaryAverage": 46950
+  },
+  {
+    "jobTitle": "Animal Care and Service Worker",
+    "hourlyAverage": 14.47,
+    "salaryAverage": 30100
+  },
+  {
+    "jobTitle": "Entertainment Attendants and Related Worker",
+    "hourlyAverage": 13.06,
+    "salaryAverage": 27170
+  },
+  {
+    "jobTitle": "Funeral Service Worker",
+    "hourlyAverage": 20.58,
+    "salaryAverage": 42800
+  },
+  {
+    "jobTitle": "Personal Appearance Worker",
+    "hourlyAverage": 16.99,
+    "salaryAverage": 35350
+  },
+  {
+    "jobTitle": "Baggage Porter, Bellhop, and Concierge",
+    "hourlyAverage": 16.68,
+    "salaryAverage": 34680
+  },
+  {
+    "jobTitle": "Tour and Travel Guide",
+    "hourlyAverage": 15.96,
+    "salaryAverage": 33200
+  },
+  {
+    "jobTitle": "Sales Supervisor",
+    "hourlyAverage": 26.38,
+    "salaryAverage": 54880
+  },
+  {
+    "jobTitle": "Retail Sales Worker",
+    "hourlyAverage": 14.45,
+    "salaryAverage": 30060
+  },
+  {
+    "jobTitle": "Sales Representative",
+    "hourlyAverage": 35.95,
+    "salaryAverage": 74770
+  },
+  {
+    "jobTitle": "Wholesale and Manufacturing Sales Representative",
+    "hourlyAverage": 37.38,
+    "salaryAverage": 77750
+  },
+  {
+    "jobTitle": "Office and Administrative Support Supervisor",
+    "hourlyAverage": 30.47,
+    "salaryAverage": 63380
+  },
+  {
+    "jobTitle": "Communications Equipment Operator",
+    "hourlyAverage": 16.98,
+    "salaryAverage": 35310
+  },
+  {
+    "jobTitle": "Financial Clerk",
+    "hourlyAverage": 20.84,
+    "salaryAverage": 43340
+  },
+  {
+    "jobTitle": "Information and Record Clerk",
+    "hourlyAverage": 18.59,
+    "salaryAverage": 38670
+  },
+  {
+    "jobTitle": "Material Recording, Scheduling, Dispatching, and Distributing Worker",
+    "hourlyAverage": 21.97,
+    "salaryAverage": 45710
+  },
+  {
+    "jobTitle": "Secretary and Administrative Assistant",
+    "hourlyAverage": 21.76,
+    "salaryAverage": 45250
+  },
+  {
+    "jobTitle": "Farming, Fishing, and Forestry Worker Supervisor",
+    "hourlyAverage": 26.18,
+    "salaryAverage": 54450
+  },
+  {
+    "jobTitle": "Forest, Conservation, and Logging Worker",
+    "hourlyAverage": 20.83,
+    "salaryAverage": 43320
+  },
+  {
+    "jobTitle": "Construction and Extraction Supervisor",
+    "hourlyAverage": 36.09,
+    "salaryAverage": 75060
+  },
+  {
+    "jobTitle": "Construction Trades Worker",
+    "hourlyAverage": 26.03,
+    "salaryAverage": 54140
+  },
+  {
+    "jobTitle": "Construction Trade Helper",
+    "hourlyAverage": 17.95,
+    "salaryAverage": 37340
+  },
+  {
+    "jobTitle": "Extraction Worker",
+    "hourlyAverage": 24.95,
+    "salaryAverage": 51900
+  },
+  {
+    "jobTitle": "Installation, Maintenance, and Repair Supervisor",
+    "hourlyAverage": 35.38,
+    "salaryAverage": 73590
+  },
+  {
+    "jobTitle": "Electrical and Electronic Equipment Mechanic, Installer, and Repairer",
+    "hourlyAverage": 27.53,
+    "salaryAverage": 57260
+  },
+  {
+    "jobTitle": "Vehicle and Mobile Equipment Mechanics, Installer, and Repairer",
+    "hourlyAverage": 24.23,
+    "salaryAverage": 50400
+  },
+  {
+    "jobTitle": "Production Supervisor",
+    "hourlyAverage": 32.37,
+    "salaryAverage": 67330
+  },
+  {
+    "jobTitle": "Assembler/Fabricator",
+    "hourlyAverage": 18.75,
+    "salaryAverage": 39000
+  },
+  {
+    "jobTitle": "Food Processing Worker",
+    "hourlyAverage": 16.27,
+    "salaryAverage": 33830
+  },
+  {
+    "jobTitle": "Metal Worker/Plastic Worker",
+    "hourlyAverage": 21.56,
+    "salaryAverage": 44840
+  },
+  {
+    "jobTitle": "Printing Worker",
+    "hourlyAverage": 19.55,
+    "salaryAverage": 40660
+  },
+  {
+    "jobTitle": "Textile, Apparel, and Furnishings Worker",
+    "hourlyAverage": 15.0,
+    "salaryAverage": 31210
+  },
+  {
+    "jobTitle": "Woodworker",
+    "hourlyAverage": 18.04,
+    "salaryAverage": 37520
+  },
+  {
+    "jobTitle": "Plant and System Operator",
+    "hourlyAverage": 31.83,
+    "salaryAverage": 66210
+  },
+  {
+    "jobTitle": "Transportation and Material Moving Supervisor",
+    "hourlyAverage": 28.19,
+    "salaryAverage": 58630
+  },
+  {
+    "jobTitle": "Air Transportation Worker",
+    "hourlyAverage": 57.5,
+    "salaryAverage": 119590
+  },
+  {
+    "jobTitle": "Motor Vehicle Operator",
+    "hourlyAverage": 21.31,
+    "salaryAverage": 44330
+  },
+  {
+    "jobTitle": "Rail Transportation Worker",
+    "hourlyAverage": 32.85,
+    "salaryAverage": 68330
+  },
+  {
+    "jobTitle": "Water Transportation Worker",
+    "hourlyAverage": 38.84,
+    "salaryAverage": 80780
+  }
+]
