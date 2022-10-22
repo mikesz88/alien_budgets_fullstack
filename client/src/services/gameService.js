@@ -19,6 +19,22 @@ class GameService {
     this.mathFactResults.push(score);
   }
 
+  setJob(job) {
+    this.job = job;
+  }
+
+  setHouse(house) {
+    this.house = house;
+  }
+
+  getHouse() {
+    return this.house;
+  }
+
+  getJob() {
+    return this.job;
+  }
+
   getMathFactResults() {
     return this.mathFactResults;
   }

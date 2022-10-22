@@ -4,24 +4,38 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 
-const SelectJob = () => {
+const SelectJob = ({ goToHouseMembers }) => {
   const { gameService, updateService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [tries, setTries] = useState(3);
   const [selectedJob, setSelectedJob] = useState(null);
 
-  useEffect(() => {
+  const getRandomJob = () => {
+    setLoading(true);
     gameService
       .getRandomJob()
       .then((res) => {
         console.log(res);
         setSelectedJob(res.jobTitle);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    getRandomJob();
   }, []);
 
+  const changeJob = () => {
+    setTries(tries - 1);
+    getRandomJob();
+  };
+
   const onFinish = () => {
-    console.log(selectedJob);
+    gameService.setJob(selectedJob);
+    updateService();
+    console.log(gameService.getJob());
+    goToHouseMembers();
   };
 
   return (
@@ -29,9 +43,10 @@ const SelectJob = () => {
       <div>SelectJob</div>
       <div>You have {tries === 1 ? '1 try left' : `${tries} tries left`}</div>
       <StyledButton
+        loading={loading}
         type="primary"
         disabled={tries === 0}
-        onClick={() => setTries(tries - 1)}
+        onClick={changeJob}
       >
         Select Random Job
       </StyledButton>
