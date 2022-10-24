@@ -17,7 +17,8 @@
     "react-scripts": "5.0.1",
     "save": "^2.5.0",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-dice-roll": "^1.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -57,4 +58,3 @@
     "prettier": "^2.6.2"
   }
 }
-

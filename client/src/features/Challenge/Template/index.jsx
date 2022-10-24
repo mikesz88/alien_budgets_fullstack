@@ -5,6 +5,8 @@ import { UserContext } from '../../../App';
 import SelectJob from './SelectJob';
 import SelectHouse from './SelectHouse';
 import SelectHouseMembers from './SelectHouseMembers';
+import SelectSalary from './SelectSalary';
+import MonthlyBudget from '../MonthlyBudget';
 
 const BATTLESHIP_MONTH = [4, 8, 12];
 
@@ -13,6 +15,8 @@ const Template = ({ changeView }) => {
   const [selectJob, setSelectJob] = useState(false);
   const [selectHouse, setSelectHouse] = useState(false);
   const [selectHouseMembers, setSelectHouseMembers] = useState(false);
+  const [selectSalary, setSelectSalary] = useState(false);
+  const [selectBudget, setSelectBudget] = useState(false);
   const [game, setGame] = useState(null);
 
   const goToHouseMembers = () => {
@@ -23,6 +27,16 @@ const Template = ({ changeView }) => {
   const goToHouse = () => {
     setSelectHouseMembers(false);
     setSelectHouse(true);
+  };
+
+  const goToSalary = () => {
+    setSelectHouse(false);
+    setSelectSalary(true);
+  };
+
+  const goToMonthlyBudget = () => {
+    setSelectSalary(false);
+    setSelectBudget(true);
   };
 
   const goToNextMonth = () => {
@@ -49,7 +63,11 @@ const Template = ({ changeView }) => {
           {selectHouseMembers ? (
             <SelectHouseMembers goToHouse={goToHouse} />
           ) : null}
-          {selectHouse ? <SelectHouse /> : null}
+          {selectHouse ? <SelectHouse goToSalary={goToSalary} /> : null}
+          {selectSalary ? (
+            <SelectSalary goToMonthlyBudget={goToMonthlyBudget} />
+          ) : null}
+          {selectBudget ? <MonthlyBudget /> : null}
         </>
       ) : null}
     </>

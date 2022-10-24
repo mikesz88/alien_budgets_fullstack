@@ -2,91 +2,109 @@
   {
     "dwelling": "Castle Mansion",
     "monthlyPayment": 10000,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/castleMansion.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/castleMansion.jpg",
+    "maxOccupancy": 10
   },
   {
     "dwelling": "Hole in the Wall Apartment",
     "monthlyPayment": 1250,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/holeInTheWallApartment.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/holeInTheWallApartment.jpg",
+    "maxOccupancy": 2
   },
   {
     "dwelling": "Another Hole in the Wall",
     "monthlyPayment": 800,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/holeInTheWallApartment2.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/holeInTheWallApartment2.jpg",
+    "maxOccupancy": 2
   },
   {
     "dwelling": "Your Typical Apartment",
     "monthlyPayment": 1000,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/justAnotherRegularApartment.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/justAnotherRegularApartment.jpg",
+    "maxOccupancy": 4
   },
   {
     "dwelling": "Mansion of Mansions",
     "monthlyPayment": 3500,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/mansionOfMansions.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/mansionOfMansions.jpg",
+    "maxOccupancy": 10
   },
   {
     "dwelling": "Modern House",
     "monthlyPayment": 2800,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/modernHouse.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/modernHouse.jpg",
+    "maxOccupancy": 6
   },
   {
     "dwelling": "Premium Apartment",
     "monthlyPayment": 1800,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/premiumApartment.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/premiumApartment.jpg",
+    "maxOccupancy": 6
   },
   {
     "dwelling": "Fancy Ranch House",
     "monthlyPayment": 2000,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/premiumRanchHouse.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/premiumRanchHouse.jpg",
+    "maxOccupancy": 8
   },
   {
     "dwelling": "Rural Tiny House",
     "monthlyPayment": 500,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/ruralTinyHouse.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/ruralTinyHouse.jpg",
+    "maxOccupancy": 2
   },
   {
     "dwelling": "RV Living",
     "monthlyPayment": 250,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/rvLiving.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/rvLiving.jpg",
+    "maxOccupancy": 3
   },
   {
     "dwelling": "Suburban House",
     "monthlyPayment": 1750,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/suburbanCottageHouse.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/suburbanCottageHouse.jpg",
+    "maxOccupancy": 8
   },
   {
     "dwelling": "Fancy Tiny Apartment",
     "monthlyPayment": 750,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/tinyUpscaleApartment.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/tinyUpscaleApartment.jpg",
+    "maxOccupancy": 4
   },
   {
     "dwelling": "Townhome",
     "monthlyPayment": 1100,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/townhome.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/townhome.jpg",
+    "maxOccupancy": 6
   },
   {
     "dwelling": "City Living",
     "monthlyPayment": 900,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/urbanCottageHouse.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/urbanCottageHouse.jpg",
+    "maxOccupancy": 8
   },
   {
     "dwelling": "Van Living",
     "monthlyPayment": 200,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/vanLiving.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/vanLiving.jpg",
+    "maxOccupancy": 1
   },
   {
     "dwelling": "Wooden Farm House",
     "monthlyPayment": 3000,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/woodenFarmHouse.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/woodenFarmHouse.jpg",
+    "maxOccupancy": 10
   },
   {
     "dwelling": "Wooden Tiny Home",
     "monthlyPayment": 500,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/woodenTinyHome.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/woodenTinyHome.jpg",
+    "maxOccupancy": 4
   },
   {
     "dwelling": "You have to live somewhere",
     "monthlyPayment": 500,
-    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/youHaveToLiveSomwhere.jpg"
+    "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/youHaveToLiveSomwhere.jpg",
+    "maxOccupancy": 8
   }
 ]

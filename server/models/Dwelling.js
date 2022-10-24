@@ -19,6 +19,10 @@ const DwellingSchema = new mongoose.Schema({
       'Please add a valid s3 url',
     ],
   },
+  maxOccupancy: {
+    type: Number,
+    required: [true, 'Please add a number for occupancy'],
+  },
 });
 
 module.exports = mongoose.model('Dwelling', DwellingSchema);

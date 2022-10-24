@@ -10,9 +10,9 @@ class GameService {
     this.month = 0;
     this.job = '';
     this.salary = 0;
-    this.liveInHouseHold = 0;
+    this.liveInHousehold = 0;
     this.house = '';
-    this.utilities = '';
+    this.utilitiesPercentage = 0;
   }
 
   setPushMathFactResult(score) {
@@ -25,6 +25,30 @@ class GameService {
 
   setHouse(house) {
     this.house = house;
+  }
+
+  setHouseholdMembers(members) {
+    this.liveInHousehold = members;
+  }
+
+  setUtilities(amount) {
+    this.utilitiesPercentage = amount;
+  }
+
+  setSalary(salary) {
+    this.salary = salary;
+  }
+
+  getSalary() {
+    return this.salary;
+  }
+
+  getUtilities() {
+    return this.utilitiesPercentage;
+  }
+
+  getHouseMembers() {
+    return this.liveInHousehold;
   }
 
   getHouse() {
