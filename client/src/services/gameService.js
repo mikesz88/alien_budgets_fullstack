@@ -13,6 +13,7 @@ class GameService {
     this.liveInHousehold = 0;
     this.house = '';
     this.utilitiesPercentage = 0;
+    this.savings = 0;
   }
 
   setPushMathFactResult(score) {
@@ -37,6 +38,14 @@ class GameService {
 
   setSalary(salary) {
     this.salary = salary;
+  }
+
+  setSavings(amount) {
+    this.savings = amount;
+  }
+
+  getSavings() {
+    return this.savings;
   }
 
   getSalary() {

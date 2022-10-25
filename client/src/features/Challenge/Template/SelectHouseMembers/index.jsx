@@ -27,7 +27,7 @@ const SelectHouseMembers = ({ goToHouse }) => {
 
   const onFinish = () => {
     gameService.setHouseholdMembers(selectedHouseMembers);
-    gameService.setUtilities((selectedHouseMembers * 0.035).toFixed(3));
+    gameService.setUtilities(+((selectedHouseMembers + 1) * 0.035).toFixed(3));
     updateService();
     console.log(gameService.getHouseMembers());
     console.log(gameService.getUtilities());
