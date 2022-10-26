@@ -39,6 +39,16 @@ const Template = ({ changeView }) => {
     setSelectBudget(true);
   };
 
+  const findAnotherHouse = () => {
+    setSelectBudget(false);
+    setSelectHouse(true);
+  };
+
+  const backToBudget = () => {
+    setSelectHouse(false);
+    setSelectBudget(true);
+  };
+
   const goToNextMonth = () => {
     gameService.nextMonth();
     updateService();
@@ -63,11 +73,15 @@ const Template = ({ changeView }) => {
           {selectHouseMembers ? (
             <SelectHouseMembers goToHouse={goToHouse} />
           ) : null}
-          {selectHouse ? <SelectHouse goToSalary={goToSalary} /> : null}
+          {selectHouse ? (
+            <SelectHouse goToSalary={goToSalary} backToBudget={backToBudget} />
+          ) : null}
           {selectSalary ? (
             <SelectSalary goToMonthlyBudget={goToMonthlyBudget} />
           ) : null}
-          {selectBudget ? <MonthlyBudget /> : null}
+          {selectBudget ? (
+            <MonthlyBudget findAnotherHouse={findAnotherHouse} />
+          ) : null}
         </>
       ) : null}
     </>

@@ -80,6 +80,10 @@ class GameService {
     return this.battleshipResults;
   }
 
+  getMonth() {
+    return this.month;
+  }
+
   nextMonth() {
     this.month += 1;
 

@@ -121,7 +121,7 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-const MonthlyBudget = () => {
+const MonthlyBudget = ({ findAnotherHouse }) => {
   const { gameService, updateService } = useContext(UserContext);
   const [dataSource, setDataSource] = useState([
     {
@@ -242,17 +242,17 @@ const MonthlyBudget = () => {
 
   const changeTaxes = (event) => {
     console.log(event.target.value);
-    setTaxes(event.target.value);
+    setTaxes(+event.target.value);
   };
 
   const changeMonthlyIncome = (event) => {
     console.log(event.target.value);
-    setMonthlyIncome(event.target.value);
+    setMonthlyIncome(+event.target.value);
   };
 
   const changeIncomeToSpend = (event) => {
     console.log(event.target.value);
-    setIncomeToSpend(event.target.value);
+    setIncomeToSpend(+event.target.value);
   };
 
   const changeBudgetItem = (event) => {
@@ -276,7 +276,12 @@ const MonthlyBudget = () => {
     setOpenTestMyMath(boolean);
   };
 
-  console.log([...dataSource, { monthlyIncome, taxes, incomeToSpend }]);
+  console.log([
+    ...dataSource,
+    { budgetItem: 'monthlyIncome', chosenBudget: monthlyIncome },
+    { budgetItem: 'taxes', chosenBudget: taxes },
+    { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
+  ]);
 
   return (
     <div>
@@ -293,22 +298,28 @@ const MonthlyBudget = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             width: '300px',
-            height: '200px',
+            height: '225px',
           }}
         >
-          <div style={{ marginBottom: '0.75rem' }}>
-            {`What is your monthly salary? Please include this amount (${withMoneySymbol(
-              gameService.getSavings()
-            )}) to
-            this to get the correct amount.`}
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+            <div>Current Annual Salary:</div>
+            <div>{withMoneySymbol(gameService.getSalary())}</div>
           </div>
-          <Input
-            type="number"
-            value={monthlyIncome}
-            onChange={changeMonthlyIncome}
-          />
+          <div>
+            <div style={{ marginBottom: '0.75rem' }}>
+              {`What is your monthly salary? Please include this amount (${withMoneySymbol(
+                gameService.getSavings()
+              )}) to
+            this to get the correct amount. (Round to the nearest tenth)`}
+            </div>
+            <Input
+              type="number"
+              value={monthlyIncome}
+              onChange={changeMonthlyIncome}
+            />
+          </div>
         </div>
         <div
           style={{
@@ -316,7 +327,7 @@ const MonthlyBudget = () => {
             flexDirection: 'column',
             justifyContent: 'space-between',
             width: '300px',
-            height: '200px',
+            height: '225px',
           }}
         >
           <div>
@@ -324,8 +335,9 @@ const MonthlyBudget = () => {
               Don&apos;t Forget Taxes! (In this Alien World they only ask you to
               pay a %10 income tax.)
             </div>
-            <div>Hints:</div>
             <ul>
+              <li>(Round to the nearest tenth)</li>
+              <li>Hints:</li>
               <li>Take your monthly salary and multiply it by 10%.</li>
               <li>OR</li>
               <li>Divide your monthly salary by how many months per year.</li>
@@ -337,19 +349,33 @@ const MonthlyBudget = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-end',
+            justifyContent: `${
+              gameService.getMonth() === 0 ? 'space-between' : 'flex-end'
+            }`,
             width: '300px',
-            height: '200px',
+            height: '225px',
           }}
         >
-          <div style={{ marginBottom: '0.75rem' }}>
-            What is the remaining balance to spend on your budget?
+          {gameService.getMonth() === 0 ? (
+            <StyledButton
+              style={{ marginTop: '0' }}
+              type="primary"
+              onClick={findAnotherHouse}
+            >
+              Choose Different House
+            </StyledButton>
+          ) : null}
+          <div>
+            <div style={{ marginBottom: '0.75rem' }}>
+              What is the remaining balance to spend on your budget? (Round to
+              the nearest tenth)
+            </div>
+            <Input
+              type="number"
+              value={incomeToSpend}
+              onChange={changeIncomeToSpend}
+            />
           </div>
-          <Input
-            type="number"
-            value={incomeToSpend}
-            onChange={changeIncomeToSpend}
-          />
         </div>
       </div>
       <div
@@ -413,8 +439,15 @@ const MonthlyBudget = () => {
       >
         <div>
           You must spend all the money. You have{' '}
-          <span style={{ fontWeight: 'bold' }}>{remainingBalance}</span> left to
-          spend
+          <span
+            style={{
+              fontWeight: 'bold',
+              color: `${remainingBalance < 0 ? 'red' : ''}`,
+            }}
+          >
+            {remainingBalance}
+          </span>{' '}
+          left to spend
         </div>
         <div>
           You must have a{' '}
@@ -439,7 +472,12 @@ const MonthlyBudget = () => {
         <TestMyMath
           toggleVisibility={openTestMyMathModal}
           open={openTestMyMath}
-          data={[...dataSource, { monthlyIncome, taxes, incomeToSpend }]}
+          data={[
+            ...dataSource,
+            { budgetItem: 'monthlyIncome', chosenBudget: monthlyIncome },
+            { budgetItem: 'taxes', chosenBudget: taxes },
+            { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
+          ]}
         />
       ) : null}
     </div>

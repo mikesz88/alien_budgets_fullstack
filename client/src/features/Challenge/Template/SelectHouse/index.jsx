@@ -12,7 +12,7 @@ const salaryWithMoneySymbol = (salary) =>
     currency: 'USD',
   });
 
-const SelectHouse = ({ goToSalary }) => {
+const SelectHouse = ({ goToSalary, backToBudget }) => {
   const { gameService, updateService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [loadingHouses, setLoadingHouses] = useState(false);
@@ -46,7 +46,7 @@ const SelectHouse = ({ goToSalary }) => {
     updateService();
     console.log(gameService.getHouse());
     setLoading(false);
-    goToSalary();
+    return gameService.getSalary() ? backToBudget() : goToSalary();
   };
 
   useEffect(() => {
@@ -60,9 +60,22 @@ const SelectHouse = ({ goToSalary }) => {
         Amount of people to house (including yourself):{' '}
         {gameService.getHouseMembers() + 1}
       </div>
-      <div>
-        Potential annual salary range: {lowEndSalary}-{highEndSalary}
-      </div>
+      {gameService.getSalary() ? (
+        <div style={{ fontWeight: 'bold' }}>
+          <div>
+            Current Annual Salary{' '}
+            {salaryWithMoneySymbol(gameService.getSalary())}
+          </div>
+          <div>
+            Hint: House monthly payment should not be more than half of your
+            monthly income
+          </div>
+        </div>
+      ) : (
+        <div>
+          Potential annual salary range: {lowEndSalary}-{highEndSalary}
+        </div>
+      )}
       <Spin spinning={loadingHouses}>
         <Form
           layout="vertical"
@@ -118,7 +131,7 @@ const SelectHouse = ({ goToSalary }) => {
               type="primary"
               htmlType="submit"
             >
-              Submit Changes
+              Submit House
             </StyledButton>
           </Form.Item>
         </Form>
