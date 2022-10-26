@@ -19,7 +19,7 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
     grabDiceValue(value);
   };
 
-  const salaryBasedOnDiceRoll = (roll = 3) => {
+  const salaryBasedOnDiceRoll = (roll = 3, number = false) => {
     let percentage;
     switch (roll) {
       case 1:
@@ -43,19 +43,21 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
       default:
         break;
     }
-    return (gameService.getJob().salaryAverage * percentage).toLocaleString(
-      'en-US',
-      {
-        style: 'currency',
-        currency: 'USD',
-      }
-    );
+    return number
+      ? +(gameService.getJob().salaryAverage * percentage).toFixed(2)
+      : (gameService.getJob().salaryAverage * percentage).toLocaleString(
+          'en-US',
+          {
+            style: 'currency',
+            currency: 'USD',
+          }
+        );
   };
 
   const onFinish = () => {
     console.log(diceValue);
     console.log(salaryBasedOnDiceRoll(diceValue));
-    gameService.setSalary(salaryBasedOnDiceRoll(diceValue));
+    gameService.setSalary(salaryBasedOnDiceRoll(diceValue, true));
     updateService();
     console.log(gameService.getSalary());
     goToMonthlyBudget();
@@ -81,7 +83,7 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
       <div>If you get a 1 you will get 75% of the average salary</div>
       <div>Projected Salary: {salaryBasedOnDiceRoll(1)}</div>
       <div style={{ margin: '2rem 0' }}>
-        <Dice disabled={tries === 0} onRoll={diceRoll} />
+        <Dice defaultValue={1} disabled={tries === 0} onRoll={diceRoll} />
       </div>
       <div>Your last roll was: {diceValue}</div>
       <div>

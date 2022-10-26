@@ -105,6 +105,6 @@
     "dwelling": "You have to live somewhere",
     "monthlyPayment": 500,
     "dwellingUrl": "https://alienbudgets.s3.amazonaws.com/youHaveToLiveSomwhere.jpg",
-    "maxOccupancy": 8
+    "maxOccupancy": 10
   }
 ]

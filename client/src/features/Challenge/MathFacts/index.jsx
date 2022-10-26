@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { Input } from 'antd';
 import { UserContext } from '../../../App';
+import StyledButton from '../../../components/PrimaryButton';
 
 const MathFacts = ({ changeView }) => {
   const { gameService, updateService } = useContext(UserContext);
@@ -61,9 +62,7 @@ const MathFacts = ({ changeView }) => {
   useEffect(() => {
     if (count === 20) {
       gameService.setPushMathFactResult(percentages);
-      gameService.nextMonth();
       updateService();
-      changeView('template');
       console.log(percentages);
       console.log(gameService.getMathFactResults());
       console.log(gameService.month);
@@ -116,6 +115,9 @@ const MathFacts = ({ changeView }) => {
         <>
           <div>You did 20 questions!</div>
           <div>Amount Correct:{percentages}%</div>
+          <StyledButton type="primary" onClick={() => changeView('template')}>
+            Back to Budget Planning
+          </StyledButton>
         </>
       )}
     </>

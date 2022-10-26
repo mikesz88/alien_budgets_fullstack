@@ -10,7 +10,7 @@ import React, {
   createContext,
   useMemo,
 } from 'react';
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
+import { Form, Input, Popconfirm, Table } from 'antd';
 import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 import TestMyMath from './TestMyMath';
@@ -19,7 +19,7 @@ const requiredCells = [
   'Monthly House/Apartment Payment',
   'Utilities (Electricity, Gas, Water/Sewer, Internet/Phone, Trash)',
   'Savings (This will carry over to next month)',
-  'Groceries ($50 per person minium)',
+  'Groceries ($50 per person minimum)',
 ];
 
 const withMoneySymbol = (salary) =>
@@ -27,6 +27,13 @@ const withMoneySymbol = (salary) =>
     style: 'currency',
     currency: 'USD',
   });
+
+const convertMoneyToNumber = (moneyString) => {
+  console.log(moneyString);
+  const removeComma = moneyString.split(',').join('');
+  console.log(removeComma, +removeComma.slice(1));
+  return +removeComma.slice(1);
+};
 
 const EditableContext = createContext(null);
 
@@ -121,7 +128,7 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-const MonthlyBudget = ({ findAnotherHouse }) => {
+const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
   const { gameService, updateService } = useContext(UserContext);
   const [dataSource, setDataSource] = useState([
     {
@@ -149,7 +156,7 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
     },
     {
       key: '3',
-      budgetItem: 'Groceries ($50 per person minium)',
+      budgetItem: 'Groceries ($50 per person minimum)',
       requiredMinimum: withMoneySymbol(
         (gameService.getHouseMembers() + 1) * 50
       ),
@@ -166,6 +173,16 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   };
+
+  const testData = useMemo(
+    () =>
+      dataSource.map((data) => ({
+        ...data,
+        requiredMinimum: convertMoneyToNumber(data.requiredMinimum),
+      })),
+    [dataSource]
+  );
+
   const defaultColumns = [
     {
       title: 'Budget Item (Can only edit item names you created)',
@@ -277,7 +294,7 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
   };
 
   console.log([
-    ...dataSource,
+    ...testData,
     { budgetItem: 'monthlyIncome', chosenBudget: monthlyIncome },
     { budgetItem: 'taxes', chosenBudget: taxes },
     { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
@@ -303,16 +320,22 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
             height: '225px',
           }}
         >
-          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-            <div>Current Annual Salary:</div>
-            <div>{withMoneySymbol(gameService.getSalary())}</div>
+          <div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+              Current Annual Salary:
+            </div>
+            <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>
+              {withMoneySymbol(gameService.getSalary())}
+            </div>
+            <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>
+              Add {withMoneySymbol(gameService.getSavings())} from savings on
+              top of your monthly salary below.
+            </div>
           </div>
           <div>
             <div style={{ marginBottom: '0.75rem' }}>
-              {`What is your monthly salary? Please include this amount (${withMoneySymbol(
-                gameService.getSavings()
-              )}) to
-            this to get the correct amount. (Round to the nearest tenth)`}
+              What is your monthly salary? (Write numbers only & round to the
+              nearest hundredth)
             </div>
             <Input
               type="number"
@@ -336,11 +359,11 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
               pay a %10 income tax.)
             </div>
             <ul>
-              <li>(Round to the nearest tenth)</li>
+              <li>(Write numbers only & round to the nearest hundredth)</li>
               <li>Hints:</li>
               <li>Take your monthly salary and multiply it by 10%.</li>
               <li>OR</li>
-              <li>Divide your monthly salary by how many months per year.</li>
+              <li>Divide your monthly salary by 10.</li>
             </ul>
           </div>
           <Input type="number" value={taxes} onChange={changeTaxes} />
@@ -367,8 +390,8 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
           ) : null}
           <div>
             <div style={{ marginBottom: '0.75rem' }}>
-              What is the remaining balance to spend on your budget? (Round to
-              the nearest tenth)
+              What is the remaining balance to spend on your budget? (Write
+              numbers only & round to the nearest hundredth)
             </div>
             <Input
               type="number"
@@ -470,10 +493,11 @@ const MonthlyBudget = ({ findAnotherHouse }) => {
       </div>
       {openTestMyMath ? (
         <TestMyMath
+          changeView={changeView}
           toggleVisibility={openTestMyMathModal}
           open={openTestMyMath}
           data={[
-            ...dataSource,
+            ...testData,
             { budgetItem: 'monthlyIncome', chosenBudget: monthlyIncome },
             { budgetItem: 'taxes', chosenBudget: taxes },
             { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
