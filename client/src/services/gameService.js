@@ -14,6 +14,8 @@ class GameService {
     this.house = '';
     this.utilitiesPercentage = 0;
     this.savings = 0;
+    this.score = 0;
+    this.bonusOrFine = 0;
   }
 
   setPushMathFactResult(score) {
@@ -84,12 +86,51 @@ class GameService {
     return this.month;
   }
 
+  getScore() {
+    return this.score;
+  }
+
+  getBonusOrFine() {
+    return this.bonusOrFine;
+  }
+
   nextMonth() {
     this.month += 1;
 
     // if (this.month = 12) {
     //   // add end of game here.
     // }
+  }
+
+  updateMathFactScore(mathFactResult) {
+    if (mathFactResult === 100) {
+      this.score += 500;
+      this.bonusOrFine += 500;
+    } else if (mathFactResult >= 90 && mathFactResult < 100) {
+      this.score += 250;
+      this.bonusOrFine += 250;
+    } else if (mathFactResult >= 80 && mathFactResult < 90) {
+      this.score += 100;
+      this.bonusOrFine += 100;
+    } else if (mathFactResult >= 60 && mathFactResult < 70) {
+      this.score -= 100;
+      this.bonusOrFine -= 100;
+    } else if (mathFactResult >= 50 && mathFactResult < 60) {
+      this.score -= 250;
+      this.bonusOrFine -= 250;
+    } else if (mathFactResult <= 49) {
+      this.score -= 500;
+      this.bonusOrFine -= 500;
+    }
+  }
+
+  updateBattleshipScore(battleshipResult) {
+    this.score += battleshipResult * 1000;
+    this.bonusOrFine += battleshipResult * 1000;
+  }
+
+  updateBudgetScore() {
+    this.score += 1000;
   }
 
   async getRandomJob() {

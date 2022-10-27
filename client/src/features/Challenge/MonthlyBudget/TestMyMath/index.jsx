@@ -24,7 +24,12 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
   const { gameService, updateService } = useContext(UserContext);
   const [errorList, setErrorList] = useState([]);
   const preTaxMonthlySalary = useMemo(
-    () => +(gameService.getSalary() / 12 + gameService.getSavings()).toFixed(2),
+    () =>
+      +(
+        gameService.getSalary() / 12 +
+        gameService.getSavings() +
+        gameService.getBonus()
+      ).toFixed(2),
     [gameService]
   );
   const monthlySalaryTax = useMemo(
@@ -178,7 +183,6 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
 
   console.log('testData', testData);
   console.log('errorData', errorList);
-
   return (
     <Modal
       destroyOnClose

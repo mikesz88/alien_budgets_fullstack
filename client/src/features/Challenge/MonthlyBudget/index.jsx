@@ -14,6 +14,7 @@ import { Form, Input, Popconfirm, Table } from 'antd';
 import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 import TestMyMath from './TestMyMath';
+import ScoreGuidelines from '../ScoreGuidelines';
 
 const requiredCells = [
   'Monthly House/Apartment Payment',
@@ -168,6 +169,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
   const [monthlyIncome, setMonthlyIncome] = useState(0);
   const [incomeToSpend, setIncomeToSpend] = useState(0);
   const [newBudgetItem, setNewBudgetItem] = useState('');
+  const [openScoreGuidelines, setOpenScoreGuidelines] = useState(false);
   const [openTestMyMath, setOpenTestMyMath] = useState(false);
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
@@ -279,19 +281,18 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
 
   const remainingBalance = useMemo(
     () =>
-      withMoneySymbol(
-        incomeToSpend -
-          dataSource.reduce(
-            (total, { chosenBudget }) => total + chosenBudget,
-            0
-          )
-      ),
-    [incomeToSpend, dataSource]
+      incomeToSpend -
+      +dataSource
+        .reduce((total, { chosenBudget }) => total + chosenBudget, 0)
+        .toFixed(2),
+    [(incomeToSpend, dataSource)]
   );
 
   const openTestMyMathModal = (boolean) => {
     setOpenTestMyMath(boolean);
   };
+
+  const openScoreModal = (boolean) => setOpenScoreGuidelines(boolean);
 
   console.log([
     ...testData,
@@ -300,8 +301,31 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
     { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
   ]);
 
+  console.log(
+    'disable test =>',
+    dataSource.length < 7 || remainingBalance !== 0
+  );
+  console.log(dataSource.length < 7);
+  console.log(remainingBalance);
+
   return (
     <div>
+      <div
+        onClick={() => openScoreModal(true)}
+        style={{
+          position: 'absolute',
+          top: '60px',
+          right: '0',
+          padding: '1rem',
+          backgroundColor: 'grey',
+          color: 'white',
+          cursor: 'pointer',
+          borderTopLeftRadius: '8px',
+          borderBottomLeftRadius: '8px',
+        }}
+      >
+        Score Guidelines
+      </div>
       <div
         style={{
           display: 'flex',
@@ -321,15 +345,21 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           }}
         >
           <div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
               Current Annual Salary:
             </div>
-            <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>
+            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
               {withMoneySymbol(gameService.getSalary())}
             </div>
-            <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>
+            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
               Add {withMoneySymbol(gameService.getSavings())} from savings on
               top of your monthly salary below.
+            </div>
+            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
+              {gameService.getBonusOrFine() < 0 ? 'Take Away' : 'Add'}{' '}
+              {withMoneySymbol(gameService.getBonusOrFine())} from{' '}
+              {gameService.getBonusOrFine() < 0 ? 'fine' : 'bonus'} on top of
+              your monthly salary below.
             </div>
           </div>
           <div>
@@ -372,9 +402,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: `${
-              gameService.getMonth() === 0 ? 'space-between' : 'flex-end'
-            }`,
+            justifyContent: 'space-between',
             width: '300px',
             height: '225px',
           }}
@@ -388,6 +416,12 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
               Choose Different House
             </StyledButton>
           ) : null}
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+            Current Month: {gameService.getMonth()}
+          </div>
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+            Current Score: {gameService.getScore()}
+          </div>
           <div>
             <div style={{ marginBottom: '0.75rem' }}>
               What is the remaining balance to spend on your budget? (Write
@@ -465,10 +499,17 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           <span
             style={{
               fontWeight: 'bold',
-              color: `${remainingBalance < 0 ? 'red' : ''}`,
+              color: `${
+                // eslint-disable-next-line no-nested-ternary
+                remainingBalance < 0
+                  ? 'red'
+                  : remainingBalance === 0
+                  ? 'green'
+                  : 'black'
+              }`,
             }}
           >
-            {remainingBalance}
+            {withMoneySymbol(remainingBalance)}
           </span>{' '}
           left to spend
         </div>
@@ -481,7 +522,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           <div>Please include at least 3 more items to buy this month</div>
         ) : null}
         <StyledButton
-          disabled={dataSource.length < 7 && remainingBalance !== 0}
+          disabled={dataSource.length < 7 || remainingBalance !== 0}
           type="primary"
           onClick={() => {
             console.log(dataSource);
@@ -502,6 +543,12 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
             { budgetItem: 'taxes', chosenBudget: taxes },
             { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
           ]}
+        />
+      ) : null}
+      {openScoreGuidelines ? (
+        <ScoreGuidelines
+          open={openScoreGuidelines}
+          toggleVisibility={openScoreModal}
         />
       ) : null}
     </div>
