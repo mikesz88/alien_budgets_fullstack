@@ -46,6 +46,10 @@ class GameService {
     this.savings = amount;
   }
 
+  resetBonusFine() {
+    this.bonusOrFine = 0;
+  }
+
   getSavings() {
     return this.savings;
   }
@@ -95,11 +99,30 @@ class GameService {
   }
 
   nextMonth() {
-    this.month += 1;
+    // this.month += 1;
+    this.month += 12;
 
     // if (this.month = 12) {
     //   // add end of game here.
     // }
+  }
+
+  getMathFactScore(mathFactResult) {
+    let total;
+    if (mathFactResult === 100) {
+      total += 500;
+    } else if (mathFactResult >= 90 && mathFactResult < 100) {
+      total += 250;
+    } else if (mathFactResult >= 80 && mathFactResult < 90) {
+      total += 100;
+    } else if (mathFactResult >= 60 && mathFactResult < 70) {
+      total += -100;
+    } else if (mathFactResult >= 50 && mathFactResult < 60) {
+      total += -250;
+    } else if (mathFactResult <= 49) {
+      total += -500;
+    }
+    return total;
   }
 
   updateMathFactScore(mathFactResult) {
@@ -131,6 +154,10 @@ class GameService {
 
   updateBudgetScore() {
     this.score += 1000;
+  }
+
+  updateScoreFromSavings(amount) {
+    this.score += amount * 10;
   }
 
   async getRandomJob() {

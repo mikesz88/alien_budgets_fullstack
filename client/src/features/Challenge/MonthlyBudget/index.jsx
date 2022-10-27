@@ -285,7 +285,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
       +dataSource
         .reduce((total, { chosenBudget }) => total + chosenBudget, 0)
         .toFixed(2),
-    [(incomeToSpend, dataSource)]
+    [incomeToSpend, dataSource]
   );
 
   const openTestMyMathModal = (boolean) => {

@@ -61,8 +61,10 @@ const Game = ({ changeView }) => {
       computerShips.filter((ship) => ship.sunk).length -
       placedShips.filter((ship) => ship.sunk).length;
     gameService.setPushBattleshipResult(score);
-    gameService.nextMonth();
+    gameService.updateBattleshipScore(score);
     updateService();
+    console.log(gameService.getScore());
+    console.log(gameService.getBonusOrFine());
     console.log('score =>', gameService.getBattleshipResults());
     console.log('month =>', gameService.month);
   };
@@ -190,7 +192,7 @@ const Game = ({ changeView }) => {
   const handleComputerTurn = () => {
     changeTurn();
 
-    if (checkIfGameOver()) {
+    if (gameState === 'game-over') {
       return;
     }
 
@@ -250,6 +252,7 @@ const Game = ({ changeView }) => {
 
   // Check if either player or computer ended the game
   const checkIfGameOver = () => {
+    console.log('1');
     const successfulPlayerHits = hitsByPlayer.filter(
       (hit) => hit.type === 'hit'
     ).length;
@@ -275,6 +278,8 @@ const Game = ({ changeView }) => {
 
     return false;
   };
+
+  console.log('score =>', gameService.getBattleshipResults());
 
   return (
     <>

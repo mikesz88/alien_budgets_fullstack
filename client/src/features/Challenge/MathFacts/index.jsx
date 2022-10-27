@@ -62,10 +62,13 @@ const MathFacts = ({ changeView }) => {
   useEffect(() => {
     if (count === 20) {
       gameService.setPushMathFactResult(percentages);
+      gameService.updateMathFactScore(percentages);
       updateService();
       console.log(percentages);
       console.log(gameService.getMathFactResults());
       console.log(gameService.month);
+      console.log(gameService.getScore());
+      console.log(gameService.getBonusOrFine());
     }
   }, [count === 20]);
 
@@ -115,6 +118,25 @@ const MathFacts = ({ changeView }) => {
         <>
           <div>You did 20 questions!</div>
           <div>Amount Correct:{percentages}%</div>
+          {gameService.getBonusOrFine() < 0 ? (
+            <>
+              <div>
+                You have received {gameService.getBonusOrFine()} points! :(
+              </div>
+              <div>
+                You have received a fine ${gameService.getBonusOrFine()}! :(
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                You have received {gameService.getBonusOrFine()} points! :)
+              </div>
+              <div>
+                You have received a bonus of ${gameService.getBonusOrFine()}! :)
+              </div>
+            </>
+          )}
           <StyledButton type="primary" onClick={() => changeView('template')}>
             Back to Budget Planning
           </StyledButton>

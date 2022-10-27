@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../../../App';
 
 const PlayerTips = ({
   // gameState,
@@ -9,6 +10,7 @@ const PlayerTips = ({
   winner,
   changeView,
 }) => {
+  const { gameService } = useContext(UserContext);
   const numberOfHits = hitsByPlayer.length;
   const numberOfSuccessfulHits = hitsByPlayer.filter(
     (hit) => hit.type === 'hit'
@@ -20,7 +22,10 @@ const PlayerTips = ({
     (hit) => hit.type === 'hit'
   ).length;
 
-  const backToGame = () => changeView('template');
+  const backToGame = () =>
+    gameService.getMonth() !== 12
+      ? changeView('template')
+      : changeView('budgetSummary');
 
   const gameOverPanel = (
     <div>
@@ -30,8 +35,25 @@ const PlayerTips = ({
           ? 'You win! 🎉'
           : 'You lose 😭. Better luck next time! '}
       </p>
+      {gameService.getBonusOrFine() < 0 ? (
+        <>
+          <div>You have received {gameService.getBonusOrFine()} points! :(</div>
+          <div>
+            You have received a fine of ${gameService.getBonusOrFine()}! :(
+          </div>
+        </>
+      ) : (
+        <>
+          <div>You have received {gameService.getBonusOrFine()} points! :)</div>
+          <div>
+            You have received a bonus ${gameService.getBonusOrFine()}! :)
+          </div>
+        </>
+      )}
       <button type="button" onClick={backToGame}>
-        Advance to the next month
+        {gameService.getMonth() === 12
+          ? 'Game Over! Head to Summary!'
+          : 'Advance to the next month'}
       </button>
     </div>
   );

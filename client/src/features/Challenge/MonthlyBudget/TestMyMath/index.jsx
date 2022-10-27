@@ -28,7 +28,7 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
       +(
         gameService.getSalary() / 12 +
         gameService.getSavings() +
-        gameService.getBonus()
+        gameService.getBonusOrFine()
       ).toFixed(2),
     [gameService]
   );
@@ -170,8 +170,11 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
     );
     gameService.nextMonth();
     gameService.setSavings(savings.chosenBudget);
+    gameService.updateBudgetScore();
+    gameService.resetBonusFine();
     updateService();
     console.log(gameService.getMonth());
+    console.log(gameService.getScore());
     if (BATTLESHIP_MONTHS.some((month) => month === gameService.getMonth())) {
       changeView('battleships');
     } else {
