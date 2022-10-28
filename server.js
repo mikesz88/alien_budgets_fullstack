@@ -25,6 +25,7 @@ const forgotQuestions = require('./server/routes/forgotQuestions');
 const classrooms = require('./server/routes/classrooms.js');
 const jobs = require('./server/routes/jobs');
 const dwellings = require('./server/routes/dwellings');
+const games = require('./server/routes/games');
 
 const PORT = process.env.PORT || 5000;
 
@@ -66,6 +67,7 @@ app.use('/api/v1/forgotquestions', forgotQuestions);
 app.use('/api/v1/classrooms', classrooms);
 app.use('/api/v1/jobs', jobs);
 app.use('/api/v1/dwellings', dwellings);
+app.use('/api/v1/games', games);
 
 // Error Handler must come after mount files
 app.use(errorHandler);

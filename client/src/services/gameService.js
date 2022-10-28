@@ -8,10 +8,10 @@ class GameService {
     this.mathFactResults = [];
     this.battleshipResults = [];
     this.month = 0;
-    this.job = '';
+    this.job = {};
     this.salary = 0;
     this.liveInHousehold = 0;
-    this.house = '';
+    this.house = {};
     this.utilitiesPercentage = 0;
     this.savings = 0;
     this.score = 0;
@@ -99,8 +99,12 @@ class GameService {
   }
 
   nextMonth() {
-    // this.month += 1;
-    this.month += 12;
+    this.month += 1;
+    // if (this.month === 0) {
+    //   this.month += 11;
+    // } else {
+    //   this.month += 1;
+    // }
 
     // if (this.month = 12) {
     //   // add end of game here.
@@ -108,7 +112,7 @@ class GameService {
   }
 
   getMathFactScore(mathFactResult) {
-    let total;
+    let total = 0;
     if (mathFactResult === 100) {
       total += 500;
     } else if (mathFactResult >= 90 && mathFactResult < 100) {

@@ -4,11 +4,19 @@ import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 
 const BudgetSummary = () => {
-  const { gameService } = useContext(UserContext);
+  const { gameService, updateService } = useContext(UserContext);
 
-  useEffect(
-    () => gameService.updateScoreFromSavings(gameService.getSavings()),
-    []
+  useEffect(() => {
+    gameService.updateScoreFromSavings(gameService.getSavings());
+    updateService();
+  }, []);
+
+  console.log(gameService.getMathFactResults());
+  console.log(gameService.getMathFactScore(100));
+  console.log(
+    gameService
+      .getMathFactResults()
+      .reduce((a, z) => a + gameService.getMathFactScore(z), 0)
   );
 
   const dataSource = [
@@ -65,6 +73,10 @@ const BudgetSummary = () => {
       <StyledButton type="primary" onClick={() => console.log('play new game')}>
         Play Again
       </StyledButton>
+      <div>
+        I STILL NEED TO CONNECT THIS TO THE API to save the score to user!
+      </div>
+      <div>I need this in a return useEffect to delete the game.</div>
     </>
   );
 };
