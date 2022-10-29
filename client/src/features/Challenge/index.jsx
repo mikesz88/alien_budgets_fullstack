@@ -70,9 +70,9 @@ const Challenge = () => {
       }}
     >
       <GreetingBar template="Game Time!" />
+      {openTemplate ? <Template changeView={changeView} /> : null}
       {openMathFacts ? <MathFacts changeView={changeView} /> : null}
       {openBattleShips ? <Battleship changeView={changeView} /> : null}
-      {openTemplate ? <Template changeView={changeView} /> : null}
       {openBudgetSummary ? <BudgetSummary /> : null}
     </div>
   );

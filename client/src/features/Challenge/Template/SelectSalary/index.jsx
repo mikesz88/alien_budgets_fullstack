@@ -1,11 +1,13 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
+import { notification } from 'antd';
 import React, { useState, useEffect, useContext } from 'react';
 import Dice from 'react-dice-roll';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 
 const SelectSalary = ({ goToMonthlyBudget }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { gameService, updateService, authService } = useContext(UserContext);
   const [diceValue, setDiceValue] = useState(null);
   const [tries, setTries] = useState(3);
 
@@ -54,10 +56,47 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
         );
   };
 
+  const createNewGame = () => {
+    const body = {
+      alienId: authService.id,
+      mathFactResults: gameService.getMathFactResults(),
+      battleshipResults: gameService.getBattleshipResults(),
+      month: gameService.getMonth(),
+      job: gameService.getJob(),
+      salary: gameService.getSalary(),
+      liveInHousehold: gameService.getHouseMembers(),
+      house: gameService.getHouse(),
+      utilitiesPercentage: gameService.getUtilities(),
+      savings: gameService.getSavings(),
+      score: gameService.getScore(),
+      bonusOrFine: gameService.getBonusOrFine(),
+    };
+
+    gameService
+      .createGame(body, authService.getBearerHeader())
+      .then((res) => {
+        console.log(res);
+        if (authService.id) {
+          authService
+            .addGame(res._id)
+            .then((response) => {
+              console.log(response);
+              notification.success({
+                message: 'Success',
+                description: 'Game Created and assigned to you!',
+              });
+            })
+            .catch((error) => console.error(error));
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   const onFinish = () => {
     console.log(diceValue);
     console.log(salaryBasedOnDiceRoll(diceValue));
     gameService.setSalary(salaryBasedOnDiceRoll(diceValue, true));
+    createNewGame();
     updateService();
     console.log(gameService.getSalary());
     goToMonthlyBudget();

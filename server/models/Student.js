@@ -34,6 +34,9 @@ const StudentSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  game: {
+    type: mongoose.Schema.ObjectId,
+  },
   avatarColor: {
     type: String,
     required: [true, 'Please add a background color to your avatar'],

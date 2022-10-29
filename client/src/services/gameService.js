@@ -5,6 +5,7 @@ import Endpoints from '../common/endpoints';
 
 class GameService {
   constructor() {
+    this.gameId = '';
     this.mathFactResults = [];
     this.battleshipResults = [];
     this.month = 0;
@@ -46,6 +47,10 @@ class GameService {
     this.savings = amount;
   }
 
+  setPushBattleshipResult(score) {
+    this.battleshipResults.push(score);
+  }
+
   resetBonusFine() {
     this.bonusOrFine = 0;
   }
@@ -76,10 +81,6 @@ class GameService {
 
   getMathFactResults() {
     return this.mathFactResults;
-  }
-
-  setPushBattleshipResult(score) {
-    this.battleshipResults.push(score);
   }
 
   getBattleshipResults() {
@@ -186,6 +187,55 @@ class GameService {
     try {
       const { data: response } = await axios.get(
         `${Endpoints.getDwellings}/${dwellingId}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getGameById(gameId) {
+    try {
+      const { data: response } = await axios.get(
+        `${Endpoints.games}/${gameId}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createGame(body, headers) {
+    try {
+      const { data: response } = await axios.post(
+        `${Endpoints.games}`,
+        body,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateGameById(body, gameId, headers) {
+    try {
+      const { data: response } = await axios.put(
+        `${Endpoints.games}/${gameId}`,
+        body,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteGame(gameId, headers) {
+    try {
+      const { data: response } = await axios.delete(
+        `${Endpoints.games}/${gameId}`,
+        headers
       );
       return response.data;
     } catch (error) {

@@ -71,6 +71,7 @@ exports.updateGameById = asyncHandler(async (req, res, next) => {
     savings: req.body.savings,
     score: req.body.score,
     bonusOrFine: req.body.bonusOrFine,
+    updatedOn: Date.now(),
   };
 
   const game = await Game.findByIdAndUpdate(req.params.gameid, fieldsToUpdate, {

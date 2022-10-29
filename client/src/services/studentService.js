@@ -88,6 +88,32 @@ function studentService(User) {
         throw error;
       }
     }
+
+    async addGame(gameId) {
+      const headers = this.getBearerHeader();
+      try {
+        const { data: response } = await axios.put(
+          `${Endpoints.studentGame}/${gameId}`,
+          headers
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    async deleteGame(gameId) {
+      const headers = this.getBearerHeader();
+      try {
+        const { data: response } = await axios.delete(
+          `${Endpoints.studentGame}/${gameId}`,
+          headers
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
   }
   return StudentService;
 }

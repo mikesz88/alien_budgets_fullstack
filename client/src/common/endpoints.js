@@ -7,15 +7,16 @@ const URL_STUDENT = `${BASE_URL}/students`;
 const URL_ADULT = `${BASE_URL}/adults`;
 const URL_AVATAR = `${BASE_URL}/avatars`;
 const URL_CLASSROOMS = `${BASE_URL}/classrooms`;
-const URL_FORGOT_QUESTION = `${BASE_URL}/forgotquestions`;
-const URL_JOB = `${BASE_URL}/jobs`;
-const URL_DWELLING = `${BASE_URL}/dwellings`;
+const URL_FORGOT_QUESTIONS = `${BASE_URL}/forgotquestions`;
+const URL_JOBS = `${BASE_URL}/jobs`;
+const URL_DWELLINGS = `${BASE_URL}/dwellings`;
+const URL_GAMES = `${BASE_URL}/games`;
 
 const Endpoints = {
   getAvatars: URL_AVATAR,
   getAvatarAdjective: `${URL_AVATAR}/adjective`,
-  getAllForgotQuestions: URL_FORGOT_QUESTION,
-  getOneForgotQuestion: `${URL_FORGOT_QUESTION}`,
+  getAllForgotQuestions: URL_FORGOT_QUESTIONS,
+  getOneForgotQuestion: `${URL_FORGOT_QUESTIONS}`,
   updateForgotQuestionAnswer: `${URL_AUTH}/updateforgot`,
   registerStudent: `${URL_AUTH}/register/student`,
   registerAdult: `${URL_AUTH}/register/adult`,
@@ -42,8 +43,10 @@ const Endpoints = {
   deleteSingleClassroomByTeacher: `${URL_CLASSROOMS}/delete`,
   createNewStudentInClassroom: `${URL_CLASSROOMS}/createstudent`,
   deleteStudent: `${URL_CLASSROOMS}/delete/student`,
-  getJob: URL_JOB,
-  getDwellings: URL_DWELLING,
+  getJob: URL_JOBS,
+  getDwellings: URL_DWELLINGS,
+  games: URL_GAMES,
+  studentGame: `${URL_STUDENT}/game`,
 };
 
 export default Endpoints;
