@@ -16,7 +16,6 @@ import RegisterAdultPart2 from '../features/Adult/RegisterPart2';
 import StudentLogin from '../features/Student/Login';
 import RegisterStudentPart1 from '../features/Student/RegisterPart1';
 import RegisterStudentPart2 from '../features/Student/RegisterPart2';
-import GuestUser from '../features/GuestUser';
 import Challenge from '../features/Challenge';
 import FourOhFour from '../features/FourOhFour';
 import Unauthorized from '../features/Unauthorized';
@@ -30,6 +29,8 @@ import DeletedAccount from '../features/DeletedAccount';
 import Stats from '../features/Stats';
 import Leaderboard from '../features/Classes/Leaderboard';
 import ClassDetails from '../features/Classes/TeacherClasses/ClassDetails';
+import AccessByForgotPassword from '../features/ForgotPassword/AccessByForgotPassword';
+import AccessByEmail from '../features/ForgotPassword/AccessByEmail';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -43,19 +44,6 @@ export const PrivateRoute = ({ user, children, ...props }) => {
         state={{ from: location }}
         replace
       />
-    );
-  }
-
-  return children;
-};
-
-export const ChallengeRoute = ({ children, ...props }) => {
-  const location = useLocation();
-  const { authService: service } = useContext(UserContext);
-
-  if (!service.username) {
-    return (
-      <Navigate {...props} to="/guestuser" state={{ from: location }} replace />
     );
   }
 
@@ -133,7 +121,6 @@ const Routes = () => {
         exact
       />
       <Route path="/login/adult" element={<AdultLogin />} exact />
-      <Route path="/guestuser" element={<GuestUser />} exact />
       <Route
         path="/aliendashboard"
         element={
@@ -152,16 +139,7 @@ const Routes = () => {
         }
         exact
       />
-      <Route
-        // path="/challenge/play/:challengeId"
-        path="/challenge/play"
-        element={
-          <ChallengeRoute>
-            <Challenge />
-          </ChallengeRoute>
-        }
-        exact
-      />
+      <Route path="/challenge/play" element={<Challenge />} exact />
       <Route path="/challenge/create" element={<CreateChallenge />} exact />
       <Route
         path="/classrooms/teacher/:teacherId"
@@ -178,6 +156,12 @@ const Routes = () => {
         element={<Leaderboard />}
         exact
       />
+      <Route
+        path="/forgotpassword/question"
+        element={<AccessByForgotPassword />}
+        exact
+      />
+      <Route path="/forgotpassword/email" element={<AccessByEmail />} exact />
       <Route path="/classrooms/create" element={<CreateClass />} exact />
       <Route path="/stats/:user" element={<Stats />} exact />
       <Route path="/account" element={<Account />} exact />

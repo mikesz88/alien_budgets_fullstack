@@ -23,11 +23,7 @@ const Introduction = ({ chooseAdult, chooseStudent }) => (
     </HeroButtonWrapper>
     <HeroFooter>
       Created, designed, and developed by <div />
-      <a
-        href="https://www.michaelsanchez.page"
-        target="_blank"
-        rel="noreferrer"
-      >
+      <a href="https://www.techysanchez.com" target="_blank" rel="noreferrer">
         Michael Sanchez
       </a>
       {` ©2022`}

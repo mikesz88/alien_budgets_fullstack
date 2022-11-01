@@ -29,6 +29,8 @@ const ClassroomSchema = new mongoose.Schema({
         score: Number,
       },
     ],
+    required: [true, 'Please add all required data to record the student'],
+    default: [],
   },
   updatedOn: {
     type: Date || '',

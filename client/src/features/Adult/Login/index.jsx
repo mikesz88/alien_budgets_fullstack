@@ -74,6 +74,16 @@ const AdultLogin = () => {
           <StyledButton larger="true" type="primary">
             <Link to="/register/adult/part1">New Adult</Link>
           </StyledButton>
+          <StyledButton larger="true" type="primary">
+            <Link to="/forgotpassword/question">
+              Forgot Password? Use Forgot Question
+            </Link>
+          </StyledButton>
+          <StyledButton larger="true" type="primary">
+            <Link to="/forgotpassword/email">
+              Forgot Password? Find by Email
+            </Link>
+          </StyledButton>
         </Form.Item>
       </Form>
     </>

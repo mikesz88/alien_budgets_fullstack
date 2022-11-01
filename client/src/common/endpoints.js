@@ -48,6 +48,7 @@ const Endpoints = {
   games: URL_GAMES,
   studentGame: `${URL_STUDENT}/game`,
   addScoreToStudent: `${URL_STUDENT}/score`,
+  addResultsToStudentsHistory: `${URL_STUDENT}/addgameresults`,
 };
 
 export default Endpoints;

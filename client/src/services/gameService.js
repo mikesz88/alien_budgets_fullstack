@@ -101,12 +101,12 @@ class GameService {
   }
 
   nextMonth() {
-    this.month += 1;
-    // if (this.month === 0) {
-    //   this.month += 12;
-    // } else {
-    //   this.month += 1;
-    // }
+    // this.month += 1;
+    if (this.month === 0) {
+      this.month += 11;
+    } else {
+      this.month += 1;
+    }
 
     // if (this.month = 12) {
     //   // add end of game here.
@@ -213,7 +213,6 @@ class GameService {
   async getRandomJob() {
     try {
       const { data: response } = await axios.get(Endpoints.getJob);
-      // this.setGame(response.data);
       return response.data;
     } catch (error) {
       throw error;

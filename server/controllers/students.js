@@ -72,7 +72,7 @@ exports.addGameById = asyncHandler(async (req, res, next) => {
 // @route DELETE /api/v1/students/game
 // @access PRIVATE
 exports.deleteGame = asyncHandler(async (req, res, next) => {
-  const game = { game: undefined };
+  const game = { game: null };
 
   const student = await Student.findByIdAndUpdate(req.student.id, game, {
     new: true,
@@ -110,6 +110,39 @@ exports.addScoreToUser = asyncHandler(async (req, res, next) => {
   }
 
   student.score += req.body.score;
+  await student.save({ validateBeforeSave: true });
+
+  res.status(200).json({
+    success: true,
+    data: student,
+  });
+});
+
+// @desc Add completed game results to student game history
+// @route PUT /api/v1/students/addgameresults
+// @access PRIVATE
+exports.addResultsToStudentsHistory = asyncHandler(async (req, res, next) => {
+  const fieldsToUpdate = {
+    job: req.body.job,
+    dwelling: req.body.dwelling,
+    salary: req.body.salary,
+    score: req.body.score,
+    averageMathFactScore: req.body.mathFactScore,
+    averageBattleshipScore: req.body.battleshipScore,
+  };
+
+  const student = await Student.findById(req.student.id);
+
+  if (!student) {
+    return next(
+      new ErrorResponse(
+        `No student found with game id of ${req.student.gameid}`,
+        404
+      )
+    );
+  }
+
+  student.previousGames = [...student.previousGames, fieldsToUpdate];
   await student.save({ validateBeforeSave: true });
 
   res.status(200).json({

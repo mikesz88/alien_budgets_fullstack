@@ -14,6 +14,7 @@ function studentService(User) {
       this.studentRegisterPart1 = false;
       this.game = '';
       this.score = '';
+      this.previousGames = [];
     }
 
     registerStudentPart1({
@@ -49,6 +50,7 @@ function studentService(User) {
       role,
       score,
       game,
+      previousGames,
     }) {
       this.id = _id;
       this.firstName = firstName;
@@ -61,6 +63,7 @@ function studentService(User) {
       this.role = role;
       this.score = score;
       this.game = game;
+      this.previousGames = previousGames;
     }
 
     getStudentData() {
@@ -74,6 +77,7 @@ function studentService(User) {
         avatarColor: this.avatarColor,
         score: this.score,
         game: this.game,
+        previousGames: this.previousGames,
       };
     }
 
@@ -118,6 +122,7 @@ function studentService(User) {
           `${Endpoints.studentGame}`,
           headers
         );
+        this.setStudentData(response.data);
         return response.data;
       } catch (error) {
         throw error;
@@ -134,6 +139,36 @@ function studentService(User) {
           headers
         );
         this.score = response.data.score;
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    async addResultsToStudentsHistory({
+      job,
+      dwelling,
+      salary,
+      score,
+      mathFactScore,
+      battleshipScore,
+    }) {
+      const headers = this.getBearerHeader();
+      const body = {
+        job,
+        dwelling,
+        salary,
+        score,
+        mathFactScore,
+        battleshipScore,
+      };
+      try {
+        const { data: response } = await axios.put(
+          `${Endpoints.addResultsToStudentsHistory}`,
+          body,
+          headers
+        );
+        this.previousGames = response.data.previousGames;
         return response.data;
       } catch (error) {
         throw error;

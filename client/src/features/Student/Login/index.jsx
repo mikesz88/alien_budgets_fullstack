@@ -72,6 +72,11 @@ const StudentLogin = () => {
           <StyledButton larger="true" type="primary">
             <Link to="/register/student/part1">New Alien</Link>
           </StyledButton>
+          <StyledButton larger="true" type="primary">
+            <Link to="/forgotpassword/question">
+              Forgot Password? Use Forgot Question
+            </Link>
+          </StyledButton>
         </Form.Item>
       </Form>
     </>

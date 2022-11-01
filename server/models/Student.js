@@ -36,6 +36,21 @@ const StudentSchema = new mongoose.Schema({
   },
   game: {
     type: mongoose.Schema.ObjectId,
+    default: null,
+  },
+  previousGames: {
+    type: [
+      {
+        job: String,
+        dwelling: String,
+        salary: Number,
+        score: Number,
+        averageMathFactScore: Number,
+        averageBattleshipScore: Number,
+      },
+    ],
+    required: [true, 'Please add all required data to record the game'],
+    default: [],
   },
   avatarColor: {
     type: String,

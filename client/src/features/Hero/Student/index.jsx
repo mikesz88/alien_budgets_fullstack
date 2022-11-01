@@ -10,7 +10,6 @@ const Student = ({ chooseAdult, intro }) => (
     <StyledTitle>Alien Budgets</StyledTitle>
     <StyledLink to="/login/student">Returning Alien?</StyledLink>
     <StyledLink to="/register/student/part1">New Alien?</StyledLink>
-    <StyledLink to="/guestUser">Visiting Alien?</StyledLink>
     <HeroButtonWrapper>
       <StyledButton type="primary" onClick={intro}>
         Go Back

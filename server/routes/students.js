@@ -10,6 +10,7 @@ const {
   addGameById,
   deleteGame,
   addScoreToUser,
+  addResultsToStudentsHistory,
 } = require('../controllers/students');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -22,5 +23,6 @@ router.route('/class/:classid').get(protect, getClassStudents);
 router.put('/game/:gameid', protect, addGameById);
 router.delete('/game', protect, deleteGame);
 router.put('/score', protect, addScoreToUser);
+router.put('/addgameresults', protect, addResultsToStudentsHistory);
 
 module.exports = router;

@@ -1,11 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
+import { Spin } from 'antd';
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../../App';
 import Card from '../../../components/Card';
 
 const ResumeSavedGame = ({ changeView }) => {
-  const { authService, gameService } = useContext(UserContext);
+  const { authService, gameService, updateService } = useContext(UserContext);
   const [currentGame, setCurrentGame] = useState(null);
+  const [loading, setLoading] = useState(false);
   const BATTLESHIP_MONTHS = [4, 8, 12];
 
   useEffect(() => {
@@ -16,9 +19,19 @@ const ResumeSavedGame = ({ changeView }) => {
 
   console.log(currentGame);
   const newGame = () => {
-    authService.deleteGame();
-    gameService.deleteGame(currentGame.gameId, authService.getBearerHeader());
-    changeView('template');
+    setLoading(true);
+    authService
+      .deleteGame()
+      .then((res) => {
+        console.log(res);
+        gameService
+          .deleteGame(currentGame._id, authService.getBearerHeader())
+          .then(() => {
+            updateService();
+            changeView('template');
+          });
+      })
+      .finally(() => setLoading(false));
   };
 
   const continueGame = () => {
@@ -33,25 +46,27 @@ const ResumeSavedGame = ({ changeView }) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        paddingTop: '5rem',
-      }}
-    >
-      <Card key="newGame" title="New Game" onClick={newGame} type="primary" />
-      <Card
-        key="continueSavedGame"
-        title="Continue Saved Game"
-        onClick={continueGame}
-        type="primary"
-      />
-    </div>
+    <Spin spinning={loading}>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          paddingTop: '5rem',
+        }}
+      >
+        <Card key="newGame" title="New Game" onClick={newGame} type="primary" />
+        <Card
+          key="continueSavedGame"
+          title="Continue Saved Game"
+          onClick={continueGame}
+          type="primary"
+        />
+      </div>
+    </Spin>
   );
 };
 

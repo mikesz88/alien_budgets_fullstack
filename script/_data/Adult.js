@@ -21,7 +21,7 @@ const create10Adults = (classes) => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email(firstName, lastName);
-    const password = 'AlienBudgets123';
+    const password = 'AlienBudgets123!';
     const avatarColor = generateBgColor();
     const gradeLevel = faker.helpers.arrayElements(['4th', '5th', '6th']);
     const forgotPasswordQuestion = faker.helpers.arrayElement(
