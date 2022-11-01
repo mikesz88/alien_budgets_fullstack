@@ -16,6 +16,13 @@ const Template = ({ changeView }) => {
   const [selectSalary, setSelectSalary] = useState(false);
   const [selectBudget, setSelectBudget] = useState(false);
 
+  useEffect(() => {
+    if (gameService.salary) {
+      setSelectJob(false);
+      setSelectBudget(true);
+    }
+  }, []);
+
   const goToHouseMembers = () => {
     setSelectJob(false);
     setSelectHouseMembers(true);

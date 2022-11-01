@@ -71,8 +71,8 @@ exports.addGameById = asyncHandler(async (req, res, next) => {
 // @desc Delete game by id
 // @route DELETE /api/v1/students/game
 // @access PRIVATE
-exports.deleteGameById = asyncHandler(async (req, res, next) => {
-  const game = { game: '' };
+exports.deleteGame = asyncHandler(async (req, res, next) => {
+  const game = { game: undefined };
 
   const student = await Student.findByIdAndUpdate(req.student.id, game, {
     new: true,
@@ -87,6 +87,30 @@ exports.deleteGameById = asyncHandler(async (req, res, next) => {
       )
     );
   }
+
+  res.status(200).json({
+    success: true,
+    data: student,
+  });
+});
+
+// @desc Add game score to student
+// @route PUT /api/v1/students/score
+// @access PRIVATE
+exports.addScoreToUser = asyncHandler(async (req, res, next) => {
+  const student = await Student.findById(req.student.id);
+
+  if (!student) {
+    return next(
+      new ErrorResponse(
+        `No student found with game id of ${req.student.gameid}`,
+        404
+      )
+    );
+  }
+
+  student.score += req.body.score;
+  await student.save({ validateBeforeSave: true });
 
   res.status(200).json({
     success: true,

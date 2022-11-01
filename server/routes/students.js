@@ -8,7 +8,8 @@ const {
   getStudent,
   getClassStudents,
   addGameById,
-  deleteGameById,
+  deleteGame,
+  addScoreToUser,
 } = require('../controllers/students');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
@@ -19,6 +20,7 @@ router
 router.route('/:id').get(protect, authorizedAdult, getStudent);
 router.route('/class/:classid').get(protect, getClassStudents);
 router.put('/game/:gameid', protect, addGameById);
-router.delete('/game', protect, deleteGameById);
+router.delete('/game', protect, deleteGame);
+router.put('/score', protect, addScoreToUser);
 
 module.exports = router;

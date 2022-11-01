@@ -13,7 +13,7 @@ const salaryWithMoneySymbol = (salary) =>
   });
 
 const SelectHouse = ({ goToSalary, backToBudget }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { authService, gameService, updateService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [loadingHouses, setLoadingHouses] = useState(false);
   const [allHouses, setAllHouses] = useState([]);
@@ -43,10 +43,19 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
   const onFinish = (values) => {
     setLoading(true);
     gameService.setHouse(values.selectedHouse);
-    updateService();
     console.log(gameService.getHouse());
+    if (gameService.getSalary()) {
+      gameService.updateGameById(
+        { house: values.selectedHouse },
+        gameService.gameId,
+        authService.getBearerHeader()
+      );
+      setLoading(false);
+      updateService();
+      return backToBudget();
+    }
     setLoading(false);
-    return gameService.getSalary() ? backToBudget() : goToSalary();
+    return goToSalary();
   };
 
   useEffect(() => {

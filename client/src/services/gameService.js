@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-catch */
 import axios from 'axios';
@@ -102,7 +103,7 @@ class GameService {
   nextMonth() {
     this.month += 1;
     // if (this.month === 0) {
-    //   this.month += 11;
+    //   this.month += 12;
     // } else {
     //   this.month += 1;
     // }
@@ -163,11 +164,56 @@ class GameService {
 
   updateScoreFromSavings(amount) {
     this.score += amount * 10;
+    return this.score;
+  }
+
+  resetGame() {
+    this.gameId = '';
+    this.mathFactResults = [];
+    this.battleshipResults = [];
+    this.month = 0;
+    this.job = {};
+    this.salary = 0;
+    this.liveInHousehold = 0;
+    this.house = {};
+    this.utilitiesPercentage = 0;
+    this.savings = 0;
+    this.score = 0;
+    this.bonusOrFine = 0;
+  }
+
+  setGame({
+    _id,
+    mathFactResults,
+    battleshipResults,
+    month,
+    job,
+    salary,
+    liveInHousehold,
+    house,
+    utilitiesPercentage,
+    savings,
+    score,
+    bonusOrFine,
+  }) {
+    this.gameId = _id;
+    this.mathFactResults = mathFactResults;
+    this.battleshipResults = battleshipResults;
+    this.month = month;
+    this.job = job;
+    this.salary = salary;
+    this.liveInHousehold = liveInHousehold;
+    this.house = house;
+    this.utilitiesPercentage = utilitiesPercentage;
+    this.savings = savings;
+    this.score = score;
+    this.bonusOrFine = bonusOrFine;
   }
 
   async getRandomJob() {
     try {
       const { data: response } = await axios.get(Endpoints.getJob);
+      // this.setGame(response.data);
       return response.data;
     } catch (error) {
       throw error;
@@ -212,6 +258,7 @@ class GameService {
         body,
         headers
       );
+      this.gameId = response.data._id;
       return response.data;
     } catch (error) {
       throw error;
@@ -237,7 +284,8 @@ class GameService {
         `${Endpoints.games}/${gameId}`,
         headers
       );
-      return response.data;
+      this.resetGame();
+      return response;
     } catch (error) {
       throw error;
     }

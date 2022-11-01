@@ -47,6 +47,7 @@ const Endpoints = {
   getDwellings: URL_DWELLINGS,
   games: URL_GAMES,
   studentGame: `${URL_STUDENT}/game`,
+  addScoreToStudent: `${URL_STUDENT}/score`,
 };
 
 export default Endpoints;

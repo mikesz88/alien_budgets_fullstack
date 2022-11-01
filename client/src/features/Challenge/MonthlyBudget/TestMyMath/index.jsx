@@ -21,7 +21,7 @@ const BATTLESHIP_MONTHS = [4, 8, 12];
 
 const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
   // console.log('data =>', data);
-  const { gameService, updateService } = useContext(UserContext);
+  const { gameService, authService, updateService } = useContext(UserContext);
   const [errorList, setErrorList] = useState([]);
   const preTaxMonthlySalary = useMemo(
     () =>
@@ -172,6 +172,16 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
     gameService.setSavings(savings.chosenBudget);
     gameService.updateBudgetScore();
     gameService.resetBonusFine();
+    gameService.updateGameById(
+      {
+        month: gameService.getMonth(),
+        savings: gameService.getSavings(),
+        score: gameService.getScore(),
+        bonusOrFine: gameService.getBonusOrFine(),
+      },
+      gameService.gameId,
+      authService.getBearerHeader()
+    );
     updateService();
     console.log(gameService.getMonth());
     console.log(gameService.getScore());
