@@ -130,6 +130,43 @@ class AuthService extends extender(adultService, studentService) {
     }
   }
 
+  async retrieveForgotQuestionFromUser(user) {
+    try {
+      const { data: response } = await axios.get(
+        `${Endpoints.retrieveForgotQuestionFromUser}/${user}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async validateForgotPassword(email, username, forgotPasswordAnswer) {
+    const body = { email, username, forgotPasswordAnswer };
+    try {
+      const { data: response } = await axios.post(
+        `${Endpoints.validateForgotPassword}`,
+        body
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async resetPassword(resetToken, password) {
+    const body = { password };
+    try {
+      const { data: response } = await axios.put(
+        `${Endpoints.resetPassword}/${resetToken}`,
+        body
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async foundUser(token) {
     this.setBearerHeader(token);
     const headers = this.getBearerHeader();

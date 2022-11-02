@@ -182,7 +182,9 @@ exports.forgotQuestion = asyncHandler(async (req, res, next) => {
     : await Student.findOne({ username: req.params.user });
 
   if (!user) {
-    return next(new ErrorResponse('There is no user with that email', 401));
+    return next(
+      new ErrorResponse('There is no user with that email/username', 401)
+    );
   }
 
   res.status(200).json({
@@ -248,8 +250,8 @@ exports.updateForgotQuestionAnswer = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc PUT Reset Password
-// @route GET /api/v1/auth/resetpassword/:resettoken
+// @desc Reset Password
+// @route PUT /api/v1/auth/resetpassword/:resettoken
 // @access PUBLIC
 exports.resetPassword = asyncHandler(async (req, res, next) => {
   const resetPasswordToken = crypto
