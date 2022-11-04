@@ -27,6 +27,7 @@ const AdultLogin = () => {
         updateService();
       })
       .catch((error) => {
+        form.resetFields();
         console.error(error);
         notification.error({
           message: 'error',
@@ -83,6 +84,9 @@ const AdultLogin = () => {
             <Link to="/forgotpassword/email">
               Forgot Password? Find by Email
             </Link>
+          </StyledButton>
+          <StyledButton larger="true" type="primary">
+            <Link to="/">Back to Main Page</Link>
           </StyledButton>
         </Form.Item>
       </Form>

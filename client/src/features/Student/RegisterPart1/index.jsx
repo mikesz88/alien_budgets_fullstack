@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { Form, Input, notification, Select } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
@@ -168,6 +168,9 @@ const RegisterStudentPart1 = () => {
           <div>
             The next page you will out your username, password, and avatar.
           </div>
+          <StyledButton larger="true" type="primary">
+            <Link to="/">Back to Main Page</Link>
+          </StyledButton>
         </Form.Item>
       </Form>
     </>

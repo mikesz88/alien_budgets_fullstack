@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -20,14 +21,11 @@ const GreetingBar = ({
 }) => {
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
-  const [randomGameNumber, setrandomGameNumber] = useState(null);
-
-  // useEffect(() => {
-  // using their classroom code, they are filtered by which game it randomly chosen for them.
-  // }, [])
 
   const backToHome = () =>
-    authService.role === 'adult'
+    !authService.isLoggedIn
+      ? navigate('/')
+      : authService.role === 'adult'
       ? navigate('/dashboard')
       : navigate('/aliendashboard');
 

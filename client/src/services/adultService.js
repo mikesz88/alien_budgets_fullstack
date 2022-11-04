@@ -101,6 +101,32 @@ function adultService(User) {
         throw error;
       }
     }
+
+    async resetPasswordByEmail(email) {
+      const body = { email };
+      try {
+        const { data: response } = await axios.post(
+          Endpoints.resetPasswordByEmail,
+          body
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    async resetPasswordByToken(resetToken, password) {
+      const body = { password };
+      try {
+        const { data: response } = await axios.put(
+          `${Endpoints.resetPasswordByToken}/${resetToken}`,
+          body
+        );
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    }
   }
   return AdultService;
 }

@@ -26,6 +26,8 @@ const Endpoints = {
   retrieveForgotQuestionFromUser: `${URL_AUTH}/forgotquestion`,
   validateForgotPassword: `${URL_AUTH}/forgotpassword`,
   resetPassword: `${URL_AUTH}/resetpassword`,
+  resetPasswordByEmail: `${URL_AUTH}/adult/forgotpassword`,
+  resetPasswordByToken: `${URL_AUTH}/resetpassword`,
   updateAdultProfile: `${URL_AUTH}/adult/updatedetails`,
   updateStudentProfile: `${URL_AUTH}/student/updatedetails`,
   updatePassword: `${URL_AUTH}/updatepassword`,

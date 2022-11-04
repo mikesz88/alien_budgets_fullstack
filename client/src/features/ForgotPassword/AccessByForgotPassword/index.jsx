@@ -1,15 +1,18 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
-import { Form, Modal, Input, Result } from 'antd';
+import { Form, Modal, Input, Result, notification } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import StyledTitle from '../../../components/Title';
+import GreetingBar from '../../../components/GreetingBar';
 
 const { confirm } = Modal;
 
 const AccessByForgotPassword = () => {
-  const { authService, forgot } = useContext(UserContext);
+  const { authService } = useContext(UserContext);
   const [resetModal, setResetModal] = useState(false);
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -18,6 +21,7 @@ const AccessByForgotPassword = () => {
   const [resetToken, setResetToken] = useState('');
   const [successResult, setSuccessResult] = useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const chooseEmailOrUsername = (input) => setEmailOrUsername(input);
 
@@ -56,6 +60,7 @@ const AccessByForgotPassword = () => {
   const closeModals = () => {
     setResetModal(false);
     setSuccessResult(false);
+    return email ? navigate('/login/adult') : navigate('/login/student');
   };
 
   const onFinish = (values) => {
@@ -67,7 +72,14 @@ const AccessByForgotPassword = () => {
         setResetToken(res);
         setResetModal(true);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        form.resetFields();
+        console.error(error);
+        notification.error({
+          message: 'error',
+          description: 'Please try again!',
+        });
+      });
   };
 
   const resetSubmit = (values) => {
@@ -76,8 +88,8 @@ const AccessByForgotPassword = () => {
       .resetPassword(resetToken, newPassword)
       .then((res) => {
         console.log(res);
-        setSuccessResult(false);
         setResetModal(false);
+        setSuccessResult(true);
       })
       .catch((err) => console.error(err));
   };
@@ -109,138 +121,143 @@ const AccessByForgotPassword = () => {
 
   return (
     <>
-      <div>
-        <div>Choose Email (Adult) or Username (Student/Alien)</div>
-        <StyledButton
-          type="primary"
-          size="large"
-          onClick={() => chooseEmailOrUsername('email')}
-        >
-          Email
-        </StyledButton>
-        <StyledButton
-          type="primary"
-          size="large"
-          onClick={() => chooseEmailOrUsername('username')}
-        >
-          Username
-        </StyledButton>
-      </div>
-      {emailOrUsername === 'email' ? (
+      <GreetingBar template="Forgot Question" />
+      <div style={{ marginTop: '6rem' }}>
+        <StyledTitle style={{ fontSize: '4rem' }}>
+          Choose Email (Adult) or Username (Student/Alien)
+        </StyledTitle>
         <div>
-          <Input
-            type="email"
-            onChange={handleEmail}
-            placeholder="write your email"
-          />
-          <StyledButton type="primary" size="large" onClick={handleQuestion}>
-            Find Question
+          <StyledButton
+            type="primary"
+            size="large"
+            onClick={() => chooseEmailOrUsername('email')}
+          >
+            Email
+          </StyledButton>
+          <StyledButton
+            type="primary"
+            size="large"
+            onClick={() => chooseEmailOrUsername('username')}
+          >
+            Username
           </StyledButton>
         </div>
-      ) : emailOrUsername === 'username' ? (
-        <div>
-          <Input
-            type="text"
-            onChange={handleUsername}
-            placeholder="write your username"
-          />
-          <StyledButton type="primary" size="large" onClick={handleQuestion}>
-            Find Question
-          </StyledButton>
-        </div>
-      ) : null}
-      {forgotQuestion ? forgotPasswordForm : null}
+        {emailOrUsername === 'email' ? (
+          <div>
+            <Input
+              type="email"
+              onChange={handleEmail}
+              placeholder="write your email"
+            />
+            <StyledButton type="primary" size="large" onClick={handleQuestion}>
+              Find Question
+            </StyledButton>
+          </div>
+        ) : emailOrUsername === 'username' ? (
+          <div>
+            <Input
+              type="text"
+              onChange={handleUsername}
+              placeholder="write your username"
+            />
+            <StyledButton type="primary" size="large" onClick={handleQuestion}>
+              Find Question
+            </StyledButton>
+          </div>
+        ) : null}
+        {forgotQuestion ? forgotPasswordForm : null}
 
-      <Modal
-        open={resetModal}
-        title="Reset Password"
-        destroyOnClose
-        onCancel={handleCancel}
-        footer={[
-          <StyledButton key="1" onClick={handleCancel}>
-            Cancel
-          </StyledButton>,
-        ]}
-      >
-        <Form layout="vertical" name="new_password" onFinish={resetSubmit}>
-          <Form.Item label="New Password">
-            <div>
-              Password must be 8-20 characters, including: at least one capital
-              letter, at least one small letter, one number and one special
-              character - ! @ # $ % ^ & * ( ) _ +
-            </div>
+        <Modal
+          open={resetModal}
+          title="Reset Password"
+          destroyOnClose
+          onCancel={handleCancel}
+          footer={[
+            <StyledButton key="1" onClick={handleCancel}>
+              Cancel
+            </StyledButton>,
+          ]}
+        >
+          <Form layout="vertical" name="new_password" onFinish={resetSubmit}>
+            <Form.Item label="New Password">
+              <div>
+                Password must be 8-20 characters, including: at least one
+                capital letter, at least one small letter, one number and one
+                special character - ! @ # $ % ^ & * ( ) _ +
+              </div>
+              <Form.Item
+                name="newPassword"
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Password.',
+                  },
+                  {
+                    min: 8,
+                    message: 'Must be a minimum of 8 characters',
+                  },
+                  {
+                    pattern: passwordRegex,
+                    message:
+                      'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+                  },
+                ]}
+              >
+                <Input.Password type="password" />
+              </Form.Item>
+            </Form.Item>
             <Form.Item
-              name="newPassword"
-              noStyle
+              label="Confirm  New Password"
+              name="confirm"
+              dependencies={['newPassword']}
+              hasFeedback
+              style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Password.',
+                  message: 'Please confirm your  new password.',
                 },
-                {
-                  min: 8,
-                  message: 'Must be a minimum of 8 characters',
-                },
-                {
-                  pattern: passwordRegex,
-                  message:
-                    'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
-                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('newPassword') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        'The two passwords that you entered do not match!'
+                      )
+                    );
+                  },
+                }),
               ]}
             >
-              <Input.Password type="password" />
+              <Input.Password />
             </Form.Item>
-          </Form.Item>
-          <Form.Item
-            label="Confirm  New Password"
-            name="confirm"
-            dependencies={['newPassword']}
-            hasFeedback
-            style={{ width: '100%' }}
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your  new password.',
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('newPassword') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error(
-                      'The two passwords that you entered do not match!'
-                    )
-                  );
-                },
-              }),
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item>
-            <StyledButton type="primary" htmlType="submit">
-              Submit
-            </StyledButton>
-          </Form.Item>
-        </Form>
-      </Modal>
+            <Form.Item>
+              <StyledButton type="primary" htmlType="submit">
+                Submit
+              </StyledButton>
+            </Form.Item>
+          </Form>
+        </Modal>
 
-      <Modal
-        open={successResult}
-        onCancel={closeModals}
-        footer={[
-          <StyledButton key="close" type="primary" onClick={closeModals}>
-            Close
-          </StyledButton>,
-        ]}
-      >
-        <Result
-          status="success"
-          title="Successfully Changed Password"
-          subTitle="You have successfully change your password. Please click close out and sign in again with your new password. Close the button below to get back to the login screen."
-        />
-      </Modal>
+        <Modal
+          open={successResult}
+          onCancel={closeModals}
+          footer={[
+            <StyledButton key="close" type="primary" onClick={closeModals}>
+              Close
+            </StyledButton>,
+          ]}
+        >
+          <Result
+            status="success"
+            title="Successfully Changed Password"
+            subTitle="You have successfully change your password. Please click close out and sign in again with your new password. Close the button below to get back to the login screen."
+          />
+        </Modal>
+      </div>
     </>
   );
 };

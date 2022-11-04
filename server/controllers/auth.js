@@ -144,9 +144,10 @@ exports.adultForgotPassword = asyncHandler(async (req, res, next) => {
   const resetToken = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: true });
 
-  const resetUrl = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/auth/resetpassword/${resetToken}`;
+  // const resetUrl = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/auth/resetpassword/${resetToken}`;
+  const resetUrl = `${req.protocol}://localhost:3000/forgotpassword/resetbyemail/${resetToken}`;
 
   const message = `
   You are receiving this email because you (or someone else) has requested a password reset.
@@ -163,7 +164,8 @@ exports.adultForgotPassword = asyncHandler(async (req, res, next) => {
     await sendEmail(options);
     res.status(200).json({ success: true, data: 'Email sent' });
   } catch (error) {
-    console.log(err);
+    console.log(error);
+    throw error;
     // return next(new ErrorResponse('Did not work', 404));
 
     user.getResetPasswordToken = undefined;
@@ -342,8 +344,7 @@ exports.updateAvatar = asyncHandler(async (req, res, next) => {
     avatarColor: req.body.avatarColor,
     username: req.body.username,
   };
-  console.log(req.adult);
-  console.log(req.student);
+
   const user = req.adult
     ? await Adult.findByIdAndUpdate(req.adult.id, fieldsToUpdate, {
         new: true,

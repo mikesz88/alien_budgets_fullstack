@@ -77,6 +77,9 @@ const StudentLogin = () => {
               Forgot Password? Use Forgot Question
             </Link>
           </StyledButton>
+          <StyledButton larger="true" type="primary">
+            <Link to="/">Back to Main Page</Link>
+          </StyledButton>
         </Form.Item>
       </Form>
     </>

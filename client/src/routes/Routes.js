@@ -31,6 +31,7 @@ import Leaderboard from '../features/Classes/Leaderboard';
 import ClassDetails from '../features/Classes/TeacherClasses/ClassDetails';
 import AccessByForgotPassword from '../features/ForgotPassword/AccessByForgotPassword';
 import AccessByEmail from '../features/ForgotPassword/AccessByEmail';
+import ResetPasswordByEmail from '../features/ResetPasswordByEmail';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -159,6 +160,11 @@ const Routes = () => {
       <Route
         path="/forgotpassword/question"
         element={<AccessByForgotPassword />}
+        exact
+      />
+      <Route
+        path="/forgotpassword/resetbyemail/:resettoken"
+        element={<ResetPasswordByEmail />}
         exact
       />
       <Route path="/forgotpassword/email" element={<AccessByEmail />} exact />
