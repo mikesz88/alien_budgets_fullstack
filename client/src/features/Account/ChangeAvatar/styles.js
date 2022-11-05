@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Radio } from 'antd';
+import { Pagination, Radio } from 'antd';
 
-const StyledRadioButton = styled(Radio.Button)`
+export const StyledRadioButton = styled(Radio.Button)`
   height: 100%;
   margin: 1rem;
   border: none;
@@ -28,4 +28,19 @@ const StyledRadioButton = styled(Radio.Button)`
   }
 `;
 
-export default StyledRadioButton;
+export const StyledBasicDiv = styled.div``;
+
+export const StyledRadioGroup = styled(Radio.Group)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+export const StyledPagination = styled(Pagination)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledBasicSpan = styled.span``;

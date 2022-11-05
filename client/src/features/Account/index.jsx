@@ -1,12 +1,17 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Drawer } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
 import StyledDashboardWrapper from '../../components/Dashboard/Wrapper';
 import StyledDashboardContainer from '../../components/Dashboard/Container';
 import Card from '../../components/Card';
-import { UserContext } from '../../App';
-import dashboardIcons from './helper';
+import {
+  updateProfile,
+  updatePassword,
+  forgotQA,
+  deleteAccount,
+  changeAvatar,
+  dashboardIcons,
+} from './helper';
 import UpdateProfile from './UpdateProfile';
 import UpdatePassword from './UpdatePassword';
 import ForgotQA from './ForgotQA';
@@ -15,7 +20,6 @@ import ChangeAvatar from './ChangeAvatar';
 
 const Account = () => {
   const [visibleDrawer, setVisibleDrawer] = useState(false);
-  const { authService } = useContext(UserContext);
   const [component, setComponent] = useState('');
 
   const openDrawerAndCard = (value) => {
@@ -47,17 +51,17 @@ const Account = () => {
         onClose={closeDrawer}
         size="large"
       >
-        {component === 'UpdateProfile' && (
+        {component === updateProfile && (
           <UpdateProfile closeDrawer={closeDrawer} />
         )}
-        {component === 'UpdatePassword' && (
+        {component === updatePassword && (
           <UpdatePassword closeDrawer={closeDrawer} />
         )}
-        {component === 'ForgotQA' && <ForgotQA closeDrawer={closeDrawer} />}
-        {component === 'DeleteAccount' && (
+        {component === forgotQA && <ForgotQA closeDrawer={closeDrawer} />}
+        {component === deleteAccount && (
           <DeleteAccount closeDrawer={closeDrawer} />
         )}
-        {component === 'ChangeAvatar' && (
+        {component === changeAvatar && (
           <ChangeAvatar closeDrawer={closeDrawer} />
         )}
       </Drawer>

@@ -1,6 +1,4 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import {
@@ -33,11 +31,7 @@ const GreetingBar = ({
     <>
       {adult && (
         <StyledAdultGreetingContainer>
-          <StyledButton
-            style={{ height: 'fit-content' }}
-            type="text"
-            onClick={backToHome}
-          >
+          <StyledButton type="text" onClick={backToHome}>
             <StyledTitleFont>ALIEN BUDGETS</StyledTitleFont>
           </StyledButton>
           <StyledAdultName>
@@ -47,24 +41,13 @@ const GreetingBar = ({
       )}
       {student && (
         <StyledStudentGreetingContainer>
-          <StyledButton
-            style={{ height: 'fit-content' }}
-            type="text"
-            onClick={backToHome}
-          >
+          <StyledButton type="text" onClick={backToHome}>
             <StyledTitleFont>ALIEN BUDGETS</StyledTitleFont>
           </StyledButton>
-          <div>
-            <StyledButton
-              style={{ height: 'fit-content' }}
-              type="text"
-              // onClick={() => navigate(`/challenge/play/${randomGameNumber}`)}
-              onClick={() => navigate(`/challenge/play`)}
-            >
-              Play Game
-            </StyledButton>
-          </div>
-          <div>Welcome {username}</div>
+          <StyledButton type="text" onClick={() => navigate(`/challenge/play`)}>
+            Play Game
+          </StyledButton>
+          <>Welcome {username}</>
         </StyledStudentGreetingContainer>
       )}
       {template && (

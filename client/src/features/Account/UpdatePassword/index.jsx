@@ -1,42 +1,43 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
-import { Input, Button, Form, notification } from 'antd';
+import { Input, Form } from 'antd';
 import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
+import StyledBasicDiv from '../../../components/BasicDiv';
+import Notification from '../../../components/Notification';
+import { error, passwordRegex, success } from '../../../common/constants';
 
 const UpdatePassword = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
   const { authService } = useContext(UserContext);
   const [form] = Form.useForm();
 
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
-
   const onFinish = (values) => {
     setLoading(true);
-    console.log(values);
     const { currentPassword, newPassword } = values;
     if (currentPassword === newPassword) {
-      notification.error({
-        message: 'Same Password',
-        description: 'Current and new password cannot be the same.',
-      });
+      Notification(
+        error,
+        'Same Password',
+        'Current and new password cannot be the same'
+      );
     } else {
       authService
         .updatePassword(currentPassword, newPassword)
         .then(() => {
-          notification.success({
-            message: 'Password Updated',
-            description: 'Your password has been successfully updated.',
-          });
+          Notification(
+            success,
+            'Password Updated',
+            'Your password has been successfully updated.'
+          );
           form.resetFields();
           closeDrawer();
         })
-        .catch((error) => {
-          notification.error({
-            message: error.response.data.error,
-            description: 'The current password is not correct.',
-          });
+        .catch((err) => {
+          Notification(
+            error,
+            err.response.data.error,
+            'The current password is not correct.'
+          );
         })
         .finally(() => setLoading(false));
     }
@@ -62,11 +63,11 @@ const UpdatePassword = ({ closeDrawer }) => {
         <Input.Password />
       </Form.Item>
       <Form.Item noStyle>
-        <div>
+        <StyledBasicDiv>
           Password must be 8-20 characters, including: at least one capital
           letter, at least one small letter, one number and one special
           character - ! @ # $ % ^ & * ( ) _ +
-        </div>
+        </StyledBasicDiv>
         <Form.Item
           label="New Password"
           name="newPassword"

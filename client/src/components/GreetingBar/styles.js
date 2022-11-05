@@ -44,6 +44,7 @@ export const StyledButton = styled(Button)`
   font-family: ${({ theme }) => theme.fontFamily.creepster};
   font-size: 40px;
   color: ${({ theme }) => theme.colors.white};
+  height: fit-content;
 
   &:hover {
     /* background-color: ${({ theme }) => theme.colors.yellow}; */

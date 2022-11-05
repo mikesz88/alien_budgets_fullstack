@@ -2,6 +2,8 @@
   "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "plugins": ["react", "prettier"],
   "rules": {
+    "no-bitwise": "off",
+    "no-nested-ternary": "off",
     "prettier/prettier": "error",
     "no-unused-vars": "error",
     "no-use-before-define": "warn",

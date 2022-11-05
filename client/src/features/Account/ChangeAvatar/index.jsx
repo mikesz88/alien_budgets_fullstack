@@ -1,12 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect, useMemo } from 'react';
-import { Form, Pagination, Radio, notification } from 'antd';
+import { Form } from 'antd';
 import { faker } from '@faker-js/faker';
 import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
-import StyledRadioButton from './styles';
+import {
+  StyledRadioButton,
+  StyledBasicDiv,
+  StyledRadioGroup,
+  StyledPagination,
+  StyledBasicSpan,
+} from './styles';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
+import Notification from '../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 
 const ChangeAvatar = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
@@ -39,9 +47,9 @@ const ChangeAvatar = ({ closeDrawer }) => {
         });
         // Notification
       })
-      .catch((error) => {
-        setAvatarList(error);
-        throw error;
+      .catch((err) => {
+        setAvatarList(err);
+        throw err;
         // Notification
       });
   };
@@ -61,7 +69,6 @@ const ChangeAvatar = ({ closeDrawer }) => {
   };
 
   const generateBgColor = () =>
-    // eslint-disable-next-line no-bitwise
     `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`;
 
   const handleBgColorChange = (value) => {
@@ -136,34 +143,26 @@ const ChangeAvatar = ({ closeDrawer }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    console.log(values);
     if (
       values.avatarURL === authService.avatarURL &&
       values.avatarColor === authService.avatarColor
     ) {
-      notification.error({
-        message: 'Error',
-        description: 'Avatar must have a different color or animal',
-      });
+      Notification(
+        error,
+        ERROR,
+        'Avatar must have a different color or animal'
+      );
     } else {
       authService
         .updateAvatar(values)
-        .then((res) => {
-          console.log(res);
-          notification.success({
-            message: 'Success',
-            description: 'Avatar has been updated!',
-          });
+        .then(() => {
+          Notification(success, SUCCESS, 'Avatar has been updated!');
           form.resetFields();
           updateService();
           closeDrawer();
         })
-        .catch((error) => {
-          console.log(error);
-          notification.error({
-            message: 'Error',
-            description: 'Please try again later!',
-          });
+        .catch(() => {
+          Notification(error, ERROR, 'Please try again later!');
         })
         .finally(() => setLoading(false));
     }
@@ -171,7 +170,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
 
   return (
     <Form form={form} onFinish={onFinish}>
-      <div>Current Avatar</div>
+      <StyledBasicDiv>Current Avatar</StyledBasicDiv>
       <Form.Item noStyle>
         <Avatar
           avatar={{
@@ -181,24 +180,12 @@ const ChangeAvatar = ({ closeDrawer }) => {
           size="large"
         />
       </Form.Item>
-      <div>Updated Avatar</div>
-      <div>Choose Animal</div>
+      <StyledBasicDiv>Updated Avatar</StyledBasicDiv>
+      <StyledBasicDiv>Choose Animal</StyledBasicDiv>
       <Form.Item name="avatarURL">
-        <Radio.Group
-          onChange={handleAvatarChange}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
+        <StyledRadioGroup onChange={handleAvatarChange}>
           {avatarList.map((avatarIcon) => (
             <StyledRadioButton
-              style={{
-                height: '100%',
-                margin: '1rem',
-              }}
               key={avatarIcon.avatarURL}
               value={avatarIcon}
               onClick={() => setUserAvatar(avatarIcon)}
@@ -213,21 +200,16 @@ const ChangeAvatar = ({ closeDrawer }) => {
               />
             </StyledRadioButton>
           ))}
-        </Radio.Group>
+        </StyledRadioGroup>
       </Form.Item>
       <Form.Item noStyle>
-        <Pagination
+        <StyledPagination
           total={pagination.total}
           simple
           pageSize={4}
           showSizeChanger={false}
           current={pagination.page}
           onChange={(page) => getAvatarList(page)}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
         />
       </Form.Item>
       <Form.Item
@@ -286,7 +268,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
             >
               Choose Random Numbers
             </StyledButton>
-            <span>{username}</span>
+            <StyledBasicSpan>{username}</StyledBasicSpan>
           </Form.Item>
         </Form.Item>
       )}

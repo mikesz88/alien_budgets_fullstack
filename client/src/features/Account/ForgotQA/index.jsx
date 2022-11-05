@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { Form, Input, notification, Select } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Form, Input, Select } from 'antd';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import Notification from '../../../components/Notification';
+import StyledBasicDiv from '../../../components/BasicDiv';
+import { error, ERROR, SUCCESS, success } from '../../../common/constants';
 
 const ForgotQA = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +12,6 @@ const ForgotQA = ({ closeDrawer }) => {
   const [currentQuestion, setCurrentQuestion] = useState('');
   const { authService, updateService } = useContext(UserContext);
   const [form] = Form.useForm();
-  const navigate = useNavigate();
 
   const getAllForgotQuestions = useCallback(
     () =>
@@ -40,25 +40,20 @@ const ForgotQA = ({ closeDrawer }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    console.log(values);
     authService
       .updateForgotQuestionAnswer(values)
       .then(() => {
-        notification.success({
-          message: 'Success',
-          description:
-            'You have successfully changed your forgot question and answer',
-        });
+        Notification(
+          success,
+          SUCCESS,
+          'You have successfully changed your forgot question and answer'
+        );
         form.resetFields();
         updateService();
         closeDrawer();
       })
-      .catch((error) => {
-        notification.error({
-          message: 'Error',
-          description: 'Incorrect Answer',
-        });
-        console.log(error);
+      .catch(() => {
+        Notification(error, ERROR, 'Incorrect Answer');
       })
       .finally(() => setLoading(false));
   };
@@ -70,8 +65,8 @@ const ForgotQA = ({ closeDrawer }) => {
       name="Update Forgot Q&A"
       onFinish={onFinish}
     >
-      <div>Current Forgot Question</div>
-      <div>{currentQuestion}</div>
+      <StyledBasicDiv>Current Forgot Question</StyledBasicDiv>
+      <StyledBasicDiv>{currentQuestion}</StyledBasicDiv>
       <Form.Item
         label="Current Forgot Password Answer"
         name="currentForgotAnswer"

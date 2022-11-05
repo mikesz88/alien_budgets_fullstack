@@ -1,29 +1,33 @@
-const dashboardIcons = [
+export const updateProfile = 'UpdateProfile';
+export const updatePassword = 'UpdatePassword';
+export const forgotQA = 'ForgotQA';
+export const deleteAccount = 'DeleteAccount';
+export const changeAvatar = 'ChangeAvatar';
+
+export const dashboardIcons = [
   {
     title: 'Update Profile',
     type: 'primary',
-    link: 'UpdateProfile',
+    link: updateProfile,
   },
   {
     title: 'Update Password',
     type: 'default',
-    link: 'UpdatePassword',
+    link: updatePassword,
   },
   {
     title: 'Update Forgot Q&A',
     type: 'primary',
-    link: 'ForgotQA',
+    link: forgotQA,
   },
   {
     title: 'Delete Account',
     type: 'default',
-    link: 'DeleteAccount',
+    link: deleteAccount,
   },
   {
     title: 'Change Avatar',
     type: 'primary',
-    link: 'ChangeAvatar',
+    link: changeAvatar,
   },
 ];
-
-export default dashboardIcons;

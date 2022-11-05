@@ -101,16 +101,7 @@ class GameService {
   }
 
   nextMonth() {
-    // this.month += 1;
-    if (this.month === 0) {
-      this.month += 11;
-    } else {
-      this.month += 1;
-    }
-
-    // if (this.month = 12) {
-    //   // add end of game here.
-    // }
+    this.month += 1;
   }
 
   getMathFactScore(mathFactResult) {

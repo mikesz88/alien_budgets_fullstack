@@ -30,7 +30,10 @@ const ResetPasswordByEmail = () => {
     console.log(resettoken);
     authService
       .resetPasswordByToken(resettoken, password)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        setSuccessResult(true);
+      })
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   };
@@ -39,7 +42,6 @@ const ResetPasswordByEmail = () => {
     <>
       <GreetingBar template="Reset Password" />
       <StyledTitle style={{ marginTop: '6rem' }}>Reset Password</StyledTitle>
-
       <Form layout="vertical" form={form} id={form} onFinish={onFinish}>
         <Form.Item noStyle>
           <div>
@@ -109,22 +111,29 @@ const ResetPasswordByEmail = () => {
             type="primary"
             htmlType="submit"
           >
-            Register
+            Submit
           </StyledButton>
         </Form.Item>
       </Form>
 
-      <Modal open={successResult} footer={null}>
-        <>
-          <Result
-            status="success"
-            title="Successfully Changed Password"
-            subTitle="You have successfully change your password. Please click close out and sign in again with your new password. Close the button below to get back to the login screen."
-          />
-          <StyledButton larger="true" type="primary" onClick={goToLogin}>
+      <Modal
+        open={successResult}
+        footer={[
+          <StyledButton
+            key="moveToLogin"
+            larger="true"
+            type="primary"
+            onClick={goToLogin}
+          >
             Go To Login
-          </StyledButton>
-        </>
+          </StyledButton>,
+        ]}
+      >
+        <Result
+          status="success"
+          title="Successfully Changed Password"
+          subTitle="You have successfully change your password. Please click close out and sign in again with your new password. Close the button below to get back to the login screen."
+        />
       </Modal>
     </>
   );

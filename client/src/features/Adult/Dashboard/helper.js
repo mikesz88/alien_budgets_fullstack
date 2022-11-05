@@ -12,26 +12,14 @@ const dashboardIcons = [
     linkId: false,
   },
   {
-    title: 'Create Challenge',
-    type: 'primary',
-    link: '/challenge/create',
-    linkId: false,
-  },
-  {
-    title: 'Play as a Guest',
-    type: 'default',
-    link: '/guestuser',
-    linkId: false,
-  },
-  {
     title: 'Account',
-    type: 'primary',
+    type: 'default',
     link: '/account',
     linkId: false,
   },
   {
     title: 'Logout',
-    type: 'default',
+    type: 'primary',
     link: '/logout',
     linkId: false,
   },

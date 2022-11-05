@@ -28,7 +28,7 @@ const Dashboard = () => {
         firstName={authService.firstName}
         lastName={authService.lastName}
       />
-      <StyledDashboardContainer>
+      <StyledDashboardContainer style={{ padding: '0 5rem' }}>
         {dashboardIcons.map((card) => {
           let newCardLink = card.link;
           if (card.linkId) {

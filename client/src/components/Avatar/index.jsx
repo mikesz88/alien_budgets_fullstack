@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// eslint-disable-next-line import/no-cycle
 import { UserContext } from '../../App';
 import StyledAvatarImg from './styles';
 
