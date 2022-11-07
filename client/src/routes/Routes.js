@@ -32,6 +32,8 @@ import ClassDetails from '../features/Classes/TeacherClasses/ClassDetails';
 import AccessByForgotPassword from '../features/ForgotPassword/AccessByForgotPassword';
 import AccessByEmail from '../features/ForgotPassword/AccessByEmail';
 import ResetPasswordByEmail from '../features/ResetPasswordByEmail';
+import PrivacyPolicy from '../features/PrivacyPolicy';
+import TermsOfService from '../features/TermsOfService';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -167,6 +169,8 @@ const Routes = () => {
         element={<ResetPasswordByEmail />}
         exact
       />
+      <Route path="/privacypolicy" element={<PrivacyPolicy />} exact />
+      <Route path="/termsofservice" element={<TermsOfService />} exact />
       <Route path="/forgotpassword/email" element={<AccessByEmail />} exact />
       <Route path="/classrooms/create" element={<CreateClass />} exact />
       <Route path="/stats/:user" element={<Stats />} exact />
