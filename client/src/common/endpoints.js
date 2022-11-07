@@ -51,6 +51,7 @@ const Endpoints = {
   studentGame: `${URL_STUDENT}/game`,
   addScoreToStudent: `${URL_STUDENT}/score`,
   addResultsToStudentsHistory: `${URL_STUDENT}/addgameresults`,
+  validateEmail: `${URL_ADULT}/validateemail`,
 };
 
 export default Endpoints;

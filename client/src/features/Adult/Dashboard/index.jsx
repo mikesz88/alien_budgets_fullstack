@@ -3,23 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import dashboardIcons from './helper';
 import { UserContext } from '../../../App';
-import StyledDashboardContainer from '../../../components/Dashboard/Container';
 import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
+import StyledDashboardContainer from '../../../components/Dashboard/Container';
 import Card from '../../../components/Card';
+import { error, ERROR } from '../../../common/constants';
+import Notification from '../../../components/Notification';
 
 const Dashboard = () => {
   const [id, setId] = useState('');
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const getUser = () =>
     authService
       .getUser()
-      // eslint-disable-next-line no-underscore-dangle
-      .then((response) => setId(response._id));
+      .then((response) => {
+        setId(response._id);
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Unable to grab your data. Refresh and Try again'
+        )
+      );
+
+  useEffect(() => {
+    getUser();
   }, [authService]);
-  console.log(id);
-  console.log(authService.id);
 
   return (
     <StyledDashboardWrapper>
@@ -28,7 +39,7 @@ const Dashboard = () => {
         firstName={authService.firstName}
         lastName={authService.lastName}
       />
-      <StyledDashboardContainer style={{ padding: '0 5rem' }}>
+      <StyledDashboardContainer padding>
         {dashboardIcons.map((card) => {
           let newCardLink = card.link;
           if (card.linkId) {

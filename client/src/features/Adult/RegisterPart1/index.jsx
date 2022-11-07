@@ -1,10 +1,13 @@
-/* eslint-disable no-unused-vars */ /* eslint-disable import/no-cycle */
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { Form, Input, notification, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import Notification from '../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import StyledFormItem from './styles';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);
@@ -38,25 +41,29 @@ const RegisterAdult = () => {
     });
   };
 
-  const onFinish = (values) => {
-    setLoading(true);
-    console.log(values);
+  const registerAdult = (values) => {
     try {
       authService.registerAdultPart1(values);
       form.resetFields();
-      notification.success({
-        message: 'success',
-        description: 'Part 1 completed!',
-      });
+      Notification(success, SUCCESS, 'Part 1 Completed!');
       navigate('/register/adult/part2');
-    } catch (error) {
-      notification
-        .error({
-          message: 'error',
-          description: 'You made a mistake test1',
-        })
-        .finally(() => setLoading(false));
+    } catch (err) {
+      Notification(error, ERROR, 'You made a mistake. Please try again!');
     }
+  };
+
+  const onFinish = (values) => {
+    setLoading(true);
+    authService
+      .validateEmail(values.email)
+      .then((response) => {
+        Notification(success, SUCCESS, response.message);
+        registerAdult(values);
+      })
+      .catch((err) => {
+        Notification(error, ERROR, err.response.data.error);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -119,11 +126,11 @@ const RegisterAdult = () => {
           <Input type="email" placeholder="Email" />
         </Form.Item>
         <Form.Item noStyle>
-          <div>
+          <StyledBasicDiv>
             Password must be 8-20 characters, including: at least one capital
             letter, at least one small letter, one number and one special
             character - ! @ # $ % ^ & * ( ) _ +
-          </div>
+          </StyledBasicDiv>
           <Form.Item
             name="password"
             hasFeedback
@@ -212,8 +219,10 @@ const RegisterAdult = () => {
         >
           <Input type="text" placeholder="Forgot Password Answer" />
         </Form.Item>
-        <Form.Item register="true" style={{ textAlign: 'center' }}>
-          <div>By signing up you agree to our terms and policies.</div>
+        <StyledFormItem register="true">
+          <StyledBasicDiv>
+            By signing up you agree to our terms and policies.
+          </StyledBasicDiv>
           <StyledButton
             loading={loading}
             larger="true"
@@ -222,13 +231,13 @@ const RegisterAdult = () => {
           >
             Next Page
           </StyledButton>
-          <div>
+          <StyledBasicDiv>
             The next page you will out your username, password, and avatar.
-          </div>
+          </StyledBasicDiv>
           <StyledButton larger="true" type="primary">
             <Link to="/">Back to Main Page</Link>
           </StyledButton>
-        </Form.Item>
+        </StyledFormItem>
       </Form>
     </>
   );

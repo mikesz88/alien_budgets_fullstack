@@ -5,11 +5,14 @@ const {
   getAdult,
   resetStudentPassword,
   updateStudentByAdult,
+  validateEmail,
 } = require('../controllers/adults');
 
 const { protect, authorizedAdult } = require('../middleware/auth');
 
 router.get('/class/:classid', protect, getAdult);
+
+router.get('/validateemail/:email', validateEmail);
 
 router.put(
   '/updatestudent/:studentid',

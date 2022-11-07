@@ -7,6 +7,7 @@ const StyledDashboardContainer = styled.div`
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  padding: ${({ padding }) => (padding ? `0 5rem` : null)};
 `;
 
 export default StyledDashboardContainer;

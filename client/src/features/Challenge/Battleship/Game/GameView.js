@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PlayerFleet from './PlayerFleet';
 import PlayerBoard from './PlayerBoard';
 import ComputerBoard from './ComputerBoard';

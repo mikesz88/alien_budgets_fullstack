@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
-/* eslint-disable no-param-reassign */
 import React, { useState, useRef, useContext } from 'react';
 import GameView from './GameView';
 import {
@@ -56,17 +54,12 @@ const Game = ({ changeView }) => {
   const [hitsByComputer, setHitsByComputer] = useState([]);
 
   const updateBattleshipResult = () => {
-    console.log('test');
     const score =
       computerShips.filter((ship) => ship.sunk).length -
       placedShips.filter((ship) => ship.sunk).length;
     gameService.setPushBattleshipResult(score);
     gameService.updateBattleshipScore(score);
     updateService();
-    console.log(gameService.getScore());
-    console.log(gameService.getBonusOrFine());
-    console.log('score =>', gameService.getBattleshipResults());
-    console.log('month =>', gameService.month);
   };
 
   const sunkSoundRef = useRef(null);
@@ -252,7 +245,6 @@ const Game = ({ changeView }) => {
 
   // Check if either player or computer ended the game
   const checkIfGameOver = () => {
-    console.log('1');
     const successfulPlayerHits = hitsByPlayer.filter(
       (hit) => hit.type === 'hit'
     ).length;
@@ -278,8 +270,6 @@ const Game = ({ changeView }) => {
 
     return false;
   };
-
-  console.log('score =>', gameService.getBattleshipResults());
 
   return (
     <>

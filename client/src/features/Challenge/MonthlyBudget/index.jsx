@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-unused-vars */
 import React, {
   useContext,
   useEffect,
@@ -15,26 +11,38 @@ import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 import TestMyMath from './TestMyMath';
 import ScoreGuidelines from '../ScoreGuidelines';
+import {
+  withMoneySymbol,
+  convertMoneyToNumber,
+  error,
+  ERROR,
+  success,
+  SUCCESS,
+} from '../../../common/constants';
+import Notification from '../../../components/Notification';
+import {
+  StyledFormItem,
+  StyledInputEditContainer,
+  StyledDirectionsWrapper,
+  StyledScoreGuideline,
+  StyledTopInfoWrapper,
+  StyledInfoText,
+  StyledInputDirections,
+  StyledHouseButton,
+  StyledScoreInfo,
+  StyledDivWrapperCentered,
+  StyledAddRowButton,
+  StyledRedDiv,
+} from './styles';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
-const requiredCells = [
-  'Monthly House/Apartment Payment',
-  'Utilities (Electricity, Gas, Water/Sewer, Internet/Phone, Trash)',
-  'Savings (This will carry over to next month)',
-  'Groceries ($50 per person minimum)',
-];
+const MONTHLY_PAYMENT = 'Monthly House/Apartment Payment';
+const UTILITIES =
+  'Utilities (Electricity, Gas, Water/Sewer, Internet/Phone, Trash)';
+const SAVINGS = 'Savings (This will carry over to next month)';
+const GROCERIES = 'Groceries ($50 per person minimum)';
 
-const withMoneySymbol = (salary) =>
-  salary.toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-
-const convertMoneyToNumber = (moneyString) => {
-  console.log(moneyString);
-  const removeComma = moneyString.split(',').join('');
-  console.log(removeComma, +removeComma.slice(1));
-  return +removeComma.slice(1);
-};
+const requiredCells = [MONTHLY_PAYMENT, UTILITIES, SAVINGS, GROCERIES];
 
 const EditableContext = createContext(null);
 
@@ -76,26 +84,21 @@ const EditableCell = ({
   const save = async () => {
     try {
       const values = await form.validateFields();
-      // console.log(values.chosenBudget.toFixed(2));
-      // console.log(+(+values.chosenBudget).toFixed(2));
       values.chosenBudget = +(+values.chosenBudget).toFixed(2);
-      console.log(values.chosenBudget);
       toggleEdit();
       handleSave({
         ...record,
         ...values,
       });
+      Notification(success, SUCCESS, 'Value saved.');
     } catch (errInfo) {
-      console.log('Save failed:', errInfo);
+      Notification(error, ERROR, `Save failed: ${errInfo}`);
     }
   };
   let childNode = children;
   if (editable) {
     childNode = editing ? (
-      <Form.Item
-        style={{
-          margin: 0,
-        }}
+      <StyledFormItem
         name={dataIndex}
         rules={[
           {
@@ -116,32 +119,28 @@ const EditableCell = ({
           onPressEnter={save}
           onBlur={save}
         />
-      </Form.Item>
+      </StyledFormItem>
     ) : (
-      <div
-        style={{ padding: '5px 12px', cursor: 'pointer' }}
-        onClick={toggleEdit}
-      >
+      <StyledInputEditContainer onClick={toggleEdit}>
         {children}
-      </div>
+      </StyledInputEditContainer>
     );
   }
   return <td {...restProps}>{childNode}</td>;
 };
 
 const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { gameService } = useContext(UserContext);
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
-      budgetItem: 'Monthly House/Apartment Payment',
+      budgetItem: MONTHLY_PAYMENT,
       requiredMinimum: withMoneySymbol(gameService.getHouse().monthlyPayment),
       chosenBudget: gameService.getHouse().monthlyPayment,
     },
     {
       key: '1',
-      budgetItem:
-        'Utilities (Electricity, Gas, Water/Sewer, Internet/Phone, Trash)',
+      budgetItem: UTILITIES,
       requiredMinimum: withMoneySymbol(
         gameService.getUtilities() * gameService.getHouse().monthlyPayment
       ),
@@ -151,13 +150,13 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
     },
     {
       key: '2',
-      budgetItem: 'Savings (This will carry over to next month)',
+      budgetItem: SAVINGS,
       requiredMinimum: withMoneySymbol(0),
       chosenBudget: 0,
     },
     {
       key: '3',
-      budgetItem: 'Groceries ($50 per person minimum)',
+      budgetItem: GROCERIES,
       requiredMinimum: withMoneySymbol(
         (gameService.getHouseMembers() + 1) * 50
       ),
@@ -259,25 +258,11 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
     };
   });
 
-  const changeTaxes = (event) => {
-    console.log(event.target.value);
-    setTaxes(+event.target.value);
-  };
+  const changeTaxes = (event) => setTaxes(+event.target.value);
+  const changeMonthlyIncome = (event) => setMonthlyIncome(+event.target.value);
+  const changeIncomeToSpend = (event) => setIncomeToSpend(+event.target.value);
 
-  const changeMonthlyIncome = (event) => {
-    console.log(event.target.value);
-    setMonthlyIncome(+event.target.value);
-  };
-
-  const changeIncomeToSpend = (event) => {
-    console.log(event.target.value);
-    setIncomeToSpend(+event.target.value);
-  };
-
-  const changeBudgetItem = (event) => {
-    console.log(event.target.value);
-    setNewBudgetItem(event.target.value);
-  };
+  const changeBudgetItem = (event) => setNewBudgetItem(event.target.value);
 
   const remainingBalance = useMemo(
     () =>
@@ -294,100 +279,47 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
 
   const openScoreModal = (boolean) => setOpenScoreGuidelines(boolean);
 
-  console.log([
-    ...testData,
-    { budgetItem: 'monthlyIncome', chosenBudget: monthlyIncome },
-    { budgetItem: 'taxes', chosenBudget: taxes },
-    { budgetItem: 'incomeToSpend', chosenBudget: incomeToSpend },
-  ]);
-
-  console.log(
-    'disable test =>',
-    dataSource.length < 7 || remainingBalance !== 0
-  );
-  console.log(dataSource.length < 7);
-  console.log(remainingBalance);
-
   return (
-    <div>
-      <div
-        onClick={() => openScoreModal(true)}
-        style={{
-          position: 'absolute',
-          top: '60px',
-          right: '0',
-          padding: '1rem',
-          backgroundColor: 'grey',
-          color: 'white',
-          cursor: 'pointer',
-          borderTopLeftRadius: '8px',
-          borderBottomLeftRadius: '8px',
-        }}
-      >
+    <>
+      <StyledScoreGuideline onClick={() => openScoreModal(true)}>
         Score Guidelines
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          alignItems: 'flex-start',
-          fontSize: '0.75rem',
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            width: '300px',
-            height: '225px',
-          }}
-        >
-          <div>
-            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
-              Current Annual Salary:
-            </div>
-            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
+      </StyledScoreGuideline>
+      <StyledTopInfoWrapper>
+        <StyledDirectionsWrapper>
+          <StyledBasicDiv>
+            <StyledInfoText>Current Annual Salary:</StyledInfoText>
+            <StyledInfoText>
               {withMoneySymbol(gameService.getSalary())}
-            </div>
-            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
+            </StyledInfoText>
+            <StyledInfoText>
               Add {withMoneySymbol(gameService.getSavings())} from savings on
               top of your monthly salary below.
-            </div>
-            <div style={{ fontSize: '.8rem', fontWeight: 'bold' }}>
+            </StyledInfoText>
+            <StyledInfoText>
               {gameService.getBonusOrFine() < 0 ? 'Take Away' : 'Add'}{' '}
               {withMoneySymbol(gameService.getBonusOrFine())} from{' '}
               {gameService.getBonusOrFine() < 0 ? 'fine' : 'bonus'} on top of
               your monthly salary below.
-            </div>
-          </div>
-          <div>
-            <div style={{ marginBottom: '0.75rem' }}>
+            </StyledInfoText>
+          </StyledBasicDiv>
+          <StyledBasicDiv>
+            <StyledInputDirections>
               What is your monthly salary? (Write numbers only & round to the
               nearest hundredth)
-            </div>
+            </StyledInputDirections>
             <Input
               type="number"
               value={monthlyIncome}
               onChange={changeMonthlyIncome}
             />
-          </div>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            width: '300px',
-            height: '225px',
-          }}
-        >
-          <div>
-            <div>
+          </StyledBasicDiv>
+        </StyledDirectionsWrapper>
+        <StyledDirectionsWrapper>
+          <StyledBasicDiv>
+            <StyledBasicDiv>
               Don&apos;t Forget Taxes! (In this Alien World they only ask you to
               pay a %10 income tax.)
-            </div>
+            </StyledBasicDiv>
             <ul>
               <li>(Write numbers only & round to the nearest hundredth)</li>
               <li>Hints:</li>
@@ -395,59 +327,38 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
               <li>OR</li>
               <li>Divide your monthly salary by 10.</li>
             </ul>
-          </div>
+          </StyledBasicDiv>
           <Input type="number" value={taxes} onChange={changeTaxes} />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            width: '300px',
-            height: '225px',
-          }}
-        >
+        </StyledDirectionsWrapper>
+        <StyledDirectionsWrapper>
           {gameService.getMonth() === 0 ? (
-            <StyledButton
-              style={{ marginTop: '0' }}
-              type="primary"
-              onClick={findAnotherHouse}
-            >
+            <StyledHouseButton type="primary" onClick={findAnotherHouse}>
               Choose Different House
-            </StyledButton>
+            </StyledHouseButton>
           ) : null}
-          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          <StyledScoreInfo>
             Current Month: {gameService.getMonth()}
-          </div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          </StyledScoreInfo>
+          <StyledScoreInfo>
             Current Score: {gameService.getScore()}
-          </div>
-          <div>
-            <div style={{ marginBottom: '0.75rem' }}>
+          </StyledScoreInfo>
+          <StyledBasicDiv>
+            <StyledInputDirections>
               What is the remaining balance to spend on your budget? (Write
               numbers only & round to the nearest hundredth)
-            </div>
+            </StyledInputDirections>
             <Input
               type="number"
               value={incomeToSpend}
               onChange={changeIncomeToSpend}
             />
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <StyledButton
+          </StyledBasicDiv>
+        </StyledDirectionsWrapper>
+      </StyledTopInfoWrapper>
+      <StyledDivWrapperCentered>
+        <StyledAddRowButton
           onClick={handleAdd}
           type="primary"
-          style={{
-            marginBottom: 16,
-          }}
           disabled={
             newBudgetItem.length < 3 ||
             dataSource.some(
@@ -458,16 +369,16 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           }
         >
           Add a row
-        </StyledButton>
+        </StyledAddRowButton>
         <Input
           placeholder="Write name of new budget Item"
           type="text"
           value={newBudgetItem}
           onChange={changeBudgetItem}
         />
-      </div>
+      </StyledDivWrapperCentered>
       {newBudgetItem && newBudgetItem.length < 3 ? (
-        <div style={{ color: 'red' }}>Must be at least 3 characters long</div>
+        <StyledRedDiv>Must be at least 3 characters long</StyledRedDiv>
       ) : null}
       {dataSource.some(
         (budgetItem) =>
@@ -525,7 +436,6 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           disabled={dataSource.length < 7 || remainingBalance !== 0}
           type="primary"
           onClick={() => {
-            console.log(dataSource);
             openTestMyMathModal(true);
           }}
         >
@@ -551,7 +461,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           toggleVisibility={openScoreModal}
         />
       ) : null}
-    </div>
+    </>
   );
 };
 

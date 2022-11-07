@@ -25,7 +25,7 @@ const Student = () => {
   return (
     <StyledDashboardWrapper>
       <GreetingBar student username={authService.username} />
-      <StyledDashboardContainer style={{ padding: '0 5rem' }}>
+      <StyledDashboardContainer padding>
         {dashboardIcons.map((card) => {
           let newCardLink = card.link;
           if (card.linkId) {

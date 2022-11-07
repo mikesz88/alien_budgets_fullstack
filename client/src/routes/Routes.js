@@ -22,7 +22,6 @@ import Unauthorized from '../features/Unauthorized';
 import { UserContext } from '../App';
 import TeacherClasses from '../features/Classes/TeacherClasses';
 import CreateClass from '../features/Classes/CreateClass';
-import CreateChallenge from '../features/Challenge/CreateChallenge';
 import Account from '../features/Account';
 import Logout from '../features/Logout';
 import DeletedAccount from '../features/DeletedAccount';
@@ -143,7 +142,6 @@ const Routes = () => {
         exact
       />
       <Route path="/challenge/play" element={<Challenge />} exact />
-      <Route path="/challenge/create" element={<CreateChallenge />} exact />
       <Route
         path="/classrooms/teacher/:teacherId"
         element={<TeacherClasses />}

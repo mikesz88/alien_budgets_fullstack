@@ -3,6 +3,9 @@ import { Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import Notification from '../../../components/Notification';
+import { success, SUCCESS, error, ERROR } from '../../../common/constants';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const BudgetSummary = () => {
   const { gameService, authService, classroomService, updateService } =
@@ -18,53 +21,109 @@ const BudgetSummary = () => {
     .reduce((a, z) => a + z * 1000, 0);
   const savingScore = gameService.getSavings() * 10;
 
-  useEffect(() => {
+  const updateTotal = () =>
     setTotal(gameService.updateScoreFromSavings(gameService.getSavings()));
-    updateService();
-    authService.addScore(gameService.score).then(() => {
-      classroomService.updateStudentInClassroom(authService.getBearerHeader(), {
-        _id: authService.id,
-        score: authService.score,
-        firstName: authService.firstName,
-        lastInitial: authService.lastInitial,
-        username: authService.username,
-        avatarURL: authService.avatarURL,
-        avatarColor: authService.avatarColor,
-        classroomCode: authService.classroomCode,
-      });
-    });
-    authService.addResultsToStudentsHistory({
-      job: gameService.getJob().jobTitle,
-      dwelling: gameService.getHouse().dwelling,
-      salary: gameService.getSalary(),
-      score: gameService.getScore(),
-      mathFactScore: +(
-        gameService.getMathFactResults().reduce((a, z) => a + z, 0) /
-        gameService.getMathFactResults().length
-      ).toFixed(2),
-      battleshipScore: +(
-        gameService.getBattleshipResults().reduce((a, z) => a + z, 0) /
-        gameService.getBattleshipResults().length
-      ).toFixed(2),
-    });
+
+  const updateResults = () => {
+    authService
+      .addScore(gameService.score)
+      .then(() => {
+        classroomService
+          .updateStudentInClassroom(authService.getBearerHeader(), {
+            _id: authService.id,
+            score: authService.score,
+            firstName: authService.firstName,
+            lastInitial: authService.lastInitial,
+            username: authService.username,
+            avatarURL: authService.avatarURL,
+            avatarColor: authService.avatarColor,
+            classroomCode: authService.classroomCode,
+          })
+          .then(() =>
+            Notification(
+              success,
+              SUCCESS,
+              'Student updated in Classroom Leaderboard.'
+            )
+          )
+          .catch(() =>
+            Notification(
+              error,
+              Error,
+              'There was a connection error. Error 0. Please try again later.'
+            )
+          );
+        Notification(success, SUCCESS, 'Student score finalized.');
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'There was a connection error. Error 1. Please try again later.'
+        )
+      );
+  };
+
+  const addResultToHistory = () => {
+    authService
+      .addResultsToStudentsHistory({
+        job: gameService.getJob().jobTitle,
+        dwelling: gameService.getHouse().dwelling,
+        salary: gameService.getSalary(),
+        score: gameService.getScore(),
+        mathFactScore: +(
+          gameService.getMathFactResults().reduce((a, z) => a + z, 0) /
+          gameService.getMathFactResults().length
+        ).toFixed(2),
+        battleshipScore: +(
+          gameService.getBattleshipResults().reduce((a, z) => a + z, 0) /
+          gameService.getBattleshipResults().length
+        ).toFixed(2),
+      })
+      .then(() => {
+        Notification(success, SUCCESS, 'Results added to your previous games.');
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'There was a connection error. Error 2. Please try again later.'
+        )
+      );
+  };
+
+  const deleteGame = () => {
     authService
       .deleteGame()
       .then(() =>
         gameService
           .deleteGame(gameService.gameId, authService.getBearerHeader())
-          .then((response) => console.log(response))
+          .then(() =>
+            Notification(
+              success,
+              SUCCESS,
+              'Game officially has been reset. To play, press "Play Game"'
+            )
+          )
+          .catch(() => Notification(error, ERROR, ''))
       )
-      .catch((error) => console.error(error));
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'There was a connection error. Error 3. Please try again later.'
+        )
+      );
+  };
+
+  useEffect(() => {
+    updateTotal();
+    updateService();
+    updateResults();
+    addResultToHistory();
+    deleteGame();
     updateService();
   }, []);
-
-  console.log(gameService.getMathFactResults());
-  console.log(gameService.getMathFactScore(100));
-  console.log(
-    gameService
-      .getMathFactResults()
-      .reduce((a, z) => a + gameService.getMathFactScore(z), 0)
-  );
 
   const dataSource = [
     {
@@ -111,7 +170,7 @@ const BudgetSummary = () => {
 
   return (
     <>
-      <div>Budget Summary</div>
+      <StyledBasicDiv>Budget Summary</StyledBasicDiv>
       <Table pagination={false} dataSource={dataSource} columns={columns} />
       <StyledButton type="primary" onClick={() => navigate(`/challenge/play`)}>
         Play Again

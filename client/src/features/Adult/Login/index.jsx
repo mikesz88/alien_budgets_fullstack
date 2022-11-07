@@ -1,10 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Input, notification } from 'antd';
+import { Form, Input } from 'antd';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import { success, error, ERROR } from '../../../common/constants';
+import Notification from '../../../components/Notification';
+import loginButtons from './helper';
 
 const AdultLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -14,25 +16,21 @@ const AdultLogin = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    console.log('values =>', values);
     authService
       .login(values)
       .then(() => {
         navigate('/dashboard');
-        notification.success({
-          message: 'Login Successful',
-          description: 'You are now currently logged in.',
-        });
+        Notification(
+          success,
+          'Login Successful',
+          'You are now currently logged in.'
+        );
         form.resetFields();
         updateService();
       })
-      .catch((error) => {
+      .catch(() => {
         form.resetFields();
-        console.error(error);
-        notification.error({
-          message: 'error',
-          description: 'Please try again!',
-        });
+        Notification(error, ERROR, 'Invalid Email/Password. Please try again!');
       })
       .finally(() => setLoading(false));
   };
@@ -64,30 +62,30 @@ const AdultLogin = () => {
           <Input.Password type="password" placeholder="Password" />
         </Form.Item>
         <Form.Item>
-          <StyledButton
-            loading={loading}
-            larger="true"
-            type="primary"
-            htmlType="submit"
-          >
-            Login
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/register/adult/part1">New Adult</Link>
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/forgotpassword/question">
-              Forgot Password? Use Forgot Question
-            </Link>
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/forgotpassword/email">
-              Forgot Password? Find by Email
-            </Link>
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/">Back to Main Page</Link>
-          </StyledButton>
+          {loginButtons.map((feature) => {
+            if (feature.htmlType) {
+              return (
+                <StyledButton
+                  key={feature.buttonText}
+                  loading={loading}
+                  larger={feature.larger}
+                  type={feature.type}
+                  htmlType={feature.htmlType}
+                >
+                  {feature.buttonText}
+                </StyledButton>
+              );
+            }
+            return (
+              <StyledButton
+                key={feature.buttonText}
+                larger={feature.larger}
+                type={feature.type}
+              >
+                <Link to={feature.Link}>{feature.buttonText}</Link>
+              </StyledButton>
+            );
+          })}
         </Form.Item>
       </Form>
     </>

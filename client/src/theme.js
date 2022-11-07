@@ -11,6 +11,7 @@ const theme = {
     lightGrey: '#F2F2F2',
     yellow: '#F7E57B',
     white: '#fff',
+    red: 'red',
   },
 };
 

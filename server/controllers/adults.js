@@ -88,3 +88,24 @@ exports.updateStudentByAdult = asyncHandler(async (req, res, next) => {
     data: student,
   });
 });
+
+// @desc Validate Email Address
+// @route GET /api/v1/adults/validateemail/:email
+// @access PUBLIC
+exports.validateEmail = asyncHandler(async (req, res, next) => {
+  const adult = await Adult.find({ email: req.params.email });
+
+  if (adult.length) {
+    return next(
+      new ErrorResponse(
+        `There is already an account with ${req.params.email} email. Please login with that email or sign up with a different email.`,
+        400
+      )
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    data: { email: req.params.email, message: 'There are no matched emails' },
+  });
+});

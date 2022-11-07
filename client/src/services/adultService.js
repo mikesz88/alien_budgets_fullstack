@@ -127,6 +127,17 @@ function adultService(User) {
         throw error;
       }
     }
+
+    async validateEmail(email) {
+      try {
+        const { data: response } = await axios.get(
+          `${Endpoints.validateEmail}/${email}`
+        );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    }
   }
   return AdultService;
 }

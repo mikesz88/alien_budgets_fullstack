@@ -1,20 +1,27 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {
-  Form,
-  Pagination,
-  Radio,
-  Modal,
-  notification,
-  Checkbox,
-  Row,
-} from 'antd';
+import { Form, Modal, Checkbox, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
-import StyledRadioButton from './styles';
+import {
+  StyledGradeLevelContainer,
+  StyledPagination,
+  StyledRadioButton,
+  StyledRadioGroup,
+  StyledRegisterPart2Container,
+} from './styles';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
+import Notification from '../../../components/Notification';
+import {
+  ERROR,
+  error,
+  generateBgColor,
+  SUCCESS,
+  success,
+} from '../../../common/constants';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const RegisterAdultPart2 = () => {
   const { avatarService, authService, updateService } = useContext(UserContext);
@@ -48,12 +55,10 @@ const RegisterAdultPart2 = () => {
           prevPage: res.pagination.prev ? res.pagination.prev.page : 10,
           nextPage: res.pagination.next ? res.pagination.next.page : 1,
         });
-        // Notification
+        Notification(success, SUCCESS, 'Avatars Loaded.');
       })
-      .catch((error) => {
-        setAvatarList(error);
-        throw error;
-        // Notification
+      .catch(() => {
+        Notification(error, ERROR, 'Avatars Failed to have Load.');
       });
   };
 
@@ -62,18 +67,12 @@ const RegisterAdultPart2 = () => {
       .getRandomAvatar()
       .then((res) => {
         setAvatarURL(res.avatarURL);
+        Notification(success, SUCCESS, 'Selected a Random Avatar.');
       })
       .catch(() => {
-        notification.error({
-          message: 'error',
-          description: 'Bad connection. Try again later',
-        });
+        Notification(error, ERROR, 'Bad connection. Try again later.');
       });
   };
-
-  const generateBgColor = () =>
-    // eslint-disable-next-line no-bitwise
-    `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`;
 
   const handleBgColorChange = (value) => {
     form.setFieldsValue({
@@ -114,17 +113,11 @@ const RegisterAdultPart2 = () => {
       .registerAdult(values)
       .then(() => {
         navigate('/dashboard');
-        notification.success({
-          message: 'Sign Up Successful',
-          description: 'You are now currently logged in.',
-        });
+        Notification(success, 'Sign Up Successful', 'You are now logged in!');
         updateService();
       })
       .catch(() =>
-        notification.error({
-          message: 'Error',
-          description: 'Please try again!',
-        })
+        Notification(error, ERROR, 'There was an error. Please try again!')
       )
       .finally(() => setLoading(false));
   };
@@ -133,14 +126,7 @@ const RegisterAdultPart2 = () => {
     <>
       <StyledTitle>NEW ADULT</StyledTitle>
       <Form form={form} id={form} onFinish={onFinish}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <StyledRegisterPart2Container>
           <Form.Item noStyle>
             <StyledButton onClick={openModal} type="primary">
               Choose Avatar
@@ -171,8 +157,8 @@ const RegisterAdultPart2 = () => {
               size="large"
             />
           </Form.Item>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        </StyledRegisterPart2Container>
+        <StyledGradeLevelContainer>
           <Form.Item
             name="gradeLevel"
             label="Grade Level"
@@ -191,9 +177,11 @@ const RegisterAdultPart2 = () => {
               </Row>
             </Checkbox.Group>
           </Form.Item>
-        </div>
+        </StyledGradeLevelContainer>
         <Form.Item register="true" style={{ textAlign: 'center' }}>
-          <div>By signing up you agree to our terms and policies.</div>
+          <StyledBasicDiv>
+            By signing up you agree to our terms and policies.
+          </StyledBasicDiv>
           <StyledButton
             loading={loading}
             larger="true"
@@ -213,21 +201,9 @@ const RegisterAdultPart2 = () => {
               onCancel={closeModal}
               footer={null}
             >
-              <Radio.Group
-                onChange={handleAvatarChange}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
+              <StyledRadioGroup onChange={handleAvatarChange}>
                 {avatarList.map((avatarIcon) => (
                   <StyledRadioButton
-                    style={{
-                      height: '100%',
-                      margin: '1rem',
-                    }}
                     key={avatarIcon.avatarURL}
                     value={avatarIcon.avatarURL}
                     onClick={() => setAvatarURL(avatarIcon.avatarURL)}
@@ -242,19 +218,14 @@ const RegisterAdultPart2 = () => {
                     />
                   </StyledRadioButton>
                 ))}
-              </Radio.Group>
-              <Pagination
+              </StyledRadioGroup>
+              <StyledPagination
                 total={pagination.total}
                 simple
                 pageSize={10}
                 showSizeChanger={false}
                 current={pagination.page}
                 onChange={(page) => getAvatarList(page)}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
               />
             </Modal>
           </Form.Item>
