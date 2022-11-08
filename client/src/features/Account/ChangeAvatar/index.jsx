@@ -6,7 +6,6 @@ import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
 import {
   StyledRadioButton,
-  StyledBasicDiv,
   StyledRadioGroup,
   StyledPagination,
   StyledBasicSpan,
@@ -15,6 +14,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const ChangeAvatar = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);

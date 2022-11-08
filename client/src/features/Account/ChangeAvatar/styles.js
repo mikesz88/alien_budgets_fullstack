@@ -28,8 +28,6 @@ export const StyledRadioButton = styled(Radio.Button)`
   }
 `;
 
-export const StyledBasicDiv = styled.div``;
-
 export const StyledRadioGroup = styled(Radio.Group)`
   display: flex;
   justify-content: center;

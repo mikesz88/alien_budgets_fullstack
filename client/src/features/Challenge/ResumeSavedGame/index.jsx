@@ -4,26 +4,37 @@ import { Spin } from 'antd';
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../../App';
 import Card from '../../../components/Card';
+import {
+  BATTLESHIP_MONTHS,
+  ERROR,
+  error,
+  SUCCESS,
+  success,
+} from '../../../common/constants';
+import Notification from '../../../components/Notification';
 
 const ResumeSavedGame = ({ changeView }) => {
   const { authService, gameService, updateService } = useContext(UserContext);
   const [currentGame, setCurrentGame] = useState(null);
   const [loading, setLoading] = useState(false);
-  const BATTLESHIP_MONTHS = [4, 8, 12];
 
-  useEffect(() => {
-    gameService.getGameById(authService.game).then((res) => {
-      setCurrentGame(res);
-    });
-  }, []);
+  const grabGameInfo = () => {
+    gameService
+      .getGameById(authService.game)
+      .then((res) => {
+        setCurrentGame(res);
+        Notification(success, SUCCESS, 'Saved Game Found');
+      })
+      .catch(() => Notification(error, ERROR, 'No saved game found'));
+  };
 
-  console.log(currentGame);
+  useEffect(() => grabGameInfo(), []);
+
   const newGame = () => {
     setLoading(true);
     authService
       .deleteGame()
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         gameService
           .deleteGame(currentGame._id, authService.getBearerHeader())
           .then(() => {

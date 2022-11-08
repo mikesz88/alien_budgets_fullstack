@@ -33,16 +33,18 @@ import {
   StyledDivWrapperCentered,
   StyledAddRowButton,
   StyledRedDiv,
+  StyledSubmitWrapper,
+  StyledSpanBalanceColor,
+  StyledBoldSpan,
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
-
-const MONTHLY_PAYMENT = 'Monthly House/Apartment Payment';
-const UTILITIES =
-  'Utilities (Electricity, Gas, Water/Sewer, Internet/Phone, Trash)';
-const SAVINGS = 'Savings (This will carry over to next month)';
-const GROCERIES = 'Groceries ($50 per person minimum)';
-
-const requiredCells = [MONTHLY_PAYMENT, UTILITIES, SAVINGS, GROCERIES];
+import {
+  MONTHLY_PAYMENT,
+  UTILITIES,
+  SAVINGS,
+  GROCERIES,
+  requiredCells,
+} from './helper';
 
 const EditableContext = createContext(null);
 
@@ -385,9 +387,9 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           newBudgetItem.toLowerCase().trim() ===
           budgetItem.budgetItem.toLowerCase().trim()
       ) ? (
-        <div style={{ color: 'red' }}>
+        <StyledRedDiv>
           Cannot be the same name as another budget item.
-        </div>
+        </StyledRedDiv>
       ) : null}
       <Table
         components={components}
@@ -397,40 +399,22 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
         columns={columns}
         pagination={false}
       />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <div>
+      <StyledSubmitWrapper>
+        <StyledBasicDiv>
           You must spend all the money. You have{' '}
-          <span
-            style={{
-              fontWeight: 'bold',
-              color: `${
-                // eslint-disable-next-line no-nested-ternary
-                remainingBalance < 0
-                  ? 'red'
-                  : remainingBalance === 0
-                  ? 'green'
-                  : 'black'
-              }`,
-            }}
-          >
+          <StyledSpanBalanceColor remainingBalance={remainingBalance}>
             {withMoneySymbol(remainingBalance)}
-          </span>{' '}
+          </StyledSpanBalanceColor>{' '}
           left to spend
-        </div>
-        <div>
-          You must have a{' '}
-          <span style={{ fontWeight: 'bold' }}>ZERO BALANCE</span> in order to
-          test your math.
-        </div>
+        </StyledBasicDiv>
+        <StyledBasicDiv>
+          You must have a <StyledBoldSpan>ZERO BALANCE</StyledBoldSpan> in order
+          to test your math.
+        </StyledBasicDiv>
         {dataSource.length < 7 ? (
-          <div>Please include at least 3 more items to buy this month</div>
+          <StyledBasicDiv>
+            Please include at least 3 more items to buy this month
+          </StyledBasicDiv>
         ) : null}
         <StyledButton
           disabled={dataSource.length < 7 || remainingBalance !== 0}
@@ -441,7 +425,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
         >
           Test my math!
         </StyledButton>
-      </div>
+      </StyledSubmitWrapper>
       {openTestMyMath ? (
         <TestMyMath
           changeView={changeView}
@@ -455,12 +439,10 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           ]}
         />
       ) : null}
-      {openScoreGuidelines ? (
-        <ScoreGuidelines
-          open={openScoreGuidelines}
-          toggleVisibility={openScoreModal}
-        />
-      ) : null}
+      <ScoreGuidelines
+        open={openScoreGuidelines}
+        toggleVisibility={openScoreModal}
+      />
     </>
   );
 };

@@ -70,3 +70,24 @@ export const StyledAddRowButton = styled(StyledButton)`
 export const StyledRedDiv = styled.div`
   color: ${({ theme }) => theme.colors.red};
 `;
+
+export const StyledSubmitWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const StyledSpanBalanceColor = styled.span`
+  font-weight: bold;
+  color: ${({ theme, remainingBalance }) =>
+    remainingBalance < 0
+      ? theme.colors.red
+      : remainingBalance === 0
+      ? theme.colors.green
+      : theme.colors.black};
+`;
+
+export const StyledBoldSpan = styled.span`
+  font-weight: bold;
+`;

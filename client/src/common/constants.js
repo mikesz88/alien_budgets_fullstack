@@ -19,3 +19,5 @@ export const convertMoneyToNumber = (moneyString) => {
   const removeComma = moneyString.split(',').join('');
   return +removeComma.slice(1);
 };
+
+export const BATTLESHIP_MONTHS = [4, 8, 12];
