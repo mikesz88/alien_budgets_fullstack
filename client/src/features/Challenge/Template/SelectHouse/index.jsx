@@ -1,27 +1,35 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from 'react';
-import { Form, Radio, Row, Spin } from 'antd';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { Form, Radio, Spin } from 'antd';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
-
-const salaryWithMoneySymbol = (salary) =>
-  salary.toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+import {
+  ERROR,
+  error,
+  SUCCESS,
+  success,
+  withMoneySymbol,
+} from '../../../../common/constants';
+import Notification from '../../../../components/Notification';
+import StyledBasicDiv from '../../../../components/BasicDiv';
+import {
+  StyledBoldTitle,
+  StyledHouseImg,
+  StyledHouseRadioContainer,
+  StyledRadioWrapper,
+} from './styles';
 
 const SelectHouse = ({ goToSalary, backToBudget }) => {
   const { authService, gameService, updateService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [loadingHouses, setLoadingHouses] = useState(false);
   const [allHouses, setAllHouses] = useState([]);
-  const lowEndSalary = salaryWithMoneySymbol(
-    gameService.getJob().salaryAverage * 0.75
+  const lowEndSalary = useMemo(
+    () => withMoneySymbol(gameService.getJob().salaryAverage * 0.75),
+    [gameService.job]
   );
-  const highEndSalary = salaryWithMoneySymbol(
-    gameService.getJob().salaryAverage * 1.25
+  const highEndSalary = useMemo(
+    () => withMoneySymbol(gameService.getJob().salaryAverage * 1.25),
+    [gameService.job]
   );
   const [form] = Form.useForm();
 
@@ -30,60 +38,67 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
     gameService
       .getAllDwellings()
       .then((response) => {
-        console.log(response);
         const qualifiedHouses = response.filter(
           (house) => house.maxOccupancy >= gameService.getHouseMembers() + 1
         );
         setAllHouses(qualifiedHouses);
+        Notification(success, SUCCESS, 'Eligible Houses Shown.');
       })
-      .catch((error) => console.error(error))
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Game Service Connection Error. Try again later.'
+        )
+      )
       .finally(() => setLoadingHouses(false));
   };
+
+  const updateGameById = (values) =>
+    gameService.updateGameById(
+      { house: values.selectedHouse },
+      gameService.gameId,
+      authService.getBearerHeader()
+    );
 
   const onFinish = (values) => {
     setLoading(true);
     gameService.setHouse(values.selectedHouse);
-    console.log(gameService.getHouse());
     if (gameService.getSalary()) {
-      gameService.updateGameById(
-        { house: values.selectedHouse },
-        gameService.gameId,
-        authService.getBearerHeader()
-      );
-      setLoading(false);
+      updateGameById(values);
       updateService();
+      setLoading(false);
       return backToBudget();
     }
     setLoading(false);
     return goToSalary();
   };
 
-  useEffect(() => {
-    getAllHouses();
-  }, []);
+  useEffect(() => getAllHouses(), []);
 
   return (
     <>
-      <div>The house must have enough for you and your household members</div>
-      <div>
+      <StyledBasicDiv>
+        The house must have enough for you and your household members
+      </StyledBasicDiv>
+      <StyledBasicDiv>
         Amount of people to house (including yourself):{' '}
         {gameService.getHouseMembers() + 1}
-      </div>
+      </StyledBasicDiv>
       {gameService.getSalary() ? (
-        <div style={{ fontWeight: 'bold' }}>
-          <div>
-            Current Annual Salary{' '}
-            {salaryWithMoneySymbol(gameService.getSalary())}
-          </div>
-          <div>
+        <StyledBoldTitle>
+          <StyledBasicDiv>
+            Current Annual Salary {withMoneySymbol(gameService.getSalary())}
+          </StyledBasicDiv>
+          <StyledBasicDiv>
             Hint: House monthly payment should not be more than half of your
             monthly income
-          </div>
-        </div>
+          </StyledBasicDiv>
+        </StyledBoldTitle>
       ) : (
-        <div>
+        <StyledBasicDiv>
           Potential annual salary range: {lowEndSalary}-{highEndSalary}
-        </div>
+        </StyledBasicDiv>
       )}
       <Spin spinning={loadingHouses}>
         <Form
@@ -103,34 +118,23 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
             ]}
           >
             <Radio.Group>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
-                {allHouses.map((house) => (
-                  <Radio key={house._id} value={house}>
-                    <div style={{ width: '200px', height: '200px' }}>
-                      <img
-                        style={{ width: '100%', height: '100%' }}
-                        src={house.dwellingUrl}
-                        alt="house"
-                      />
-                    </div>
-                    <div>{house.dwelling}</div>
-                    <div>
-                      {`${house.monthlyPayment.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                      })} per month`}
-                    </div>
-                    <div>Max Occupancy: {house.maxOccupancy}</div>
-                  </Radio>
-                ))}
-              </div>
+              <StyledRadioWrapper>
+                {allHouses.map((house) => {
+                  const housePayment = withMoneySymbol(house.monthlyPayment);
+                  return (
+                    <Radio key={house._id} value={house}>
+                      <StyledHouseRadioContainer>
+                        <StyledHouseImg src={house.dwellingUrl} alt="house" />
+                      </StyledHouseRadioContainer>
+                      <StyledBasicDiv>{house.dwelling}</StyledBasicDiv>
+                      <StyledBasicDiv>{housePayment} per month</StyledBasicDiv>
+                      <StyledBasicDiv>
+                        Max Occupancy: {house.maxOccupancy}
+                      </StyledBasicDiv>
+                    </Radio>
+                  );
+                })}
+              </StyledRadioWrapper>
             </Radio.Group>
           </Form.Item>
           <Form.Item>

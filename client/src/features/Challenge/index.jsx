@@ -1,13 +1,19 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import GreetingBar from '../../components/GreetingBar';
-import theme from '../../theme';
 import MathFacts from './MathFacts';
 import { UserContext } from '../../App';
 import Battleship from './Battleship';
 import Template from './Template';
 import BudgetSummary from './BudgetSummary';
 import ResumeSavedGame from './ResumeSavedGame';
+import StyledTemplateContainer from './Template/styles';
+import {
+  battleships,
+  budgetSummary,
+  mathFacts,
+  savedGame,
+  template,
+} from '../../common/constants';
 
 const Challenge = () => {
   const { authService } = useContext(UserContext);
@@ -19,35 +25,35 @@ const Challenge = () => {
 
   const changeView = (view) => {
     switch (view) {
-      case 'mathFacts':
+      case mathFacts:
         setOpenBattleShips(false);
         setOpenTemplate(false);
         setOpenBudgetSummary(false);
         setOpenSavedGame(false);
         setOpenMathFacts(true);
         break;
-      case 'battleships':
+      case battleships:
         setOpenTemplate(false);
         setOpenMathFacts(false);
         setOpenBudgetSummary(false);
         setOpenSavedGame(false);
         setOpenBattleShips(true);
         break;
-      case 'template':
+      case template:
         setOpenBattleShips(false);
         setOpenMathFacts(false);
         setOpenBudgetSummary(false);
         setOpenSavedGame(false);
         setOpenTemplate(true);
         break;
-      case 'budgetSummary':
+      case budgetSummary:
         setOpenBattleShips(false);
         setOpenMathFacts(false);
         setOpenTemplate(false);
         setOpenSavedGame(false);
         setOpenBudgetSummary(true);
         break;
-      case 'savedGame':
+      case savedGame:
         setOpenBattleShips(false);
         setOpenMathFacts(false);
         setOpenTemplate(false);
@@ -60,31 +66,19 @@ const Challenge = () => {
   };
 
   const checkForSavedGame = () =>
-    authService.game ? changeView('savedGame') : changeView('template');
+    authService.game ? changeView(savedGame) : changeView(template);
 
-  useEffect(() => {
-    console.log(authService.game);
-    checkForSavedGame();
-  }, []);
+  useEffect(() => checkForSavedGame(), []);
 
   return (
-    <div
-      style={{
-        backgroundColor: theme.colors.lightGrey,
-        width: '100vw',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '8rem 0',
-      }}
-    >
+    <StyledTemplateContainer>
       <GreetingBar template="Game Time!" />
       {openSavedGame ? <ResumeSavedGame changeView={changeView} /> : null}
       {openTemplate ? <Template changeView={changeView} /> : null}
       {openMathFacts ? <MathFacts changeView={changeView} /> : null}
       {openBattleShips ? <Battleship changeView={changeView} /> : null}
       {openBudgetSummary ? <BudgetSummary /> : null}
-    </div>
+    </StyledTemplateContainer>
   );
 };
 

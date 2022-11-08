@@ -5,6 +5,11 @@ export const error = 'error';
 export const ERROR = 'Error';
 export const success = 'success';
 export const SUCCESS = 'Success';
+export const battleships = 'battleships';
+export const mathFacts = 'mathFacts';
+export const template = 'template';
+export const budgetSummary = 'budgetSummary';
+export const savedGame = 'savedGame';
 
 export const generateBgColor = () =>
   `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`;

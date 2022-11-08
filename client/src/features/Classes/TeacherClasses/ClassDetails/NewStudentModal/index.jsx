@@ -7,6 +7,7 @@ import { faker } from '@faker-js/faker';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import StyledButton from '../../../../../components/PrimaryButton';
 import theme from '../../../../../theme';
+import { generateBgColor } from '../../../../../common/constants';
 
 import { UserContext } from '../../../../../App';
 
@@ -37,13 +38,6 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
     }
     return numbers;
   }, []);
-
-  const generateBgColor = useCallback(
-    () =>
-      // eslint-disable-next-line no-bitwise
-      `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`,
-    []
-  );
 
   const getRandomForgotPasswordSet = useCallback(async () => {
     const forgotQuestionList = await authService.getAllForgotQuestions();

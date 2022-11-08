@@ -1,17 +1,19 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 import { Spin } from 'antd';
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../../App';
 import Card from '../../../components/Card';
 import {
+  battleships,
   BATTLESHIP_MONTHS,
   ERROR,
   error,
+  mathFacts,
   SUCCESS,
   success,
+  template,
 } from '../../../common/constants';
 import Notification from '../../../components/Notification';
+import ResumeSavedGameWrapper from './styles';
 
 const ResumeSavedGame = ({ changeView }) => {
   const { authService, gameService, updateService } = useContext(UserContext);
@@ -28,8 +30,6 @@ const ResumeSavedGame = ({ changeView }) => {
       .catch(() => Notification(error, ERROR, 'No saved game found'));
   };
 
-  useEffect(() => grabGameInfo(), []);
-
   const newGame = () => {
     setLoading(true);
     authService
@@ -39,36 +39,42 @@ const ResumeSavedGame = ({ changeView }) => {
           .deleteGame(currentGame._id, authService.getBearerHeader())
           .then(() => {
             updateService();
-            changeView('template');
-          });
+            changeView(template);
+          })
+          .catch(() =>
+            Notification(
+              error,
+              ERROR,
+              'Game Service Connect Error. Please try again.'
+            )
+          );
       })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Authorization Service Connect Error. Please try again.'
+        )
+      )
       .finally(() => setLoading(false));
   };
 
   const continueGame = () => {
     gameService.setGame(currentGame);
     if (BATTLESHIP_MONTHS.some((month) => month === currentGame.month)) {
-      changeView('battleships');
+      changeView(battleships);
     } else if (currentGame.month === 0) {
-      changeView('template');
+      changeView(template);
     } else {
-      changeView('mathFacts');
+      changeView(mathFacts);
     }
   };
 
+  useEffect(() => grabGameInfo(), []);
+
   return (
     <Spin spinning={loading}>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          paddingTop: '5rem',
-        }}
-      >
+      <ResumeSavedGameWrapper>
         <Card key="newGame" title="New Game" onClick={newGame} type="primary" />
         <Card
           key="continueSavedGame"
@@ -76,7 +82,7 @@ const ResumeSavedGame = ({ changeView }) => {
           onClick={continueGame}
           type="primary"
         />
-      </div>
+      </ResumeSavedGameWrapper>
     </Spin>
   );
 };

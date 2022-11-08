@@ -13,7 +13,13 @@ import {
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import Notification from '../../../components/Notification';
-import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import {
+  ERROR,
+  error,
+  SUCCESS,
+  success,
+  generateBgColor,
+} from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
 
 const ChangeAvatar = ({ closeDrawer }) => {
@@ -67,9 +73,6 @@ const ChangeAvatar = ({ closeDrawer }) => {
       title,
     });
   };
-
-  const generateBgColor = () =>
-    `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`;
 
   const handleBgColorChange = (value) => {
     form.setFieldsValue({

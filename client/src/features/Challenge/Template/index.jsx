@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../App';
 import SelectJob from './SelectJob';
@@ -7,9 +5,10 @@ import SelectHouse from './SelectHouse';
 import SelectHouseMembers from './SelectHouseMembers';
 import SelectSalary from './SelectSalary';
 import MonthlyBudget from '../MonthlyBudget';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const Template = ({ changeView }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { gameService } = useContext(UserContext);
   const [selectJob, setSelectJob] = useState(true);
   const [selectHouse, setSelectHouse] = useState(false);
   const [selectHouseMembers, setSelectHouseMembers] = useState(false);
@@ -54,7 +53,7 @@ const Template = ({ changeView }) => {
   };
 
   return (
-    <>
+    <StyledBasicDiv>
       {gameService.month === 0 ? (
         <>
           {selectJob ? <SelectJob goToHouseMembers={goToHouseMembers} /> : null}
@@ -80,7 +79,7 @@ const Template = ({ changeView }) => {
       ) : (
         <MonthlyBudget changeView={changeView} />
       )}
-    </>
+    </StyledBasicDiv>
   );
 };
 

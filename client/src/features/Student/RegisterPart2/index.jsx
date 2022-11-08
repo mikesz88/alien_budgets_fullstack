@@ -9,6 +9,7 @@ import StyledRadioButton from './styles';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
+import { generateBgColor } from '../../../common/constants';
 
 const RegisterStudentPart2 = () => {
   const { avatarService, authService, classroomService, updateService } =
@@ -71,10 +72,6 @@ const RegisterStudentPart2 = () => {
         throw error;
       });
   };
-
-  const generateBgColor = () =>
-    // eslint-disable-next-line no-bitwise
-    `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`;
 
   const selectUsernameNumbers = () => {
     const length =

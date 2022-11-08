@@ -1,8 +1,6 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
-import { faker } from '@faker-js/faker';
 import { UserContext } from '../../../../App';
+import StyledBasicDiv from '../../../../components/BasicDiv';
 import StyledButton from '../../../../components/PrimaryButton';
 
 const SelectHouseMembers = ({ goToHouse }) => {
@@ -11,13 +9,10 @@ const SelectHouseMembers = ({ goToHouse }) => {
   const [selectedHouseMembers, setSelectedHouseMembers] = useState(null);
 
   const chooseRandomNumber = () => {
-    const newNumber = faker.datatype.number({ min: 0, max: 10 });
-    console.log(newNumber);
-    if (newNumber === selectedHouseMembers) {
-      chooseRandomNumber();
-    } else {
-      setSelectedHouseMembers(newNumber);
-    }
+    const newNumber = Math.ceil(Math.random() * 10);
+    return newNumber === selectedHouseMembers
+      ? chooseRandomNumber()
+      : setSelectedHouseMembers(newNumber);
   };
 
   const changeHouseMemberAmount = () => {
@@ -29,8 +24,6 @@ const SelectHouseMembers = ({ goToHouse }) => {
     gameService.setHouseholdMembers(selectedHouseMembers);
     gameService.setUtilities(+((selectedHouseMembers + 1) * 0.035).toFixed(3));
     updateService();
-    console.log(gameService.getHouseMembers());
-    console.log(gameService.getUtilities());
     goToHouse();
   };
 
@@ -38,13 +31,17 @@ const SelectHouseMembers = ({ goToHouse }) => {
 
   return (
     <>
-      <div>SelectHouseMembers</div>
-      <div>
+      <StyledBasicDiv>SelectHouseMembers</StyledBasicDiv>
+      <StyledBasicDiv>
         Each person uses about in 2.5% of the monthly payment in utilities
         (electricity, gas, water, sewer, and trash).
-      </div>
-      <div>Each person&apos;s internet cost is 1% of the monthly payment.</div>
-      <div>You have {tries === 1 ? '1 try left' : `${tries} tries left`}</div>
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        Each person&apos;s internet cost is 1% of the monthly payment.
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        You have {tries === 1 ? '1 try left' : `${tries} tries left`}
+      </StyledBasicDiv>
       <StyledButton
         disabled={tries === 0}
         type="primary"
@@ -52,7 +49,9 @@ const SelectHouseMembers = ({ goToHouse }) => {
       >
         Choose Random Number
       </StyledButton>
-      <div>How many house members: {selectedHouseMembers}</div>
+      <StyledBasicDiv>
+        How many house members: {selectedHouseMembers}
+      </StyledBasicDiv>
       <StyledButton type="primary" onClick={onFinish}>
         Confirm House Numbers
       </StyledButton>

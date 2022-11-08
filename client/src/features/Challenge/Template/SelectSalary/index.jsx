@@ -1,24 +1,26 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
-import { notification } from 'antd';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Dice from 'react-dice-roll';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
+import {
+  ERROR,
+  error,
+  SUCCESS,
+  success,
+  withMoneySymbol,
+} from '../../../../common/constants';
+import Notification from '../../../../components/Notification';
+import StyledBasicDiv from '../../../../components/BasicDiv';
+import StyledMarginDiv from './styles';
 
 const SelectSalary = ({ goToMonthlyBudget }) => {
   const { gameService, updateService, authService } = useContext(UserContext);
   const [diceValue, setDiceValue] = useState(null);
   const [tries, setTries] = useState(3);
 
-  const grabDiceValue = (value) => {
-    console.log(value);
-  };
-
   const diceRoll = (value) => {
     setTries(tries - 1);
     setDiceValue(value);
-    grabDiceValue(value);
   };
 
   const salaryBasedOnDiceRoll = (roll = 3, number = false) => {
@@ -47,13 +49,33 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
     }
     return number
       ? +(gameService.getJob().salaryAverage * percentage).toFixed(2)
-      : (gameService.getJob().salaryAverage * percentage).toLocaleString(
-          'en-US',
-          {
-            style: 'currency',
-            currency: 'USD',
-          }
-        );
+      : withMoneySymbol(gameService.getJob().salaryAverage * percentage);
+  };
+
+  const createNewGameInGameService = (body) => {
+    gameService
+      .createGame(body, authService.getBearerHeader())
+      .then((res) => {
+        authService
+          .addGame(res._id)
+          .then(() => {
+            Notification(success, SUCCESS, 'Game created and assigned to you!');
+          })
+          .catch(() =>
+            Notification(
+              error,
+              ERROR,
+              'Authorization Service Connection Error. Please Try again later.'
+            )
+          );
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Game Service Connection Error. Please Try again later.'
+        )
+      );
   };
 
   const createNewGame = () => {
@@ -72,68 +94,70 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
       bonusOrFine: gameService.getBonusOrFine(),
     };
 
-    gameService
-      .createGame(body, authService.getBearerHeader())
-      .then((res) => {
-        console.log(res);
-        if (authService.id) {
-          authService
-            .addGame(res._id)
-            .then((response) => {
-              console.log(response);
-              notification.success({
-                message: 'Success',
-                description: 'Game Created and assigned to you!',
-              });
-            })
-            .catch((error) => console.error(error));
-        }
-      })
-      .catch((error) => console.error(error));
+    createNewGameInGameService(body);
   };
 
   const onFinish = () => {
-    console.log(diceValue);
-    console.log(salaryBasedOnDiceRoll(diceValue));
     gameService.setSalary(salaryBasedOnDiceRoll(diceValue, true));
     createNewGame();
     updateService();
-    console.log(gameService.getSalary());
     goToMonthlyBudget();
   };
 
   return (
     <>
-      <div>Here is your chance for your salary!</div>
-      <div>You will get three tries.</div>
-      <div>Each roll is a risk and can be the same number again!</div>
-      <div>You have {tries === 1 ? '1 try left' : `${tries} tries left`}</div>
-      <div>If you get a 6 you will get 125% of the average salary</div>
-      <div>Projected Salary: {salaryBasedOnDiceRoll(6)}</div>
-      <div>If you get a 5 you will get 112.5% of the average salary</div>
-      <div>Projected Salary: {salaryBasedOnDiceRoll(5)}</div>
-      <div>
+      <StyledBasicDiv>Here is your chance for your salary!</StyledBasicDiv>
+      <StyledBasicDiv>You will get three tries.</StyledBasicDiv>
+      <StyledBasicDiv>
+        Each roll is a risk and can be the same number again!
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        You have {tries === 1 ? '1 try left' : `${tries} tries left`}
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        If you get a 6 you will get 125% of the average salary
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        Projected Salary: {salaryBasedOnDiceRoll(6)}
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        If you get a 5 you will get 112.5% of the average salary
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        Projected Salary: {salaryBasedOnDiceRoll(5)}
+      </StyledBasicDiv>
+      <StyledBasicDiv>
         If you get a 3 or 4, you will receive the average salary of the job
         chosen.
-      </div>
-      <div>Projected Salary: {salaryBasedOnDiceRoll(3)}</div>
-      <div>If you get a 2 you will get 87.5% of the average salary</div>
-      <div>Projected Salary: {salaryBasedOnDiceRoll(2)}</div>
-      <div>If you get a 1 you will get 75% of the average salary</div>
-      <div>Projected Salary: {salaryBasedOnDiceRoll(1)}</div>
-      <div style={{ margin: '2rem 0' }}>
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        Projected Salary: {salaryBasedOnDiceRoll(3)}
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        If you get a 2 you will get 87.5% of the average salary
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        Projected Salary: {salaryBasedOnDiceRoll(2)}
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        If you get a 1 you will get 75% of the average salary
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        Projected Salary: {salaryBasedOnDiceRoll(1)}
+      </StyledBasicDiv>
+      <StyledMarginDiv>
         <Dice defaultValue={1} disabled={tries === 0} onRoll={diceRoll} />
-      </div>
-      <div>Your last roll was: {diceValue}</div>
-      <div>
+      </StyledMarginDiv>
+      <StyledBasicDiv>Your last roll was: {diceValue}</StyledBasicDiv>
+      <StyledBasicDiv>
         Do not forget this is a game! Salaries are not the same for everyone
         doing the same job! This is about budgeting with what money you have!
         That is why you take the risk with the job!
-      </div>
-      <div>
+      </StyledBasicDiv>
+      <StyledBasicDiv>
         Salary:{' '}
         {diceValue ? salaryBasedOnDiceRoll(diceValue) : salaryBasedOnDiceRoll()}
-      </div>
+      </StyledBasicDiv>
       <StyledButton disabled={tries === 3} type="primary" onClick={onFinish}>
         Confirm Dice Roll
       </StyledButton>

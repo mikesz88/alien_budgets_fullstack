@@ -9,6 +9,7 @@ import StyledButton from '../../../../../components/PrimaryButton';
 import Avatar from '../../../../../components/Avatar';
 import StyledRadioButton from './styles';
 import theme from '../../../../../theme';
+import { generateBgColor } from '../../../../../common/constants';
 
 const EditCloseModal = ({ open, close, data }) => {
   const { avatarService, authService, classroomService, updateService } =
@@ -61,10 +62,6 @@ const EditCloseModal = ({ open, close, data }) => {
       title,
     });
   };
-
-  const generateBgColor = () =>
-    // eslint-disable-next-line no-bitwise
-    `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`;
 
   const handleBgColorChange = (value) => {
     form.setFieldsValue({

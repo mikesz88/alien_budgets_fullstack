@@ -1,15 +1,32 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, useCallback, useEffect } from 'react';
-import { Form, Radio, Row, Space, Input, Button, notification } from 'antd';
+import { Form, Radio, Row, Input, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { faker } from '@faker-js/faker';
 import { useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import { UserContext } from '../../../App';
-import theme from '../../../theme';
 import StyledButton from '../../../components/PrimaryButton';
+import {
+  ERROR,
+  error,
+  generateBgColor,
+  SUCCESS,
+  success,
+} from '../../../common/constants';
+import Notification from '../../../components/Notification';
+import {
+  StyledBoldedSpan,
+  StyledCenteredFormItem,
+  StyledCreateClassroomContainer,
+  StyledRosterContainer,
+  StyledRosterHeaderWrapper,
+  StyledSpacing,
+  StyledStudentCard,
+  StyledStudentListContainer,
+  StyledStudentListItems,
+  StyledTitle,
+} from './styles';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const CreateClass = () => {
   const [classroomCode, setClassroomCode] = useState('');
@@ -22,7 +39,6 @@ const CreateClass = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  // Create Class Code
   const createClassroomCode = useCallback(
     () => faker.random.alphaNumeric(6),
     []
@@ -60,13 +76,6 @@ const CreateClass = () => {
     return numbers;
   }, []);
 
-  const generateBgColor = useCallback(
-    () =>
-      // eslint-disable-next-line no-bitwise
-      `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`,
-    []
-  );
-
   const getRandomForgotPasswordSet = useCallback(async () => {
     const forgotQuestionList = await authService.getAllForgotQuestions();
     const chosenQuestion = faker.helpers.arrayElement(forgotQuestionList);
@@ -76,31 +85,63 @@ const CreateClass = () => {
     };
   }, []);
 
-  const onFinish = async (values) => {
+  const goToClassDetails = () =>
+    navigate(`/classrooms/teacher/details/${newClassId}`);
+
+  const createStudentsInfo = async (students, chosenClassroomCode) => {
+    const studentListWithInfo = [];
+    for (const student of students) {
+      const forgotPasswordSet = await getRandomForgotPasswordSet();
+      const randomAdjective = getRandomAdjective();
+      const randomAvatar = await getRandomAvatar();
+      const randomNumbers = selectUsernameNumbers();
+      studentListWithInfo.push({
+        firstName: student.firstName,
+        lastInitial: student.lastInitial,
+        forgotPasswordQuestion: forgotPasswordSet.forgotPasswordQuestion,
+        forgotPasswordAnswer: forgotPasswordSet.forgotPasswordAnswer,
+        classroomCode: chosenClassroomCode,
+        username: `${randomAdjective}_${randomAvatar.title}${randomNumbers}`,
+        avatarURL: randomAvatar.avatarURL,
+        avatarColor: generateBgColor(),
+        password: newPassword(),
+        score: 0,
+      });
+    }
+    return studentListWithInfo;
+  };
+
+  const createClassroom = (body) => {
     setLoading(true);
+    classroomService
+      .createClassroom(authService.getBearerHeader(), body)
+      .then((res) => {
+        setNewClassId(res.id);
+        setNewStudentData(res.students);
+        setNewClassroomRoster(true);
+        Notification(
+          success,
+          SUCCESS,
+          'Class Created! Please print the cards below to hand out to the students to sign in.'
+        );
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'There was a connection error. Please try again later'
+        )
+      )
+      .finally(() => setLoading(false));
+  };
+
+  const onFinish = async (values) => {
     let students = [];
     if (values.students) {
-      const studentListWithInfo = [];
-      // eslint-disable-next-line no-restricted-syntax
-      for (const student of values.students) {
-        const forgotPasswordSet = await getRandomForgotPasswordSet();
-        const randomAdjective = getRandomAdjective();
-        const randomAvatar = await getRandomAvatar();
-        const randomNumbers = selectUsernameNumbers();
-        studentListWithInfo.push({
-          firstName: student.firstName,
-          lastInitial: student.lastInitial,
-          forgotPasswordQuestion: forgotPasswordSet.forgotPasswordQuestion,
-          forgotPasswordAnswer: forgotPasswordSet.forgotPasswordAnswer,
-          classroomCode: values.classroomCode,
-          username: `${randomAdjective}_${randomAvatar.title}${randomNumbers}`,
-          avatarURL: randomAvatar.avatarURL,
-          avatarColor: generateBgColor(),
-          password: newPassword(),
-          score: 0,
-        });
-      }
-      students = studentListWithInfo;
+      students = await createStudentsInfo(
+        values.students,
+        values.classroomCode
+      );
     }
     const body = {
       classroomCode: values.classroomCode,
@@ -108,41 +149,11 @@ const CreateClass = () => {
       students,
       adult: authService.id,
     };
-
-    classroomService
-      .createClassroom(authService.getBearerHeader(), body)
-      .then((res) => {
-        console.log(res);
-        setNewClassId(res.id);
-        setNewStudentData(res.students);
-        setNewClassroomRoster(true);
-        notification.success({
-          message: 'Class Created!',
-          description:
-            'Please print the cards below to hand out to the students to sign in.',
-        });
-      })
-      .catch((error) => {
-        notification.error({
-          message: 'Error',
-          description: 'There was a connection error. Please try again later',
-        });
-        console.error(error);
-      });
-
-    setLoading(false);
+    createClassroom(body);
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: theme.colors.lightGrey,
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '8rem 0',
-        height: '100vh',
-      }}
-    >
+    <StyledCreateClassroomContainer>
       <GreetingBar template="New Class" />
       {!newClassroomRoster && (
         <Form form={form} name="Create new class" onFinish={onFinish}>
@@ -173,14 +184,7 @@ const CreateClass = () => {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
-                  <Space
-                    key={key}
-                    style={{
-                      display: 'flex',
-                      marginBottom: 8,
-                    }}
-                    align="baseline"
-                  >
+                  <StyledSpacing key={key} align="baseline">
                     <Form.Item
                       {...restField}
                       name={[name, 'firstName']}
@@ -216,7 +220,7 @@ const CreateClass = () => {
                       <Input placeholder="Last Initial" />
                     </Form.Item>
                     <MinusCircleOutlined onClick={() => remove(name)} />
-                  </Space>
+                  </StyledSpacing>
                 ))}
                 <Form.Item>
                   <Button
@@ -231,7 +235,7 @@ const CreateClass = () => {
               </>
             )}
           </Form.List>
-          <Form.Item register="true" style={{ textAlign: 'center' }}>
+          <StyledCenteredFormItem register="true">
             <StyledButton
               loading={loading}
               larger="true"
@@ -240,113 +244,58 @@ const CreateClass = () => {
             >
               Create Class
             </StyledButton>
-          </Form.Item>
+          </StyledCenteredFormItem>
         </Form>
       )}
       {newClassroomRoster && (
-        <div
-          style={{
-            backgroundColor: theme.colors.lightGrey,
-            height: '100%',
-          }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h1
-              style={{ textAlign: 'center', fontFamily: theme.fontFamily.hind }}
-            >
-              Class Roster
-            </h1>
-            <StyledButton
-              type="primary"
-              onClick={() =>
-                navigate(`/classrooms/teacher/details/${newClassId}`)
-              }
-            >
+        <StyledRosterContainer>
+          <StyledRosterHeaderWrapper>
+            <StyledTitle>Class Roster</StyledTitle>
+            <StyledButton type="primary" onClick={goToClassDetails}>
               Go to Class Details
             </StyledButton>
-          </div>
-          <div
-            style={{
-              padding: '1rem',
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
+          </StyledRosterHeaderWrapper>
+          <StyledStudentListContainer>
             {newStudentData.map((student) => (
-              <div
-                style={{
-                  border: '1px solid transparent',
-                  borderRadius: '8px',
-                  boxShadow: '0px 10px 10px grey',
-                  margin: '1rem',
-                  padding: '0.5rem',
-                  width: '300px',
-                  height: '300px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  flexDirection: 'column',
-                }}
-                key={student._id}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '1rem',
-                  }}
-                >
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>First Name:</span>{' '}
+              <StyledStudentCard key={student._id}>
+                <StyledStudentListItems>
+                  <StyledBasicDiv>
+                    <StyledBoldedSpan>First Name:</StyledBoldedSpan>{' '}
                     {student.firstName}
-                  </div>
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>Last Initial:</span>{' '}
+                  </StyledBasicDiv>
+                  <StyledBasicDiv>
+                    <StyledBoldedSpan>Last Initial:</StyledBoldedSpan>{' '}
                     {student.lastInitial}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '1rem',
-                  }}
-                >
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>Username:</span>{' '}
+                  </StyledBasicDiv>
+                </StyledStudentListItems>
+                <StyledStudentListItems>
+                  <StyledBasicDiv>
+                    <StyledBoldedSpan>Username:</StyledBoldedSpan>{' '}
                     {student.username}
-                  </div>
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>Password:</span>{' '}
+                  </StyledBasicDiv>
+                  <StyledBasicDiv>
+                    <StyledBoldedSpan>Password:</StyledBoldedSpan>{' '}
                     {student.password}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '1rem',
-                  }}
-                >
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>
+                  </StyledBasicDiv>
+                </StyledStudentListItems>
+                <StyledStudentListItems>
+                  <StyledBasicDiv>
+                    <StyledBoldedSpan>
                       Forgot Password Question:
-                    </span>{' '}
+                    </StyledBoldedSpan>{' '}
                     {student.forgotPasswordQuestion}
-                  </div>
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>
-                      Forgot Password Answer:
-                    </span>{' '}
+                  </StyledBasicDiv>
+                  <StyledBasicDiv>
+                    <StyledBoldedSpan>Forgot Password Answer:</StyledBoldedSpan>{' '}
                     {student.forgotPasswordAnswer}
-                  </div>
-                </div>
-              </div>
+                  </StyledBasicDiv>
+                </StyledStudentListItems>
+              </StyledStudentCard>
             ))}
-          </div>
-        </div>
+          </StyledStudentListContainer>
+        </StyledRosterContainer>
       )}
-    </div>
+    </StyledCreateClassroomContainer>
   );
 };
 

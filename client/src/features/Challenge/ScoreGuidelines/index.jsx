@@ -1,5 +1,6 @@
 import React from 'react';
 import { Drawer } from 'antd';
+import StyledTitle from './styles';
 
 const ScoreGuidelines = ({ open, toggleVisibility }) => (
   <Drawer
@@ -10,11 +11,11 @@ const ScoreGuidelines = ({ open, toggleVisibility }) => (
     closable
   >
     <>
-      <div style={{ fontWeight: 'bold' }}>Monthly Budgets</div>
+      <StyledTitle>Monthly Budgets</StyledTitle>
       <ul>
-        <li>Every Successfull budget =&gt; 1,000 points</li>
+        <li>Every Successful budget =&gt; 1,000 points</li>
       </ul>
-      <div style={{ fontWeight: 'bold' }}>Math Facts</div>
+      <StyledTitle>Math Facts</StyledTitle>
       <ul>
         <li>100% =&gt; $500 bonus & 500 points</li>
         <li>90%-99% =&gt; $250 bonus & 250 points</li>
@@ -24,7 +25,7 @@ const ScoreGuidelines = ({ open, toggleVisibility }) => (
         <li>50%-59% =&gt; $250 Fine & -250 points</li>
         <li>49% or below =&gt; $500 Fine & -500 points</li>
       </ul>
-      <div style={{ fontWeight: 'bold' }}>Battleship</div>
+      <StyledTitle>Battleship</StyledTitle>
       <ul>
         <li>Win difference of 5 =&gt; $5,000 Bonus & 5,000 points</li>
         <li>Win difference of 4 =&gt; $4,000 Bonus & 4,000 points</li>
