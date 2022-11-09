@@ -1,17 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
-import { Table } from 'antd';
 import GreetingBar from '../../../components/GreetingBar';
-import theme from '../../../theme';
 import Avatar from '../../../components/Avatar';
 import { UserContext } from '../../../App';
-import StyledTitle from '../../../components/Title';
+import Notification from '../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import { StyledDivContainer, StyledHeader, StyledTable } from './styles';
 
 const Leaderboard = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
-  const { authService, classroomService, updateService } =
-    useContext(UserContext);
+  const { authService, classroomService } = useContext(UserContext);
 
   const data = (studentsInClass) =>
     studentsInClass
@@ -31,7 +29,7 @@ const Leaderboard = () => {
         return 0;
       });
 
-  useEffect(() => {
+  const getClassroom = () => {
     setLoading(true);
     classroomService
       .getClassroomFromStudent(
@@ -39,13 +37,20 @@ const Leaderboard = () => {
         authService.classroomCode
       )
       .then((res) => {
-        console.log(res);
         setStudents(data(res.students));
+        Notification(success, SUCCESS, 'Leaderboard Updated!');
       })
-      .catch((error) => console.error(error))
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Classroom not found. Please try again later.'
+        )
+      )
       .finally(() => setLoading(false));
-    // classroom call to get students
-  }, []);
+  };
+
+  useEffect(() => getClassroom(), []);
 
   const columns = [
     {
@@ -84,30 +89,10 @@ const Leaderboard = () => {
   ];
 
   return (
-    <div
-      style={{
-        backgroundColor: theme.colors.lightGrey,
-        width: '100vw',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '8rem 0',
-      }}
-    >
+    <StyledDivContainer>
       <GreetingBar template={`Classroom: ${authService.classroomCode}`} />
-      <h1
-        style={{
-          fontFamily: theme.fontFamily.creepster,
-          color: theme.colors.primaryBlue,
-          textAlign: 'center',
-          fontSize: '4rem',
-          margin: '0',
-        }}
-      >
-        Classroom Leaderboard
-      </h1>
-      <Table
-        style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}
+      <StyledHeader>Classroom Leaderboard</StyledHeader>
+      <StyledTable
         columns={columns}
         loading={loading}
         pagination={{
@@ -116,7 +101,7 @@ const Leaderboard = () => {
         }}
         dataSource={students}
       />
-    </div>
+    </StyledDivContainer>
   );
 };
 

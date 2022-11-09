@@ -14,7 +14,7 @@ export const StyledSpacing = styled(Space)`
   margin-bottom: 8px;
 `;
 
-export const StyledCenteredFormItem = styled(Form.item)`
+export const StyledCenteredFormItem = styled(Form.Item)`
   text-align: center;
 `;
 
