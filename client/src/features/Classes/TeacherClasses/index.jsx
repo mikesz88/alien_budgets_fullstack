@@ -1,10 +1,8 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useContext, useEffect } from 'react';
 import { Table } from 'antd';
 import { useParams } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import { UserContext } from '../../../App';
-// import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
 import columns from './helper';
 import theme from '../../../theme';
 

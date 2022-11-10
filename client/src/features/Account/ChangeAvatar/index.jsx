@@ -4,12 +4,8 @@ import { Form } from 'antd';
 import { faker } from '@faker-js/faker';
 import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
-import {
-  StyledRadioButton,
-  StyledRadioGroup,
-  StyledPagination,
-  StyledBasicSpan,
-} from './styles';
+import { StyledRadioGroup, StyledPagination, StyledBasicSpan } from './styles';
+import StyledRadioButton from '../../../components/RadioButton';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import Notification from '../../../components/Notification';
@@ -109,12 +105,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
     avatarService.getRandomAdjective().then((res) => setUserAdjective(res));
 
   const selectUsernameNumbers = () => {
-    const length =
-      userAdjective && userAvatar.title
-        ? userAdjective.length + userAvatar.title.length
-        : 5;
-    const numbers =
-      length < 5 ? faker.random.numeric(8 - length) : faker.random.numeric(3);
+    const numbers = faker.random.numeric(3);
     if (numbers === 666) {
       selectUsernameNumbers();
     } else {

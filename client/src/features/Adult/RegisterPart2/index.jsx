@@ -6,10 +6,10 @@ import Avatar from '../../../components/Avatar';
 import {
   StyledGradeLevelContainer,
   StyledPagination,
-  StyledRadioButton,
   StyledRadioGroup,
   StyledRegisterPart2Container,
 } from './styles';
+import StyledRadioButton from '../../../components/RadioButton';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';

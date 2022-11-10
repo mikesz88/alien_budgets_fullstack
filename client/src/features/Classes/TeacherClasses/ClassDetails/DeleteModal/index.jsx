@@ -1,9 +1,16 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
-import { Modal, notification } from 'antd';
+import { Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../../../App';
 import StyledButton from '../../../../../components/PrimaryButton';
+import Notification from '../../../../../components/Notification';
+import {
+  ERROR,
+  error,
+  SUCCESS,
+  success,
+} from '../../../../../common/constants';
+import StyledBasicDiv from '../../../../../components/BasicDiv';
 
 const DeleteModal = ({ open, close, classId }) => {
   const { authService, classroomService } = useContext(UserContext);
@@ -13,39 +20,36 @@ const DeleteModal = ({ open, close, classId }) => {
     classroomService
       .deleteSingleClassroomByTeacher(authService.getBearerHeader(), classId)
       .then((response) => {
-        console.log(response);
-        notification.success({
-          message: 'Classrooms deleted',
-          description:
-            'Classrooms linked to this adult account have also been deleted.',
-        });
+        Notification(
+          success,
+          SUCCESS,
+          'Classrooms linked to this adult account have also been deleted.'
+        );
         authService
           .deleteSelectedStudents(response.students)
           .then(() => {
-            notification.success({
-              message: 'Students deleted',
-              description:
-                'Students linked to this adult account have also been deleted.',
-            });
+            Notification(
+              success,
+              'Students deleted',
+              'Students linked to this adult account have also been deleted.'
+            );
             navigate('/dashboard');
           })
-          .catch((error) => {
-            console.error(error);
-            notification.error({
-              message: 'Error',
-              description:
-                'There was a connection error. No students linked to this adult have been deleted.',
-            });
-          });
+          .catch(() =>
+            Notification(
+              error,
+              ERROR,
+              'There was a connection error. No students linked to this adult have been deleted.'
+            )
+          );
       })
-      .catch((error) => {
-        console.error(error);
-        notification.error({
-          message: 'Error',
-          description:
-            'There was a connection error. No classroom linked to this adult have been deleted.',
-        });
-      });
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'There was a connection error. No classroom linked to this adult have been deleted.'
+        )
+      );
   };
 
   return (
@@ -57,8 +61,12 @@ const DeleteModal = ({ open, close, classId }) => {
       closable
       destroyOnClose
     >
-      <div>Are you sure you want to delete this class?</div>
-      <div>The students accounts will also be deleted as well.</div>
+      <StyledBasicDiv>
+        Are you sure you want to delete this class?
+      </StyledBasicDiv>
+      <StyledBasicDiv>
+        The students accounts will also be deleted as well.
+      </StyledBasicDiv>
       <StyledButton type="primary" onClick={handleDeleteClass}>
         Delete Class
       </StyledButton>

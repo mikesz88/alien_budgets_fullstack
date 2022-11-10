@@ -12,8 +12,14 @@ const generateBgColor = () =>
 
 const selectAvatar = () => faker.helpers.arrayElement(avatarList);
 
-const selectUsernameNumbers = (length) =>
-  length < 5 ? faker.random.numeric(8 - length) : faker.random.numeric(3);
+const selectUsernameNumbers = () => {
+  const numbers = faker.random.numeric(3);
+  if (numbers === 666) {
+    selectUsernameNumbers();
+  } else {
+    return numbers;
+  }
+};
 
 const create250Students = (classes) => {
   const students = [];
@@ -23,9 +29,7 @@ const create250Students = (classes) => {
     const { title: animal, avatarURL } = selectAvatar();
     const firstName = faker.name.firstName();
     const lastInitial = faker.random.alpha();
-    const username = `${faker.word.adjective()}_${animal}${selectUsernameNumbers(
-      animal.length
-    )}`;
+    const username = `${faker.word.adjective()}_${animal}${selectUsernameNumbers()}`;
     const password = 'AlienBudgets123!';
     const avatarColor = generateBgColor();
     const classroomCode = faker.helpers.arrayElement(classes);

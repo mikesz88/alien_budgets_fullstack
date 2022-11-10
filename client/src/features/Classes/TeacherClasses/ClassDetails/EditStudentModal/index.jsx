@@ -1,15 +1,21 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect, useMemo } from 'react';
-import { Form, Input, Pagination, Radio, Modal, notification } from 'antd';
+import { Form, Input, Modal } from 'antd';
 import { faker } from '@faker-js/faker';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { UserContext } from '../../../../../App';
 import StyledButton from '../../../../../components/PrimaryButton';
 import Avatar from '../../../../../components/Avatar';
-import StyledRadioButton from './styles';
+import StyledRadioButton from '../../../../../components/RadioButton';
 import theme from '../../../../../theme';
-import { generateBgColor } from '../../../../../common/constants';
+import {
+  ERROR,
+  error,
+  generateBgColor,
+  SUCCESS,
+  success,
+} from '../../../../../common/constants';
+import Notification from '../../../../../components/Notification';
+import { StyledPagination, StyledRadioGroup } from './styles';
 
 const EditCloseModal = ({ open, close, data }) => {
   const { avatarService, authService, classroomService, updateService } =
@@ -40,13 +46,11 @@ const EditCloseModal = ({ open, close, data }) => {
           prevPage: res.pagination.prev ? res.pagination.prev.page : 10,
           nextPage: res.pagination.next ? res.pagination.next.page : 1,
         });
-        // Notification
+        Notification(success, SUCCESS, 'List of avatars found.');
       })
-      .catch((error) => {
-        setAvatarList(error);
-        throw error;
-        // Notification
-      });
+      .catch(() =>
+        Notification(error, ERROR, 'Connection Error. Please refresh.')
+      );
   };
 
   const currentAvatar = () => {
@@ -55,12 +59,17 @@ const EditCloseModal = ({ open, close, data }) => {
       .split('')
       .slice(underscore + 1, data.username.length - 3)
       .join('');
+    const adjective = data.username.slice(0, underscore);
+    const numbers = data.username.slice(data.username.length - 3);
     setUserAvatar({
       avatarURL: data.avatarURL,
       avatarColor: data.avatarColor,
       username: data.username,
       title,
     });
+    setUserAdjective(adjective);
+    setUserNumbers(numbers);
+    return true;
   };
 
   const handleBgColorChange = (value) => {
@@ -97,12 +106,7 @@ const EditCloseModal = ({ open, close, data }) => {
     avatarService.getRandomAdjective().then((res) => setUserAdjective(res));
 
   const selectUsernameNumbers = () => {
-    const length =
-      userAdjective && userAvatar.title
-        ? userAdjective.length + userAvatar.title.length
-        : 5;
-    const numbers =
-      length < 5 ? faker.random.numeric(8 - length) : faker.random.numeric(3);
+    const numbers = faker.random.numeric(3);
     if (numbers === 666) {
       selectUsernameNumbers();
     } else {
@@ -116,11 +120,12 @@ const EditCloseModal = ({ open, close, data }) => {
   );
 
   useEffect(() => {
+    if (!currentAvatar()) {
+      getRandomAdjective();
+      selectUsernameNumbers();
+    }
     initialBackgroundColor();
     getAvatarList();
-    currentAvatar();
-    getRandomAdjective();
-    selectUsernameNumbers();
   }, []);
 
   useEffect(() => {
@@ -139,12 +144,18 @@ const EditCloseModal = ({ open, close, data }) => {
         data._id,
         data.classroomCode
       )
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         updateService();
+        Notification(success, SUCCESS, 'Student Deleted.');
         close();
       })
-      .catch((error) => console.error(error));
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Student was not deleted. Please try again.'
+        )
+      );
   };
 
   const confirm = () => {
@@ -161,61 +172,54 @@ const EditCloseModal = ({ open, close, data }) => {
       closable: true,
       destroyOnClose: true,
       maskClosable: true,
-      // onCancel() {
-      //   console.log('Cancel');
-      // },
     });
+  };
+
+  const updateStudent = (body) => {
+    authService
+      .updateStudentByAdult(data._id, body)
+      .then((res) => {
+        classroomService
+          .updateStudentInClassroom(authService.getBearerHeader(), res)
+          .then(() => {
+            Notification(success, SUCCESS, 'Student has been updated!');
+            updateService();
+            close();
+          })
+          .catch(() =>
+            Notification(
+              error,
+              ERROR,
+              'Connection Error. Student was not updated in the class. Please try again.'
+            )
+          );
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Student was not updated. Please try again.'
+        )
+      );
   };
 
   const onFinish = (values) => {
     const body = {};
-    // eslint-disable-next-line no-restricted-syntax
     for (const key of Object.keys(values)) {
       if (values[key]) {
         body[key] = values[key];
       }
     }
-    if (!Object.keys(body).length) {
-      notification.error({
-        message: 'Empty!',
-        description: 'You must change at least one.',
-      });
-    } else if (
-      values.avatarURL === data.avatarURL &&
-      values.avatarColor === data.avatarColor
+    if (
+      (data.firstName === values.firstName || !values.firstName) &&
+      (data.lastInitial === values.lastInitial || !values.lastInitial) &&
+      data.username === values.username &&
+      data.avatarColor === values.avatarColor &&
+      data.avatarURL === values.avatarURL
     ) {
-      notification.error({
-        message: 'Error',
-        description: 'Avatar must have a different color or animal',
-      });
+      Notification(error, 'EMPTY!', 'You must change at least one.');
     } else {
-      console.log(body);
-      authService
-        .updateStudentByAdult(data._id, body)
-        .then((res) => {
-          classroomService
-            .updateStudentInClassroom(authService.getBearerHeader(), res)
-            .then(() => {
-              notification.success({
-                message: 'Success',
-                description: 'Student has been updated!',
-              });
-              updateService();
-              close();
-            })
-            .catch(() =>
-              notification.error({
-                message: 'Error',
-                description: 'Connection Error. The Class did not update.',
-              })
-            );
-        })
-        .catch(() =>
-          notification.error({
-            message: 'Error',
-            description: 'Student was not updated.',
-          })
-        );
+      updateStudent(body);
     }
   };
 
@@ -290,21 +294,9 @@ const EditCloseModal = ({ open, close, data }) => {
           <div>Updated Avatar</div>
           <div>Choose Animal</div>
           <Form.Item name="avatarURL">
-            <Radio.Group
-              onChange={handleAvatarChange}
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-              }}
-            >
+            <StyledRadioGroup onChange={handleAvatarChange}>
               {avatarList.map((avatarIcon) => (
                 <StyledRadioButton
-                  style={{
-                    height: '100%',
-                    margin: '1rem',
-                  }}
                   key={avatarIcon.avatarURL}
                   value={avatarIcon}
                   onClick={() => setUserAvatar(avatarIcon)}
@@ -319,21 +311,16 @@ const EditCloseModal = ({ open, close, data }) => {
                   />
                 </StyledRadioButton>
               ))}
-            </Radio.Group>
+            </StyledRadioGroup>
           </Form.Item>
           <Form.Item noStyle>
-            <Pagination
+            <StyledPagination
               total={pagination.total}
               simple
               pageSize={4}
               showSizeChanger={false}
               current={pagination.page}
               onChange={(page) => getAvatarList(page)}
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
             />
           </Form.Item>
           <Form.Item

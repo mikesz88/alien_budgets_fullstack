@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
-import StyledRadioButton from './styles';
+import StyledRadioButton from '../../../components/RadioButton';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
@@ -74,12 +74,7 @@ const RegisterStudentPart2 = () => {
   };
 
   const selectUsernameNumbers = () => {
-    const length =
-      userAdjective && userAvatar.title
-        ? userAdjective.length + userAvatar.title.length
-        : 5;
-    const numbers =
-      length < 5 ? faker.random.numeric(8 - length) : faker.random.numeric(3);
+    const numbers = faker.random.numeric(3);
     if (numbers === 666) {
       selectUsernameNumbers();
     } else {
