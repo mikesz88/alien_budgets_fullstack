@@ -5,10 +5,10 @@ import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
 import {
   StyledGradeLevelContainer,
-  StyledPagination,
-  StyledRadioGroup,
   StyledRegisterPart2Container,
 } from './styles';
+import StyledPagination from '../../../components/Pagination';
+import StyledRadioGroup from '../../../components/RadioGroup';
 import StyledRadioButton from '../../../components/RadioButton';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';

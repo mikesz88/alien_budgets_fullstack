@@ -15,7 +15,8 @@ import {
   success,
 } from '../../../../../common/constants';
 import Notification from '../../../../../components/Notification';
-import { StyledPagination, StyledRadioGroup } from './styles';
+import StyledPagination from '../../../../../components/Pagination';
+import StyledRadioGroup from '../../../../../components/RadioGroup';
 
 const EditCloseModal = ({ open, close, data }) => {
   const { avatarService, authService, classroomService, updateService } =

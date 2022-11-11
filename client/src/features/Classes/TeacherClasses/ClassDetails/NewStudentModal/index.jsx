@@ -1,15 +1,27 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, useCallback } from 'react';
-import { Form, Modal, Space, Input, Button, notification } from 'antd';
+import { Form, Modal, Input, Button } from 'antd';
 import { faker } from '@faker-js/faker';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import StyledButton from '../../../../../components/PrimaryButton';
-import theme from '../../../../../theme';
-import { generateBgColor } from '../../../../../common/constants';
-
+import {
+  ERROR,
+  error,
+  generateBgColor,
+  SUCCESS,
+  success,
+} from '../../../../../common/constants';
 import { UserContext } from '../../../../../App';
+import Notification from '../../../../../components/Notification';
+import {
+  StyledDiv,
+  StyledFormItem,
+  StyledNewClassRosterWrapper,
+  StyledSpace,
+  StyledSpan,
+  StyledStudentCardColumn,
+  StyledStudentCardContainer,
+} from './styles';
+import StyledBasicDiv from '../../../../../components/BasicDiv';
 
 const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   const [loading, setLoading] = useState(false);
@@ -48,15 +60,36 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
     };
   }, []);
 
-  const onFinish = async (values) => {
+  const createNewStudents = (body) => {
     setLoading(true);
-    console.log(values);
+    classroomService
+      .createNewStudentInClassroom(authService.getBearerHeader(), body)
+      .then((res) => {
+        setNewClassroomRoster(true);
+        setNewStudentData(res.students);
+        Notification(
+          success,
+          SUCCESS,
+          'You have successfully added a new student to your classroom. Please print a copy for your records.'
+        );
+        updateService();
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'There was a bad connection. The student was not created or added to the class.'
+        )
+      )
+      .finally(() => setLoading(false));
+  };
+
+  const onFinish = async (values) => {
     const body = {
       classId,
     };
     if (values.students) {
       const studentListWithInfo = [];
-      // eslint-disable-next-line no-restricted-syntax
       for (const student of values.students) {
         const forgotPasswordSet = await getRandomForgotPasswordSet();
         const randomAdjective = getRandomAdjective();
@@ -77,29 +110,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
       }
       body.students = studentListWithInfo;
     }
-    console.log(body);
-    classroomService
-      .createNewStudentInClassroom(authService.getBearerHeader(), body)
-      .then((res) => {
-        console.log(res);
-        setNewClassroomRoster(true);
-        setNewStudentData(res.students);
-        notification.success({
-          message: 'Success',
-          description:
-            'You have successfully added a new student to your classroom. Please print a copy for your records.',
-        });
-        updateService();
-      })
-      .catch((error) => {
-        console.error(error);
-        notification.error({
-          message: 'Error',
-          description:
-            'There was a bad connection. The student was not created or added to the class.',
-        });
-      });
-    setLoading(false);
+    createNewStudents(body);
   };
 
   return (
@@ -118,14 +129,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
-                    <Space
-                      key={key}
-                      style={{
-                        display: 'flex',
-                        marginBottom: 8,
-                      }}
-                      align="baseline"
-                    >
+                    <StyledSpace key={key} align="baseline">
                       <Form.Item
                         {...restField}
                         name={[name, 'firstName']}
@@ -161,7 +165,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
                         <Input placeholder="Last Initial" />
                       </Form.Item>
                       <MinusCircleOutlined onClick={() => remove(name)} />
-                    </Space>
+                    </StyledSpace>
                   ))}
                   <Form.Item>
                     <Button
@@ -176,7 +180,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
                 </>
               )}
             </Form.List>
-            <Form.Item register="true" style={{ textAlign: 'center' }}>
+            <StyledFormItem register="true">
               <StyledButton
                 loading={loading}
                 larger="true"
@@ -185,96 +189,49 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
               >
                 Create Student
               </StyledButton>
-            </Form.Item>
+            </StyledFormItem>
           </Form>
         )}
         {newClassroomRoster && (
-          <div
-            style={{
-              padding: '1rem',
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
+          <StyledNewClassRosterWrapper>
             {newStudentData.map((student) => (
-              <div
-                key={student._id}
-                style={{
-                  border: '1px solid transparent',
-                  borderRadius: '8px',
-                  boxShadow: '0px 10px 10px grey',
-                  margin: '1rem',
-                  padding: '0.5rem',
-                  width: '300px',
-                  height: '300px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  flexDirection: 'column',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '1rem',
-                  }}
-                >
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>First Name:</span>{' '}
-                    {student.firstName}
-                  </div>
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>Last Initial:</span>{' '}
-                    {student.lastInitial}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '1rem',
-                  }}
-                >
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>Username:</span>{' '}
-                    {student.username}
-                  </div>
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>Password:</span>{' '}
-                    {student.password}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '1rem',
-                  }}
-                >
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>
-                      Forgot Password Question:
-                    </span>{' '}
+              <StyledStudentCardContainer key={student._id}>
+                <StyledStudentCardColumn>
+                  <StyledBasicDiv>
+                    <StyledSpan>First Name:</StyledSpan> {student.firstName}
+                  </StyledBasicDiv>
+                  <StyledBasicDiv>
+                    <StyledSpan>Last Initial:</StyledSpan> {student.lastInitial}
+                  </StyledBasicDiv>
+                </StyledStudentCardColumn>
+                <StyledStudentCardColumn>
+                  <StyledBasicDiv>
+                    <StyledSpan>Username:</StyledSpan> {student.username}
+                  </StyledBasicDiv>
+                  <StyledBasicDiv>
+                    <StyledSpan>Password:</StyledSpan> {student.password}
+                  </StyledBasicDiv>
+                </StyledStudentCardColumn>
+                <StyledStudentCardColumn>
+                  <StyledBasicDiv>
+                    <StyledSpan>Forgot Password Question:</StyledSpan>{' '}
                     {student.forgotPasswordQuestion}
-                  </div>
-                  <div>
-                    <span style={{ fontWeight: 'bold' }}>
-                      Forgot Password Answer:
-                    </span>{' '}
+                  </StyledBasicDiv>
+                  <StyledBasicDiv>
+                    <StyledSpan>Forgot Password Answer:</StyledSpan>{' '}
                     {student.forgotPasswordAnswer}
-                  </div>
-                </div>
-              </div>
+                  </StyledBasicDiv>
+                </StyledStudentCardColumn>
+              </StyledStudentCardContainer>
             ))}
-            <div style={{ textAlign: 'center' }}>
+            <StyledDiv>
               You will not be able to return to this! Please print or write down
               somewhere!
-            </div>
+            </StyledDiv>
             <StyledButton larger="true" type="primary" onClick={close}>
               Close
             </StyledButton>
-          </div>
+          </StyledNewClassRosterWrapper>
         )}
       </>
     </Modal>
