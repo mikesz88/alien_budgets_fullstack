@@ -1,16 +1,23 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
-import { Table, Button, Popconfirm, Modal } from 'antd';
+import { Button, Popconfirm, Modal } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../../components/GreetingBar';
 import { UserContext } from '../../../../App';
-import theme from '../../../../theme';
 import StyledButton from '../../../../components/PrimaryButton';
 import Avatar from '../../../../components/Avatar';
 import EditCloseModal from './EditStudentModal';
 import DeleteModal from './DeleteModal';
 import NewStudentModal from './NewStudentModal';
+import { ERROR, error, SUCCESS, success } from '../../../../common/constants';
+import Notification from '../../../../components/Notification';
+import {
+  StyledBoldSpan,
+  StyledDivContainer,
+  StyledTableButton,
+} from './styles';
+import StyledDivWrapper from '../../../../components/DivWrapper';
+import StyledTable from '../../../../components/Table';
+import StyledBasicDiv from '../../../../components/BasicDiv';
 
 const ClassDetails = () => {
   const { classId } = useParams();
@@ -48,16 +55,27 @@ const ClassDetails = () => {
         return 0;
       });
 
-  useEffect(() => {
+  const getClassroom = () => {
     setLoading(true);
     classroomService
       .getSpecificClassroom(authService.getBearerHeader(), classId)
       .then((res) => {
         setClassroomCode(res.classroomCode);
         setStudents(data(res.students));
+        Notification(
+          success,
+          SUCCESS,
+          `Classroom with code ${res.classroomCode} was found.`
+        );
       })
-      .catch((error) => console.error(error))
+      .catch(() =>
+        Notification(error, ERROR, 'Connection Error. No Connection found')
+      )
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    getClassroom();
 
     return classroomService.setCurrentClassUpdate('');
   }, [classroomService.currentClassUpdated]);
@@ -66,11 +84,17 @@ const ClassDetails = () => {
     authService
       .resetStudentPassword(studentId)
       .then((res) => {
-        console.log(res);
         setResetMessageObject(res);
         setOpenModal(true);
+        Notification(success, SUCCESS, "Student's password was reset.");
       })
-      .catch((error) => console.error(error));
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          "Connection Error. Student's password was not reset."
+        )
+      );
   };
 
   const handleResetPasswordClose = () => {
@@ -93,11 +117,17 @@ const ClassDetails = () => {
     authService
       .getStudentInfo(studentId)
       .then((res) => {
-        console.log(res);
         setStudentInfo(res);
         setOpenEditStudentModal(true);
+        Notification(success, SUCCESS, 'Student Information Found.');
       })
-      .catch((error) => console.error(error));
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          "Connection Error. Could not grab the student's information."
+        )
+      );
   };
 
   const columns = [
@@ -170,58 +200,46 @@ const ClassDetails = () => {
       dataIndex: 'editStudent',
       key: 'editStudent',
       render: (text) => (
-        <StyledButton
+        <StyledTableButton
           style={{ margin: '0', minWidth: '0', padding: '5px 10px' }}
           onClick={() => editStudentInfo(text)}
           type="primary"
         >
           Edit
-        </StyledButton>
+        </StyledTableButton>
       ),
       width: '14%',
       align: 'center',
     },
   ];
 
-  return (
-    <div
-      style={{
-        backgroundColor: theme.colors.lightGrey,
-        width: '100vw',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '8rem 0',
-      }}
-    >
-      <GreetingBar template={`Class: ${classroomCode}`} />
-      <div
-        style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
+  const classButtons = (
+    <StyledDivContainer>
+      <StyledButton
+        size="large"
+        type="primary"
+        onClick={handleOpenNewStudentModal}
       >
-        <StyledButton
-          size="large"
-          type="primary"
-          onClick={handleOpenNewStudentModal}
-        >
-          Add New Student
-        </StyledButton>
-        <StyledButton
-          size="large"
-          type="primary"
-          onClick={() => navigate(`/classrooms/teacher/${authService.id}`)}
-        >
-          Back to My Classes
-        </StyledButton>
-        <StyledButton
-          size="large"
-          type="primary"
-          onClick={handleOpenDeleteModal}
-        >
-          Delete Class
-        </StyledButton>
-      </div>
-      <Table
-        style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}
+        Add New Student
+      </StyledButton>
+      <StyledButton
+        size="large"
+        type="primary"
+        onClick={() => navigate(`/classrooms/teacher/${authService.id}`)}
+      >
+        Back to My Classes
+      </StyledButton>
+      <StyledButton size="large" type="primary" onClick={handleOpenDeleteModal}>
+        Delete Class
+      </StyledButton>
+    </StyledDivContainer>
+  );
+
+  return (
+    <StyledDivWrapper>
+      <GreetingBar template={`Class: ${classroomCode}`} />
+      {classButtons}
+      <StyledTable
         columns={columns}
         loading={loading}
         pagination={{
@@ -239,16 +257,14 @@ const ClassDetails = () => {
         closable
         destroyOnClose
       >
-        <div>
+        <StyledBasicDiv>
           {`${resetMessageObject.firstName} ${resetMessageObject.lastInitial} with username: ${resetMessageObject.username} now has a new password.`}
-        </div>
-        <div>
+        </StyledBasicDiv>
+        <StyledBasicDiv>
           The new password is:{' '}
-          <span style={{ fontWeight: 'bold' }}>
-            {resetMessageObject.newPassword}
-          </span>
-        </div>
-        <div>{`${resetMessageObject.message}`}</div>
+          <StyledBoldSpan>{resetMessageObject.newPassword}</StyledBoldSpan>
+        </StyledBasicDiv>
+        <StyledBasicDiv>{`${resetMessageObject.message}`}</StyledBasicDiv>
       </Modal>
       {openEditStudentModal && (
         <EditCloseModal
@@ -272,7 +288,7 @@ const ClassDetails = () => {
           classroomCode={classroomCode}
         />
       )}
-    </div>
+    </StyledDivWrapper>
   );
 };
 

@@ -21,7 +21,7 @@ const Introduction = ({ chooseAdult, chooseStudent }) => (
       <StyledButton type="primary" onClick={() => chooseAdult()}>
         Adult
       </StyledButton>
-      <StyledCaption style={{ textAlign: 'center' }}>
+      <StyledCaption centered>
         By going forward you are agreeing to the{' '}
         <Link to="/privacypolicy">Privacy Policy</Link> and{' '}
         <Link to="/termsofservice">Terms of Service</Link>

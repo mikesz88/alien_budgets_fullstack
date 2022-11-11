@@ -4,7 +4,8 @@ import Avatar from '../../../components/Avatar';
 import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
-import { StyledDivContainer, StyledHeader, StyledTable } from './styles';
+import { StyledDivContainer, StyledHeader } from './styles';
+import StyledTable from '../../../components/Table';
 
 const Leaderboard = () => {
   const [loading, setLoading] = useState(false);

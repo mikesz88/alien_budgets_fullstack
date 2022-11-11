@@ -1,10 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Table } from 'antd';
 import { useParams } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
 import { UserContext } from '../../../App';
 import columns from './helper';
-import theme from '../../../theme';
+import StyledTable from '../../../components/Table';
+import Notification from '../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import StyledDivWrapper from '../../../components/DivWrapper';
 
 const TeacherClasses = () => {
   const { teacherId } = useParams();
@@ -21,35 +23,36 @@ const TeacherClasses = () => {
       viewClass: classroom._id,
     }));
 
-  useEffect(() => {
+  const getClassrooms = () => {
     setLoading(true);
     classroomService
       .getAllTeacherClassrooms(authService.getBearerHeader(), teacherId)
-      .then((response) => setClassrooms(data(response)))
-      .catch((error) => console.error(error))
+      .then((response) => {
+        setClassrooms(data(response));
+        Notification(success, SUCCESS, 'Teacher classrooms found!');
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Unable to find teacher classrooms. Please try again.'
+        )
+      )
       .finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(() => getClassrooms(), []);
 
   return (
-    <div
-      style={{
-        backgroundColor: theme.colors.lightGrey,
-        width: '100vw',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '8rem 0',
-      }}
-    >
+    <StyledDivWrapper>
       <GreetingBar template="My Classes" />
-      <Table
-        style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}
+      <StyledTable
         pagination={false}
         columns={columns}
         dataSource={classrooms}
         loading={loading}
       />
-    </div>
+    </StyledDivWrapper>
   );
 };
 

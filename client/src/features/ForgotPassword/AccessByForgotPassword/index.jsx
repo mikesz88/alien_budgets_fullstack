@@ -1,13 +1,25 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect } from 'react';
-import { Form, Modal, Input, Result, notification } from 'antd';
+import React, { useState, useContext } from 'react';
+import { Form, Modal, Input, Result } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
-import StyledTitle from '../../../components/Title';
 import GreetingBar from '../../../components/GreetingBar';
+import {
+  ERROR,
+  error,
+  passwordRegex,
+  SUCCESS,
+  success,
+} from '../../../common/constants';
+import Notification from '../../../components/Notification';
+import StyledBasicDiv from '../../../components/BasicDiv';
+import {
+  StyledDivWrapper,
+  StyledExtraTitle,
+  StyledFormItem,
+  StyledWidthFormItem,
+} from './styles';
 
 const { confirm } = Modal;
 
@@ -30,16 +42,17 @@ const AccessByForgotPassword = () => {
     authService
       .retrieveForgotQuestionFromUser(user)
       .then((res) => {
-        console.log(res);
         authService
           .getOneForgotQuestion(res)
           .then((response) => {
-            console.log(response);
             setForgotQuestion(response.question);
+            Notification(success, SUCCESS, 'Forgot Question found!');
           })
-          .catch((err) => console.error(err));
+          .catch(() =>
+            Notification(error, ERROR, 'Unable to retrieve Forgot Question.')
+          );
       })
-      .catch((error) => console.error(error));
+      .catch(() => Notification(error, ERROR, 'Unable to retrieve user.'));
   };
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
@@ -63,40 +76,58 @@ const AccessByForgotPassword = () => {
     return email ? navigate('/login/adult') : navigate('/login/student');
   };
 
-  const onFinish = (values) => {
-    const { forgotPasswordAnswer } = values;
+  const validateForgotPassword = (forgotPasswordAnswer) => {
     authService
       .validateForgotPassword(email, username, forgotPasswordAnswer)
       .then((res) => {
-        console.log(res);
         setResetToken(res);
         setResetModal(true);
+        Notification(
+          success,
+          SUCCESS,
+          'Forgot Answer Accepted! Reset Password Now.'
+        );
       })
-      .catch((error) => {
+      .catch(() => {
         form.resetFields();
-        console.error(error);
-        notification.error({
-          message: 'error',
-          description: 'Please try again!',
-        });
+        Notification(error, ERROR, 'Please try again!');
       });
+  };
+
+  const onFinish = (values) => {
+    const { forgotPasswordAnswer } = values;
+    validateForgotPassword(forgotPasswordAnswer);
+  };
+
+  const resetPassword = (newPassword) => {
+    authService
+      .resetPassword(resetToken, newPassword)
+      .then(() => {
+        setResetModal(false);
+        setSuccessResult(true);
+        Notification(
+          success,
+          SUCCESS,
+          'Password has been reset. Please Login!'
+        );
+      })
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Please refresh and try again later.'
+        )
+      );
   };
 
   const resetSubmit = (values) => {
     const { newPassword } = values;
-    authService
-      .resetPassword(resetToken, newPassword)
-      .then((res) => {
-        console.log(res);
-        setResetModal(false);
-        setSuccessResult(true);
-      })
-      .catch((err) => console.error(err));
+    resetPassword(newPassword);
   };
 
   const forgotPasswordForm = (
     <Form layout="vertical" name="Forgot Login" onFinish={onFinish} form={form}>
-      <div>{forgotQuestion}</div>
+      <StyledBasicDiv>{forgotQuestion}</StyledBasicDiv>
       <Form.Item
         name="forgotPasswordAnswer"
         rules={[
@@ -108,25 +139,22 @@ const AccessByForgotPassword = () => {
       >
         <Input type="text" placeholder="Write Answer Here" />
       </Form.Item>
-      <Form.Item style={{ marginTop: '1rem' }}>
+      <StyledFormItem>
         <StyledButton type="primary" size="large" htmlType="submit">
           Submit
         </StyledButton>
-      </Form.Item>
+      </StyledFormItem>
     </Form>
   );
-
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
 
   return (
     <>
       <GreetingBar template="Forgot Question" />
-      <div style={{ marginTop: '6rem' }}>
-        <StyledTitle style={{ fontSize: '4rem' }}>
+      <StyledDivWrapper>
+        <StyledExtraTitle>
           Choose Email (Adult) or Username (Student/Alien)
-        </StyledTitle>
-        <div>
+        </StyledExtraTitle>
+        <StyledBasicDiv>
           <StyledButton
             type="primary"
             size="large"
@@ -141,9 +169,9 @@ const AccessByForgotPassword = () => {
           >
             Username
           </StyledButton>
-        </div>
+        </StyledBasicDiv>
         {emailOrUsername === 'email' ? (
-          <div>
+          <StyledBasicDiv>
             <Input
               type="email"
               onChange={handleEmail}
@@ -152,9 +180,9 @@ const AccessByForgotPassword = () => {
             <StyledButton type="primary" size="large" onClick={handleQuestion}>
               Find Question
             </StyledButton>
-          </div>
+          </StyledBasicDiv>
         ) : emailOrUsername === 'username' ? (
-          <div>
+          <StyledBasicDiv>
             <Input
               type="text"
               onChange={handleUsername}
@@ -163,7 +191,7 @@ const AccessByForgotPassword = () => {
             <StyledButton type="primary" size="large" onClick={handleQuestion}>
               Find Question
             </StyledButton>
-          </div>
+          </StyledBasicDiv>
         ) : null}
         {forgotQuestion ? forgotPasswordForm : null}
 
@@ -180,11 +208,11 @@ const AccessByForgotPassword = () => {
         >
           <Form layout="vertical" name="new_password" onFinish={resetSubmit}>
             <Form.Item label="New Password">
-              <div>
+              <StyledBasicDiv>
                 Password must be 8-20 characters, including: at least one
                 capital letter, at least one small letter, one number and one
                 special character - ! @ # $ % ^ & * ( ) _ +
-              </div>
+              </StyledBasicDiv>
               <Form.Item
                 name="newPassword"
                 noStyle
@@ -207,12 +235,11 @@ const AccessByForgotPassword = () => {
                 <Input.Password type="password" />
               </Form.Item>
             </Form.Item>
-            <Form.Item
+            <StyledWidthFormItem
               label="Confirm  New Password"
               name="confirm"
               dependencies={['newPassword']}
               hasFeedback
-              style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
@@ -233,7 +260,7 @@ const AccessByForgotPassword = () => {
               ]}
             >
               <Input.Password />
-            </Form.Item>
+            </StyledWidthFormItem>
             <Form.Item>
               <StyledButton type="primary" htmlType="submit">
                 Submit
@@ -241,7 +268,6 @@ const AccessByForgotPassword = () => {
             </Form.Item>
           </Form>
         </Modal>
-
         <Modal
           open={successResult}
           onCancel={closeModals}
@@ -257,7 +283,7 @@ const AccessByForgotPassword = () => {
             subTitle="You have successfully change your password. Please click close out and sign in again with your new password. Close the button below to get back to the login screen."
           />
         </Modal>
-      </div>
+      </StyledDivWrapper>
     </>
   );
 };

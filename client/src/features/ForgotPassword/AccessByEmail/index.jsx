@@ -1,12 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Modal, Input, Result, notification } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Form, Modal, Input, Result } from 'antd';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import GreetingBar from '../../../components/GreetingBar';
 import { UserContext } from '../../../App';
+import Notification from '../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import { StyledDivWrapper, StyledFormItem } from './styles';
 
 const AccessByEmail = () => {
   const { authService } = useContext(UserContext);
@@ -23,27 +24,34 @@ const AccessByEmail = () => {
 
   const handleFailedClose = () => setFailedResult(false);
 
-  const onFinish = (values) => {
+  const resetEmail = (email) => {
     setLoading(true);
-    const { email } = values;
-    console.log(email);
     authService
       .resetPasswordByEmail(email)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         setSuccessResult(true);
+        Notification(
+          success,
+          SUCCESS,
+          'Email has been sent. Please check your email.'
+        );
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         setFailedResult(true);
+        Notification(error, ERROR, 'No email found. Please try again.');
       })
       .finally(() => setLoading(false));
+  };
+
+  const onFinish = (values) => {
+    const { email } = values;
+    resetEmail(email);
   };
 
   return (
     <>
       <GreetingBar template="Reset Password by Email" />
-      <div style={{ marginTop: '6rem' }}>
+      <StyledDivWrapper>
         <StyledTitle>Write Email</StyledTitle>
         <Form layout="vertical" name="Email" onFinish={onFinish} form={form}>
           <Form.Item
@@ -58,8 +66,7 @@ const AccessByEmail = () => {
           >
             <Input type="email" />
           </Form.Item>
-
-          <Form.Item style={{ marginTop: '1rem' }}>
+          <StyledFormItem>
             <StyledButton
               loading={loading}
               type="primary"
@@ -68,9 +75,8 @@ const AccessByEmail = () => {
             >
               Submit
             </StyledButton>
-          </Form.Item>
+          </StyledFormItem>
         </Form>
-
         <Modal
           open={successResult}
           footer={[
@@ -85,7 +91,6 @@ const AccessByEmail = () => {
             subTitle="Please go to your email and click the link. It will take you to reset your password."
           />
         </Modal>
-
         <Modal
           open={failedResult}
           onCancel={handleFailedClose}
@@ -105,7 +110,7 @@ const AccessByEmail = () => {
             subTitle="Please write a valid email."
           />
         </Modal>
-      </div>
+      </StyledDivWrapper>
     </>
   );
 };

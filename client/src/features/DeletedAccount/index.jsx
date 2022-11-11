@@ -6,7 +6,6 @@ import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
 
 const FourOhFour = () => {
   const navigate = useNavigate();
-
   const backToHome = () => navigate('/');
 
   return (

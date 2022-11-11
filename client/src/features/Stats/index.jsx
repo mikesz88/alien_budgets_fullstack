@@ -1,24 +1,18 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { Table } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
 import { UserContext } from '../../App';
-import theme from '../../theme';
-
-const salaryWithMoneySymbol = (salary) =>
-  salary.toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+import { withMoneySymbol } from '../../common/constants';
+import StyledDivWrapper from '../../components/DivWrapper';
 
 const Stats = () => {
   const { authService } = useContext(UserContext);
+
   const previousGames = authService.previousGames.map((game) => ({
     key: game._id,
     Job: game.job,
     Dwelling: game.dwelling,
-    Salary: salaryWithMoneySymbol(game.salary),
+    Salary: withMoneySymbol(game.salary),
     averageMathFactScore: `${game.averageMathFactScore}%`,
     averageBattleshipScore: game.averageBattleshipScore,
     Score: game.score,
@@ -58,19 +52,10 @@ const Stats = () => {
   ];
 
   return (
-    <div
-      style={{
-        backgroundColor: theme.colors.lightGrey,
-        width: '100vw',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '8rem 0',
-      }}
-    >
+    <StyledDivWrapper>
       <GreetingBar template="My Stats" />
       <Table pagination={false} dataSource={previousGames} columns={columns} />
-    </div>
+    </StyledDivWrapper>
   );
 };
 

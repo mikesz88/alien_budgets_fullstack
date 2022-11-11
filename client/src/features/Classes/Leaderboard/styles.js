@@ -1,4 +1,3 @@
-import { Table } from 'antd';
 import styled from 'styled-components';
 
 export const StyledDivContainer = styled.div`
@@ -16,10 +15,4 @@ export const StyledHeader = styled.h1`
   text-align: center;
   font-size: 4rem;
   margin: 0;
-`;
-
-export const StyledTable = styled(Table)`
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
 `;

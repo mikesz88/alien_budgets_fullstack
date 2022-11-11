@@ -14,4 +14,5 @@ export const StyledSubtitle = styled.h2`
 export const StyledCaption = styled.p`
   font-family: ${({ theme }) => theme.fontFamily.hind};
   color: ${({ theme }) => theme.colors.primaryBlue};
+  text-align: ${({ centered }) => (centered ? 'center' : '')};
 `;

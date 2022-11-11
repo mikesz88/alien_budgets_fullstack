@@ -1,11 +1,19 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Input, Result, Modal } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
-import StyledTitle from '../../components/Title';
 import StyledButton from '../../components/PrimaryButton';
 import { UserContext } from '../../App';
+import {
+  ERROR,
+  error,
+  passwordRegex,
+  SUCCESS,
+  success,
+} from '../../common/constants';
+import Notification from '../../components/Notification';
+import { StyledFormItem, StyledMarginTitle } from './styles';
+import StyledBasicDiv from '../../components/BasicDiv';
 
 const ResetPasswordByEmail = () => {
   const { authService } = useContext(UserContext);
@@ -15,40 +23,45 @@ const ResetPasswordByEmail = () => {
   const [successResult, setSuccessResult] = useState(false);
   const navigate = useNavigate();
 
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
-
   const goToLogin = () => {
     setSuccessResult(false);
     navigate('/login/adult');
   };
 
-  const onFinish = (values) => {
+  const resetPassword = (password) => {
     setLoading(true);
-    const { password } = values;
-    console.log(password);
-    console.log(resettoken);
     authService
       .resetPasswordByToken(resettoken, password)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setSuccessResult(true);
+        Notification(
+          success,
+          SUCCESS,
+          'Password has been reset. Please login again.'
+        );
       })
-      .catch((error) => console.error(error))
+      .catch(() =>
+        Notification(error, ERROR, 'Connection Error. Please try again later.')
+      )
       .finally(() => setLoading(false));
+  };
+
+  const onFinish = (values) => {
+    const { password } = values;
+    resetPassword(password);
   };
 
   return (
     <>
       <GreetingBar template="Reset Password" />
-      <StyledTitle style={{ marginTop: '6rem' }}>Reset Password</StyledTitle>
+      <StyledMarginTitle>Reset Password</StyledMarginTitle>
       <Form layout="vertical" form={form} id={form} onFinish={onFinish}>
         <Form.Item noStyle>
-          <div>
+          <StyledBasicDiv>
             Your new password must be 8-20 characters, including: at least one
             capital letter, at least one small letter, one number and one
             special character - ! @ # $ % ^ & * ( ) _ +
-          </div>
+          </StyledBasicDiv>
           <Form.Item
             name="password"
             hasFeedback
@@ -103,8 +116,10 @@ const ResetPasswordByEmail = () => {
         >
           <Input.Password type="password" placeholder="Confirm Password" />
         </Form.Item>
-        <Form.Item register="true" style={{ textAlign: 'center' }}>
-          <div>By signing up you agree to our terms and policies.</div>
+        <StyledFormItem>
+          <StyledBasicDiv>
+            By signing up you agree to our terms and policies.
+          </StyledBasicDiv>
           <StyledButton
             loading={loading}
             larger="true"
@@ -113,7 +128,7 @@ const ResetPasswordByEmail = () => {
           >
             Submit
           </StyledButton>
-        </Form.Item>
+        </StyledFormItem>
       </Form>
 
       <Modal
