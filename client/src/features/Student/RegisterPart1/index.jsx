@@ -1,9 +1,13 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { Form, Input, notification, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import Notification from '../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import StyledCenteredFormItem from '../../../components/CenteredFormItem';
+import StyledBasicDiv from '../../../components/BasicDiv';
 
 const RegisterStudentPart1 = () => {
   const [loading, setLoading] = useState(false);
@@ -13,20 +17,33 @@ const RegisterStudentPart1 = () => {
   const navigate = useNavigate();
 
   const getAllClassCodes = useCallback(
-    () => classroomService.getAllClassrooms(),
+    () =>
+      classroomService
+        .getAllClassrooms()
+        .catch(() =>
+          Notification(
+            error,
+            ERROR,
+            'Connection Error. Please refresh and try again.'
+          )
+        ),
     []
   );
 
   const getAllForgotQuestions = useCallback(
     () =>
-      authService.getAllForgotQuestions().then((res) => setQuestionList(res)),
+      authService
+        .getAllForgotQuestions()
+        .then((res) => setQuestionList(res))
+        .catch(() =>
+          Notification(
+            error,
+            ERROR,
+            'Connection Error. Please refresh and try again later.'
+          )
+        ),
     []
   );
-
-  useEffect(() => {
-    getAllClassCodes();
-    getAllForgotQuestions();
-  }, []);
 
   const forgotPassQuestionChange = (value) => {
     form.setFieldsValue({
@@ -39,16 +56,14 @@ const RegisterStudentPart1 = () => {
     try {
       authService.registerStudentPart1(userData);
       form.resetFields();
-      notification.success({
-        message: 'success',
-        description: 'Part 1 completed!',
-      });
       navigate('/register/student/part2');
-    } catch (error) {
-      notification.error({
-        message: 'error',
-        description: 'You made a mistake!',
-      });
+      Notification(success, SUCCESS, 'Part 1 completed!');
+    } catch (err) {
+      Notification(
+        error,
+        ERROR,
+        'Uh Oh! You made a mistake! Please try again!'
+      );
     } finally {
       setLoading(false);
     }
@@ -63,12 +78,18 @@ const RegisterStudentPart1 = () => {
     if (isValidClassCode(values.classroomCode)) {
       completeStudentData(values);
     } else {
-      notification.error({
-        message: 'error',
-        description: 'You made a mistake',
-      });
+      Notification(
+        error,
+        ERROR,
+        'You have made a mistake. Please try another Classroom Code.'
+      );
     }
   };
+
+  useEffect(() => {
+    getAllClassCodes();
+    getAllForgotQuestions();
+  }, []);
 
   return (
     <>
@@ -155,8 +176,10 @@ const RegisterStudentPart1 = () => {
         >
           <Input type="text" placeholder="Type your class code in now" />
         </Form.Item>
-        <Form.Item register="true" style={{ textAlign: 'center' }}>
-          <div>By signing up you agree to our terms and policies.</div>
+        <StyledCenteredFormItem register="true">
+          <StyledBasicDiv>
+            By signing up you agree to our terms and policies.
+          </StyledBasicDiv>
           <StyledButton
             loading={loading}
             larger="true"
@@ -165,13 +188,13 @@ const RegisterStudentPart1 = () => {
           >
             Next Page
           </StyledButton>
-          <div>
+          <StyledBasicDiv>
             The next page you will out your username, password, and avatar.
-          </div>
+          </StyledBasicDiv>
           <StyledButton larger="true" type="primary">
             <Link to="/">Back to Main Page</Link>
           </StyledButton>
-        </Form.Item>
+        </StyledCenteredFormItem>
       </Form>
     </>
   );

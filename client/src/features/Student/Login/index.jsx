@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Input, notification } from 'antd';
+import { Form, Input } from 'antd';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
+import Notification from '../../../components/Notification';
+import { ERROR, error, success } from '../../../common/constants';
 
 const StudentLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -11,28 +13,27 @@ const StudentLogin = () => {
   const navigate = useNavigate();
   const { authService, updateService } = useContext(UserContext);
 
-  const onFinish = (values) => {
+  const login = (values) => {
     setLoading(true);
-    console.log('values =>', values);
     authService
       .login(values)
       .then(() => {
         navigate('/aliendashboard');
-        notification.success({
-          message: 'Login Successful',
-          description: 'You are now currently logged in.',
-        });
+        Notification(
+          success,
+          'Login Successful',
+          'You are now currently logged in.'
+        );
         updateService();
       })
       .catch(() => {
         form.resetFields();
-        notification.error({
-          message: 'error',
-          description: 'Please try again!',
-        });
+        Notification(error, ERROR, 'Please try again!');
       })
       .finally(() => setLoading(false));
   };
+
+  const onFinish = (values) => login(values);
 
   return (
     <>

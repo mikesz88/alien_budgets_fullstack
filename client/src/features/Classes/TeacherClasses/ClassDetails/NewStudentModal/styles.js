@@ -1,13 +1,9 @@
 import styled from 'styled-components';
-import { Space, Form } from 'antd';
+import { Space } from 'antd';
 
 export const StyledSpace = styled(Space)`
   display: flex;
   margin-bottom: 8px;
-`;
-
-export const StyledFormItem = styled(Form.Item)`
-  text-align: center;
 `;
 
 export const StyledNewClassRosterWrapper = styled.div`

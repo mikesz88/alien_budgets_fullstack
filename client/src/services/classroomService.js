@@ -16,12 +16,9 @@ class ClassroomService {
     this.classroomCodes = list;
   }
 
-  async getAllClassrooms(headers) {
+  async getAllClassrooms() {
     try {
-      const { data: response } = await axios.get(
-        `${Endpoints.getClassrooms}`,
-        headers
-      );
+      const { data: response } = await axios.get(`${Endpoints.getClassrooms}`);
       const filteredClassroomCodes = response.data.map(
         (classroom) => classroom.classroomCode
       );

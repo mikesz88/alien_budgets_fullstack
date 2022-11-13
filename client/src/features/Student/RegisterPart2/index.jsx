@@ -1,6 +1,5 @@
-/* eslint-disable import/no-cycle */
 import React, { useState, useContext, useEffect, useMemo } from 'react';
-import { Form, Input, Pagination, Radio, Modal, notification } from 'antd';
+import { Form, Input, Modal } from 'antd';
 import { faker } from '@faker-js/faker';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
@@ -9,7 +8,20 @@ import StyledRadioButton from '../../../components/RadioButton';
 import StyledButton from '../../../components/PrimaryButton';
 import theme from '../../../theme';
 import StyledTitle from '../../../components/Title';
-import { generateBgColor } from '../../../common/constants';
+import {
+  ERROR,
+  error,
+  generateBgColor,
+  passwordRegex,
+  SUCCESS,
+  success,
+} from '../../../common/constants';
+import Notification from '../../../components/Notification';
+import HeroDivContainer from '../../../components/Hero/HeroDivContainer';
+import StyledBasicDiv from '../../../components/BasicDiv';
+import StyledCenteredFormItem from '../../../components/CenteredFormItem';
+import StyledRadioGroup from '../../../components/RadioGroup';
+import StyledPagination from '../../../components/Pagination';
 
 const RegisterStudentPart2 = () => {
   const { avatarService, authService, classroomService, updateService } =
@@ -34,9 +46,6 @@ const RegisterStudentPart2 = () => {
   const openModal = () => setOpenAvatarModal(true);
   const closeModal = () => setOpenAvatarModal(false);
 
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
-
   const getAvatarList = (page) => {
     avatarService
       .getAvatarList(page)
@@ -49,27 +58,44 @@ const RegisterStudentPart2 = () => {
           prevPage: res.pagination.prev ? res.pagination.prev.page : 10,
           nextPage: res.pagination.next ? res.pagination.next.page : 1,
         });
-        // Notification
+        Notification(success, SUCCESS, 'Avatar list found!');
       })
-      .catch((error) => {
-        setAvatarList(error);
-        throw error;
-        // Notification
+      .catch(() => {
+        setAvatarList([]);
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. No avatar list found. Please refresh and try again later!'
+        );
       });
   };
 
   const getRandomAdjective = () =>
-    avatarService.getRandomAdjective().then((res) => setUserAdjective(res));
+    avatarService
+      .getRandomAdjective()
+      .then((res) => setUserAdjective(res))
+      .catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Unable to get random adjective. Please refresh and try again later!'
+        )
+      );
 
   const getRandomAvatar = () => {
     avatarService
       .getRandomAvatar()
       .then((res) => {
         setUserAvatar(res);
+        Notification(success, SUCCESS, 'Random avatar chosen.');
       })
-      .catch((error) => {
-        setUserAvatar(error);
-        throw error;
+      .catch(() => {
+        setUserAvatar({});
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Unable to retrieve a random avatar. Please refresh and try again later.'
+        );
       });
   };
 
@@ -110,6 +136,53 @@ const RegisterStudentPart2 = () => {
   const initialUsername = () => handleUsername(username);
   const initialAvatarURL = () => handleAvatarURL();
 
+  const handleAvatarChange = ({ target: { value } }) => {
+    form.setFieldsValue({
+      avatarURL: value.avatarURL,
+    });
+    setUserAvatar(value);
+  };
+
+  const addStudentToClassroom = (user) => {
+    classroomService
+      .addStudentToClassroom(user)
+      .then(() => {
+        Notification(
+          success,
+          'Student added',
+          'The student has officially been added to the classroom.'
+        );
+      })
+      .catch(() => {
+        Notification(
+          error,
+          ERROR,
+          'There was an issue with adding the student. The student was not added to the class.'
+        );
+      });
+  };
+
+  const onFinish = (values) => {
+    setLoading(true);
+    authService
+      .registerStudent(values)
+      .then((res) => {
+        Notification(
+          success,
+          'Sign Up Successful',
+          'You are now currently logged in.'
+        );
+        addStudentToClassroom(res.user);
+        navigate('/aliendashboard');
+        form.resetFields();
+        updateService();
+      })
+      .catch(() =>
+        Notification(error, ERROR, 'You made a mistake. Please try again.')
+      )
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
     initialBackgroundColor();
     getAvatarList();
@@ -123,70 +196,15 @@ const RegisterStudentPart2 = () => {
     [userAdjective, userAvatar.title, userNumbers]
   );
 
-  const handleAvatarChange = ({ target: { value } }) => {
-    form.setFieldsValue({
-      avatarURL: value.avatarURL,
-    });
-    setUserAvatar(value);
-  };
-
   useEffect(() => {
     initialAvatarURL();
   }, [userAvatar]);
-
-  const onFinish = (values) => {
-    setLoading(true);
-    authService
-      .registerStudent(values)
-      .then((res) => {
-        console.log(res);
-        notification.success({
-          message: 'Sign Up Successful',
-          description: 'You are now currently logged in.',
-        });
-        classroomService
-          .addStudentToClassroom(res.user)
-          .then((response) => {
-            console.log(response);
-            notification.success({
-              message: 'Added to Classroom',
-              description:
-                'The student has officially been added to the classroom.',
-            });
-          })
-          .catch((error) => {
-            console.error(error);
-            notification.error({
-              message: 'Error',
-              description:
-                'There was an issue with adding the student. The student was not added to the class.',
-            });
-          });
-        navigate('/aliendashboard');
-        form.resetFields();
-        updateService();
-      })
-      .catch(() => {
-        notification.error({
-          message: 'error',
-          description: 'You made a mistake',
-        });
-      })
-      .finally(() => setLoading(false));
-  };
 
   return (
     <>
       <StyledTitle>NEW ALIEN</StyledTitle>
       <Form form={form} id={form} onFinish={onFinish}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <HeroDivContainer>
           <Form.Item noStyle>
             <StyledButton
               onClick={openModal}
@@ -221,7 +239,7 @@ const RegisterStudentPart2 = () => {
               size="large"
             />
           </Form.Item>
-        </div>
+        </HeroDivContainer>
         <Form.Item
           name="username"
           rules={[
@@ -256,11 +274,11 @@ const RegisterStudentPart2 = () => {
           </Form.Item>
         </Form.Item>
         <Form.Item noStyle>
-          <div>
+          <StyledBasicDiv>
             Password must be 8-20 characters, including: at least one capital
             letter, at least one small letter, one number and one special
             character - ! @ # $ % ^ & * ( ) _ +
-          </div>
+          </StyledBasicDiv>
           <Form.Item
             name="password"
             hasFeedback
@@ -315,8 +333,10 @@ const RegisterStudentPart2 = () => {
         >
           <Input.Password type="password" placeholder="Confirm Password" />
         </Form.Item>
-        <Form.Item register="true" style={{ textAlign: 'center' }}>
-          <div>By signing up you agree to our terms and policies.</div>
+        <StyledCenteredFormItem register="true">
+          <StyledBasicDiv>
+            By signing up you agree to our terms and policies.
+          </StyledBasicDiv>
           <StyledButton
             loading={loading}
             larger="true"
@@ -325,7 +345,7 @@ const RegisterStudentPart2 = () => {
           >
             Register
           </StyledButton>
-        </Form.Item>
+        </StyledCenteredFormItem>
         <Form.Item name="avatarURL">
           <Form.Item noStyle>
             <Modal
@@ -336,21 +356,9 @@ const RegisterStudentPart2 = () => {
               onCancel={closeModal}
               footer={null}
             >
-              <Radio.Group
-                onChange={handleAvatarChange}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
+              <StyledRadioGroup onChange={handleAvatarChange}>
                 {avatarList.map((avatarIcon) => (
                   <StyledRadioButton
-                    style={{
-                      height: '100%',
-                      margin: '1rem',
-                    }}
                     key={avatarIcon.avatarURL}
                     value={avatarIcon}
                     onClick={() => setUserAvatar(avatarIcon)}
@@ -365,19 +373,14 @@ const RegisterStudentPart2 = () => {
                     />
                   </StyledRadioButton>
                 ))}
-              </Radio.Group>
-              <Pagination
+              </StyledRadioGroup>
+              <StyledPagination
                 total={pagination.total}
                 simple
                 pageSize={10}
                 showSizeChanger={false}
                 current={pagination.page}
                 onChange={(page) => getAvatarList(page)}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
               />
             </Modal>
           </Form.Item>

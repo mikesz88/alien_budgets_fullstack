@@ -14,13 +14,13 @@ import { UserContext } from '../../../../../App';
 import Notification from '../../../../../components/Notification';
 import {
   StyledDiv,
-  StyledFormItem,
   StyledNewClassRosterWrapper,
   StyledSpace,
   StyledSpan,
   StyledStudentCardColumn,
   StyledStudentCardContainer,
 } from './styles';
+import StyledCenteredFormItem from '../../../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
 
 const NewStudentModal = ({ open, close, classId, classroomCode }) => {
@@ -180,7 +180,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
                 </>
               )}
             </Form.List>
-            <StyledFormItem register="true">
+            <StyledCenteredFormItem register="true">
               <StyledButton
                 loading={loading}
                 larger="true"
@@ -189,7 +189,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
               >
                 Create Student
               </StyledButton>
-            </StyledFormItem>
+            </StyledCenteredFormItem>
           </Form>
         )}
         {newClassroomRoster && (

@@ -6,7 +6,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
-import StyledFormItem from './styles';
+import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
 
 const RegisterAdult = () => {
@@ -219,7 +219,7 @@ const RegisterAdult = () => {
         >
           <Input type="text" placeholder="Forgot Password Answer" />
         </Form.Item>
-        <StyledFormItem register="true">
+        <StyledCenteredFormItem register="true">
           <StyledBasicDiv>
             By signing up you agree to our terms and policies.
           </StyledBasicDiv>
@@ -237,7 +237,7 @@ const RegisterAdult = () => {
           <StyledButton larger="true" type="primary">
             <Link to="/">Back to Main Page</Link>
           </StyledButton>
-        </StyledFormItem>
+        </StyledCenteredFormItem>
       </Form>
     </>
   );

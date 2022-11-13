@@ -33,6 +33,8 @@ import AccessByEmail from '../features/ForgotPassword/AccessByEmail';
 import ResetPasswordByEmail from '../features/ResetPasswordByEmail';
 import PrivacyPolicy from '../features/PrivacyPolicy';
 import TermsOfService from '../features/TermsOfService';
+import Notification from '../components/Notification';
+import { SUCCESS, success } from '../common/constants';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -73,21 +75,42 @@ export const Part1RegisterRequire = ({ user, children, ...props }) => {
 const Routes = () => {
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('token');
-    if (loggedInUser) {
-      const foundToken = loggedInUser;
-      authService
-        .foundUser(foundToken)
-        .then((res) => {
-          if (res.role === 'adult') {
-            navigate('/dashboard');
-          } else {
-            navigate('/aliendashboard');
-          }
-        })
-        .catch((error) => console.error(error));
+
+  const findUser = (token) => {
+    authService
+      .foundUser(token)
+      .then((res) => {
+        if (res.role === 'adult') {
+          const { firstName, lastName } = authService;
+          navigate('/dashboard');
+          Notification(
+            success,
+            SUCCESS,
+            `Welcome back ${firstName} ${lastName}!`
+          );
+        } else {
+          const { username } = authService;
+          Notification(success, SUCCESS, `Welcome back ${username}!`);
+          navigate('/aliendashboard');
+        }
+      })
+      .catch(() => Notification('info', 'No user', 'Please login!'));
+  };
+
+  const checkMobile = () => {
+    console.log(window.screen.width);
+    if (window.screen.width < 768) {
+      navigate('/mobilescreen');
+      /* Create component for mobile screen. */
     }
+  };
+
+  useEffect(() => {
+    const foundToken = localStorage.getItem('token');
+    if (foundToken) {
+      findUser(foundToken);
+    }
+    checkMobile();
   }, []);
 
   return (
@@ -141,20 +164,40 @@ const Routes = () => {
         }
         exact
       />
-      <Route path="/challenge/play" element={<Challenge />} exact />
+      <Route
+        path="/challenge/play"
+        element={
+          <PrivateRoute user="student">
+            <Challenge />
+          </PrivateRoute>
+        }
+        exact
+      />
       <Route
         path="/classrooms/teacher/:teacherId"
-        element={<TeacherClasses />}
+        element={
+          <PrivateRoute user="adult">
+            <TeacherClasses />
+          </PrivateRoute>
+        }
         exact
       />
       <Route
         path="/classrooms/teacher/details/:classId"
-        element={<ClassDetails />}
+        element={
+          <PrivateRoute user="adult">
+            <ClassDetails />
+          </PrivateRoute>
+        }
         exact
       />
       <Route
         path="/classrooms/leaderboard/:class"
-        element={<Leaderboard />}
+        element={
+          <PrivateRoute user="student">
+            <Leaderboard />
+          </PrivateRoute>
+        }
         exact
       />
       <Route
@@ -170,9 +213,33 @@ const Routes = () => {
       <Route path="/privacypolicy" element={<PrivacyPolicy />} exact />
       <Route path="/termsofservice" element={<TermsOfService />} exact />
       <Route path="/forgotpassword/email" element={<AccessByEmail />} exact />
-      <Route path="/classrooms/create" element={<CreateClass />} exact />
-      <Route path="/stats/:user" element={<Stats />} exact />
-      <Route path="/account" element={<Account />} exact />
+      <Route
+        path="/classrooms/create"
+        element={
+          <PrivateRoute user="adult">
+            <CreateClass />
+          </PrivateRoute>
+        }
+        exact
+      />
+      <Route
+        path="/stats/:user"
+        element={
+          <PrivateRoute user="student">
+            <Stats />
+          </PrivateRoute>
+        }
+        exact
+      />
+      <Route
+        path="/account"
+        element={
+          <PrivateRoute user={'student' || 'adult'}>
+            <Account />
+          </PrivateRoute>
+        }
+        exact
+      />
       <Route path="/logout" element={<Logout />} exact />
       <Route path="*" element={<FourOhFour />} />
       <Route path="/unauthorized" element={<Unauthorized />} exact />

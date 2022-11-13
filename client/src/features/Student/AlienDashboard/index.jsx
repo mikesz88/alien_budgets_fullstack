@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
@@ -13,14 +12,10 @@ const Student = () => {
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    authService
-      .getUser()
-      // eslint-disable-next-line no-underscore-dangle
-      .then((response) => setId(response._id));
-  }, [authService]);
-  console.log(id);
-  console.log(authService.id);
+  const getUser = () =>
+    authService.getUser().then((response) => setId(response._id));
+
+  useEffect(() => getUser(), [authService]);
 
   return (
     <StyledDashboardWrapper>

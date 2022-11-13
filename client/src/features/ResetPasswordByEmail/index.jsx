@@ -12,7 +12,8 @@ import {
   success,
 } from '../../common/constants';
 import Notification from '../../components/Notification';
-import { StyledFormItem, StyledMarginTitle } from './styles';
+import StyledMarginTitle from './styles';
+import StyledCenteredFormItem from '../../components/CenteredFormItem';
 import StyledBasicDiv from '../../components/BasicDiv';
 
 const ResetPasswordByEmail = () => {
@@ -116,7 +117,7 @@ const ResetPasswordByEmail = () => {
         >
           <Input.Password type="password" placeholder="Confirm Password" />
         </Form.Item>
-        <StyledFormItem>
+        <StyledCenteredFormItem>
           <StyledBasicDiv>
             By signing up you agree to our terms and policies.
           </StyledBasicDiv>
@@ -128,7 +129,7 @@ const ResetPasswordByEmail = () => {
           >
             Submit
           </StyledButton>
-        </StyledFormItem>
+        </StyledCenteredFormItem>
       </Form>
 
       <Modal
