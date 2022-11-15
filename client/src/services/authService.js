@@ -36,6 +36,9 @@ class AuthService extends extender(adultService, studentService) {
     this.adultRegisterPart1 = false;
     this.studentRegisterPart1 = false;
     this.classroomCode = '';
+    this.game = '';
+    this.score = '';
+    this.previousGames = [];
     this.setAuthToken('');
     this.setBearerHeader('');
   }

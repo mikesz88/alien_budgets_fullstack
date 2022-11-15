@@ -15,7 +15,9 @@ const Student = () => {
   const getUser = () =>
     authService.getUser().then((response) => setId(response._id));
 
-  useEffect(() => getUser(), [authService]);
+  useEffect(() => {
+    getUser();
+  }, [authService]);
 
   return (
     <StyledDashboardWrapper>

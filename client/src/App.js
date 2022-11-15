@@ -8,6 +8,7 @@ import ClassroomService from './services/classroomService';
 import AuthService from './services/authService';
 import Routes from './routes/Routes';
 import GameService from './services/gameService';
+import { AuthServiceProvider } from './providers/AuthServiceProvider';
 
 const avatarService = new AvatarService();
 const classroomService = new ClassroomService();
@@ -34,13 +35,15 @@ const AuthProvider = ({ children }) => {
 };
 
 const App = () => (
-  <AuthProvider>
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes />
-      </Router>
-    </ThemeProvider>
-  </AuthProvider>
+  <AuthServiceProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes />
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
+  </AuthServiceProvider>
 );
 
 export default App;

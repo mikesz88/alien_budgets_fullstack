@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input } from 'antd';
@@ -6,31 +7,45 @@ import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { ERROR, error, success } from '../../../common/constants';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const StudentLogin = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { authService, updateService } = useContext(UserContext);
+  const { user, login: test } = useAuthServiceProvider();
 
   const login = (values) => {
-    setLoading(true);
-    authService
-      .login(values)
-      .then(() => {
-        navigate('/aliendashboard');
+    test(values)
+      .then(() =>
         Notification(
           success,
           'Login Successful',
           'You are now currently logged in.'
-        );
-        updateService();
-      })
-      .catch(() => {
-        form.resetFields();
-        Notification(error, ERROR, 'Please try again!');
-      })
-      .finally(() => setLoading(false));
+        )
+      )
+      .catch((err) => {
+        console.error(err);
+        Notification(error, ERROR, err.response.data.error);
+      });
+    // setLoading(true);
+    // authService
+    //   .login(values)
+    //   .then(() => {
+    //     navigate('/aliendashboard');
+    //     Notification(
+    //       success,
+    //       'Login Successful',
+    //       'You are now currently logged in.'
+    //     );
+    //     updateService();
+    //   })
+    //   .catch(() => {
+    //     form.resetFields();
+    //     Notification(error, ERROR, 'Please try again!');
+    //   })
+    //   .finally(() => setLoading(false));
   };
 
   const onFinish = (values) => login(values);

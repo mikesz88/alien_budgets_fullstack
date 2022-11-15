@@ -35,6 +35,7 @@ import PrivacyPolicy from '../features/PrivacyPolicy';
 import TermsOfService from '../features/TermsOfService';
 import Notification from '../components/Notification';
 import { SUCCESS, success } from '../common/constants';
+import Mobile from '../features/Mobile';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const location = useLocation();
@@ -75,6 +76,7 @@ export const Part1RegisterRequire = ({ user, children, ...props }) => {
 const Routes = () => {
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const findUser = (token) => {
     authService
@@ -98,10 +100,9 @@ const Routes = () => {
   };
 
   const checkMobile = () => {
-    console.log(window.screen.width);
-    if (window.screen.width < 768) {
-      navigate('/mobilescreen');
-      /* Create component for mobile screen. */
+    const newWidth = window.screen.width;
+    if (newWidth < 768 && location.pathname !== '/mobile') {
+      navigate('/mobile');
     }
   };
 
@@ -110,8 +111,12 @@ const Routes = () => {
     if (foundToken) {
       findUser(foundToken);
     }
-    checkMobile();
   }, []);
+
+  useEffect(() => {
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+  }, [window.screen.width, location]);
 
   return (
     <RouteWrapper>
@@ -244,6 +249,7 @@ const Routes = () => {
       <Route path="*" element={<FourOhFour />} />
       <Route path="/unauthorized" element={<Unauthorized />} exact />
       <Route path="/deleted" element={<DeletedAccount />} exact />
+      <Route path="/mobile" element={<Mobile />} exact />
     </RouteWrapper>
   );
 };

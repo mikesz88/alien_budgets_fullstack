@@ -49,7 +49,7 @@ const Account = () => {
         closable={false}
         destroyOnClose
         onClose={closeDrawer}
-        size="large"
+        size="default"
       >
         {component === updateProfile && (
           <UpdateProfile closeDrawer={closeDrawer} />
