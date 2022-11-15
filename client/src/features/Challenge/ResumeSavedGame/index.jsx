@@ -14,15 +14,17 @@ import {
 } from '../../../common/constants';
 import Notification from '../../../components/Notification';
 import ResumeSavedGameWrapper from './styles';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const ResumeSavedGame = ({ changeView }) => {
-  const { authService, gameService, updateService } = useContext(UserContext);
+  const { user, deleteGame, getBearerHeader } = useAuthServiceProvider();
+  const { gameService } = useContext(UserContext);
   const [currentGame, setCurrentGame] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const grabGameInfo = () => {
     gameService
-      .getGameById(authService.game)
+      .getGameById(user.game)
       .then((res) => {
         setCurrentGame(res);
         Notification(success, SUCCESS, 'Saved Game Found');
@@ -32,15 +34,11 @@ const ResumeSavedGame = ({ changeView }) => {
 
   const newGame = () => {
     setLoading(true);
-    authService
-      .deleteGame()
+    deleteGame()
       .then(() => {
         gameService
-          .deleteGame(currentGame._id, authService.getBearerHeader())
-          .then(() => {
-            updateService();
-            changeView(template);
-          })
+          .deleteGame(currentGame._id, getBearerHeader())
+          .then(() => changeView(template))
           .catch(() =>
             Notification(
               error,

@@ -6,10 +6,17 @@ import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { success, SUCCESS, error, ERROR } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const BudgetSummary = () => {
-  const { gameService, authService, classroomService, updateService } =
-    useContext(UserContext);
+  const { gameService, classroomService } = useContext(UserContext);
+  const {
+    user,
+    addScore,
+    getBearerHeader,
+    addResultsToStudentsHistory,
+    deleteGame: deleteSingleGame,
+  } = useAuthServiceProvider();
   const navigate = useNavigate();
   const [total, setTotal] = useState(null);
   const monthlyBudgetScore = gameService.getMonth() * 1000;
@@ -25,19 +32,18 @@ const BudgetSummary = () => {
     setTotal(gameService.updateScoreFromSavings(gameService.getSavings()));
 
   const updateResults = () => {
-    authService
-      .addScore(gameService.score)
+    addScore(gameService.score)
       .then(() => {
         classroomService
-          .updateStudentInClassroom(authService.getBearerHeader(), {
-            _id: authService.id,
-            score: authService.score,
-            firstName: authService.firstName,
-            lastInitial: authService.lastInitial,
-            username: authService.username,
-            avatarURL: authService.avatarURL,
-            avatarColor: authService.avatarColor,
-            classroomCode: authService.classroomCode,
+          .updateStudentInClassroom(getBearerHeader(), {
+            _id: user.id,
+            score: user.score,
+            firstName: user.firstName,
+            lastInitial: user.lastInitial,
+            username: user.username,
+            avatarURL: user.avatarURL,
+            avatarColor: user.avatarColor,
+            classroomCode: user.classroomCode,
           })
           .then(() =>
             Notification(
@@ -65,21 +71,20 @@ const BudgetSummary = () => {
   };
 
   const addResultToHistory = () => {
-    authService
-      .addResultsToStudentsHistory({
-        job: gameService.getJob().jobTitle,
-        dwelling: gameService.getHouse().dwelling,
-        salary: gameService.getSalary(),
-        score: gameService.getScore(),
-        mathFactScore: +(
-          gameService.getMathFactResults().reduce((a, z) => a + z, 0) /
-          gameService.getMathFactResults().length
-        ).toFixed(2),
-        battleshipScore: +(
-          gameService.getBattleshipResults().reduce((a, z) => a + z, 0) /
-          gameService.getBattleshipResults().length
-        ).toFixed(2),
-      })
+    addResultsToStudentsHistory({
+      job: gameService.getJob().jobTitle,
+      dwelling: gameService.getHouse().dwelling,
+      salary: gameService.getSalary(),
+      score: gameService.getScore(),
+      mathFactScore: +(
+        gameService.getMathFactResults().reduce((a, z) => a + z, 0) /
+        gameService.getMathFactResults().length
+      ).toFixed(2),
+      battleshipScore: +(
+        gameService.getBattleshipResults().reduce((a, z) => a + z, 0) /
+        gameService.getBattleshipResults().length
+      ).toFixed(2),
+    })
       .then(() => {
         Notification(success, SUCCESS, 'Results added to your previous games.');
       })
@@ -93,11 +98,10 @@ const BudgetSummary = () => {
   };
 
   const deleteGame = () => {
-    authService
-      .deleteGame()
+    deleteSingleGame()
       .then(() =>
         gameService
-          .deleteGame(gameService.gameId, authService.getBearerHeader())
+          .deleteGame(gameService.gameId, getBearerHeader())
           .then(() =>
             Notification(
               success,
@@ -118,11 +122,9 @@ const BudgetSummary = () => {
 
   useEffect(() => {
     updateTotal();
-    updateService();
     updateResults();
     addResultToHistory();
     deleteGame();
-    updateService();
   }, []);
 
   const dataSource = [

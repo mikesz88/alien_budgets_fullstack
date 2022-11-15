@@ -11,22 +11,23 @@ import {
   success,
 } from '../../../../../common/constants';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
 
 const DeleteModal = ({ open, close, classId }) => {
-  const { authService, classroomService } = useContext(UserContext);
+  const { getBearerHeader, deleteSelectedStudents } = useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleDeleteClass = () => {
     classroomService
-      .deleteSingleClassroomByTeacher(authService.getBearerHeader(), classId)
+      .deleteSingleClassroomByTeacher(getBearerHeader(), classId)
       .then((response) => {
         Notification(
           success,
           SUCCESS,
           'Classrooms linked to this adult account have also been deleted.'
         );
-        authService
-          .deleteSelectedStudents(response.students)
+        deleteSelectedStudents(response.students)
           .then(() => {
             Notification(
               success,

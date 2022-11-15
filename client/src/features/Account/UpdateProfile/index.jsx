@@ -1,30 +1,30 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../../App';
+import React from 'react';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 import UpdateAdultProfile from './Adult';
 import UpdateStudentProfile from './Student';
 
 const UpdateProfile = ({ closeDrawer }) => {
-  const { authService } = useContext(UserContext);
+  const { user } = useAuthServiceProvider();
 
   return (
     <>
       <div>Current Details</div>
-      <div>FirstName: {authService.firstName}</div>
-      {authService.role === 'student' ? (
+      <div>FirstName: {user.firstName}</div>
+      {user.role === 'student' ? (
         <>
-          <div>Last Initial: {authService.lastInitial}</div>
-          <div>Classroom Code: {authService.classroomCode}</div>
+          <div>Last Initial: {user.lastInitial}</div>
+          <div>Classroom Code: {user.classroomCode}</div>
           <UpdateStudentProfile closeDrawer={closeDrawer} />
         </>
       ) : (
         <>
-          <div>Last Name: {authService.lastName}</div>
-          <div>Email: {authService.email}</div>
+          <div>Last Name: {user.lastName}</div>
+          <div>Email: {user.email}</div>
           <div>
             Grade Levels:{' '}
-            {authService.gradeLevel.length > 1
-              ? authService.gradeLevel.join(', ')
-              : authService.gradeLevel}
+            {user.gradeLevel.length > 1
+              ? user.gradeLevel.join(', ')
+              : user.gradeLevel}
           </div>
           <UpdateAdultProfile closeDrawer={closeDrawer} />
         </>

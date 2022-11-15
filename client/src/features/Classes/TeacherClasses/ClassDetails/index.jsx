@@ -18,6 +18,7 @@ import {
 import StyledDivWrapper from '../../../../components/DivWrapper';
 import StyledTable from '../../../../components/Table';
 import StyledBasicDiv from '../../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
 
 const ClassDetails = () => {
   const { classId } = useParams();
@@ -30,7 +31,9 @@ const ClassDetails = () => {
   const [openEditStudentModal, setOpenEditStudentModal] = useState(false);
   const [openDeleteClassModal, setOpenDeleteClassModal] = useState(false);
   const [openNewStudentModal, setOpenNewStudentModal] = useState(false);
-  const { authService, classroomService } = useContext(UserContext);
+  const { user, getBearerHeader, resetStudentPassword, getStudentInfo } =
+    useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
   const navigate = useNavigate();
 
   const data = (studentsInClass) =>
@@ -58,7 +61,7 @@ const ClassDetails = () => {
   const getClassroom = () => {
     setLoading(true);
     classroomService
-      .getSpecificClassroom(authService.getBearerHeader(), classId)
+      .getSpecificClassroom(getBearerHeader(), classId)
       .then((res) => {
         setClassroomCode(res.classroomCode);
         setStudents(data(res.students));
@@ -81,8 +84,7 @@ const ClassDetails = () => {
   }, [classroomService.currentClassUpdated]);
 
   const confirm = (studentId) => {
-    authService
-      .resetStudentPassword(studentId)
+    resetStudentPassword(studentId)
       .then((res) => {
         setResetMessageObject(res);
         setOpenModal(true);
@@ -114,8 +116,7 @@ const ClassDetails = () => {
   const handleCloseNewStudentModal = () => setOpenNewStudentModal(false);
 
   const editStudentInfo = (studentId) => {
-    authService
-      .getStudentInfo(studentId)
+    getStudentInfo(studentId)
       .then((res) => {
         setStudentInfo(res);
         setOpenEditStudentModal(true);
@@ -225,7 +226,7 @@ const ClassDetails = () => {
       <StyledButton
         size="large"
         type="primary"
-        onClick={() => navigate(`/classrooms/teacher/${authService.id}`)}
+        onClick={() => navigate(`/classrooms/teacher/${user.id}`)}
       >
         Back to My Classes
       </StyledButton>

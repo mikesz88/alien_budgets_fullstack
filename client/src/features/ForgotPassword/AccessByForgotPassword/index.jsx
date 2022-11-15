@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Form, Modal, Input, Result } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import GreetingBar from '../../../components/GreetingBar';
 import {
   ERROR,
@@ -20,11 +19,17 @@ import {
   StyledFormItem,
   StyledWidthFormItem,
 } from './styles';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const { confirm } = Modal;
 
 const AccessByForgotPassword = () => {
-  const { authService } = useContext(UserContext);
+  const {
+    retrieveForgotQuestionFromUser,
+    getOneForgotQuestion,
+    validateForgotPassword: validateForgottenPassword,
+    resetPassword: resetUserPassword,
+  } = useAuthServiceProvider();
   const [resetModal, setResetModal] = useState(false);
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -39,11 +44,9 @@ const AccessByForgotPassword = () => {
 
   const handleQuestion = () => {
     const user = email || username;
-    authService
-      .retrieveForgotQuestionFromUser(user)
+    retrieveForgotQuestionFromUser(user)
       .then((res) => {
-        authService
-          .getOneForgotQuestion(res)
+        getOneForgotQuestion(res)
           .then((response) => {
             setForgotQuestion(response.question);
             Notification(success, SUCCESS, 'Forgot Question found!');
@@ -77,8 +80,7 @@ const AccessByForgotPassword = () => {
   };
 
   const validateForgotPassword = (forgotPasswordAnswer) => {
-    authService
-      .validateForgotPassword(email, username, forgotPasswordAnswer)
+    validateForgottenPassword(email, username, forgotPasswordAnswer)
       .then((res) => {
         setResetToken(res);
         setResetModal(true);
@@ -100,8 +102,7 @@ const AccessByForgotPassword = () => {
   };
 
   const resetPassword = (newPassword) => {
-    authService
-      .resetPassword(resetToken, newPassword)
+    resetUserPassword(resetToken, newPassword)
       .then(() => {
         setResetModal(false);
         setSuccessResult(true);

@@ -6,15 +6,21 @@ import Notification from '../../../components/Notification';
 import StyledBasicHeader from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const DeleteAccount = () => {
   const [loading, setLoading] = useState(false);
-  const { authService, classroomService } = useContext(UserContext);
+  const {
+    user,
+    deleteSelf: deleteMyself,
+    deleteSelectedStudents,
+    getBearerHeader,
+  } = useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
   const navigate = useNavigate();
 
   const deleteSelf = () => {
-    authService
-      .deleteSelf()
+    deleteMyself()
       .then((res) => {
         Notification(success, SUCCESS, res.message);
         navigate('/deleted');
@@ -28,11 +34,11 @@ const DeleteAccount = () => {
   const deleteStudent = () => {
     setLoading(true);
     const body = {
-      classroomCode: authService.classroomCode,
-      id: authService.id,
+      classroomCode: user.classroomCode,
+      id: user.id,
     };
     classroomService
-      .deleteStudentFromClass(authService.getBearerHeader(), body)
+      .deleteStudentFromClass(getBearerHeader(), body)
       .then(() =>
         Notification(
           success,
@@ -53,18 +59,14 @@ const DeleteAccount = () => {
   const deleteAdult = () => {
     setLoading(true);
     classroomService
-      .deleteAllClassroomsByTeacher(
-        authService.getBearerHeader(),
-        authService.id
-      )
+      .deleteAllClassroomsByTeacher(getBearerHeader(), user.id)
       .then((response) => {
         Notification(
           success,
           'Classrooms deleted',
           'Classrooms linked to this adult account have also been deleted.'
         );
-        authService
-          .deleteSelectedStudents(response.students)
+        deleteSelectedStudents(response.students)
           .then(() =>
             Notification(
               success,
@@ -91,7 +93,7 @@ const DeleteAccount = () => {
   };
 
   const handleDelete = () =>
-    authService.role === 'adult' ? deleteAdult() : deleteStudent();
+    user.role === 'adult' ? deleteAdult() : deleteStudent();
 
   return (
     <>
@@ -100,7 +102,7 @@ const DeleteAccount = () => {
         There is no going back from this. You will need to create a new account
         in order to access Alien Budgets.
       </StyledBasicDiv>
-      {authService.role === 'adult' && (
+      {user.role === 'adult' && (
         <StyledBasicDiv>
           If you delete your account, any classrooms you own and the students
           enrolled into them will also be deleted as well.

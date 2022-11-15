@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../App';
+import React from 'react';
 import StyledAvatarImg from './styles';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const Avatar = ({ avatar, size }) => {
-  const { authService } = useContext(UserContext);
+  const { user } = useAuthServiceProvider();
   const { avatarName, avatarColor } = avatar;
 
   return (
     <StyledAvatarImg
-      src={avatarName || authService.avatarName}
-      avatarColor={avatarColor || authService.avatarColor}
+      src={avatarName || user.avatarName}
+      avatarColor={avatarColor || user.avatarColor}
       size={size}
     />
   );

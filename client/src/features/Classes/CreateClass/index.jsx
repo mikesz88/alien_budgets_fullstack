@@ -27,15 +27,17 @@ import {
   StyledTitle,
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const CreateClass = () => {
+  const { user, getBearerHeader, getAllForgotQuestions } =
+    useAuthServiceProvider();
+  const { avatarService, classroomService } = useContext(UserContext);
   const [classroomCode, setClassroomCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [newClassId, setNewClassId] = useState({});
   const [newClassroomRoster, setNewClassroomRoster] = useState(false);
   const [newStudentData, setNewStudentData] = useState([]);
-  const { authService, avatarService, classroomService } =
-    useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -77,7 +79,7 @@ const CreateClass = () => {
   }, []);
 
   const getRandomForgotPasswordSet = useCallback(async () => {
-    const forgotQuestionList = await authService.getAllForgotQuestions();
+    const forgotQuestionList = await getAllForgotQuestions();
     const chosenQuestion = faker.helpers.arrayElement(forgotQuestionList);
     return {
       forgotPasswordQuestion: chosenQuestion.question,
@@ -114,7 +116,7 @@ const CreateClass = () => {
   const createClassroom = (body) => {
     setLoading(true);
     classroomService
-      .createClassroom(authService.getBearerHeader(), body)
+      .createClassroom(getBearerHeader(), body)
       .then((res) => {
         setNewClassId(res.id);
         setNewStudentData(res.students);
@@ -147,7 +149,7 @@ const CreateClass = () => {
       classroomCode: values.classroomCode,
       gradeLevel: values.gradeLevel,
       students,
-      adult: authService.id,
+      adult: user.id,
     };
     createClassroom(body);
   };

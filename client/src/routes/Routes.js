@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Routes as RouteWrapper,
   Route,
@@ -19,7 +19,6 @@ import RegisterStudentPart2 from '../features/Student/RegisterPart2';
 import Challenge from '../features/Challenge';
 import FourOhFour from '../features/FourOhFour';
 import Unauthorized from '../features/Unauthorized';
-import { UserContext } from '../App';
 import TeacherClasses from '../features/Classes/TeacherClasses';
 import CreateClass from '../features/Classes/CreateClass';
 import Account from '../features/Account';
@@ -36,12 +35,13 @@ import TermsOfService from '../features/TermsOfService';
 import Notification from '../components/Notification';
 import { SUCCESS, success } from '../common/constants';
 import Mobile from '../features/Mobile';
+import { useAuthServiceProvider } from '../providers/AuthServiceProvider';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
+  const { user: currentUser } = useAuthServiceProvider();
   const location = useLocation();
-  const { authService: service } = useContext(UserContext);
 
-  if (!service.isLoggedIn && service.role !== user) {
+  if (!currentUser.isLoggedIn && currentUser.role !== user) {
     return (
       <Navigate
         {...props}
@@ -57,9 +57,9 @@ export const PrivateRoute = ({ user, children, ...props }) => {
 
 export const Part1RegisterRequire = ({ user, children, ...props }) => {
   const location = useLocation();
-  const { authService: service } = useContext(UserContext);
+  const { user: currentUser } = useAuthServiceProvider();
 
-  if (!service[`${user}RegisterPart1`]) {
+  if (!currentUser[`${user}RegisterPart1`]) {
     return (
       <Navigate
         {...props}
@@ -74,16 +74,15 @@ export const Part1RegisterRequire = ({ user, children, ...props }) => {
 };
 
 const Routes = () => {
-  const { authService } = useContext(UserContext);
+  const { user: currentUser, foundUser } = useAuthServiceProvider();
   const navigate = useNavigate();
   const location = useLocation();
 
   const findUser = (token) => {
-    authService
-      .foundUser(token)
+    foundUser(token)
       .then((res) => {
         if (res.role === 'adult') {
-          const { firstName, lastName } = authService;
+          const { firstName, lastName } = currentUser;
           navigate('/dashboard');
           Notification(
             success,
@@ -91,7 +90,7 @@ const Routes = () => {
             `Welcome back ${firstName} ${lastName}!`
           );
         } else {
-          const { username } = authService;
+          const { username } = currentUser;
           Notification(success, SUCCESS, `Welcome back ${username}!`);
           navigate('/aliendashboard');
         }

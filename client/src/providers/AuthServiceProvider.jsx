@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-useless-catch */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, createContext } from 'react';
 import axios from 'axios';
 import Endpoints from '../common/endpoints';
@@ -34,9 +32,11 @@ export const AuthServiceProvider = ({ children }) => {
     adultRegisterPart1: false,
   });
 
+  // User
   const setAuthToken = (token) =>
     setUser((prevState) => ({ ...prevState, authToken: token }));
 
+  // User
   const setBearerHeader = (token) =>
     setUser((prevState) => ({
       ...prevState,
@@ -46,14 +46,18 @@ export const AuthServiceProvider = ({ children }) => {
       },
     }));
 
+  // User
   const getBearerHeader = () => user.bearerHeader;
 
+  // User
   const setIsLoggedIn = (loggedIn) =>
     setUser((prevState) => ({ ...prevState, isLoggedIn: loggedIn }));
 
+  // User
   const resetForgotPassword = () =>
     setUser((prevState) => ({ ...prevState, forgotPasswordAnswer: '' }));
 
+  // User
   const clearPassword = () =>
     setUser((prevState) => ({ ...prevState, password: '' }));
 
@@ -144,7 +148,7 @@ export const AuthServiceProvider = ({ children }) => {
     }));
 
   // Student
-  const registerStudentPar2 = ({ username, avatarURL, avatarColor }) =>
+  const registerStudentPart2 = ({ username, avatarURL, avatarColor }) =>
     setUser((prevState) => ({
       ...prevState,
       username,
@@ -327,6 +331,161 @@ export const AuthServiceProvider = ({ children }) => {
     return response.data;
   };
 
+  // Auth
+  const resetUser = () => {
+    setUser((prevState) => ({
+      ...prevState,
+      id: '',
+      firstName: '',
+      lastName: '',
+      lastInitial: '',
+      username: '',
+      avatarURL: '',
+      avatarColor: '',
+      forgotPasswordQuestion: '',
+      forgotPasswordAnswer: '',
+      role: '',
+      email: '',
+      password: '',
+      gradeLevel: [],
+      adultRegisterPart1: false,
+      studentRegisterPart1: false,
+      classroomCode: '',
+      game: '',
+      score: '',
+      previousGames: [],
+    }));
+    setIsLoggedIn(false);
+    setAuthToken('');
+    setBearerHeader('');
+  };
+
+  // Auth
+  const setForgotQuestionList = (list) => {
+    const renamedList = [];
+    list.forEach((question) => {
+      renamedList.push({
+        id: question._id,
+        question: question.question,
+        createdAt: question.createdAt,
+      });
+    });
+    return renamedList;
+  };
+
+  // Auth
+  const getAllForgotQuestions = async () => {
+    const { data: response } = await axios.get(Endpoints.getAllForgotQuestions);
+    return setForgotQuestionList(response.data);
+  };
+
+  // Auth
+  const getOneForgotQuestion = async (questionId) => {
+    const { data: response } = await axios.get(
+      `${Endpoints.getOneForgotQuestion}/${questionId}`
+    );
+    return response.data;
+  };
+
+  // Auth
+  const updateForgotQuestionAnswer = async (body) => {
+    const headers = getBearerHeader();
+    const { data: response } = await axios.put(
+      Endpoints.updateForgotQuestionAnswer,
+      body,
+      headers
+    );
+    setUser((prevState) => ({
+      ...prevState,
+      forgotPasswordQuestion: response.forgotQuestion,
+    }));
+    return response;
+  };
+
+  // Auth
+  const registerStudent = async (userData) => {
+    registerStudentPart2(userData);
+    const body = getStudentData();
+    body.password = userData.password;
+    body.forgotPasswordAnswer = user.forgotPasswordAnswer;
+    const { data: response } = await axios.post(
+      Endpoints.registerStudent,
+      body
+    );
+    setAuthToken(response.token);
+    setBearerHeader(response.token);
+    localStorage.setItem('token', response.token);
+    setIsLoggedIn(true);
+    await getUser();
+    return response;
+  };
+
+  // Auth
+  const registerAdult = async (userData) => {
+    registerAdultPart2(userData);
+    const body = getAdultData();
+    body.password = user.password;
+    body.forgotPasswordAnswer = user.forgotPasswordAnswer;
+    const { data: response } = await axios.post(Endpoints.registerAdult, body);
+    setAuthToken(response.token);
+    setBearerHeader(response.token);
+    localStorage.setItem('token', response.token);
+    setIsLoggedIn(true);
+    await getUser();
+    return response;
+  };
+
+  // Auth
+  const retrieveForgotQuestionFromUser = async (person) => {
+    const { data: response } = await axios.get(
+      `${Endpoints.retrieveForgotQuestionFromUser}/${person}`
+    );
+    return response.data;
+  };
+
+  // Auth
+  const validateForgotPassword = async (
+    email,
+    username,
+    forgotPasswordAnswer
+  ) => {
+    const body = { email, username, forgotPasswordAnswer };
+    const { data: response } = await axios.post(
+      `${Endpoints.validateForgotPassword}`,
+      body
+    );
+    return response.data;
+  };
+
+  // Auth
+  const resetPassword = async (resetToken, password) => {
+    const body = { password };
+    const { data: response } = await axios.put(
+      `${Endpoints.resetPassword}/${resetToken}`,
+      body
+    );
+    return response;
+  };
+
+  // Auth
+  const foundUser = async (token) => {
+    setBearerHeader(token);
+    const headers = getBearerHeader();
+    const { data: response } = await axios.get(Endpoints.getLoggedInUser, {
+      headers,
+    });
+    if (response.data.role === 'student') {
+      setStudentData(response.data);
+    } else {
+      setAdultData(response.data);
+    }
+    await getUser();
+    setAuthToken(token);
+    setIsLoggedIn(true);
+    return response.data;
+  };
+
+  // Auth
   const getUser = async () => {
     const headers = getBearerHeader();
     const { data: response } = await axios.get(Endpoints.getLoggedInUser, {
@@ -342,6 +501,7 @@ export const AuthServiceProvider = ({ children }) => {
     return response.data;
   };
 
+  // Auth
   const login = async (values) => {
     const body = values;
     const { data: response } = await axios.post(Endpoints.login, body);
@@ -352,6 +512,86 @@ export const AuthServiceProvider = ({ children }) => {
     getUser();
   };
 
+  // Auth
+  const logout = async () => {
+    const headers = getBearerHeader();
+    const { data: response } = await axios.get(Endpoints.logout, headers);
+    localStorage.removeItem('token');
+    resetUser();
+    return response.message;
+  };
+
+  // Auth
+  const updateAdultProfile = async (body) => {
+    const headers = getBearerHeader();
+    const { data: response } = await axios.put(
+      Endpoints.updateAdultProfile,
+      body,
+      headers
+    );
+    setAdultData(response.data);
+  };
+
+  // Auth
+  const updateStudentProfile = async (body) => {
+    const headers = getBearerHeader();
+    const { data: response } = await axios.put(
+      Endpoints.updateStudentProfile,
+      body,
+      headers
+    );
+    setStudentData(response.data);
+    return response.data;
+  };
+
+  // Auth
+  const updateAvatar = async (body) => {
+    const headers = getBearerHeader();
+    const { data: response } = await axios.put(
+      Endpoints.updateAvatar,
+      body,
+      headers
+    );
+    setUser((prevState) => ({
+      ...prevState,
+      avatarColor: response.data.avatarColor,
+      avatarURL: response.data.avatarURL,
+      username: response.data.username ? response.data.username : '',
+    }));
+    return response;
+  };
+
+  // Auth
+  const updatePassword = async (currentPassword, newPassword) => {
+    const headers = getBearerHeader();
+    await axios.put(
+      Endpoints.updatePassword,
+      { currentPassword, newPassword },
+      headers
+    );
+  };
+
+  // Auth
+  const deleteSelf = async () => {
+    const headers = getBearerHeader();
+    const { data: response } = await axios.put(Endpoints.deleteSelf, headers);
+    localStorage.removeItem('token');
+    resetUser();
+    return response;
+  };
+
+  // Auth
+  const deleteSelectedStudents = async (students) => {
+    const headers = getBearerHeader();
+    const body = students;
+    const { data: response } = await axios.put(
+      Endpoints.deleteSelectedStudents,
+      body,
+      headers
+    );
+    return response;
+  };
+
   return (
     <AuthServiceContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -359,8 +599,9 @@ export const AuthServiceProvider = ({ children }) => {
         user,
         setUser,
         login,
+        getUser,
         registerStudentPart1,
-        registerStudentPar2,
+        registerStudentPart2,
         getStudentData,
         getStudentInfo,
         addGame,
@@ -375,6 +616,24 @@ export const AuthServiceProvider = ({ children }) => {
         resetPasswordByEmail,
         resetPasswordByToken,
         validateEmail,
+        resetUser,
+        setForgotQuestionList,
+        getAllForgotQuestions,
+        getOneForgotQuestion,
+        updateForgotQuestionAnswer,
+        registerStudent,
+        registerAdult,
+        retrieveForgotQuestionFromUser,
+        validateForgotPassword,
+        resetPassword,
+        foundUser,
+        logout,
+        updateAdultProfile,
+        updateStudentProfile,
+        updateAvatar,
+        updatePassword,
+        deleteSelf,
+        deleteSelectedStudents,
       }}
     >
       {children}
@@ -382,8 +641,4 @@ export const AuthServiceProvider = ({ children }) => {
   );
 };
 
-export const useAuthServiceProvider = () => {
-  const context = useContext(AuthServiceContext);
-
-  return context;
-};
+export const useAuthServiceProvider = () => useContext(AuthServiceContext);

@@ -7,12 +7,14 @@ import StyledTable from '../../../components/Table';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import StyledDivWrapper from '../../../components/DivWrapper';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const TeacherClasses = () => {
   const { teacherId } = useParams();
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { authService, classroomService } = useContext(UserContext);
+  const { getBearerHeader } = useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
 
   const data = (classes) =>
     classes.map((classroom) => ({
@@ -26,7 +28,7 @@ const TeacherClasses = () => {
   const getClassrooms = () => {
     setLoading(true);
     classroomService
-      .getAllTeacherClassrooms(authService.getBearerHeader(), teacherId)
+      .getAllTeacherClassrooms(getBearerHeader(), teacherId)
       .then((response) => {
         setClassrooms(data(response));
         Notification(success, SUCCESS, 'Teacher classrooms found!');

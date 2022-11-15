@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../App';
 import {
   StyledAdultGreetingContainer,
   StyledTitleFont,
@@ -8,6 +7,7 @@ import {
   StyledStudentGreetingContainer,
   StyledButton,
 } from './styles';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const GreetingBar = ({
   adult,
@@ -17,13 +17,13 @@ const GreetingBar = ({
   username,
   template,
 }) => {
-  const { authService } = useContext(UserContext);
+  const { user } = useAuthServiceProvider();
   const navigate = useNavigate();
 
   const backToHome = () =>
-    !authService.isLoggedIn
+    !user.isLoggedIn
       ? navigate('/')
-      : authService.role === 'adult'
+      : user.role === 'adult'
       ? navigate('/dashboard')
       : navigate('/aliendashboard');
 
@@ -52,11 +52,7 @@ const GreetingBar = ({
       )}
       {template && (
         <StyledAdultGreetingContainer>
-          <StyledButton
-            style={{ height: 'fit-content' }}
-            type="text"
-            onClick={backToHome}
-          >
+          <StyledButton type="text" onClick={backToHome}>
             <StyledTitleFont>ALIEN BUDGETS</StyledTitleFont>
           </StyledButton>
           <StyledAdultName>{template}</StyledAdultName>

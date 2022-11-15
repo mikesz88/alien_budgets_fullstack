@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import GreetingBar from '../../components/GreetingBar';
 import MathFacts from './MathFacts';
-import { UserContext } from '../../App';
 import Battleship from './Battleship';
 import Template from './Template';
 import BudgetSummary from './BudgetSummary';
@@ -14,9 +13,10 @@ import {
   savedGame,
   template,
 } from '../../common/constants';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const Challenge = () => {
-  const { authService } = useContext(UserContext);
+  const { user } = useAuthServiceProvider();
   const [openMathFacts, setOpenMathFacts] = useState(false);
   const [openBattleShips, setOpenBattleShips] = useState(false);
   const [openTemplate, setOpenTemplate] = useState(false);
@@ -66,7 +66,7 @@ const Challenge = () => {
   };
 
   const checkForSavedGame = () =>
-    authService.game ? changeView(savedGame) : changeView(template);
+    user.game ? changeView(savedGame) : changeView(template);
 
   useEffect(() => checkForSavedGame(), []);
 

@@ -17,9 +17,11 @@ import {
   StyledHouseRadioContainer,
   StyledRadioWrapper,
 } from './styles';
+import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
 
 const SelectHouse = ({ goToSalary, backToBudget }) => {
-  const { authService, gameService, updateService } = useContext(UserContext);
+  const { getBearerHeader } = useAuthServiceProvider();
+  const { gameService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [loadingHouses, setLoadingHouses] = useState(false);
   const [allHouses, setAllHouses] = useState([]);
@@ -58,7 +60,7 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
     gameService.updateGameById(
       { house: values.selectedHouse },
       gameService.gameId,
-      authService.getBearerHeader()
+      getBearerHeader()
     );
 
   const onFinish = (values) => {
@@ -66,7 +68,6 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
     gameService.setHouse(values.selectedHouse);
     if (gameService.getSalary()) {
       updateGameById(values);
-      updateService();
       setLoading(false);
       return backToBudget();
     }

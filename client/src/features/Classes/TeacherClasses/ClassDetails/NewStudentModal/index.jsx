@@ -22,13 +22,14 @@ import {
 } from './styles';
 import StyledCenteredFormItem from '../../../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
 
 const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   const [loading, setLoading] = useState(false);
   const [newClassroomRoster, setNewClassroomRoster] = useState(false);
   const [newStudentData, setNewStudentData] = useState([]);
-  const { authService, avatarService, classroomService, updateService } =
-    useContext(UserContext);
+  const { getAllForgotQuestions, getBearerHeader } = useAuthServiceProvider();
+  const { avatarService, classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
 
   const newPassword = useCallback(
@@ -52,7 +53,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   }, []);
 
   const getRandomForgotPasswordSet = useCallback(async () => {
-    const forgotQuestionList = await authService.getAllForgotQuestions();
+    const forgotQuestionList = await getAllForgotQuestions();
     const chosenQuestion = faker.helpers.arrayElement(forgotQuestionList);
     return {
       forgotPasswordQuestion: chosenQuestion.question,
@@ -63,7 +64,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   const createNewStudents = (body) => {
     setLoading(true);
     classroomService
-      .createNewStudentInClassroom(authService.getBearerHeader(), body)
+      .createNewStudentInClassroom(getBearerHeader(), body)
       .then((res) => {
         setNewClassroomRoster(true);
         setNewStudentData(res.students);
@@ -72,7 +73,6 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
           SUCCESS,
           'You have successfully added a new student to your classroom. Please print a copy for your records.'
         );
-        updateService();
       })
       .catch(() =>
         Notification(

@@ -17,10 +17,11 @@ import {
 import Notification from '../../../../../components/Notification';
 import StyledPagination from '../../../../../components/Pagination';
 import StyledRadioGroup from '../../../../../components/RadioGroup';
+import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
 
 const EditCloseModal = ({ open, close, data }) => {
-  const { avatarService, authService, classroomService, updateService } =
-    useContext(UserContext);
+  const { getBearerHeader, updateStudentByAdult } = useAuthServiceProvider();
+  const { avatarService, classroomService } = useContext(UserContext);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -140,13 +141,8 @@ const EditCloseModal = ({ open, close, data }) => {
 
   const deleteStudent = () => {
     classroomService
-      .deleteStudent(
-        authService.getBearerHeader(),
-        data._id,
-        data.classroomCode
-      )
+      .deleteStudent(getBearerHeader(), data._id, data.classroomCode)
       .then(() => {
-        updateService();
         Notification(success, SUCCESS, 'Student Deleted.');
         close();
       })
@@ -177,14 +173,12 @@ const EditCloseModal = ({ open, close, data }) => {
   };
 
   const updateStudent = (body) => {
-    authService
-      .updateStudentByAdult(data._id, body)
+    updateStudentByAdult(data._id, body)
       .then((res) => {
         classroomService
-          .updateStudentInClassroom(authService.getBearerHeader(), res)
+          .updateStudentInClassroom(getBearerHeader(), res)
           .then(() => {
             Notification(success, SUCCESS, 'Student has been updated!');
-            updateService();
             close();
           })
           .catch(() =>

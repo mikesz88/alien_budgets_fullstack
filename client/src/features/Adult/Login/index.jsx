@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input } from 'antd';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import { success, error, ERROR } from '../../../common/constants';
 import Notification from '../../../components/Notification';
 import loginButtons from './helper';
@@ -14,43 +12,25 @@ const AdultLogin = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { authService, updateService } = useContext(UserContext);
-  const { user, login } = useAuthServiceProvider();
+  const { login } = useAuthServiceProvider();
 
   const onFinish = (values) => {
+    setLoading(true);
     login(values)
-      .then(() =>
+      .then(() => {
         Notification(
           success,
           'Login Successful',
           'You are now currently logged in.'
-        )
-      )
-      .catch((err) => {
-        console.error(err);
-        Notification(error, ERROR, err.response.data.error);
+        );
+        navigate('/dashboard');
+      })
+      .catch((err) => Notification(error, ERROR, err.response.data.error))
+      .finally(() => {
+        form.resetFields();
+        setLoading(false);
       });
-    // setLoading(true);
-    // authService
-    //   .login(values)
-    //   .then(() => {
-    //     navigate('/dashboard');
-    //     Notification(
-    //       success,
-    //       'Login Successful',
-    //       'You are now currently logged in.'
-    //     );
-    //     form.resetFields();
-    //     updateService();
-    //   })
-    //   .catch(() => {
-    //     form.resetFields();
-    //     Notification(error, ERROR, 'Invalid Email/Password. Please try again!');
-    //   })
-    //   .finally(() => setLoading(false));
   };
-
-  console.log('user:', user);
 
   return (
     <>

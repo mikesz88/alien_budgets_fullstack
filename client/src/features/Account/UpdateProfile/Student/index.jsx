@@ -1,20 +1,17 @@
-/* eslint-disable no-unused-vars */
-import React, {
-  useState,
-  useContext,
-  useMemo,
-  useCallback,
-  useEffect,
-} from 'react';
-import { Form, Input, Checkbox, Row, notification } from 'antd';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
+import { Form, Input } from 'antd';
 import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
+import Notification from '../../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../../common/constants';
+import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
 
 const UpdateStudentProfile = ({ closeDrawer }) => {
-  const { authService, updateService, classroomService } =
-    useContext(UserContext);
+  const { user, updateStudentProfile, getBearerHeader } =
+    useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [currentClassroomCode] = useState(authService.classroomCode);
+  const [currentClassroomCode] = useState(user.classroomCode);
   const [form] = Form.useForm();
 
   const getAllClassCodes = useCallback(
@@ -31,34 +28,23 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
     getAllClassCodes();
   }, []);
 
-  // eslint-disable-next-line consistent-return
   const onFinish = (values) => {
     setLoading(true);
-    console.log(values);
     if (values.classroomCode) {
       if (!isValidClassCode(values.classroomCode)) {
-        return notification.error({
-          message: 'error',
-          description: 'Invalid Classroom Code',
-        });
+        return Notification(error, ERROR, 'Invalid Classroom Code');
       }
     }
     const body = {};
-    // eslint-disable-next-line no-restricted-syntax
     for (const key of Object.keys(values)) {
       if (values[key]) {
         body[key] = values[key];
       }
     }
     if (!Object.keys(body).length) {
-      notification.error({
-        message: 'Empty!',
-        description: 'You must change at least one.',
-      });
+      Notification(error, ERROR, 'You must change at least one.');
     } else {
-      console.log(body);
-      authService
-        .updateStudentProfile(body)
+      updateStudentProfile(body)
         .then((res) => {
           if (body.classroomCode) {
             const classroomBody = {
@@ -67,32 +53,36 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
               newClassroomCode: body.classroomCode,
             };
             classroomService
-              .transferStudentToDifferentClass(
-                authService.getBearerHeader(),
-                classroomBody
+              .transferStudentToDifferentClass(getBearerHeader(), classroomBody)
+              .then(() =>
+                Notification(
+                  success,
+                  SUCCESS,
+                  'Student has been transferred to the new class.'
+                )
               )
-              .then((response) => console.log(response))
-              .catch((error) => {
-                console.error(error);
-                notification.error({
-                  message: 'Class Error',
-                  description: 'You were not swapped to your new class.',
-                });
-              });
+              .catch(() =>
+                Notification(
+                  error,
+                  ERROR,
+                  'You were not swapped to your new class.'
+                )
+              );
           }
-          notification.success({
-            message: 'Success',
-            description: 'Your profile has been successfully updated.',
-          });
+          Notification(
+            success,
+            SUCCESS,
+            'Your profile has been successfully updated.'
+          );
           form.resetFields();
-          updateService();
           closeDrawer();
         })
         .catch(() =>
-          notification.error({
-            message: 'Connection error',
-            description: 'There was something wrong with the connection',
-          })
+          Notification(
+            error,
+            ERROR,
+            'Connection error. There was something wrong with the connection'
+          )
         )
         .finally(() => setLoading(false));
     }
@@ -110,7 +100,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
         rules={[
           () => ({
             validator(_, value) {
-              if (value !== authService.firstName) {
+              if (value !== user.firstName) {
                 return Promise.resolve();
               }
               return Promise.reject(
@@ -132,7 +122,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
         rules={[
           () => ({
             validator(_, value) {
-              if (value !== authService.lastInitial) {
+              if (value !== user.lastInitial) {
                 return Promise.resolve();
               }
               return Promise.reject(

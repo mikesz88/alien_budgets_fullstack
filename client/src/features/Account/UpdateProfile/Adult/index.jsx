@@ -1,49 +1,44 @@
-import React, { useState, useContext } from 'react';
-import { Form, Input, Checkbox, Row, notification } from 'antd';
-import { UserContext } from '../../../../App';
+import React, { useState } from 'react';
+import { Form, Input, Checkbox, Row } from 'antd';
 import StyledButton from '../../../../components/PrimaryButton';
+import Notification from '../../../../components/Notification';
+import { ERROR, error, SUCCESS, success } from '../../../../common/constants';
+import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
 
 const UpdateAdultProfile = ({ closeDrawer }) => {
+  const { user, updateAdultProfile } = useAuthServiceProvider();
   const [loading, setLoading] = useState(false);
-  const { authService, updateService } = useContext(UserContext);
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     setLoading(true);
-    console.log(values);
     const body = {};
-    // eslint-disable-next-line no-restricted-syntax
     for (const key of Object.keys(values)) {
       if (values[key]) {
-        // eslint-disable-next-line no-unused-expressions
         key === 'email'
           ? (body[key] = values[key].toLowerCase())
           : (body[key] = values[key]);
       }
     }
     if (!Object.keys(body).length) {
-      notification.error({
-        message: 'Empty!',
-        description: 'You must change at least one.',
-      });
+      Notification(error, 'Empty!', 'You must change at least one.');
     } else {
-      console.log(body);
-      authService
-        .updateAdultProfile(body)
+      updateAdultProfile(body)
         .then(() => {
-          notification.success({
-            message: 'Success',
-            description: 'Your profile has been successfully updated.',
-          });
+          Notification(
+            success,
+            SUCCESS,
+            'Your profile has been successfully updated.'
+          );
           form.resetFields();
-          updateService();
           closeDrawer();
         })
         .catch(() =>
-          notification.error({
-            message: 'Connection error',
-            description: 'There was something wrong with the conenction',
-          })
+          Notification(
+            error,
+            ERROR,
+            'Connection error. Please refresh and start again!'
+          )
         )
         .finally(() => setLoading(false));
     }
@@ -62,7 +57,7 @@ const UpdateAdultProfile = ({ closeDrawer }) => {
         rules={[
           () => ({
             validator(_, value) {
-              if (value !== authService.firstName) {
+              if (value !== user.firstName) {
                 return Promise.resolve();
               }
               return Promise.reject(
@@ -84,7 +79,7 @@ const UpdateAdultProfile = ({ closeDrawer }) => {
         rules={[
           () => ({
             validator(_, value) {
-              if (value !== authService.lastName) {
+              if (value !== user.lastName) {
                 return Promise.resolve();
               }
               return Promise.reject(

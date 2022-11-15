@@ -19,10 +19,12 @@ import {
   generateBgColor,
 } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const ChangeAvatar = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
-  const { avatarService, authService, updateService } = useContext(UserContext);
+  const { avatarService } = useContext(UserContext);
+  const { user, updateAvatar } = useAuthServiceProvider();
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -49,25 +51,23 @@ const ChangeAvatar = ({ closeDrawer }) => {
           prevPage: res.pagination.prev ? res.pagination.prev.page : 10,
           nextPage: res.pagination.next ? res.pagination.next.page : 1,
         });
-        // Notification
       })
       .catch((err) => {
-        setAvatarList(err);
-        throw err;
-        // Notification
+        setAvatarList([]);
+        Notification(error, ERROR, err.response.data.error);
       });
   };
 
   const currentAvatar = () => {
-    const underscore = authService.username.search('_');
-    const title = authService.username
+    const underscore = user.username.search('_');
+    const title = user.username
       .split('')
-      .slice(underscore + 1, authService.username.length - 3)
+      .slice(underscore + 1, user.username.length - 3)
       .join('');
     setUserAvatar({
-      avatarURL: authService.avatarURL,
-      avatarColor: authService.avatarColor,
-      username: authService.username,
+      avatarURL: user.avatarURL,
+      avatarColor: user.avatarColor,
+      username: user.username,
       title,
     });
   };
@@ -92,8 +92,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
     setUserAvatar(value);
   };
 
-  const initialBackgroundColor = () =>
-    handleBgColorChange(authService.avatarColor);
+  const initialBackgroundColor = () => handleBgColorChange(user.avatarColor);
 
   const initialAvatarURL = () => handleAvatarURL();
 
@@ -140,8 +139,8 @@ const ChangeAvatar = ({ closeDrawer }) => {
   const onFinish = (values) => {
     setLoading(true);
     if (
-      values.avatarURL === authService.avatarURL &&
-      values.avatarColor === authService.avatarColor
+      values.avatarURL === user.avatarURL &&
+      values.avatarColor === user.avatarColor
     ) {
       Notification(
         error,
@@ -149,16 +148,14 @@ const ChangeAvatar = ({ closeDrawer }) => {
         'Avatar must have a different color or animal'
       );
     } else {
-      authService
-        .updateAvatar(values)
+      updateAvatar(values)
         .then(() => {
           Notification(success, SUCCESS, 'Avatar has been updated!');
           form.resetFields();
-          updateService();
           closeDrawer();
         })
-        .catch(() => {
-          Notification(error, ERROR, 'Please try again later!');
+        .catch((err) => {
+          Notification(error, ERROR, err.response.data.error);
         })
         .finally(() => setLoading(false));
     }
@@ -170,8 +167,8 @@ const ChangeAvatar = ({ closeDrawer }) => {
       <Form.Item noStyle>
         <Avatar
           avatar={{
-            avatarName: authService.avatarURL,
-            avatarColor: authService.avatarColor,
+            avatarName: user.avatarURL,
+            avatarColor: user.avatarColor,
           }}
           size="large"
         />
@@ -233,7 +230,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
           size="large"
         />
       </Form.Item>
-      {authService.role === 'student' && (
+      {user.role === 'student' && (
         <Form.Item
           name="username"
           rules={[

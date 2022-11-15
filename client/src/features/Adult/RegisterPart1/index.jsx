@@ -5,19 +5,28 @@ import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
-import { ERROR, error, SUCCESS, success } from '../../../common/constants';
+import {
+  ERROR,
+  error,
+  SUCCESS,
+  success,
+  passwordRegex,
+} from '../../../common/constants';
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { authService, classroomService } = useContext(UserContext);
+  const {
+    getAllForgotQuestions: getAllQuestions,
+    registerAdultPart1,
+    validateEmail,
+  } = useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
 
   const getAllClassCodes = useCallback(
     () => classroomService.getAllClassrooms(),
@@ -25,8 +34,7 @@ const RegisterAdult = () => {
   );
 
   const getAllForgotQuestions = useCallback(
-    () =>
-      authService.getAllForgotQuestions().then((res) => setQuestionList(res)),
+    () => getAllQuestions().then((res) => setQuestionList(res)),
     []
   );
 
@@ -43,7 +51,7 @@ const RegisterAdult = () => {
 
   const registerAdult = (values) => {
     try {
-      authService.registerAdultPart1(values);
+      registerAdultPart1(values);
       form.resetFields();
       Notification(success, SUCCESS, 'Part 1 Completed!');
       navigate('/register/adult/part2');
@@ -54,8 +62,7 @@ const RegisterAdult = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    authService
-      .validateEmail(values.email)
+    validateEmail(values.email)
       .then((response) => {
         Notification(success, SUCCESS, response.message);
         registerAdult(values);

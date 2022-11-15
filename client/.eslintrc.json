@@ -2,6 +2,7 @@
   "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "plugins": ["react", "prettier"],
   "rules": {
+    "no-unused-expressions": "off",
     "no-restricted-syntax": "off",
     "no-await-in-loop": "off",
     "jsx-a11y/anchor-is-valid": "warn",

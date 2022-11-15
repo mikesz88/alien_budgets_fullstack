@@ -1,21 +1,25 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Input, Select } from 'antd';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { error, ERROR, SUCCESS, success } from '../../../common/constants';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const ForgotQA = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
-  const { authService, updateService } = useContext(UserContext);
+  const {
+    user,
+    getAllForgotQuestions: getForgotQuestions,
+    getOneForgotQuestion,
+    updateForgotQuestionAnswer,
+  } = useAuthServiceProvider();
   const [form] = Form.useForm();
 
   const getAllForgotQuestions = useCallback(
-    () =>
-      authService.getAllForgotQuestions().then((res) => setQuestionList(res)),
+    () => getForgotQuestions().then((res) => setQuestionList(res)),
     []
   );
 
@@ -26,11 +30,9 @@ const ForgotQA = ({ closeDrawer }) => {
   };
 
   const getCurrentForgotQuestion = useCallback(() => {
-    authService
-      .getOneForgotQuestion(authService.forgotPasswordQuestion)
-      .then((res) => {
-        setCurrentQuestion(res.question);
-      });
+    getOneForgotQuestion(user.forgotPasswordQuestion).then((res) => {
+      setCurrentQuestion(res.question);
+    });
   }, []);
 
   useEffect(() => {
@@ -40,8 +42,7 @@ const ForgotQA = ({ closeDrawer }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    authService
-      .updateForgotQuestionAnswer(values)
+    updateForgotQuestionAnswer(values)
       .then(() => {
         Notification(
           success,
@@ -49,7 +50,6 @@ const ForgotQA = ({ closeDrawer }) => {
           'You have successfully changed your forgot question and answer'
         );
         form.resetFields();
-        updateService();
         closeDrawer();
       })
       .catch(() => {

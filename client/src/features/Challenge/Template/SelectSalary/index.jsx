@@ -12,9 +12,11 @@ import {
 import Notification from '../../../../components/Notification';
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import StyledMarginDiv from './styles';
+import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
 
 const SelectSalary = ({ goToMonthlyBudget }) => {
-  const { gameService, updateService, authService } = useContext(UserContext);
+  const { user, getBearerHeader, addGame } = useAuthServiceProvider();
+  const { gameService } = useContext(UserContext);
   const [diceValue, setDiceValue] = useState(null);
   const [tries, setTries] = useState(3);
 
@@ -54,10 +56,9 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
 
   const createNewGameInGameService = (body) => {
     gameService
-      .createGame(body, authService.getBearerHeader())
+      .createGame(body, getBearerHeader())
       .then((res) => {
-        authService
-          .addGame(res._id)
+        addGame(res._id)
           .then(() => {
             Notification(success, SUCCESS, 'Game created and assigned to you!');
           })
@@ -80,7 +81,7 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
 
   const createNewGame = () => {
     const body = {
-      alienId: authService.id,
+      alienId: user.id,
       mathFactResults: gameService.getMathFactResults(),
       battleshipResults: gameService.getBattleshipResults(),
       month: gameService.getMonth(),
@@ -100,7 +101,6 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
   const onFinish = () => {
     gameService.setSalary(salaryBasedOnDiceRoll(diceValue, true));
     createNewGame();
-    updateService();
     goToMonthlyBudget();
   };
 

@@ -6,11 +6,13 @@ import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { StyledDivContainer, StyledHeader } from './styles';
 import StyledTable from '../../../components/Table';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const Leaderboard = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
-  const { authService, classroomService } = useContext(UserContext);
+  const { user, getBearerHeader } = useAuthServiceProvider();
+  const { classroomService } = useContext(UserContext);
 
   const data = (studentsInClass) =>
     studentsInClass
@@ -33,10 +35,7 @@ const Leaderboard = () => {
   const getClassroom = () => {
     setLoading(true);
     classroomService
-      .getClassroomFromStudent(
-        authService.getBearerHeader(),
-        authService.classroomCode
-      )
+      .getClassroomFromStudent(getBearerHeader(), user.classroomCode)
       .then((res) => {
         setStudents(data(res.students));
         Notification(success, SUCCESS, 'Leaderboard Updated!');
@@ -91,7 +90,7 @@ const Leaderboard = () => {
 
   return (
     <StyledDivContainer>
-      <GreetingBar template={`Classroom: ${authService.classroomCode}`} />
+      <GreetingBar template={`Classroom: ${user.classroomCode}`} />
       <StyledHeader>Classroom Leaderboard</StyledHeader>
       <StyledTable
         columns={columns}

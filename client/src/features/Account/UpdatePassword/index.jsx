@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Input, Form } from 'antd';
-import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import Notification from '../../../components/Notification';
 import { error, passwordRegex, success } from '../../../common/constants';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const UpdatePassword = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
-  const { authService } = useContext(UserContext);
+  const { updatePassword } = useAuthServiceProvider();
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -21,8 +21,7 @@ const UpdatePassword = ({ closeDrawer }) => {
         'Current and new password cannot be the same'
       );
     } else {
-      authService
-        .updatePassword(currentPassword, newPassword)
+      updatePassword(currentPassword, newPassword)
         .then(() => {
           Notification(
             success,

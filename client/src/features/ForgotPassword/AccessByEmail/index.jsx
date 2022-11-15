@@ -1,16 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Modal, Input, Result } from 'antd';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import GreetingBar from '../../../components/GreetingBar';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { StyledDivWrapper, StyledFormItem } from './styles';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const AccessByEmail = () => {
-  const { authService } = useContext(UserContext);
+  const { resetPasswordByEmail } = useAuthServiceProvider();
   const [successResult, setSuccessResult] = useState(false);
   const [failedResult, setFailedResult] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,8 +26,7 @@ const AccessByEmail = () => {
 
   const resetEmail = (email) => {
     setLoading(true);
-    authService
-      .resetPasswordByEmail(email)
+    resetPasswordByEmail(email)
       .then(() => {
         setSuccessResult(true);
         Notification(

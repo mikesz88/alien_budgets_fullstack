@@ -22,9 +22,11 @@ import {
   success,
 } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
 
 const RegisterAdultPart2 = () => {
-  const { avatarService, authService, updateService } = useContext(UserContext);
+  const { registerAdult } = useAuthServiceProvider();
+  const { avatarService } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [avatarList, setAvatarList] = useState([]);
   const [avatarURL, setAvatarURL] = useState('');
@@ -109,12 +111,10 @@ const RegisterAdultPart2 = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    authService
-      .registerAdult(values)
+    registerAdult(values)
       .then(() => {
         navigate('/dashboard');
         Notification(success, 'Sign Up Successful', 'You are now logged in!');
-        updateService();
       })
       .catch(() =>
         Notification(error, ERROR, 'There was an error. Please try again!')
