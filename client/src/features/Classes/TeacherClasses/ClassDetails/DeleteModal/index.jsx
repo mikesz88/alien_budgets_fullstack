@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../../../App';
 import StyledButton from '../../../../../components/PrimaryButton';
 import Notification from '../../../../../components/Notification';
 import {
@@ -12,15 +11,15 @@ import {
 } from '../../../../../common/constants';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../../../providers/ClassroomServiceProvider';
 
 const DeleteModal = ({ open, close, classId }) => {
   const { getBearerHeader, deleteSelectedStudents } = useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
+  const { deleteSingleClassroomByTeacher } = useClassroomServiceProvider();
   const navigate = useNavigate();
 
   const handleDeleteClass = () => {
-    classroomService
-      .deleteSingleClassroomByTeacher(getBearerHeader(), classId)
+    deleteSingleClassroomByTeacher(getBearerHeader(), classId)
       .then((response) => {
         Notification(
           success,

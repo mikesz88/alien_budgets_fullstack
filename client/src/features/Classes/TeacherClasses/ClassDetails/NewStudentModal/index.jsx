@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Form, Modal, Input, Button } from 'antd';
 import { faker } from '@faker-js/faker';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -10,7 +10,6 @@ import {
   SUCCESS,
   success,
 } from '../../../../../common/constants';
-import { UserContext } from '../../../../../App';
 import Notification from '../../../../../components/Notification';
 import {
   StyledDiv,
@@ -23,13 +22,16 @@ import {
 import StyledCenteredFormItem from '../../../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../../../providers/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../../../providers/ClassroomServiceProvider';
 
 const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   const [loading, setLoading] = useState(false);
   const [newClassroomRoster, setNewClassroomRoster] = useState(false);
   const [newStudentData, setNewStudentData] = useState([]);
   const { getAllForgotQuestions, getBearerHeader } = useAuthServiceProvider();
-  const { avatarService, classroomService } = useContext(UserContext);
+  const { getRandomAvatar: getOneRandomAvatar } = useAvatarServiceProvider();
+  const { createNewStudentInClassroom } = useClassroomServiceProvider();
   const [form] = Form.useForm();
 
   const newPassword = useCallback(
@@ -39,10 +41,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
 
   const getRandomAdjective = useCallback(() => faker.word.adjective(), []);
 
-  const getRandomAvatar = useCallback(
-    async () => avatarService.getRandomAvatar(),
-    []
-  );
+  const getRandomAvatar = useCallback(async () => getOneRandomAvatar(), []);
 
   const selectUsernameNumbers = useCallback(() => {
     const numbers = faker.random.numeric(3);
@@ -62,9 +61,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   }, []);
 
   const createNewStudents = (body) => {
-    setLoading(true);
-    classroomService
-      .createNewStudentInClassroom(getBearerHeader(), body)
+    createNewStudentInClassroom(getBearerHeader(), body)
       .then((res) => {
         setNewClassroomRoster(true);
         setNewStudentData(res.students);
@@ -85,6 +82,7 @@ const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   };
 
   const onFinish = async (values) => {
+    setLoading(true);
     const body = {
       classId,
     };

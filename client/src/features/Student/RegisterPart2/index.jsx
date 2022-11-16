@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
-import { Form, Input, Modal } from 'antd';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Form, Input, Modal, Spin } from 'antd';
 import { faker } from '@faker-js/faker';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
 import StyledRadioButton from '../../../components/RadioButton';
 import StyledButton from '../../../components/PrimaryButton';
@@ -22,11 +21,21 @@ import StyledBasicDiv from '../../../components/BasicDiv';
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledRadioGroup from '../../../components/RadioGroup';
 import StyledPagination from '../../../components/Pagination';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const RegisterStudentPart2 = () => {
-  const { avatarService, authService, classroomService, updateService } =
-    useContext(UserContext);
+  const { registerStudent } = useAuthServiceProvider();
+  const {
+    getAvatarList: getListOfAvatars,
+    getRandomAdjective: getOneRandomAdjective,
+    getRandomAvatar: getOneRandomAvatar,
+  } = useAvatarServiceProvider();
+  const { addStudentToClassroom: addOneStudentToClassroom } =
+    useClassroomServiceProvider();
   const [loading, setLoading] = useState(false);
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -47,8 +56,8 @@ const RegisterStudentPart2 = () => {
   const closeModal = () => setOpenAvatarModal(false);
 
   const getAvatarList = (page) => {
-    avatarService
-      .getAvatarList(page)
+    setAvatarLoading(true);
+    getListOfAvatars(page)
       .then((res) => {
         setAvatarList(res.data);
         setPagination({
@@ -67,12 +76,12 @@ const RegisterStudentPart2 = () => {
           ERROR,
           'Connection Error. No avatar list found. Please refresh and try again later!'
         );
-      });
+      })
+      .finally(() => setAvatarLoading(false));
   };
 
   const getRandomAdjective = () =>
-    avatarService
-      .getRandomAdjective()
+    getOneRandomAdjective()
       .then((res) => setUserAdjective(res))
       .catch(() =>
         Notification(
@@ -83,8 +92,7 @@ const RegisterStudentPart2 = () => {
       );
 
   const getRandomAvatar = () => {
-    avatarService
-      .getRandomAvatar()
+    getOneRandomAvatar()
       .then((res) => {
         setUserAvatar(res);
         Notification(success, SUCCESS, 'Random avatar chosen.');
@@ -143,9 +151,8 @@ const RegisterStudentPart2 = () => {
     setUserAvatar(value);
   };
 
-  const addStudentToClassroom = (user) => {
-    classroomService
-      .addStudentToClassroom(user)
+  const addStudentToClassroom = (userData) => {
+    addOneStudentToClassroom(userData)
       .then(() => {
         Notification(
           success,
@@ -164,8 +171,7 @@ const RegisterStudentPart2 = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    authService
-      .registerStudent(values)
+    registerStudent(values)
       .then((res) => {
         Notification(
           success,
@@ -175,7 +181,6 @@ const RegisterStudentPart2 = () => {
         addStudentToClassroom(res.user);
         navigate('/aliendashboard');
         form.resetFields();
-        updateService();
       })
       .catch(() =>
         Notification(error, ERROR, 'You made a mistake. Please try again.')
@@ -357,22 +362,24 @@ const RegisterStudentPart2 = () => {
               footer={null}
             >
               <StyledRadioGroup onChange={handleAvatarChange}>
-                {avatarList.map((avatarIcon) => (
-                  <StyledRadioButton
-                    key={avatarIcon.avatarURL}
-                    value={avatarIcon}
-                    onClick={() => setUserAvatar(avatarIcon)}
-                  >
-                    <Avatar
+                <Spin spinning={avatarLoading}>
+                  {avatarList.map((avatarIcon) => (
+                    <StyledRadioButton
                       key={avatarIcon.avatarURL}
-                      avatar={{
-                        avatarName: avatarIcon.avatarURL,
-                        avatarColor: theme.colors.lightGrey,
-                      }}
-                      size="large"
-                    />
-                  </StyledRadioButton>
-                ))}
+                      value={avatarIcon}
+                      onClick={() => setUserAvatar(avatarIcon)}
+                    >
+                      <Avatar
+                        key={avatarIcon.avatarURL}
+                        avatar={{
+                          avatarName: avatarIcon.avatarURL,
+                          avatarColor: theme.colors.lightGrey,
+                        }}
+                        size="large"
+                      />
+                    </StyledRadioButton>
+                  ))}
+                </Spin>
               </StyledRadioGroup>
               <StyledPagination
                 total={pagination.total}

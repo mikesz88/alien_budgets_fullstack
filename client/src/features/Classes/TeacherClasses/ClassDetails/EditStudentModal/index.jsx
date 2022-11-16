@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
-import { Form, Input, Modal } from 'antd';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Form, Input, Modal, Spin } from 'antd';
 import { faker } from '@faker-js/faker';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { UserContext } from '../../../../../App';
 import StyledButton from '../../../../../components/PrimaryButton';
 import Avatar from '../../../../../components/Avatar';
 import StyledRadioButton from '../../../../../components/RadioButton';
@@ -18,10 +17,18 @@ import Notification from '../../../../../components/Notification';
 import StyledPagination from '../../../../../components/Pagination';
 import StyledRadioGroup from '../../../../../components/RadioGroup';
 import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../../../providers/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../../../providers/ClassroomServiceProvider';
 
 const EditCloseModal = ({ open, close, data }) => {
   const { getBearerHeader, updateStudentByAdult } = useAuthServiceProvider();
-  const { avatarService, classroomService } = useContext(UserContext);
+  const {
+    getAvatarList: getListOfAvatars,
+    getRandomAdjective: getOneRandomAdjective,
+  } = useAvatarServiceProvider();
+  const { deleteStudent: deleteThisStudent, updateStudentInClassroom } =
+    useClassroomServiceProvider();
+  const [loading, setLoading] = useState(false);
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
   const [userAdjective, setUserAdjective] = useState('');
@@ -37,8 +44,8 @@ const EditCloseModal = ({ open, close, data }) => {
   const [form] = Form.useForm();
 
   const getAvatarList = (page, limit = 4) => {
-    avatarService
-      .getAvatarList(page, limit)
+    setLoading(true);
+    getListOfAvatars(page, limit)
       .then((res) => {
         setAvatarList(res.data);
         setPagination({
@@ -52,7 +59,8 @@ const EditCloseModal = ({ open, close, data }) => {
       })
       .catch(() =>
         Notification(error, ERROR, 'Connection Error. Please refresh.')
-      );
+      )
+      .finally(() => setLoading(false));
   };
 
   const currentAvatar = () => {
@@ -105,7 +113,7 @@ const EditCloseModal = ({ open, close, data }) => {
   };
 
   const getRandomAdjective = () =>
-    avatarService.getRandomAdjective().then((res) => setUserAdjective(res));
+    getOneRandomAdjective().then((res) => setUserAdjective(res));
 
   const selectUsernameNumbers = () => {
     const numbers = faker.random.numeric(3);
@@ -140,8 +148,7 @@ const EditCloseModal = ({ open, close, data }) => {
   );
 
   const deleteStudent = () => {
-    classroomService
-      .deleteStudent(getBearerHeader(), data._id, data.classroomCode)
+    deleteThisStudent(getBearerHeader(), data._id, data.classroomCode)
       .then(() => {
         Notification(success, SUCCESS, 'Student Deleted.');
         close();
@@ -175,8 +182,7 @@ const EditCloseModal = ({ open, close, data }) => {
   const updateStudent = (body) => {
     updateStudentByAdult(data._id, body)
       .then((res) => {
-        classroomService
-          .updateStudentInClassroom(getBearerHeader(), res)
+        updateStudentInClassroom(getBearerHeader(), res)
           .then(() => {
             Notification(success, SUCCESS, 'Student has been updated!');
             close();
@@ -290,22 +296,24 @@ const EditCloseModal = ({ open, close, data }) => {
           <div>Choose Animal</div>
           <Form.Item name="avatarURL">
             <StyledRadioGroup onChange={handleAvatarChange}>
-              {avatarList.map((avatarIcon) => (
-                <StyledRadioButton
-                  key={avatarIcon.avatarURL}
-                  value={avatarIcon}
-                  onClick={() => setUserAvatar(avatarIcon)}
-                >
-                  <Avatar
+              <Spin spinning={loading}>
+                {avatarList.map((avatarIcon) => (
+                  <StyledRadioButton
                     key={avatarIcon.avatarURL}
-                    avatar={{
-                      avatarName: avatarIcon.avatarURL,
-                      avatarColor: theme.colors.lightGrey,
-                    }}
-                    size="large"
-                  />
-                </StyledRadioButton>
-              ))}
+                    value={avatarIcon}
+                    onClick={() => setUserAvatar(avatarIcon)}
+                  >
+                    <Avatar
+                      key={avatarIcon.avatarURL}
+                      avatar={{
+                        avatarName: avatarIcon.avatarURL,
+                        avatarColor: theme.colors.lightGrey,
+                      }}
+                      size="large"
+                    />
+                  </StyledRadioButton>
+                ))}
+              </Spin>
             </StyledRadioGroup>
           </Form.Item>
           <Form.Item noStyle>

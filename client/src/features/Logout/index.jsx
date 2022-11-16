@@ -1,20 +1,20 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Result } from 'antd';
 import StyledButton from '../../components/PrimaryButton';
 import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
 import Notification from '../../components/Notification';
 import { ERROR, error, success } from '../../common/constants';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const Logout = () => {
-  const { authService } = useContext(UserContext);
+  const { logout: userLogout } = useAuthServiceProvider();
   const navigate = useNavigate();
   const backToHome = () => navigate('/');
 
   const logout = () => {
-    authService
-      .logout()
+    userLogout()
       .then((res) => Notification(success, 'Successfully Logged Out', res))
       .catch(() =>
         Notification(

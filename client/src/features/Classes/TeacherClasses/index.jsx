@@ -1,20 +1,20 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
-import { UserContext } from '../../../App';
 import columns from './helper';
 import StyledTable from '../../../components/Table';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import StyledDivWrapper from '../../../components/DivWrapper';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const TeacherClasses = () => {
   const { teacherId } = useParams();
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const { getBearerHeader } = useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
+  const { getAllTeacherClassrooms } = useClassroomServiceProvider();
 
   const data = (classes) =>
     classes.map((classroom) => ({
@@ -27,8 +27,7 @@ const TeacherClasses = () => {
 
   const getClassrooms = () => {
     setLoading(true);
-    classroomService
-      .getAllTeacherClassrooms(getBearerHeader(), teacherId)
+    getAllTeacherClassrooms(getBearerHeader(), teacherId)
       .then((response) => {
         setClassrooms(data(response));
         Notification(success, SUCCESS, 'Teacher classrooms found!');

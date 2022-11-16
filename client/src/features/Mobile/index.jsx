@@ -1,22 +1,22 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Result } from 'antd';
 import StyledButton from '../../components/PrimaryButton';
 import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
-import { UserContext } from '../../App';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const Mobile = () => {
-  const { authService } = useContext(UserContext);
+  const { user } = useAuthServiceProvider();
   const navigate = useNavigate();
   const location = useLocation();
   const [width, setWidth] = useState(null);
 
   const backToHome = () =>
-    authService.role === 'adult'
+    user.role === 'adult'
       ? navigate('/dashboard')
-      : authService.role === 'student'
+      : user.role === 'student'
       ? navigate('/aliendashboard')
       : navigate('/');
 

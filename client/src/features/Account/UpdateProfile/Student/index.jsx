@@ -1,26 +1,24 @@
-import React, { useState, useContext, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Input } from 'antd';
-import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 import Notification from '../../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../../common/constants';
 import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../../providers/ClassroomServiceProvider';
 
 const UpdateStudentProfile = ({ closeDrawer }) => {
   const { user, updateStudentProfile, getBearerHeader } =
     useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
+  const { classroomCodes, getAllClassrooms, transferStudentToDifferentClass } =
+    useClassroomServiceProvider();
   const [loading, setLoading] = useState(false);
   const [currentClassroomCode] = useState(user.classroomCode);
   const [form] = Form.useForm();
 
-  const getAllClassCodes = useCallback(
-    () => classroomService.getAllClassrooms(),
-    []
-  );
+  const getAllClassCodes = useCallback(() => getAllClassrooms(), []);
 
   const isValidClassCode = useCallback(
-    (classCode) => classroomService.classroomCodes.includes(classCode),
+    (classCode) => classroomCodes.includes(classCode),
     []
   );
 
@@ -52,8 +50,7 @@ const UpdateStudentProfile = ({ closeDrawer }) => {
               currentClassroomCode,
               newClassroomCode: body.classroomCode,
             };
-            classroomService
-              .transferStudentToDifferentClass(getBearerHeader(), classroomBody)
+            transferStudentToDifferentClass(getBearerHeader(), classroomBody)
               .then(() =>
                 Notification(
                   success,

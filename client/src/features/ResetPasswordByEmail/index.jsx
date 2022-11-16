@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Input, Result, Modal } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
 import StyledButton from '../../components/PrimaryButton';
-import { UserContext } from '../../App';
 import {
   ERROR,
   error,
@@ -15,9 +14,10 @@ import Notification from '../../components/Notification';
 import StyledMarginTitle from './styles';
 import StyledCenteredFormItem from '../../components/CenteredFormItem';
 import StyledBasicDiv from '../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const ResetPasswordByEmail = () => {
-  const { authService } = useContext(UserContext);
+  const { resetPasswordByToken } = useAuthServiceProvider();
   const { resettoken } = useParams();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -31,8 +31,7 @@ const ResetPasswordByEmail = () => {
 
   const resetPassword = (password) => {
     setLoading(true);
-    authService
-      .resetPasswordByToken(resettoken, password)
+    resetPasswordByToken(resettoken, password)
       .then(() => {
         setSuccessResult(true);
         Notification(

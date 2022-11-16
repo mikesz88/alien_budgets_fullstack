@@ -7,9 +7,11 @@ import Notification from '../../../components/Notification';
 import { success, SUCCESS, error, ERROR } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const BudgetSummary = () => {
-  const { gameService, classroomService } = useContext(UserContext);
+  const { updateStudentInClassroom } = useClassroomServiceProvider();
+  const { gameService } = useContext(UserContext);
   const {
     user,
     addScore,
@@ -34,17 +36,16 @@ const BudgetSummary = () => {
   const updateResults = () => {
     addScore(gameService.score)
       .then(() => {
-        classroomService
-          .updateStudentInClassroom(getBearerHeader(), {
-            _id: user.id,
-            score: user.score,
-            firstName: user.firstName,
-            lastInitial: user.lastInitial,
-            username: user.username,
-            avatarURL: user.avatarURL,
-            avatarColor: user.avatarColor,
-            classroomCode: user.classroomCode,
-          })
+        updateStudentInClassroom(getBearerHeader(), {
+          _id: user.id,
+          score: user.score,
+          firstName: user.firstName,
+          lastInitial: user.lastInitial,
+          username: user.username,
+          avatarURL: user.avatarURL,
+          avatarColor: user.avatarColor,
+          classroomCode: user.classroomCode,
+        })
           .then(() =>
             Notification(
               success,

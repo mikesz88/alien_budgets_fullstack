@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Form, Modal, Checkbox, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Modal, Checkbox, Row, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
 import {
   StyledGradeLevelContainer,
@@ -23,11 +22,16 @@ import {
 } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
 
 const RegisterAdultPart2 = () => {
   const { registerAdult } = useAuthServiceProvider();
-  const { avatarService } = useContext(UserContext);
+  const {
+    getAvatarList: getListOfAvatars,
+    getRandomAvatar: getOneRandomAvatar,
+  } = useAvatarServiceProvider();
   const [loading, setLoading] = useState(false);
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const [avatarList, setAvatarList] = useState([]);
   const [avatarURL, setAvatarURL] = useState('');
   const [userBackgroundColor, setUserBackgroundColor] = useState('');
@@ -46,8 +50,8 @@ const RegisterAdultPart2 = () => {
   const closeModal = () => setOpenAvatarModal(false);
 
   const getAvatarList = (page) => {
-    avatarService
-      .getAvatarList(page)
+    setAvatarLoading(true);
+    getListOfAvatars(page)
       .then((res) => {
         setAvatarList(res.data);
         setPagination({
@@ -61,12 +65,12 @@ const RegisterAdultPart2 = () => {
       })
       .catch(() => {
         Notification(error, ERROR, 'Avatars Failed to have Load.');
-      });
+      })
+      .finally(() => setAvatarLoading(false));
   };
 
   const getRandomAvatar = () => {
-    avatarService
-      .getRandomAvatar()
+    getOneRandomAvatar()
       .then((res) => {
         setAvatarURL(res.avatarURL);
         Notification(success, SUCCESS, 'Selected a Random Avatar.');
@@ -202,22 +206,24 @@ const RegisterAdultPart2 = () => {
               footer={null}
             >
               <StyledRadioGroup onChange={handleAvatarChange}>
-                {avatarList.map((avatarIcon) => (
-                  <StyledRadioButton
-                    key={avatarIcon.avatarURL}
-                    value={avatarIcon.avatarURL}
-                    onClick={() => setAvatarURL(avatarIcon.avatarURL)}
-                  >
-                    <Avatar
+                <Spin spinning={avatarLoading}>
+                  {avatarList.map((avatarIcon) => (
+                    <StyledRadioButton
                       key={avatarIcon.avatarURL}
-                      avatar={{
-                        avatarName: avatarIcon.avatarURL,
-                        avatarColor: theme.colors.lightGrey,
-                      }}
-                      size="large"
-                    />
-                  </StyledRadioButton>
-                ))}
+                      value={avatarIcon.avatarURL}
+                      onClick={() => setAvatarURL(avatarIcon.avatarURL)}
+                    >
+                      <Avatar
+                        key={avatarIcon.avatarURL}
+                        avatar={{
+                          avatarName: avatarIcon.avatarURL,
+                          avatarColor: theme.colors.lightGrey,
+                        }}
+                        size="large"
+                      />
+                    </StyledRadioButton>
+                  ))}
+                </Spin>
               </StyledRadioGroup>
               <StyledPagination
                 total={pagination.total}

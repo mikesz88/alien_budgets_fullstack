@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect, useMemo } from 'react';
-import { Form } from 'antd';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Form, Spin } from 'antd';
 import { faker } from '@faker-js/faker';
-import { UserContext } from '../../../App';
 import Avatar from '../../../components/Avatar';
 import StyledBasicSpan from './styles';
 import StyledPagination from '../../../components/Pagination';
@@ -20,10 +18,15 @@ import {
 } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
 
 const ChangeAvatar = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
-  const { avatarService } = useContext(UserContext);
+  const [avatarLoading, setAvatarLoading] = useState(false);
+  const {
+    getAvatarList: getListOfAvatars,
+    getRandomAdjective: getOneRandomAdjective,
+  } = useAvatarServiceProvider();
   const { user, updateAvatar } = useAuthServiceProvider();
   const [avatarList, setAvatarList] = useState([]);
   const [userAvatar, setUserAvatar] = useState({});
@@ -40,8 +43,8 @@ const ChangeAvatar = ({ closeDrawer }) => {
   const [form] = Form.useForm();
 
   const getAvatarList = (page, limit = 4) => {
-    avatarService
-      .getAvatarList(page, limit)
+    setAvatarLoading(true);
+    getListOfAvatars(page, limit)
       .then((res) => {
         setAvatarList(res.data);
         setPagination({
@@ -55,7 +58,8 @@ const ChangeAvatar = ({ closeDrawer }) => {
       .catch((err) => {
         setAvatarList([]);
         Notification(error, ERROR, err.response.data.error);
-      });
+      })
+      .finally(() => setAvatarLoading(false));
   };
 
   const currentAvatar = () => {
@@ -103,7 +107,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
   };
 
   const getRandomAdjective = () =>
-    avatarService.getRandomAdjective().then((res) => setUserAdjective(res));
+    getOneRandomAdjective().then((res) => setUserAdjective(res));
 
   const selectUsernameNumbers = () => {
     const numbers = faker.random.numeric(3);
@@ -177,22 +181,24 @@ const ChangeAvatar = ({ closeDrawer }) => {
       <StyledBasicDiv>Choose Animal</StyledBasicDiv>
       <Form.Item name="avatarURL">
         <StyledRadioGroup onChange={handleAvatarChange}>
-          {avatarList.map((avatarIcon) => (
-            <StyledRadioButton
-              key={avatarIcon.avatarURL}
-              value={avatarIcon}
-              onClick={() => setUserAvatar(avatarIcon)}
-            >
-              <Avatar
+          <Spin spinning={avatarLoading}>
+            {avatarList.map((avatarIcon) => (
+              <StyledRadioButton
                 key={avatarIcon.avatarURL}
-                avatar={{
-                  avatarName: avatarIcon.avatarURL,
-                  avatarColor: theme.colors.lightGrey,
-                }}
-                size="large"
-              />
-            </StyledRadioButton>
-          ))}
+                value={avatarIcon}
+                onClick={() => setUserAvatar(avatarIcon)}
+              >
+                <Avatar
+                  key={avatarIcon.avatarURL}
+                  avatar={{
+                    avatarName: avatarIcon.avatarURL,
+                    avatarColor: theme.colors.lightGrey,
+                  }}
+                  size="large"
+                />
+              </StyledRadioButton>
+            ))}
+          </Spin>
         </StyledRadioGroup>
       </Form.Item>
       <Form.Item noStyle>

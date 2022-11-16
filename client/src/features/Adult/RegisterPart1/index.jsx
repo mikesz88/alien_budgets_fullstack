@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Input, Select } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import {
   ERROR,
@@ -24,14 +23,8 @@ const RegisterAdult = () => {
     registerAdultPart1,
     validateEmail,
   } = useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
-  const getAllClassCodes = useCallback(
-    () => classroomService.getAllClassrooms(),
-    []
-  );
 
   const getAllForgotQuestions = useCallback(
     () => getAllQuestions().then((res) => setQuestionList(res)),
@@ -39,7 +32,6 @@ const RegisterAdult = () => {
   );
 
   useEffect(() => {
-    getAllClassCodes();
     getAllForgotQuestions();
   }, []);
 

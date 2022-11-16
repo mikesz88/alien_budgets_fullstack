@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import StyledBasicHeader from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const DeleteAccount = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,8 @@ const DeleteAccount = () => {
     deleteSelectedStudents,
     getBearerHeader,
   } = useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
+  const { deleteStudentFromClass, deleteAllClassroomsByTeacher } =
+    useClassroomServiceProvider();
   const navigate = useNavigate();
 
   const deleteSelf = () => {
@@ -37,8 +38,7 @@ const DeleteAccount = () => {
       classroomCode: user.classroomCode,
       id: user.id,
     };
-    classroomService
-      .deleteStudentFromClass(getBearerHeader(), body)
+    deleteStudentFromClass(getBearerHeader(), body)
       .then(() =>
         Notification(
           success,
@@ -58,8 +58,7 @@ const DeleteAccount = () => {
 
   const deleteAdult = () => {
     setLoading(true);
-    classroomService
-      .deleteAllClassroomsByTeacher(getBearerHeader(), user.id)
+    deleteAllClassroomsByTeacher(getBearerHeader(), user.id)
       .then((response) => {
         Notification(
           success,

@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Popconfirm, Modal } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../../components/GreetingBar';
-import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 import Avatar from '../../../../components/Avatar';
 import EditCloseModal from './EditStudentModal';
@@ -19,6 +18,7 @@ import StyledDivWrapper from '../../../../components/DivWrapper';
 import StyledTable from '../../../../components/Table';
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../../providers/ClassroomServiceProvider';
 
 const ClassDetails = () => {
   const { classId } = useParams();
@@ -33,7 +33,8 @@ const ClassDetails = () => {
   const [openNewStudentModal, setOpenNewStudentModal] = useState(false);
   const { user, getBearerHeader, resetStudentPassword, getStudentInfo } =
     useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
+  const { currentClassUpdated, setCurrentClassUpdated, getSpecificClassroom } =
+    useClassroomServiceProvider();
   const navigate = useNavigate();
 
   const data = (studentsInClass) =>
@@ -60,8 +61,7 @@ const ClassDetails = () => {
 
   const getClassroom = () => {
     setLoading(true);
-    classroomService
-      .getSpecificClassroom(getBearerHeader(), classId)
+    getSpecificClassroom(getBearerHeader(), classId)
       .then((res) => {
         setClassroomCode(res.classroomCode);
         setStudents(data(res.students));
@@ -80,8 +80,8 @@ const ClassDetails = () => {
   useEffect(() => {
     getClassroom();
 
-    return classroomService.setCurrentClassUpdate('');
-  }, [classroomService.currentClassUpdated]);
+    return setCurrentClassUpdated('');
+  }, [currentClassUpdated]);
 
   const confirm = (studentId) => {
     resetStudentPassword(studentId)

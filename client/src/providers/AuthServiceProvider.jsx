@@ -509,7 +509,6 @@ export const AuthServiceProvider = ({ children }) => {
     setBearerHeader(response.token);
     localStorage.setItem('token', response.token);
     setIsLoggedIn(true);
-    getUser();
   };
 
   // Auth
@@ -599,6 +598,7 @@ export const AuthServiceProvider = ({ children }) => {
         user,
         setUser,
         login,
+        getBearerHeader,
         getUser,
         registerStudentPart1,
         registerStudentPart2,

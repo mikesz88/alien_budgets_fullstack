@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import GreetingBar from '../../../components/GreetingBar';
 import Avatar from '../../../components/Avatar';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { StyledDivContainer, StyledHeader } from './styles';
 import StyledTable from '../../../components/Table';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const Leaderboard = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
   const { user, getBearerHeader } = useAuthServiceProvider();
-  const { classroomService } = useContext(UserContext);
+  const { getClassroomFromStudent } = useClassroomServiceProvider();
 
   const data = (studentsInClass) =>
     studentsInClass
@@ -34,8 +34,7 @@ const Leaderboard = () => {
 
   const getClassroom = () => {
     setLoading(true);
-    classroomService
-      .getClassroomFromStudent(getBearerHeader(), user.classroomCode)
+    getClassroomFromStudent(getBearerHeader(), user.classroomCode)
       .then((res) => {
         setStudents(data(res.students));
         Notification(success, SUCCESS, 'Leaderboard Updated!');

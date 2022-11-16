@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Table } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
-import { UserContext } from '../../App';
 import { withMoneySymbol } from '../../common/constants';
 import StyledDivWrapper from '../../components/DivWrapper';
+import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
 
 const Stats = () => {
-  const { authService } = useContext(UserContext);
+  const { user } = useAuthServiceProvider();
 
-  const previousGames = authService.previousGames.map((game) => ({
+  const previousGames = user.previousGames.map((game) => ({
     key: game._id,
     Job: game.job,
     Dwelling: game.dwelling,

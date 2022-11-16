@@ -1,10 +1,9 @@
-import React, { useState, useContext, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Radio, Row, Input, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { faker } from '@faker-js/faker';
 import { useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../components/GreetingBar';
-import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 import {
   ERROR,
@@ -28,11 +27,14 @@ import {
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const CreateClass = () => {
   const { user, getBearerHeader, getAllForgotQuestions } =
     useAuthServiceProvider();
-  const { avatarService, classroomService } = useContext(UserContext);
+  const { getRandomAvatar: getOneRandomAvatar } = useAvatarServiceProvider();
+  const { createClassroom: createNewClassroom } = useClassroomServiceProvider();
   const [classroomCode, setClassroomCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [newClassId, setNewClassId] = useState({});
@@ -65,10 +67,7 @@ const CreateClass = () => {
 
   const getRandomAdjective = useCallback(() => faker.word.adjective(), []);
 
-  const getRandomAvatar = useCallback(
-    async () => avatarService.getRandomAvatar(),
-    []
-  );
+  const getRandomAvatar = useCallback(async () => getOneRandomAvatar(), []);
 
   const selectUsernameNumbers = useCallback(() => {
     const numbers = faker.random.numeric(3);
@@ -115,8 +114,7 @@ const CreateClass = () => {
 
   const createClassroom = (body) => {
     setLoading(true);
-    classroomService
-      .createClassroom(getBearerHeader(), body)
+    createNewClassroom(getBearerHeader(), body)
       .then((res) => {
         setNewClassId(res.id);
         setNewStudentData(res.students);

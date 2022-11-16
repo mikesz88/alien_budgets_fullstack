@@ -1,39 +1,41 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Input, Select } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
 
 const RegisterStudentPart1 = () => {
   const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState([]);
-  const { authService, classroomService } = useContext(UserContext);
+  const {
+    getAllForgotQuestions: getAllForgottenQuestions,
+    registerStudentPart1,
+  } = useAuthServiceProvider();
+  const { classroomCodes, getAllClassrooms } = useClassroomServiceProvider();
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
   const getAllClassCodes = useCallback(
     () =>
-      classroomService
-        .getAllClassrooms()
-        .catch(() =>
-          Notification(
-            error,
-            ERROR,
-            'Connection Error. Please refresh and try again.'
-          )
-        ),
+      getAllClassrooms().catch(() =>
+        Notification(
+          error,
+          ERROR,
+          'Connection Error. Please refresh and try again.'
+        )
+      ),
     []
   );
 
   const getAllForgotQuestions = useCallback(
     () =>
-      authService
-        .getAllForgotQuestions()
+      getAllForgottenQuestions()
         .then((res) => setQuestionList(res))
         .catch(() =>
           Notification(
@@ -54,7 +56,7 @@ const RegisterStudentPart1 = () => {
   const completeStudentData = (userData) => {
     setLoading(true);
     try {
-      authService.registerStudentPart1(userData);
+      registerStudentPart1(userData);
       form.resetFields();
       navigate('/register/student/part2');
       Notification(success, SUCCESS, 'Part 1 completed!');
@@ -70,7 +72,7 @@ const RegisterStudentPart1 = () => {
   };
 
   const isValidClassCode = useCallback(
-    (classCode) => classroomService.classroomCodes.includes(classCode),
+    (classCode) => classroomCodes.includes(classCode),
     []
   );
 
