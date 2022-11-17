@@ -131,7 +131,7 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
+const MonthlyBudget = ({ changeView, findAnotherHouse, failedBudget }) => {
   const {
     getHouse,
     getUtilities,
@@ -285,6 +285,31 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
   };
 
   const openScoreModal = (boolean) => setOpenScoreGuidelines(boolean);
+
+  const preTaxMonthlySalary = useMemo(
+    () => +(getSalary() / 12 + getSavings() + getBonusOrFine()).toFixed(2),
+    []
+  );
+  const monthlySalaryTax = useMemo(
+    () => +(preTaxMonthlySalary * 0.1).toFixed(2),
+    []
+  );
+
+  const postTaxMonthlyIncome = +(
+    preTaxMonthlySalary - monthlySalaryTax
+  ).toFixed(2);
+  const mortgage = getHouse().monthlyPayment;
+  const utilities = +(getUtilities() * getHouse().monthlyPayment).toFixed(2);
+  const groceries = +((getHouseMembers() + 1) * 50).toFixed(2);
+
+  useEffect(() => {
+    if (
+      postTaxMonthlyIncome + 1 <
+      +(mortgage + utilities + groceries).toFixed(2)
+    ) {
+      failedBudget();
+    }
+  }, []);
 
   return (
     <>

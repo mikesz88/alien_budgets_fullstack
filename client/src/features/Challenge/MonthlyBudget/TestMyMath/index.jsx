@@ -27,9 +27,10 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
     () => +(preTaxMonthlySalary * 0.1).toFixed(2),
     [game]
   );
-  const postTaxMonthlyTax = +(preTaxMonthlySalary - monthlySalaryTax).toFixed(
-    2
-  );
+  const postTaxMonthlyIncome = +(
+    preTaxMonthlySalary - monthlySalaryTax
+  ).toFixed(2);
+
   const testData = useMemo(
     () =>
       data.map((object) => {
@@ -43,7 +44,7 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
               newObject.requiredMinimum = monthlySalaryTax;
               break;
             case 'incomeToSpend':
-              newObject.requiredMinimum = postTaxMonthlyTax;
+              newObject.requiredMinimum = postTaxMonthlyIncome;
               break;
             default:
               break;

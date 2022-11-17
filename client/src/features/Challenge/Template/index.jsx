@@ -6,6 +6,7 @@ import SelectSalary from './SelectSalary';
 import MonthlyBudget from '../MonthlyBudget';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useGameServiceProvider } from '../../../services/GameServiceProvider';
+import FailedBudget from './FailedBudget';
 
 const Template = ({ changeView }) => {
   const { game } = useGameServiceProvider();
@@ -14,6 +15,7 @@ const Template = ({ changeView }) => {
   const [selectHouseMembers, setSelectHouseMembers] = useState(false);
   const [selectSalary, setSelectSalary] = useState(false);
   const [selectBudget, setSelectBudget] = useState(false);
+  const [selectFailedBudget, setSelectFailedBudget] = useState(false);
 
   useEffect(() => {
     if (game.salary) {
@@ -52,6 +54,11 @@ const Template = ({ changeView }) => {
     setSelectBudget(true);
   };
 
+  const failedBudget = () => {
+    setSelectBudget(false);
+    setSelectFailedBudget(true);
+  };
+
   return (
     <StyledBasicDiv>
       {game.month === 0 ? (
@@ -77,7 +84,15 @@ const Template = ({ changeView }) => {
           ) : null}
         </>
       ) : (
-        <MonthlyBudget changeView={changeView} />
+        <>
+          {selectBudget ? (
+            <MonthlyBudget
+              changeView={changeView}
+              failedBudget={failedBudget}
+            />
+          ) : null}
+          {selectFailedBudget ? <FailedBudget /> : null}
+        </>
       )}
     </StyledBasicDiv>
   );

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
 import Notification from '../../../components/Notification';
-import { success, SUCCESS, error, ERROR } from '../../../common/constants';
+import {
+  success,
+  SUCCESS,
+  error,
+  ERROR,
+  template,
+} from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 import { useGameServiceProvider } from '../../../services/GameServiceProvider';
 
-const BudgetSummary = () => {
+const BudgetSummary = ({ changeView }) => {
   const { updateStudentInClassroom } = useClassroomServiceProvider();
   const {
     game,
@@ -22,7 +27,7 @@ const BudgetSummary = () => {
     getJob,
     getHouse,
     getSalary,
-    getScore,
+    // getScore,
     deleteGame: deleteTheGame,
   } = useGameServiceProvider();
   const {
@@ -32,27 +37,24 @@ const BudgetSummary = () => {
     addResultsToStudentsHistory,
     deleteGame: deleteSingleGame,
   } = useAuthServiceProvider();
-  const navigate = useNavigate();
   const [total, setTotal] = useState(null);
-  const monthlyBudgetScore = getMonth() * 1000;
-  const mathFactScore = getMathFactResults().reduce(
-    (a, z) => a + getMathFactScore(z),
-    0
+  const [monthlyBudgetScore] = useState(getMonth() * 1000);
+  const [mathFactScore] = useState(
+    getMathFactResults().reduce((a, z) => a + getMathFactScore(z), 0)
   );
-  const battleshipScore = getBattleshipResults().reduce(
-    (a, z) => a + z * 1000,
-    0
+  const [battleshipScore] = useState(
+    getBattleshipResults().reduce((a, z) => a + z * 1000, 0)
   );
-  const savingScore = getSavings() * 10;
+  const [savingScore] = useState(getSavings() * 10);
 
   const updateTotal = () => setTotal(updateScoreFromSavings(getSavings()));
 
   const updateResults = () => {
-    addScore(game.score + savingScore)
+    addScore(game.score + game.savings * 10)
       .then(() => {
         updateStudentInClassroom(getBearerHeader(), {
           _id: user.id,
-          score: game.score + savingScore,
+          score: game.score + game.savings * 10,
           firstName: user.firstName,
           lastInitial: user.lastInitial,
           username: user.username,
@@ -90,7 +92,7 @@ const BudgetSummary = () => {
       job: getJob().jobTitle,
       dwelling: getHouse().dwelling,
       salary: getSalary() + savingScore,
-      score: getScore(),
+      score: game.score + game.savings * 10,
       mathFactScore: +(
         getMathFactResults().reduce((a, z) => a + z, 0) /
         getMathFactResults().length
@@ -138,8 +140,7 @@ const BudgetSummary = () => {
     updateTotal();
     updateResults();
     addResultToHistory();
-    deleteGame(); // Potential issue here that is causing table to show wrong data (test first before playing with this)
-    // Another is edge case if the monthly budget cannot match if not enough to spend for essentials
+    deleteGame();
   }, []);
 
   const dataSource = [
@@ -189,7 +190,7 @@ const BudgetSummary = () => {
     <>
       <StyledBasicDiv>Budget Summary</StyledBasicDiv>
       <Table pagination={false} dataSource={dataSource} columns={columns} />
-      <StyledButton type="primary" onClick={() => navigate(`/challenge/play`)}>
+      <StyledButton type="primary" onClick={() => changeView(template)}>
         Play Again
       </StyledButton>
     </>

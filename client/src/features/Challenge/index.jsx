@@ -77,7 +77,7 @@ const Challenge = () => {
       {openTemplate ? <Template changeView={changeView} /> : null}
       {openMathFacts ? <MathFacts changeView={changeView} /> : null}
       {openBattleShips ? <Battleship changeView={changeView} /> : null}
-      {openBudgetSummary ? <BudgetSummary /> : null}
+      {openBudgetSummary ? <BudgetSummary changeView={changeView} /> : null}
     </StyledTemplateContainer>
   );
 };
