@@ -126,6 +126,11 @@ export const ClassroomServiceProvider = ({ children }) => {
     return response.data;
   };
 
+  const resetClassroom = () => {
+    setClassroomCodes([]);
+    setClassroomCodes('');
+  };
+
   return (
     <ClassroomServiceContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -146,6 +151,7 @@ export const ClassroomServiceProvider = ({ children }) => {
         deleteSingleClassroomByTeacher,
         createNewStudentInClassroom,
         deleteStudent,
+        resetClassroom,
       }}
     >
       {children}

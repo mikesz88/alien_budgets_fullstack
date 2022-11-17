@@ -137,7 +137,7 @@ export const GameServiceProvider = ({ children }) => {
       ...prevState,
       score: prevState.score + amount * 10,
     }));
-    return game.score;
+    return game.score + amount * 10;
   };
 
   const resetGame = () =>
@@ -256,6 +256,7 @@ export const GameServiceProvider = ({ children }) => {
         getScore,
         getBonusOrFine,
         nextMonth,
+        resetGame,
         getMathFactScore,
         updateMathFactScore,
         updateBattleshipScore,

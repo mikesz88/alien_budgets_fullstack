@@ -9,10 +9,20 @@ import {
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useGameServiceProvider } from '../../../services/GameServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const MathFacts = ({ changeView }) => {
-  const { setPushMathFactResult, updateMathFactScore, getBonusOrFine } =
-    useGameServiceProvider();
+  const { getBearerHeader } = useAuthServiceProvider();
+  const {
+    game,
+    setPushMathFactResult,
+    updateMathFactScore,
+    getBonusOrFine,
+    updateGameById,
+    getMonth,
+    getSavings,
+    getScore,
+  } = useGameServiceProvider();
   const inputRef = useRef(true);
   const [firstNumber, setFirstNumber] = useState(null);
   const [secondNumber, setSecondNumber] = useState(null);
@@ -32,6 +42,19 @@ const MathFacts = ({ changeView }) => {
     }
     setFirstNumber(updateFirstNumber);
     setSecondNumber(updateSecondNumber);
+  }, []);
+
+  useEffect(() => {
+    updateGameById(
+      {
+        month: getMonth(),
+        savings: getSavings(),
+        score: getScore(),
+        bonusOrFine: getBonusOrFine(),
+      },
+      game.gameId,
+      getBearerHeader()
+    );
   }, []);
 
   const getNewNumbers = (answer, correct) => {

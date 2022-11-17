@@ -48,11 +48,11 @@ const BudgetSummary = () => {
   const updateTotal = () => setTotal(updateScoreFromSavings(getSavings()));
 
   const updateResults = () => {
-    addScore(game.score)
+    addScore(game.score + savingScore)
       .then(() => {
         updateStudentInClassroom(getBearerHeader(), {
           _id: user.id,
-          score: user.score,
+          score: game.score + savingScore,
           firstName: user.firstName,
           lastInitial: user.lastInitial,
           username: user.username,
@@ -89,7 +89,7 @@ const BudgetSummary = () => {
     addResultsToStudentsHistory({
       job: getJob().jobTitle,
       dwelling: getHouse().dwelling,
-      salary: getSalary(),
+      salary: getSalary() + savingScore,
       score: getScore(),
       mathFactScore: +(
         getMathFactResults().reduce((a, z) => a + z, 0) /
@@ -120,7 +120,7 @@ const BudgetSummary = () => {
             Notification(
               success,
               SUCCESS,
-              'Game officially has been reset. To play, press "Play Game"'
+              'Game officially has been reset. To play, press "Play Again"'
             )
           )
           .catch(() => Notification(error, ERROR, ''))
@@ -138,7 +138,8 @@ const BudgetSummary = () => {
     updateTotal();
     updateResults();
     addResultToHistory();
-    deleteGame();
+    deleteGame(); // Potential issue here that is causing table to show wrong data (test first before playing with this)
+    // Another is edge case if the monthly budget cannot match if not enough to spend for essentials
   }, []);
 
   const dataSource = [

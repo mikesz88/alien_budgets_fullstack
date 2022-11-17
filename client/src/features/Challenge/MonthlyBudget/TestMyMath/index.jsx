@@ -4,11 +4,9 @@ import StyledButton from '../../../../components/PrimaryButton';
 import { BATTLESHIP_MONTHS } from '../../../../common/constants';
 import { errorSwitchCheck } from '../helper';
 import StyledBasicDiv from '../../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
 import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
-  const { getBearerHeader } = useAuthServiceProvider();
   const {
     game,
     getSalary,
@@ -18,9 +16,7 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
     setSavings,
     updateBudgetScore,
     resetBonusFine,
-    updateGameById,
     getMonth,
-    getScore,
   } = useGameServiceProvider();
   const [errorList, setErrorList] = useState([]);
   const preTaxMonthlySalary = useMemo(
@@ -69,16 +65,6 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
     setSavings(savings.chosenBudget);
     updateBudgetScore();
     resetBonusFine();
-    updateGameById(
-      {
-        month: getMonth(),
-        savings: getSavings(),
-        score: getScore(),
-        bonusOrFine: getBonusOrFine(),
-      },
-      game.gameId,
-      getBearerHeader()
-    );
     if (BATTLESHIP_MONTHS.some((month) => month === getMonth() + 1)) {
       changeView('battleships');
     } else {
