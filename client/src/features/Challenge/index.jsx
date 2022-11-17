@@ -13,7 +13,7 @@ import {
   savedGame,
   template,
 } from '../../common/constants';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const Challenge = () => {
   const { user } = useAuthServiceProvider();

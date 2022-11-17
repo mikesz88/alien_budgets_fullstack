@@ -5,8 +5,8 @@ import Notification from '../../../components/Notification';
 import StyledBasicHeader from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 
 const DeleteAccount = () => {
   const [loading, setLoading] = useState(false);

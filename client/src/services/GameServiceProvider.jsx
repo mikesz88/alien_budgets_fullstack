@@ -30,6 +30,9 @@ export const GameServiceProvider = ({ children }) => {
 
   const setHouse = (house) => setGame((prevState) => ({ ...prevState, house }));
 
+  const setHouseholdMembers = (members) =>
+    setGame((prevState) => ({ ...prevState, liveInHousehold: members }));
+
   const setUtilities = (amount) =>
     setGame((prevState) => ({ ...prevState, utilitiesPercentage: amount }));
 
@@ -194,13 +197,6 @@ export const GameServiceProvider = ({ children }) => {
     return response.data;
   };
 
-  const getDwellingById = async (dwellingId) => {
-    const { data: response } = await axios.get(
-      `${Endpoints.getDwellings}/${dwellingId}`
-    );
-    return response.data;
-  };
-
   const getGameById = async (gameId) => {
     const { data: response } = await axios.get(`${Endpoints.games}/${gameId}`);
     return response.data;
@@ -235,8 +231,45 @@ export const GameServiceProvider = ({ children }) => {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <GameServiceContext.Provider value={{ game }}>
+    <GameServiceContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        game,
+        setPushMathFactResult,
+        setJob,
+        setHouse,
+        setUtilities,
+        setSalary,
+        setHouseholdMembers,
+        setSavings,
+        setPushBattleshipResult,
+        resetBonusFine,
+        getSavings,
+        getSalary,
+        getUtilities,
+        getHouseMembers,
+        getHouse,
+        getJob,
+        getMathFactResults,
+        getBattleshipResults,
+        getMonth,
+        getScore,
+        getBonusOrFine,
+        nextMonth,
+        getMathFactScore,
+        updateMathFactScore,
+        updateBattleshipScore,
+        updateBudgetScore,
+        updateScoreFromSavings,
+        setGameFromSave,
+        getRandomJob,
+        getAllDwellings,
+        getGameById,
+        createGame,
+        updateGameById,
+        deleteGame,
+      }}
+    >
       {children}
     </GameServiceContext.Provider>
   );

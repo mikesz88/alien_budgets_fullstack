@@ -6,8 +6,8 @@ import StyledTable from '../../../components/Table';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import StyledDivWrapper from '../../../components/DivWrapper';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 
 const TeacherClasses = () => {
   const { teacherId } = useParams();

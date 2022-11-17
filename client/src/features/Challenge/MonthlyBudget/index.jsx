@@ -7,7 +7,6 @@ import React, {
   useMemo,
 } from 'react';
 import { Form, Input, Popconfirm, Table } from 'antd';
-import { UserContext } from '../../../App';
 import StyledButton from '../../../components/PrimaryButton';
 import TestMyMath from './TestMyMath';
 import ScoreGuidelines from '../ScoreGuidelines';
@@ -45,6 +44,7 @@ import {
   GROCERIES,
   requiredCells,
 } from './helper';
+import { useGameServiceProvider } from '../../../services/GameServiceProvider';
 
 const EditableContext = createContext(null);
 
@@ -94,7 +94,7 @@ const EditableCell = ({
       });
       Notification(success, SUCCESS, 'Value saved.');
     } catch (errInfo) {
-      Notification(error, ERROR, `Save failed: ${errInfo}`);
+      Notification(error, ERROR, `Please write a valid number`);
     }
   };
   let childNode = children;
@@ -132,23 +132,30 @@ const EditableCell = ({
 };
 
 const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
-  const { gameService } = useContext(UserContext);
+  const {
+    getHouse,
+    getUtilities,
+    getHouseMembers,
+    getSalary,
+    getSavings,
+    getBonusOrFine,
+    getMonth,
+    getScore,
+  } = useGameServiceProvider();
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
       budgetItem: MONTHLY_PAYMENT,
-      requiredMinimum: withMoneySymbol(gameService.getHouse().monthlyPayment),
-      chosenBudget: gameService.getHouse().monthlyPayment,
+      requiredMinimum: withMoneySymbol(getHouse().monthlyPayment),
+      chosenBudget: getHouse().monthlyPayment,
     },
     {
       key: '1',
       budgetItem: UTILITIES,
       requiredMinimum: withMoneySymbol(
-        gameService.getUtilities() * gameService.getHouse().monthlyPayment
+        getUtilities() * getHouse().monthlyPayment
       ),
-      chosenBudget: +(
-        gameService.getUtilities() * gameService.getHouse().monthlyPayment
-      ).toFixed(2),
+      chosenBudget: +(getUtilities() * getHouse().monthlyPayment).toFixed(2),
     },
     {
       key: '2',
@@ -159,10 +166,8 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
     {
       key: '3',
       budgetItem: GROCERIES,
-      requiredMinimum: withMoneySymbol(
-        (gameService.getHouseMembers() + 1) * 50
-      ),
-      chosenBudget: (gameService.getHouseMembers() + 1) * 50,
+      requiredMinimum: withMoneySymbol((getHouseMembers() + 1) * 50),
+      chosenBudget: (getHouseMembers() + 1) * 50,
     },
   ]);
   const [count, setCount] = useState(dataSource.length);
@@ -290,18 +295,16 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
         <StyledDirectionsWrapper>
           <StyledBasicDiv>
             <StyledInfoText>Current Annual Salary:</StyledInfoText>
+            <StyledInfoText>{withMoneySymbol(getSalary())}</StyledInfoText>
             <StyledInfoText>
-              {withMoneySymbol(gameService.getSalary())}
+              Add {withMoneySymbol(getSavings())} from savings on top of your
+              monthly salary below.
             </StyledInfoText>
             <StyledInfoText>
-              Add {withMoneySymbol(gameService.getSavings())} from savings on
-              top of your monthly salary below.
-            </StyledInfoText>
-            <StyledInfoText>
-              {gameService.getBonusOrFine() < 0 ? 'Take Away' : 'Add'}{' '}
-              {withMoneySymbol(gameService.getBonusOrFine())} from{' '}
-              {gameService.getBonusOrFine() < 0 ? 'fine' : 'bonus'} on top of
-              your monthly salary below.
+              {getBonusOrFine() < 0 ? 'Take Away' : 'Add'}{' '}
+              {withMoneySymbol(getBonusOrFine())} from{' '}
+              {getBonusOrFine() < 0 ? 'fine' : 'bonus'} on top of your monthly
+              salary below.
             </StyledInfoText>
           </StyledBasicDiv>
           <StyledBasicDiv>
@@ -333,17 +336,13 @@ const MonthlyBudget = ({ changeView, findAnotherHouse }) => {
           <Input type="number" value={taxes} onChange={changeTaxes} />
         </StyledDirectionsWrapper>
         <StyledDirectionsWrapper>
-          {gameService.getMonth() === 0 ? (
+          {getMonth() === 0 ? (
             <StyledHouseButton type="primary" onClick={findAnotherHouse}>
               Choose Different House
             </StyledHouseButton>
           ) : null}
-          <StyledScoreInfo>
-            Current Month: {gameService.getMonth()}
-          </StyledScoreInfo>
-          <StyledScoreInfo>
-            Current Score: {gameService.getScore()}
-          </StyledScoreInfo>
+          <StyledScoreInfo>Current Month: {getMonth()}</StyledScoreInfo>
+          <StyledScoreInfo>Current Score: {getScore()}</StyledScoreInfo>
           <StyledBasicDiv>
             <StyledInputDirections>
               What is the remaining balance to spend on your budget? (Write

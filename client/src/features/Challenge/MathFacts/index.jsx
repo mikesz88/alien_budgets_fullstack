@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  useRef,
-} from 'react';
-import { UserContext } from '../../../App';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import StyledButton from '../../../components/PrimaryButton';
 import {
   StyledFirstNumber,
@@ -15,9 +8,11 @@ import {
   StyledXSecondNumber,
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useGameServiceProvider } from '../../../services/GameServiceProvider';
 
 const MathFacts = ({ changeView }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { setPushMathFactResult, updateMathFactScore, getBonusOrFine } =
+    useGameServiceProvider();
   const inputRef = useRef(true);
   const [firstNumber, setFirstNumber] = useState(null);
   const [secondNumber, setSecondNumber] = useState(null);
@@ -69,9 +64,8 @@ const MathFacts = ({ changeView }) => {
 
   useEffect(() => {
     if (count === 20) {
-      gameService.setPushMathFactResult(percentages);
-      gameService.updateMathFactScore(percentages);
-      updateService();
+      setPushMathFactResult(percentages);
+      updateMathFactScore(percentages);
     }
   }, [count === 20]);
 
@@ -108,22 +102,22 @@ const MathFacts = ({ changeView }) => {
         <>
           <StyledBasicDiv>You did 20 questions!</StyledBasicDiv>
           <StyledBasicDiv>Amount Correct:{percentages}%</StyledBasicDiv>
-          {gameService.getBonusOrFine() < 0 ? (
+          {getBonusOrFine() < 0 ? (
             <>
               <StyledBasicDiv>
-                You have received {gameService.getBonusOrFine()} points! :(
+                You have received {getBonusOrFine()} points! :(
               </StyledBasicDiv>
               <StyledBasicDiv>
-                You have received a fine ${gameService.getBonusOrFine()}! :(
+                You have received a fine ${getBonusOrFine()}! :(
               </StyledBasicDiv>
             </>
           ) : (
             <>
               <StyledBasicDiv>
-                You have received {gameService.getBonusOrFine()} points! :)
+                You have received {getBonusOrFine()} points! :)
               </StyledBasicDiv>
               <StyledBasicDiv>
-                You have received a bonus of ${gameService.getBonusOrFine()}! :)
+                You have received a bonus of ${getBonusOrFine()}! :)
               </StyledBasicDiv>
             </>
           )}

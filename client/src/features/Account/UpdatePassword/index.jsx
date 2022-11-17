@@ -4,7 +4,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import Notification from '../../../components/Notification';
 import { error, passwordRegex, success } from '../../../common/constants';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const UpdatePassword = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);

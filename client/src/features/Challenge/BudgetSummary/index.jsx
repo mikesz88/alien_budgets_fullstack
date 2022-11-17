@@ -1,17 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
-import { UserContext } from '../../../App';
 import Notification from '../../../components/Notification';
 import { success, SUCCESS, error, ERROR } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
+import { useGameServiceProvider } from '../../../services/GameServiceProvider';
 
 const BudgetSummary = () => {
   const { updateStudentInClassroom } = useClassroomServiceProvider();
-  const { gameService } = useContext(UserContext);
+  const {
+    game,
+    getMonth,
+    getMathFactResults,
+    getMathFactScore,
+    getBattleshipResults,
+    getSavings,
+    updateScoreFromSavings,
+    getJob,
+    getHouse,
+    getSalary,
+    getScore,
+    deleteGame: deleteTheGame,
+  } = useGameServiceProvider();
   const {
     user,
     addScore,
@@ -21,20 +34,21 @@ const BudgetSummary = () => {
   } = useAuthServiceProvider();
   const navigate = useNavigate();
   const [total, setTotal] = useState(null);
-  const monthlyBudgetScore = gameService.getMonth() * 1000;
-  const mathFactScore = gameService
-    .getMathFactResults()
-    .reduce((a, z) => a + gameService.getMathFactScore(z), 0);
-  const battleshipScore = gameService
-    .getBattleshipResults()
-    .reduce((a, z) => a + z * 1000, 0);
-  const savingScore = gameService.getSavings() * 10;
+  const monthlyBudgetScore = getMonth() * 1000;
+  const mathFactScore = getMathFactResults().reduce(
+    (a, z) => a + getMathFactScore(z),
+    0
+  );
+  const battleshipScore = getBattleshipResults().reduce(
+    (a, z) => a + z * 1000,
+    0
+  );
+  const savingScore = getSavings() * 10;
 
-  const updateTotal = () =>
-    setTotal(gameService.updateScoreFromSavings(gameService.getSavings()));
+  const updateTotal = () => setTotal(updateScoreFromSavings(getSavings()));
 
   const updateResults = () => {
-    addScore(gameService.score)
+    addScore(game.score)
       .then(() => {
         updateStudentInClassroom(getBearerHeader(), {
           _id: user.id,
@@ -73,17 +87,17 @@ const BudgetSummary = () => {
 
   const addResultToHistory = () => {
     addResultsToStudentsHistory({
-      job: gameService.getJob().jobTitle,
-      dwelling: gameService.getHouse().dwelling,
-      salary: gameService.getSalary(),
-      score: gameService.getScore(),
+      job: getJob().jobTitle,
+      dwelling: getHouse().dwelling,
+      salary: getSalary(),
+      score: getScore(),
       mathFactScore: +(
-        gameService.getMathFactResults().reduce((a, z) => a + z, 0) /
-        gameService.getMathFactResults().length
+        getMathFactResults().reduce((a, z) => a + z, 0) /
+        getMathFactResults().length
       ).toFixed(2),
       battleshipScore: +(
-        gameService.getBattleshipResults().reduce((a, z) => a + z, 0) /
-        gameService.getBattleshipResults().length
+        getBattleshipResults().reduce((a, z) => a + z, 0) /
+        getBattleshipResults().length
       ).toFixed(2),
     })
       .then(() => {
@@ -101,8 +115,7 @@ const BudgetSummary = () => {
   const deleteGame = () => {
     deleteSingleGame()
       .then(() =>
-        gameService
-          .deleteGame(gameService.gameId, getBearerHeader())
+        deleteTheGame(game.gameId, getBearerHeader())
           .then(() =>
             Notification(
               success,

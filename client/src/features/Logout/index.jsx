@@ -6,7 +6,7 @@ import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
 // import { UserContext } from '../../App';
 import Notification from '../../components/Notification';
 import { ERROR, error, success } from '../../common/constants';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const Logout = () => {
   const { logout: userLogout } = useAuthServiceProvider();

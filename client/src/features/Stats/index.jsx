@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
 import { withMoneySymbol } from '../../common/constants';
 import StyledDivWrapper from '../../components/DivWrapper';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const Stats = () => {
   const { user } = useAuthServiceProvider();

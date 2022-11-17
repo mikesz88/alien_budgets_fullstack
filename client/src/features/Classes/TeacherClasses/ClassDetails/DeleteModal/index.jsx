@@ -10,8 +10,8 @@ import {
   success,
 } from '../../../../../common/constants';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../../../services/ClassroomServiceProvider';
 
 const DeleteModal = ({ open, close, classId }) => {
   const { getBearerHeader, deleteSelectedStudents } = useAuthServiceProvider();

@@ -13,7 +13,7 @@ import {
 } from '../../../common/constants';
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);

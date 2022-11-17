@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledAvatarImg from './styles';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const Avatar = ({ avatar, size }) => {
   const { user } = useAuthServiceProvider();

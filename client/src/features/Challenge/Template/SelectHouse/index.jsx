@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Radio, Spin } from 'antd';
-import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 import {
   ERROR,
@@ -17,31 +16,39 @@ import {
   StyledHouseRadioContainer,
   StyledRadioWrapper,
 } from './styles';
-import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const SelectHouse = ({ goToSalary, backToBudget }) => {
   const { getBearerHeader } = useAuthServiceProvider();
-  const { gameService } = useContext(UserContext);
+  const {
+    game,
+    getJob,
+    getAllDwellings,
+    getHouseMembers,
+    updateGameById: updateSingleGameById,
+    setHouse,
+    getSalary,
+  } = useGameServiceProvider();
   const [loading, setLoading] = useState(false);
   const [loadingHouses, setLoadingHouses] = useState(false);
   const [allHouses, setAllHouses] = useState([]);
   const lowEndSalary = useMemo(
-    () => withMoneySymbol(gameService.getJob().salaryAverage * 0.75),
-    [gameService.job]
+    () => withMoneySymbol(getJob().salaryAverage * 0.75),
+    [game.job]
   );
   const highEndSalary = useMemo(
-    () => withMoneySymbol(gameService.getJob().salaryAverage * 1.25),
-    [gameService.job]
+    () => withMoneySymbol(getJob().salaryAverage * 1.25),
+    [game.job]
   );
   const [form] = Form.useForm();
 
   const getAllHouses = () => {
     setLoadingHouses(true);
-    gameService
-      .getAllDwellings()
+    getAllDwellings()
       .then((response) => {
         const qualifiedHouses = response.filter(
-          (house) => house.maxOccupancy >= gameService.getHouseMembers() + 1
+          (house) => house.maxOccupancy >= getHouseMembers() + 1
         );
         setAllHouses(qualifiedHouses);
         Notification(success, SUCCESS, 'Eligible Houses Shown.');
@@ -57,16 +64,16 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
   };
 
   const updateGameById = (values) =>
-    gameService.updateGameById(
+    updateSingleGameById(
       { house: values.selectedHouse },
-      gameService.gameId,
+      game.gameId,
       getBearerHeader()
     );
 
   const onFinish = (values) => {
     setLoading(true);
-    gameService.setHouse(values.selectedHouse);
-    if (gameService.getSalary()) {
+    setHouse(values.selectedHouse);
+    if (getSalary()) {
       updateGameById(values);
       setLoading(false);
       return backToBudget();
@@ -83,13 +90,12 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
         The house must have enough for you and your household members
       </StyledBasicDiv>
       <StyledBasicDiv>
-        Amount of people to house (including yourself):{' '}
-        {gameService.getHouseMembers() + 1}
+        Amount of people to house (including yourself): {getHouseMembers() + 1}
       </StyledBasicDiv>
-      {gameService.getSalary() ? (
+      {getSalary() ? (
         <StyledBoldTitle>
           <StyledBasicDiv>
-            Current Annual Salary {withMoneySymbol(gameService.getSalary())}
+            Current Annual Salary {withMoneySymbol(getSalary())}
           </StyledBasicDiv>
           <StyledBasicDiv>
             Hint: House monthly payment should not be more than half of your

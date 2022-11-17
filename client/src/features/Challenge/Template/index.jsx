@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../../../App';
+import React, { useState, useEffect } from 'react';
 import SelectJob from './SelectJob';
 import SelectHouse from './SelectHouse';
 import SelectHouseMembers from './SelectHouseMembers';
 import SelectSalary from './SelectSalary';
 import MonthlyBudget from '../MonthlyBudget';
 import StyledBasicDiv from '../../../components/BasicDiv';
+import { useGameServiceProvider } from '../../../services/GameServiceProvider';
 
 const Template = ({ changeView }) => {
-  const { gameService } = useContext(UserContext);
+  const { game } = useGameServiceProvider();
   const [selectJob, setSelectJob] = useState(true);
   const [selectHouse, setSelectHouse] = useState(false);
   const [selectHouseMembers, setSelectHouseMembers] = useState(false);
@@ -16,7 +16,7 @@ const Template = ({ changeView }) => {
   const [selectBudget, setSelectBudget] = useState(false);
 
   useEffect(() => {
-    if (gameService.salary) {
+    if (game.salary) {
       setSelectJob(false);
       setSelectBudget(true);
     }
@@ -54,7 +54,7 @@ const Template = ({ changeView }) => {
 
   return (
     <StyledBasicDiv>
-      {gameService.month === 0 ? (
+      {game.month === 0 ? (
         <>
           {selectJob ? <SelectJob goToHouseMembers={goToHouseMembers} /> : null}
           {selectHouseMembers ? (

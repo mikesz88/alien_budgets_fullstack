@@ -14,7 +14,7 @@ import Notification from '../../components/Notification';
 import StyledMarginTitle from './styles';
 import StyledCenteredFormItem from '../../components/CenteredFormItem';
 import StyledBasicDiv from '../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const ResetPasswordByEmail = () => {
   const { resetPasswordByToken } = useAuthServiceProvider();

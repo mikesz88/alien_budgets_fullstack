@@ -19,7 +19,7 @@ import {
   StyledFormItem,
   StyledWidthFormItem,
 } from './styles';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const { confirm } = Modal;
 

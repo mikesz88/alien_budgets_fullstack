@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Result } from 'antd';
 import StyledButton from '../../components/PrimaryButton';
 import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const Mobile = () => {
   const { user } = useAuthServiceProvider();

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef } from 'react';
 import GameView from './GameView';
 import {
   placeAllComputerShips,
@@ -11,7 +11,7 @@ import {
   updateSunkShips,
   coordsToIndex,
 } from './layoutHelpers';
-import { UserContext } from '../../../../App';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const AVAILABLE_SHIPS = [
   {
@@ -42,10 +42,10 @@ const AVAILABLE_SHIPS = [
 ];
 
 const Game = ({ changeView }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { setPushBattleshipResult, updateBattleshipScore } =
+    useGameServiceProvider();
   const [gameState, setGameState] = useState('placement');
   const [winner, setWinner] = useState(null);
-
   const [currentlyPlacing, setCurrentlyPlacing] = useState(null);
   const [placedShips, setPlacedShips] = useState([]);
   const [availableShips, setAvailableShips] = useState(AVAILABLE_SHIPS);
@@ -57,9 +57,8 @@ const Game = ({ changeView }) => {
     const score =
       computerShips.filter((ship) => ship.sunk).length -
       placedShips.filter((ship) => ship.sunk).length;
-    gameService.setPushBattleshipResult(score);
-    gameService.updateBattleshipScore(score);
-    updateService();
+    setPushBattleshipResult(score);
+    updateBattleshipScore(score);
   };
 
   const sunkSoundRef = useRef(null);

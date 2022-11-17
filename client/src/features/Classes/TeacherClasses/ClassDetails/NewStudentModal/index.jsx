@@ -21,9 +21,9 @@ import {
 } from './styles';
 import StyledCenteredFormItem from '../../../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
-import { useAvatarServiceProvider } from '../../../../../providers/AvatarServiceProvider';
-import { useClassroomServiceProvider } from '../../../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../../../services/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../../../services/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../../../services/ClassroomServiceProvider';
 
 const NewStudentModal = ({ open, close, classId, classroomCode }) => {
   const [loading, setLoading] = useState(false);

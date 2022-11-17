@@ -3,8 +3,8 @@ import { Form, Input } from 'antd';
 import StyledButton from '../../../../components/PrimaryButton';
 import Notification from '../../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../../common/constants';
-import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../../services/ClassroomServiceProvider';
 
 const UpdateStudentProfile = ({ closeDrawer }) => {
   const { user, updateStudentProfile, getBearerHeader } =

@@ -7,7 +7,7 @@ import {
   StyledStudentGreetingContainer,
   StyledButton,
 } from './styles';
-import { useAuthServiceProvider } from '../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
 const GreetingBar = ({
   adult,

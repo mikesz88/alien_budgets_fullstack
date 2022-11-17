@@ -21,8 +21,8 @@ import {
   success,
 } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
 
 const RegisterAdultPart2 = () => {
   const { registerAdult } = useAuthServiceProvider();

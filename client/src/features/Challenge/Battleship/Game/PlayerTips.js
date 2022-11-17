@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../../../App';
+import React from 'react';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const PlayerTips = ({
   // gameState,
@@ -8,7 +8,7 @@ const PlayerTips = ({
   winner,
   changeView,
 }) => {
-  const { gameService } = useContext(UserContext);
+  const { getMonth, getBonusOrFine } = useGameServiceProvider();
   const numberOfHits = hitsByPlayer.length;
   const numberOfSuccessfulHits = hitsByPlayer.filter(
     (hit) => hit.type === 'hit'
@@ -16,14 +16,12 @@ const PlayerTips = ({
   const accuracyScore = Math.round(
     100 * (numberOfSuccessfulHits / numberOfHits)
   );
-  const succesfulComputerHits = hitsByComputer.filter(
+  const successfulComputerHits = hitsByComputer.filter(
     (hit) => hit.type === 'hit'
   ).length;
 
   const backToGame = () =>
-    gameService.getMonth() !== 12
-      ? changeView('template')
-      : changeView('budgetSummary');
+    getMonth() !== 12 ? changeView('template') : changeView('budgetSummary');
 
   const gameOverPanel = (
     <div>
@@ -33,23 +31,19 @@ const PlayerTips = ({
           ? 'You win! 🎉'
           : 'You lose 😭. Better luck next time! '}
       </p>
-      {gameService.getBonusOrFine() < 0 ? (
+      {getBonusOrFine() < 0 ? (
         <>
-          <div>You have received {gameService.getBonusOrFine()} points! :(</div>
-          <div>
-            You have received a fine of ${gameService.getBonusOrFine()}! :(
-          </div>
+          <div>You have received {getBonusOrFine()} points! :(</div>
+          <div>You have received a fine of ${getBonusOrFine()}! :(</div>
         </>
       ) : (
         <>
-          <div>You have received {gameService.getBonusOrFine()} points! :)</div>
-          <div>
-            You have received a bonus ${gameService.getBonusOrFine()}! :)
-          </div>
+          <div>You have received {getBonusOrFine()} points! :)</div>
+          <div>You have received a bonus ${getBonusOrFine()}! :)</div>
         </>
       )}
       <button type="button" onClick={backToGame}>
-        {gameService.getMonth() === 12
+        {getMonth() === 12
           ? 'Game Over! Head to Summary!'
           : 'Advance to the next month'}
       </button>
@@ -73,7 +67,7 @@ const PlayerTips = ({
 
   return (
     <div id="player-tips">
-      {numberOfSuccessfulHits === 17 || succesfulComputerHits === 17
+      {numberOfSuccessfulHits === 17 || successfulComputerHits === 17
         ? gameOverPanel
         : tipsPanel}
     </div>

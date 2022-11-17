@@ -7,7 +7,7 @@ import StyledDashboardContainer from '../../../components/Dashboard/Container';
 import Card from '../../../components/Card';
 import { error, ERROR } from '../../../common/constants';
 import Notification from '../../../components/Notification';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const Dashboard = () => {
   const [id, setId] = useState('');

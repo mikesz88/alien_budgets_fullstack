@@ -35,7 +35,7 @@ import TermsOfService from '../features/TermsOfService';
 import Notification from '../components/Notification';
 import { SUCCESS, success } from '../common/constants';
 import Mobile from '../features/Mobile';
-import { useAuthServiceProvider } from '../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../services/AuthServiceProvider';
 
 export const PrivateRoute = ({ user, children, ...props }) => {
   const { user: currentUser } = useAuthServiceProvider();
@@ -74,7 +74,7 @@ export const Part1RegisterRequire = ({ user, children, ...props }) => {
 };
 
 const Routes = () => {
-  const { user: currentUser, foundUser } = useAuthServiceProvider();
+  const { foundUser } = useAuthServiceProvider();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -82,7 +82,7 @@ const Routes = () => {
     foundUser(token)
       .then((res) => {
         if (res.role === 'adult') {
-          const { firstName, lastName } = currentUser;
+          const { firstName, lastName } = res;
           navigate('/dashboard');
           Notification(
             success,
@@ -90,7 +90,7 @@ const Routes = () => {
             `Welcome back ${firstName} ${lastName}!`
           );
         } else {
-          const { username } = currentUser;
+          const { username } = res;
           Notification(success, SUCCESS, `Welcome back ${username}!`);
           navigate('/aliendashboard');
         }

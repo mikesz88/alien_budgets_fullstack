@@ -17,8 +17,8 @@ import {
   generateBgColor,
 } from '../../../common/constants';
 import StyledBasicDiv from '../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
 
 const ChangeAvatar = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);

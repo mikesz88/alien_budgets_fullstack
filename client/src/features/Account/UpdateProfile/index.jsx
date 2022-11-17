@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import UpdateAdultProfile from './Adult';
 import UpdateStudentProfile from './Student';
 

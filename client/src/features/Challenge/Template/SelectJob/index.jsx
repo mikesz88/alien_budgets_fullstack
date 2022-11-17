@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../../../../App';
+import React, { useState, useEffect } from 'react';
 import {
   ERROR,
   error,
@@ -10,9 +9,10 @@ import {
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import Notification from '../../../../components/Notification';
 import StyledButton from '../../../../components/PrimaryButton';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const SelectJob = ({ goToHouseMembers }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { getRandomJob: getARandomJob, setJob } = useGameServiceProvider();
   const [loading, setLoading] = useState(false);
   const [tries, setTries] = useState(3);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -22,8 +22,7 @@ const SelectJob = ({ goToHouseMembers }) => {
 
   const getRandomJob = () => {
     setLoading(true);
-    gameService
-      .getRandomJob()
+    getARandomJob()
       .then((res) => {
         setSelectedJob(res);
         setSelectedJobTitle(res.jobTitle);
@@ -47,8 +46,7 @@ const SelectJob = ({ goToHouseMembers }) => {
   };
 
   const onFinish = () => {
-    gameService.setJob(selectedJob);
-    updateService();
+    setJob(selectedJob);
     goToHouseMembers();
   };
 

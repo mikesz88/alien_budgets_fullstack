@@ -6,7 +6,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import { success, error, ERROR } from '../../../common/constants';
 import Notification from '../../../components/Notification';
 import loginButtons from './helper';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const AdultLogin = () => {
   const [loading, setLoading] = useState(false);

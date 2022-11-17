@@ -7,8 +7,8 @@ import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 
 const RegisterStudentPart1 = () => {
   const [loading, setLoading] = useState(false);

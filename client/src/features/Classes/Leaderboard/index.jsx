@@ -5,8 +5,8 @@ import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { StyledDivContainer, StyledHeader } from './styles';
 import StyledTable from '../../../components/Table';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 
 const Leaderboard = () => {
   const [loading, setLoading] = useState(false);

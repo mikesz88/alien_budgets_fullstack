@@ -1,6 +1,5 @@
 import { Spin } from 'antd';
-import React, { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../../../App';
+import React, { useState, useEffect } from 'react';
 import Card from '../../../components/Card';
 import {
   battleships,
@@ -14,17 +13,21 @@ import {
 } from '../../../common/constants';
 import Notification from '../../../components/Notification';
 import ResumeSavedGameWrapper from './styles';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useGameServiceProvider } from '../../../services/GameServiceProvider';
 
 const ResumeSavedGame = ({ changeView }) => {
-  const { user, deleteGame, getBearerHeader } = useAuthServiceProvider();
-  const { gameService } = useContext(UserContext);
+  const {
+    user,
+    deleteGame: deleteGameFromPerson,
+    getBearerHeader,
+  } = useAuthServiceProvider();
+  const { getGameById, deleteGame, setGameFromSave } = useGameServiceProvider();
   const [currentGame, setCurrentGame] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const grabGameInfo = () => {
-    gameService
-      .getGameById(user.game)
+    getGameById(user.game)
       .then((res) => {
         setCurrentGame(res);
         Notification(success, SUCCESS, 'Saved Game Found');
@@ -34,10 +37,9 @@ const ResumeSavedGame = ({ changeView }) => {
 
   const newGame = () => {
     setLoading(true);
-    deleteGame()
+    deleteGameFromPerson()
       .then(() => {
-        gameService
-          .deleteGame(currentGame._id, getBearerHeader())
+        deleteGame(currentGame._id, getBearerHeader())
           .then(() => changeView(template))
           .catch(() =>
             Notification(
@@ -58,7 +60,7 @@ const ResumeSavedGame = ({ changeView }) => {
   };
 
   const continueGame = () => {
-    gameService.setGame(currentGame);
+    setGameFromSave(currentGame);
     if (BATTLESHIP_MONTHS.some((month) => month === currentGame.month)) {
       changeView(battleships);
     } else if (currentGame.month === 0) {

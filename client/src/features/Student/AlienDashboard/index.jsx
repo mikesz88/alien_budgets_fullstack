@@ -5,7 +5,7 @@ import dashboardIcons from './helper';
 import StyledDashboardContainer from '../../../components/Dashboard/Container';
 import StyledDashboardWrapper from '../../../components/Dashboard/Wrapper';
 import Card from '../../../components/Card';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const Student = () => {
   const { user, getUser: getUserData } = useAuthServiceProvider();

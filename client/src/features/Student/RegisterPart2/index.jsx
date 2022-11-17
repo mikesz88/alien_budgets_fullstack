@@ -21,9 +21,9 @@ import StyledBasicDiv from '../../../components/BasicDiv';
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledRadioGroup from '../../../components/RadioGroup';
 import StyledPagination from '../../../components/Pagination';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 
 const RegisterStudentPart2 = () => {
   const { registerStudent } = useAuthServiceProvider();

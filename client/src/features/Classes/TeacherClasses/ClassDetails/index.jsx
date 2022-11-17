@@ -17,8 +17,8 @@ import {
 import StyledDivWrapper from '../../../../components/DivWrapper';
 import StyledTable from '../../../../components/Table';
 import StyledBasicDiv from '../../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
-import { useClassroomServiceProvider } from '../../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
+import { useClassroomServiceProvider } from '../../../../services/ClassroomServiceProvider';
 
 const ClassDetails = () => {
   const { classId } = useParams();

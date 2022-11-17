@@ -105,8 +105,6 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/auth/logout
 // @access PUBLIC
 exports.logout = asyncHandler(async (req, res, next) => {
-  console.log(res);
-
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 1 + 1000),
     httpOnly: true,
@@ -164,9 +162,7 @@ exports.adultForgotPassword = asyncHandler(async (req, res, next) => {
     await sendEmail(options);
     res.status(200).json({ success: true, data: 'Email sent' });
   } catch (error) {
-    console.log(error);
     throw error;
-    // return next(new ErrorResponse('Did not work', 404));
 
     user.getResetPasswordToken = undefined;
     user.getResetPasswordExpired = undefined;
@@ -214,7 +210,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
       new ErrorResponse('There is no user with that email or username', 404)
     );
   }
-  console.log(user);
+
   // compare forgotten Password Answer with user Forgotten Answer in account
   const isMatch = await user.matchForgotAnswer(req.body.forgotPasswordAnswer);
   if (!isMatch) {

@@ -26,9 +26,9 @@ import {
   StyledTitle,
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
-import { useAvatarServiceProvider } from '../../../providers/AvatarServiceProvider';
-import { useClassroomServiceProvider } from '../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 
 const CreateClass = () => {
   const { user, getBearerHeader, getAllForgotQuestions } =

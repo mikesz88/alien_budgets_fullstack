@@ -3,7 +3,7 @@ import { Form, Input, Checkbox, Row } from 'antd';
 import StyledButton from '../../../../components/PrimaryButton';
 import Notification from '../../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../../common/constants';
-import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
 
 const UpdateAdultProfile = ({ closeDrawer }) => {
   const { user, updateAdultProfile } = useAuthServiceProvider();

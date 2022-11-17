@@ -4,7 +4,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import Notification from '../../../components/Notification';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { error, ERROR, SUCCESS, success } from '../../../common/constants';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const ForgotQA = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);

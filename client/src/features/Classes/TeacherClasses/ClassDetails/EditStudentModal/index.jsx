@@ -16,9 +16,9 @@ import {
 import Notification from '../../../../../components/Notification';
 import StyledPagination from '../../../../../components/Pagination';
 import StyledRadioGroup from '../../../../../components/RadioGroup';
-import { useAuthServiceProvider } from '../../../../../providers/AuthServiceProvider';
-import { useAvatarServiceProvider } from '../../../../../providers/AvatarServiceProvider';
-import { useClassroomServiceProvider } from '../../../../../providers/ClassroomServiceProvider';
+import { useAuthServiceProvider } from '../../../../../services/AuthServiceProvider';
+import { useAvatarServiceProvider } from '../../../../../services/AvatarServiceProvider';
+import { useClassroomServiceProvider } from '../../../../../services/ClassroomServiceProvider';
 
 const EditCloseModal = ({ open, close, data }) => {
   const { getBearerHeader, updateStudentByAdult } = useAuthServiceProvider();

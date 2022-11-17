@@ -1,28 +1,35 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Modal } from 'antd';
-import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 import { BATTLESHIP_MONTHS } from '../../../../common/constants';
 import { errorSwitchCheck } from '../helper';
 import StyledBasicDiv from '../../../../components/BasicDiv';
-import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
   const { getBearerHeader } = useAuthServiceProvider();
-  const { gameService } = useContext(UserContext);
+  const {
+    game,
+    getSalary,
+    getSavings,
+    getBonusOrFine,
+    nextMonth: toTheNextMonth,
+    setSavings,
+    updateBudgetScore,
+    resetBonusFine,
+    updateGameById,
+    getMonth,
+    getScore,
+  } = useGameServiceProvider();
   const [errorList, setErrorList] = useState([]);
   const preTaxMonthlySalary = useMemo(
-    () =>
-      +(
-        gameService.getSalary() / 12 +
-        gameService.getSavings() +
-        gameService.getBonusOrFine()
-      ).toFixed(2),
-    [gameService]
+    () => +(getSalary() / 12 + getSavings() + getBonusOrFine()).toFixed(2),
+    [game]
   );
   const monthlySalaryTax = useMemo(
     () => +(preTaxMonthlySalary * 0.1).toFixed(2),
-    [gameService]
+    [game]
   );
   const postTaxMonthlyTax = +(preTaxMonthlySalary - monthlySalaryTax).toFixed(
     2
@@ -58,21 +65,21 @@ const TestMyMath = ({ open, toggleVisibility, data, changeView }) => {
       (budgetItem) =>
         budgetItem.budgetItem === 'Savings (This will carry over to next month)'
     );
-    gameService.nextMonth();
-    gameService.setSavings(savings.chosenBudget);
-    gameService.updateBudgetScore();
-    gameService.resetBonusFine();
-    gameService.updateGameById(
+    toTheNextMonth();
+    setSavings(savings.chosenBudget);
+    updateBudgetScore();
+    resetBonusFine();
+    updateGameById(
       {
-        month: gameService.getMonth(),
-        savings: gameService.getSavings(),
-        score: gameService.getScore(),
-        bonusOrFine: gameService.getBonusOrFine(),
+        month: getMonth(),
+        savings: getSavings(),
+        score: getScore(),
+        bonusOrFine: getBonusOrFine(),
       },
-      gameService.gameId,
+      game.gameId,
       getBearerHeader()
     );
-    if (BATTLESHIP_MONTHS.some((month) => month === gameService.getMonth())) {
+    if (BATTLESHIP_MONTHS.some((month) => month === getMonth() + 1)) {
       changeView('battleships');
     } else {
       changeView('mathFacts');

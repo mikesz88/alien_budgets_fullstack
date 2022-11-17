@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../../../../App';
+import React, { useState, useEffect } from 'react';
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import StyledButton from '../../../../components/PrimaryButton';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const SelectHouseMembers = ({ goToHouse }) => {
-  const { gameService, updateService } = useContext(UserContext);
+  const { setHouseholdMembers, setUtilities } = useGameServiceProvider();
   const [tries, setTries] = useState(3);
   const [selectedHouseMembers, setSelectedHouseMembers] = useState(null);
 
@@ -21,9 +21,8 @@ const SelectHouseMembers = ({ goToHouse }) => {
   };
 
   const onFinish = () => {
-    gameService.setHouseholdMembers(selectedHouseMembers);
-    gameService.setUtilities(+((selectedHouseMembers + 1) * 0.035).toFixed(3));
-    updateService();
+    setHouseholdMembers(selectedHouseMembers);
+    setUtilities(+((selectedHouseMembers + 1) * 0.035).toFixed(3));
     goToHouse();
   };
 

@@ -7,7 +7,7 @@ import GreetingBar from '../../../components/GreetingBar';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { StyledDivWrapper, StyledFormItem } from './styles';
-import { useAuthServiceProvider } from '../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 
 const AccessByEmail = () => {
   const { resetPasswordByEmail } = useAuthServiceProvider();

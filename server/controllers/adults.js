@@ -40,7 +40,6 @@ exports.resetStudentPassword = asyncHandler(async (req, res, next) => {
     false,
     /[a-zA-Z0-9-#$^+_!*()@%&]/
   );
-  console.log('new Password =>', newPassword);
   student.password = newPassword;
   student.save();
 

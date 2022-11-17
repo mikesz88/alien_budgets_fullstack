@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Dice from 'react-dice-roll';
-import { UserContext } from '../../../../App';
 import StyledButton from '../../../../components/PrimaryButton';
 import {
   ERROR,
@@ -12,11 +11,25 @@ import {
 import Notification from '../../../../components/Notification';
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import StyledMarginDiv from './styles';
-import { useAuthServiceProvider } from '../../../../providers/AuthServiceProvider';
+import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
+import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const SelectSalary = ({ goToMonthlyBudget }) => {
   const { user, getBearerHeader, addGame } = useAuthServiceProvider();
-  const { gameService } = useContext(UserContext);
+  const {
+    getJob,
+    createGame,
+    getMathFactResults,
+    getBattleshipResults,
+    getMonth,
+    getHouseMembers,
+    getHouse,
+    getUtilities,
+    getSavings,
+    getScore,
+    getBonusOrFine,
+    setSalary,
+  } = useGameServiceProvider();
   const [diceValue, setDiceValue] = useState(null);
   const [tries, setTries] = useState(3);
 
@@ -50,13 +63,12 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
         break;
     }
     return number
-      ? +(gameService.getJob().salaryAverage * percentage).toFixed(2)
-      : withMoneySymbol(gameService.getJob().salaryAverage * percentage);
+      ? +(getJob().salaryAverage * percentage).toFixed(2)
+      : withMoneySymbol(getJob().salaryAverage * percentage);
   };
 
   const createNewGameInGameService = (body) => {
-    gameService
-      .createGame(body, getBearerHeader())
+    createGame(body, getBearerHeader())
       .then((res) => {
         addGame(res._id)
           .then(() => {
@@ -82,24 +94,24 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
   const createNewGame = () => {
     const body = {
       alienId: user.id,
-      mathFactResults: gameService.getMathFactResults(),
-      battleshipResults: gameService.getBattleshipResults(),
-      month: gameService.getMonth(),
-      job: gameService.getJob(),
-      salary: gameService.getSalary(),
-      liveInHousehold: gameService.getHouseMembers(),
-      house: gameService.getHouse(),
-      utilitiesPercentage: gameService.getUtilities(),
-      savings: gameService.getSavings(),
-      score: gameService.getScore(),
-      bonusOrFine: gameService.getBonusOrFine(),
+      mathFactResults: getMathFactResults(),
+      battleshipResults: getBattleshipResults(),
+      month: getMonth(),
+      job: getJob(),
+      salary: salaryBasedOnDiceRoll(diceValue, true),
+      liveInHousehold: getHouseMembers(),
+      house: getHouse(),
+      utilitiesPercentage: getUtilities(),
+      savings: getSavings(),
+      score: getScore(),
+      bonusOrFine: getBonusOrFine(),
     };
 
     createNewGameInGameService(body);
   };
 
   const onFinish = () => {
-    gameService.setSalary(salaryBasedOnDiceRoll(diceValue, true));
+    setSalary(salaryBasedOnDiceRoll(diceValue, true));
     createNewGame();
     goToMonthlyBudget();
   };
