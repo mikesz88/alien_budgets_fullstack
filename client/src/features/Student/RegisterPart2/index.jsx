@@ -24,6 +24,7 @@ import StyledPagination from '../../../components/Pagination';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const RegisterStudentPart2 = () => {
   const { registerStudent } = useAuthServiceProvider();
@@ -207,6 +208,7 @@ const RegisterStudentPart2 = () => {
 
   return (
     <>
+      <AlienImages />
       <StyledTitle>NEW ALIEN</StyledTitle>
       <Form form={form} id={form} onFinish={onFinish}>
         <HeroDivContainer>

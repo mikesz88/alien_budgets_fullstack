@@ -27,7 +27,6 @@ const BudgetSummary = ({ changeView }) => {
     getJob,
     getHouse,
     getSalary,
-    // getScore,
     deleteGame: deleteTheGame,
   } = useGameServiceProvider();
   const {
@@ -91,7 +90,7 @@ const BudgetSummary = ({ changeView }) => {
     addResultsToStudentsHistory({
       job: getJob().jobTitle,
       dwelling: getHouse().dwelling,
-      salary: getSalary() + savingScore,
+      salary: getSalary(),
       score: game.score + game.savings * 10,
       mathFactScore: +(
         getMathFactResults().reduce((a, z) => a + z, 0) /

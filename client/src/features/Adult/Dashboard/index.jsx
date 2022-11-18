@@ -8,6 +8,7 @@ import Card from '../../../components/Card';
 import { error, ERROR } from '../../../common/constants';
 import Notification from '../../../components/Notification';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const Dashboard = () => {
   const [id, setId] = useState('');
@@ -33,6 +34,7 @@ const Dashboard = () => {
 
   return (
     <StyledDashboardWrapper>
+      <AlienImages />
       <GreetingBar adult firstName={user.firstName} lastName={user.lastName} />
       <StyledDashboardContainer padding>
         {dashboardIcons.map((card) => {

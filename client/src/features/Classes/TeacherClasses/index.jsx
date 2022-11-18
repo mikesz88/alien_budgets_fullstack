@@ -8,6 +8,7 @@ import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import StyledDivWrapper from '../../../components/DivWrapper';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const TeacherClasses = () => {
   const { teacherId } = useParams();
@@ -46,6 +47,7 @@ const TeacherClasses = () => {
 
   return (
     <StyledDivWrapper>
+      <AlienImages />
       <GreetingBar template="My Classes" />
       <StyledTable
         pagination={false}

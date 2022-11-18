@@ -3,6 +3,7 @@ import Student from './Student';
 import Adult from './Adult';
 import Introduction from './Introduction';
 import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
+import AlienImages from '../../components/AlienImages';
 
 const Hero = () => {
   const [adult, setAdult] = useState(false);
@@ -29,10 +30,12 @@ const Hero = () => {
 
   return (
     <HeroScreenDivWrapper>
+      <AlienImages />
       {intro && (
         <Introduction chooseAdult={chooseAdult} chooseStudent={chooseStudent} />
       )}
       {adult && <Adult chooseStudent={chooseStudent} intro={chooseIntro} />}
+
       {student && <Student chooseAdult={chooseAdult} intro={chooseIntro} />}
     </HeroScreenDivWrapper>
   );

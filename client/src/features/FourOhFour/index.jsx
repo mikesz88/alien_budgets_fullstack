@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Result } from 'antd';
 import StyledButton from '../../components/PrimaryButton';
 import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
+import AlienImages from '../../components/AlienImages';
 
 const FourOhFour = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const FourOhFour = () => {
 
   return (
     <HeroScreenDivWrapper>
+      <AlienImages />
       <Result
         status="404"
         title="404"

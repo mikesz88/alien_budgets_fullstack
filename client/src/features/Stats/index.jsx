@@ -4,6 +4,7 @@ import GreetingBar from '../../components/GreetingBar';
 import { withMoneySymbol } from '../../common/constants';
 import StyledDivWrapper from '../../components/DivWrapper';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
+import AlienImages from '../../components/AlienImages';
 
 const Stats = () => {
   const { user } = useAuthServiceProvider();
@@ -53,6 +54,7 @@ const Stats = () => {
 
   return (
     <StyledDivWrapper>
+      <AlienImages />
       <GreetingBar template="My Stats" />
       <Table pagination={false} dataSource={previousGames} columns={columns} />
     </StyledDivWrapper>

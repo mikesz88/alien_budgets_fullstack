@@ -9,6 +9,7 @@ import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const RegisterStudentPart1 = () => {
   const [loading, setLoading] = useState(false);
@@ -95,6 +96,7 @@ const RegisterStudentPart1 = () => {
 
   return (
     <>
+      <AlienImages />
       <StyledTitle>NEW ALIEN</StyledTitle>
       <Form form={form} name="registerStudent" onFinish={onFinish}>
         <Form.Item

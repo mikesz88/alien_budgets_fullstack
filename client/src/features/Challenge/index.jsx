@@ -14,6 +14,7 @@ import {
   template,
 } from '../../common/constants';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
+import AlienImages from '../../components/AlienImages';
 
 const Challenge = () => {
   const { user } = useAuthServiceProvider();
@@ -72,6 +73,7 @@ const Challenge = () => {
 
   return (
     <StyledTemplateContainer>
+      <AlienImages />
       <GreetingBar template="Game Time!" />
       {openSavedGame ? <ResumeSavedGame changeView={changeView} /> : null}
       {openTemplate ? <Template changeView={changeView} /> : null}

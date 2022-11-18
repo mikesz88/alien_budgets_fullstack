@@ -6,6 +6,7 @@ import StyledButton from '../../../components/PrimaryButton';
 import Notification from '../../../components/Notification';
 import { ERROR, error, success } from '../../../common/constants';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const StudentLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,7 @@ const StudentLogin = () => {
 
   return (
     <>
+      <AlienImages />
       <StyledTitle>RETURNING ALIEN</StyledTitle>
       <Form form={form} name="loginStudent" onFinish={onFinish}>
         <Form.Item

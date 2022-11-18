@@ -17,6 +17,7 @@ import UpdatePassword from './UpdatePassword';
 import ForgotQA from './ForgotQA';
 import DeleteAccount from './DeleteAccount';
 import ChangeAvatar from './ChangeAvatar';
+import AlienImages from '../../components/AlienImages';
 
 const Account = () => {
   const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -32,6 +33,7 @@ const Account = () => {
   return (
     <>
       <StyledDashboardWrapper>
+        <AlienImages />
         <GreetingBar template="Account Services" />
         <StyledDashboardContainer>
           {dashboardIcons.map((card) => (

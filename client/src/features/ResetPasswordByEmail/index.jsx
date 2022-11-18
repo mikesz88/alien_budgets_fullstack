@@ -15,6 +15,7 @@ import StyledMarginTitle from './styles';
 import StyledCenteredFormItem from '../../components/CenteredFormItem';
 import StyledBasicDiv from '../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
+import AlienImages from '../../components/AlienImages';
 
 const ResetPasswordByEmail = () => {
   const { resetPasswordByToken } = useAuthServiceProvider();
@@ -53,6 +54,7 @@ const ResetPasswordByEmail = () => {
 
   return (
     <>
+      <AlienImages />
       <GreetingBar template="Reset Password" />
       <StyledMarginTitle>Reset Password</StyledMarginTitle>
       <Form layout="vertical" form={form} id={form} onFinish={onFinish}>

@@ -7,6 +7,7 @@ import { success, error, ERROR } from '../../../common/constants';
 import Notification from '../../../components/Notification';
 import loginButtons from './helper';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const AdultLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,7 @@ const AdultLogin = () => {
 
   return (
     <>
+      <AlienImages />
       <StyledTitle>RETURNING ADULT</StyledTitle>
       <Form form={form} name="loginStudent" onFinish={onFinish}>
         <Form.Item

@@ -29,6 +29,7 @@ import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const CreateClass = () => {
   const { user, getBearerHeader, getAllForgotQuestions } =
@@ -154,6 +155,7 @@ const CreateClass = () => {
 
   return (
     <StyledCreateClassroomContainer>
+      <AlienImages />
       <GreetingBar template="New Class" />
       {!newClassroomRoster && (
         <Form form={form} name="Create new class" onFinish={onFinish}>

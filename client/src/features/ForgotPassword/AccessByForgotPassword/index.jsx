@@ -20,6 +20,7 @@ import {
   StyledWidthFormItem,
 } from './styles';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const { confirm } = Modal;
 
@@ -150,6 +151,7 @@ const AccessByForgotPassword = () => {
 
   return (
     <>
+      <AlienImages />
       <GreetingBar template="Forgot Question" />
       <StyledDivWrapper>
         <StyledExtraTitle>

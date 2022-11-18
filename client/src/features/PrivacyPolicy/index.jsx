@@ -1,8 +1,10 @@
 import React from 'react';
+import AlienImages from '../../components/AlienImages';
 import GreetingBar from '../../components/GreetingBar';
 
 const PrivacyPolicy = () => (
   <>
+    <AlienImages />
     <GreetingBar template="Privacy Policy" />
     <div style={{ marginTop: '6rem' }}>
       <h1>Privacy Policy</h1>

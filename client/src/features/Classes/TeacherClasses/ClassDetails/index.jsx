@@ -19,6 +19,7 @@ import StyledTable from '../../../../components/Table';
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../../services/ClassroomServiceProvider';
+import AlienImages from '../../../../components/AlienImages';
 
 const ClassDetails = () => {
   const { classId } = useParams();
@@ -238,6 +239,7 @@ const ClassDetails = () => {
 
   return (
     <StyledDivWrapper>
+      <AlienImages />
       <GreetingBar template={`Class: ${classroomCode}`} />
       {classButtons}
       <StyledTable

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const HeroScreenDivWrapper = styled.div`
+  position: relative;
   background-color: ${({ theme }) => theme.colors.lightGrey};
   height: 100vh;
   width: 100vw;

@@ -8,6 +8,7 @@ import { ERROR, error, success } from '../../common/constants';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 import { useGameServiceProvider } from '../../services/GameServiceProvider';
 import { useClassroomServiceProvider } from '../../services/ClassroomServiceProvider';
+import AlienImages from '../../components/AlienImages';
 
 const Logout = () => {
   const { logout: userLogout } = useAuthServiceProvider();
@@ -36,6 +37,7 @@ const Logout = () => {
 
   return (
     <HeroScreenDivWrapper>
+      <AlienImages />
       <Result
         status="success"
         title="Logged Out"

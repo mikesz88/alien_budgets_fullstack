@@ -6,6 +6,7 @@ import { Result } from 'antd';
 import StyledButton from '../../components/PrimaryButton';
 import HeroScreenDivWrapper from '../../components/Hero/HeroScreenDivWrapper';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
+import AlienImages from '../../components/AlienImages';
 
 const Mobile = () => {
   const { user } = useAuthServiceProvider();
@@ -29,6 +30,7 @@ const Mobile = () => {
 
   return (
     <HeroScreenDivWrapper style={{ flexDirection: 'column' }}>
+      <AlienImages />
       <div>Current Width: {width}</div>
       <div>Minimum Width to continue: 768</div>
       <Result

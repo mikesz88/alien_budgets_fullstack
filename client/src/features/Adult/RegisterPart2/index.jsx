@@ -23,6 +23,7 @@ import {
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const RegisterAdultPart2 = () => {
   const { registerAdult } = useAuthServiceProvider();
@@ -128,6 +129,7 @@ const RegisterAdultPart2 = () => {
 
   return (
     <>
+      <AlienImages />
       <StyledTitle>NEW ADULT</StyledTitle>
       <Form form={form} id={form} onFinish={onFinish}>
         <StyledRegisterPart2Container>

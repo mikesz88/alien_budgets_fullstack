@@ -7,6 +7,7 @@ import { StyledDivContainer, StyledHeader } from './styles';
 import StyledTable from '../../../components/Table';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const Leaderboard = () => {
   const [loading, setLoading] = useState(false);
@@ -89,6 +90,7 @@ const Leaderboard = () => {
 
   return (
     <StyledDivContainer>
+      <AlienImages />
       <GreetingBar template={`Classroom: ${user.classroomCode}`} />
       <StyledHeader>Classroom Leaderboard</StyledHeader>
       <StyledTable

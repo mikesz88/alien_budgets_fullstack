@@ -14,6 +14,7 @@ import {
 import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);
@@ -67,6 +68,7 @@ const RegisterAdult = () => {
 
   return (
     <>
+      <AlienImages />
       <StyledTitle>NEW ADULT</StyledTitle>
       <Form form={form} name="registerAdult" onFinish={onFinish}>
         <Form.Item

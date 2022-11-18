@@ -8,6 +8,7 @@ import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { StyledDivWrapper, StyledFormItem } from './styles';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
+import AlienImages from '../../../components/AlienImages';
 
 const AccessByEmail = () => {
   const { resetPasswordByEmail } = useAuthServiceProvider();
@@ -49,6 +50,7 @@ const AccessByEmail = () => {
 
   return (
     <>
+      <AlienImages />
       <GreetingBar template="Reset Password by Email" />
       <StyledDivWrapper>
         <StyledTitle>Write Email</StyledTitle>
