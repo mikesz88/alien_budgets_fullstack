@@ -7,8 +7,8 @@ const StyledTitle = styled.h1`
   text-align: center;
   margin: 0;
 
-  @media (max-width: 426px) {
-    font-size: 3rem;
+  @media (max-width: 1023px) {
+    font-size: 5rem;
   }
 `;
 

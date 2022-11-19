@@ -6,8 +6,8 @@ export const StyledSubtitle = styled.h2`
   font-size: 2rem;
   text-align: center;
 
-  @media (max-width: 426px) {
-    font-size: 1rem;
+  @media (max-width: 1023px) {
+    font-size: 1.5rem;
   }
 `;
 

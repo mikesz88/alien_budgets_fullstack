@@ -11,11 +11,11 @@ const Adult = ({ chooseStudent, intro }) => (
     <StyledLink to="/login/adult">Returning Adult?</StyledLink>
     <StyledLink to="/register/adult/part1">New Adult?</StyledLink>
     <HeroButtonWrapper>
-      <StyledButton type="primary" onClick={chooseStudent}>
-        Student
-      </StyledButton>
       <StyledButton type="primary" onClick={intro}>
         Go Back
+      </StyledButton>
+      <StyledButton type="primary" onClick={chooseStudent}>
+        Student
       </StyledButton>
     </HeroButtonWrapper>
   </HeroDivContainer>

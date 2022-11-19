@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import StyledTitle from '../../../components/Title';
 import StyledButton from '../../../components/PrimaryButton';
 import Notification from '../../../components/Notification';
 import { ERROR, error, success } from '../../../common/constants';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import AlienImages from '../../../components/AlienImages';
+import {
+  StyledButtonMargin,
+  StyledCenteredDivVaried,
+  StyledDivWrapper,
+  StyledFormItem,
+  StyledInput,
+  StyledInputPassword,
+  StyledInputWrapper,
+} from './styles';
 
 const StudentLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -35,55 +44,69 @@ const StudentLogin = () => {
   const onFinish = (values) => login(values);
 
   return (
-    <>
+    <StyledDivWrapper>
       <AlienImages />
       <StyledTitle>RETURNING ALIEN</StyledTitle>
       <Form form={form} name="loginStudent" onFinish={onFinish}>
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your username.',
-            },
-          ]}
-        >
-          <Input type="text" placeholder="Username" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Password!',
-            },
-          ]}
-        >
-          <Input.Password type="password" placeholder="Password" />
-        </Form.Item>
-        <Form.Item>
-          <StyledButton
-            loading={loading}
-            larger="true"
-            type="primary"
-            htmlType="submit"
+        <StyledInputWrapper>
+          <StyledFormItem
+            left="left"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your username.',
+              },
+            ]}
           >
-            Login
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/register/student/part1">New Alien</Link>
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/forgotpassword/question">
-              Forgot Password? Use Forgot Question
-            </Link>
-          </StyledButton>
-          <StyledButton larger="true" type="primary">
-            <Link to="/">Back to Main Page</Link>
-          </StyledButton>
+            <StyledInput type="text" placeholder="Username" />
+          </StyledFormItem>
+          <StyledFormItem
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Password!',
+              },
+            ]}
+          >
+            <StyledInputPassword type="password" placeholder="Password" />
+          </StyledFormItem>
+        </StyledInputWrapper>
+        <Form.Item>
+          <StyledCenteredDivVaried>
+            <StyledCenteredDivVaried width={300}>
+              <StyledButtonMargin
+                left="left"
+                loading={loading}
+                larger="true"
+                type="primary"
+                htmlType="submit"
+              >
+                Login
+              </StyledButtonMargin>
+            </StyledCenteredDivVaried>
+            <StyledCenteredDivVaried width={300}>
+              <StyledButtonMargin larger="true" type="primary">
+                <Link to="/register/student/part1">New Alien</Link>
+              </StyledButtonMargin>
+            </StyledCenteredDivVaried>
+          </StyledCenteredDivVaried>
+          <StyledCenteredDivVaried marginTop={4}>
+            <StyledButton larger="true" type="primary">
+              <Link to="/forgotpassword/question">
+                Forgot Password? Use Forgot Question
+              </Link>
+            </StyledButton>
+          </StyledCenteredDivVaried>
+          <StyledCenteredDivVaried marginTop={4}>
+            <StyledButton larger="true" type="primary">
+              <Link to="/">Back to Main Page</Link>
+            </StyledButton>
+          </StyledCenteredDivVaried>
         </Form.Item>
       </Form>
-    </>
+    </StyledDivWrapper>
   );
 };
 

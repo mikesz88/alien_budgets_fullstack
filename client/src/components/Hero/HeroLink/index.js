@@ -25,8 +25,8 @@ const StyledLink = styled(Link)`
     color: ${({ theme }) => theme.colors.primaryBlue};
   }
 
-  @media (max-width: 426px) {
-    font-size: 1rem;
+  @media (max-width: 1023px) {
+    font-size: 2rem;
   }
 `;
 

@@ -38,16 +38,23 @@ const Logout = () => {
   return (
     <HeroScreenDivWrapper>
       <AlienImages />
-      <Result
-        status="success"
-        title="Logged Out"
-        subTitle="You have officially logged out. Please click below to log back in."
-        extra={
-          <StyledButton type="primary" onClick={backToHome}>
-            Back to Home
-          </StyledButton>
-        }
-      />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Result
+          status="success"
+          title="Logged Out"
+          subTitle="You have officially logged out. Please click below to log back in."
+        />
+        <StyledButton type="primary" onClick={backToHome}>
+          Back to Home
+        </StyledButton>
+      </div>
     </HeroScreenDivWrapper>
   );
 };

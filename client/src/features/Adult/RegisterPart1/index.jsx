@@ -15,6 +15,12 @@ import StyledCenteredFormItem from '../../../components/CenteredFormItem';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import AlienImages from '../../../components/AlienImages';
+import {
+  StyledDivWrapper,
+  StyledDivCustom,
+  StyledFormItem,
+  Styled500Div,
+} from './styles';
 
 const RegisterAdult = () => {
   const [questionList, setQuestionList] = useState([]);
@@ -67,159 +73,174 @@ const RegisterAdult = () => {
   };
 
   return (
-    <>
+    <StyledDivWrapper>
       <AlienImages />
       <StyledTitle>NEW ADULT</StyledTitle>
       <Form form={form} name="registerAdult" onFinish={onFinish}>
-        <Form.Item
-          name="firstName"
-          hasFeedback
-          rules={[
-            {
-              type: 'text',
-              required: true,
-              message: 'Please input your first name.',
-            },
-            {
-              pattern: /[a-zA-Z]{3,}/gm,
-              required: true,
-              message: 'Must be minimum 3 letters.',
-            },
-          ]}
-        >
-          <Input type="text" placeholder="First Name" />
-        </Form.Item>
-        <Form.Item
-          name="lastName"
-          hasFeedback
-          rules={[
-            {
-              type: 'text',
-              message: 'Please input your last name.',
-            },
-            {
-              pattern: /[a-zA-Z]{3,}/gm,
-              required: true,
-              message: 'Must be minimum 3 letters.',
-            },
-            {
-              required: true,
-              message: 'You are required to write a name.',
-            },
-          ]}
-        >
-          <Input type="text" placeholder="Last Name" />
-        </Form.Item>
-        <Form.Item
-          name="email"
-          register="true"
-          rules={[
-            {
-              type: 'email',
-              message: 'Please input a valid email',
-            },
-            {
-              required: true,
-              message: 'Please input your Email!',
-            },
-          ]}
-        >
-          <Input type="email" placeholder="Email" />
-        </Form.Item>
-        <Form.Item noStyle>
-          <StyledBasicDiv>
-            Password must be 8-20 characters, including: at least one capital
-            letter, at least one small letter, one number and one special
-            character - ! @ # $ % ^ & * ( ) _ +
-          </StyledBasicDiv>
+        <StyledDivCustom marginTop="true">
+          <StyledFormItem
+            margin="right"
+            name="firstName"
+            hasFeedback
+            rules={[
+              {
+                type: 'text',
+                required: true,
+                message: 'Please input your first name.',
+              },
+              {
+                pattern: /[a-zA-Z]{3,}/gm,
+                required: true,
+                message: 'Must be minimum 3 letters.',
+              },
+            ]}
+          >
+            <Input type="text" placeholder="First Name" />
+          </StyledFormItem>
+          <StyledFormItem
+            margin="left"
+            name="lastName"
+            hasFeedback
+            rules={[
+              {
+                type: 'text',
+                message: 'Please input your last name.',
+              },
+              {
+                pattern: /[a-zA-Z]{3,}/gm,
+                required: true,
+                message: 'Must be minimum 3 letters.',
+              },
+              {
+                required: true,
+                message: 'You are required to write a name.',
+              },
+            ]}
+          >
+            <Input type="text" placeholder="Last Name" />
+          </StyledFormItem>
+        </StyledDivCustom>
+        <StyledDivCustom>
           <Form.Item
-            name="password"
+            name="email"
+            register="true"
+            rules={[
+              {
+                type: 'email',
+                message: 'Please input a valid email',
+              },
+              {
+                required: true,
+                message: 'Please input your Email!',
+              },
+            ]}
+          >
+            <Input type="email" placeholder="Email" />
+          </Form.Item>
+        </StyledDivCustom>
+        <StyledDivCustom style={{ flexDirection: 'column' }}>
+          <Form.Item noStyle>
+            <Styled500Div>
+              Password must be 8-20 characters, including: at least one capital
+              letter, at least one small letter, one number and one special
+              character - ! @ # $ % ^ & * ( ) _ +
+            </Styled500Div>
+            <StyledFormItem
+              width="true"
+              name="password"
+              hasFeedback
+              register="true"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+                {
+                  min: 8,
+                  required: true,
+                  message: 'Must be a minimum of 8 characters',
+                },
+                {
+                  max: 20,
+                  required: true,
+                  message: 'Must be a maximum of 20 characters',
+                },
+                {
+                  pattern: passwordRegex,
+                  required: true,
+                  message:
+                    'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+                },
+              ]}
+            >
+              <Input.Password type="password" placeholder="Password" />
+            </StyledFormItem>
+          </Form.Item>
+          <Form.Item
+            name="confirm"
+            dependencies={['password']}
             hasFeedback
             register="true"
             rules={[
               {
                 required: true,
-                message: 'Please input your Password!',
+                message: 'Please confirm your password!',
               },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      'The two passwords that you entered do not match!'
+                    )
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password type="password" placeholder="Confirm Password" />
+          </Form.Item>
+        </StyledDivCustom>
+        <StyledDivCustom>
+          <StyledFormItem
+            margin="right"
+            name="forgotPasswordQuestion"
+            hasFeedback
+            rules={[
               {
-                min: 8,
                 required: true,
-                message: 'Must be a minimum of 8 characters',
-              },
-              {
-                max: 20,
-                required: true,
-                message: 'Must be a maximum of 20 characters',
-              },
-              {
-                pattern: passwordRegex,
-                required: true,
-                message:
-                  'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+                message: 'Please select your question',
               },
             ]}
           >
-            <Input.Password type="password" placeholder="Password" />
-          </Form.Item>
-        </Form.Item>
-        <Form.Item
-          name="confirm"
-          dependencies={['password']}
-          hasFeedback
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error('The two passwords that you entered do not match!')
-                );
+            <Select
+              placeholder="Forgot Password Question"
+              onChange={forgotPassQuestionChange}
+              allowClear
+            >
+              {questionList.map((question) => (
+                <Select.Option key={question.id} value={question.id}>
+                  {question.question}
+                </Select.Option>
+              ))}
+            </Select>
+          </StyledFormItem>
+          <StyledFormItem
+            margin="right"
+            name="forgotPasswordAnswer"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please write your answer.',
               },
-            }),
-          ]}
-        >
-          <Input.Password type="password" placeholder="Confirm Password" />
-        </Form.Item>
-        <Form.Item
-          name="forgotPasswordQuestion"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: 'Please select your question',
-            },
-          ]}
-        >
-          <Select
-            placeholder="Forgot Password Question"
-            onChange={forgotPassQuestionChange}
-            allowClear
+            ]}
           >
-            {questionList.map((question) => (
-              <Select.Option key={question.id} value={question.id}>
-                {question.question}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="forgotPasswordAnswer"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: 'Please write your answer.',
-            },
-          ]}
-        >
-          <Input type="text" placeholder="Forgot Password Answer" />
-        </Form.Item>
+            <Input type="text" placeholder="Forgot Password Answer" />
+          </StyledFormItem>
+        </StyledDivCustom>
         <StyledCenteredFormItem register="true">
           <StyledBasicDiv>
             By signing up you agree to our terms and policies.
@@ -240,7 +261,7 @@ const RegisterAdult = () => {
           </StyledButton>
         </StyledCenteredFormItem>
       </Form>
-    </>
+    </StyledDivWrapper>
   );
 };
 
