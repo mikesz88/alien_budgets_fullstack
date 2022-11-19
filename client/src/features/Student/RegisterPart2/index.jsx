@@ -25,6 +25,7 @@ import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 import AlienImages from '../../../components/AlienImages';
+import { StyledAvatarBGColorWrapper, StyledDivWrapper } from './style';
 
 const RegisterStudentPart2 = () => {
   const { registerStudent } = useAuthServiceProvider();
@@ -207,36 +208,40 @@ const RegisterStudentPart2 = () => {
   }, [userAvatar]);
 
   return (
-    <>
+    <StyledDivWrapper>
       <AlienImages />
       <StyledTitle>NEW ALIEN</StyledTitle>
       <Form form={form} id={form} onFinish={onFinish}>
         <HeroDivContainer>
-          <Form.Item noStyle>
-            <StyledButton
-              onClick={openModal}
-              type="primary"
-              placeholder="Select Avatar"
+          <StyledAvatarBGColorWrapper>
+            <Form.Item noStyle>
+              <StyledButton
+                style={{ width: '300px' }}
+                onClick={openModal}
+                type="primary"
+                placeholder="Select Avatar"
+              >
+                Choose Avatar
+              </StyledButton>
+            </Form.Item>
+            <Form.Item
+              name="avatarColor"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please select a color!',
+                },
+              ]}
             >
-              Choose Avatar
-            </StyledButton>
-          </Form.Item>
-          <Form.Item
-            name="avatarColor"
-            rules={[
-              {
-                required: true,
-                message: 'Please select a color!',
-              },
-            ]}
-          >
-            <StyledButton
-              onClick={() => handleBgColorChange(generateBgColor())}
-              type="primary"
-            >
-              Choose Random Background Color
-            </StyledButton>
-          </Form.Item>
+              <StyledButton
+                style={{ width: '300px' }}
+                onClick={() => handleBgColorChange(generateBgColor())}
+                type="primary"
+              >
+                Choose Random Background Color
+              </StyledButton>
+            </Form.Item>
+          </StyledAvatarBGColorWrapper>
           <Form.Item noStyle>
             <Avatar
               avatar={{
@@ -262,84 +267,145 @@ const RegisterStudentPart2 = () => {
             },
           ]}
         >
-          <Form.Item noStyle>
-            <StyledButton
-              onClick={getRandomAdjective}
-              type="primary"
-              placeholder="Username"
-            >
-              Choose Adjective
-            </StyledButton>
-            <StyledButton
-              onClick={selectUsernameNumbers}
-              type="primary"
-              placeholder="Username"
-            >
-              Choose Random Numbers
-            </StyledButton>
-            <span>{username}</span>
-          </Form.Item>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              marginTop: '1rem',
+            }}
+          >
+            <Form.Item noStyle>
+              <div>
+                <StyledButton
+                  style={{ width: '300px' }}
+                  onClick={getRandomAdjective}
+                  type="primary"
+                  placeholder="Username"
+                >
+                  Choose Adjective
+                </StyledButton>
+                <StyledButton
+                  style={{ width: '300px' }}
+                  onClick={selectUsernameNumbers}
+                  type="primary"
+                  placeholder="Username"
+                >
+                  Choose Random Numbers
+                </StyledButton>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <div
+                  style={{
+                    width: '300px',
+                    padding: '1rem',
+                    fontWeight: 'bold',
+                    fontSize: '1rem',
+                    textAlign: 'center',
+                    marginRight: '1rem',
+                  }}
+                >
+                  Username:
+                </div>
+                <div
+                  style={{
+                    width: '300px',
+                    padding: '1rem',
+                    fontWeight: 'bold',
+                    fontSize: '1rem',
+                    textAlign: 'center',
+                    marginRLeft: '1rem',
+                  }}
+                >
+                  {username}
+                </div>
+              </div>
+            </Form.Item>
+          </div>
         </Form.Item>
-        <Form.Item noStyle>
-          <StyledBasicDiv>
-            Password must be 8-20 characters, including: at least one capital
-            letter, at least one small letter, one number and one special
-            character - ! @ # $ % ^ & * ( ) _ +
-          </StyledBasicDiv>
+        <div
+          style={{
+            display: 'flex',
+            width: '500px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            margin: '0 auto',
+          }}
+        >
+          <Form.Item noStyle>
+            <div
+              style={{
+                fontSize: '0.75rem',
+                textAlign: 'center',
+                marginBottom: '1rem',
+              }}
+            >
+              Password must be 8-20 characters, including: at least one capital
+              letter, at least one small letter, one number and one special
+              character - ! @ # $ % ^ & * ( ) _ +
+            </div>
+            <Form.Item
+              style={{ width: '300px' }}
+              name="password"
+              hasFeedback
+              register="true"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+                {
+                  min: 8,
+                  required: true,
+                  message: 'Must be a minimum of 8 characters',
+                },
+                {
+                  max: 20,
+                  required: true,
+                  message: 'Must be a maximum of 20 characters',
+                },
+                {
+                  pattern: passwordRegex,
+                  required: true,
+                  message:
+                    'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+                },
+              ]}
+            >
+              <Input.Password type="password" placeholder="Password" />
+            </Form.Item>
+          </Form.Item>
           <Form.Item
-            name="password"
+            style={{ width: '300px' }}
+            name="confirm"
+            dependencies={['password']}
             hasFeedback
             register="true"
             rules={[
               {
                 required: true,
-                message: 'Please input your Password!',
+                message: 'Please confirm your password!',
               },
-              {
-                min: 8,
-                required: true,
-                message: 'Must be a minimum of 8 characters',
-              },
-              {
-                max: 20,
-                required: true,
-                message: 'Must be a maximum of 20 characters',
-              },
-              {
-                pattern: passwordRegex,
-                required: true,
-                message:
-                  'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
-              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      'The two passwords that you entered do not match!'
+                    )
+                  );
+                },
+              }),
             ]}
           >
-            <Input.Password type="password" placeholder="Password" />
+            <Input.Password type="password" placeholder="Confirm Password" />
           </Form.Item>
-        </Form.Item>
-        <Form.Item
-          name="confirm"
-          dependencies={['password']}
-          hasFeedback
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error('The two passwords that you entered do not match!')
-                );
-              },
-            }),
-          ]}
-        >
-          <Input.Password type="password" placeholder="Confirm Password" />
-        </Form.Item>
+        </div>
+
         <StyledCenteredFormItem register="true">
           <StyledBasicDiv>
             By signing up you agree to our terms and policies.
@@ -395,7 +461,7 @@ const RegisterStudentPart2 = () => {
           </Form.Item>
         </Form.Item>
       </Form>
-    </>
+    </StyledDivWrapper>
   );
 };
 
