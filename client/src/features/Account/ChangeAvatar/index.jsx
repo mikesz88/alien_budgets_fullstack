@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Spin } from 'antd';
 import { faker } from '@faker-js/faker';
 import Avatar from '../../../components/Avatar';
-import StyledBasicSpan from './styles';
 import StyledPagination from '../../../components/Pagination';
 import StyledRadioGroup from '../../../components/RadioGroup';
 import StyledRadioButton from '../../../components/RadioButton';
@@ -16,9 +15,17 @@ import {
   success,
   generateBgColor,
 } from '../../../common/constants';
-import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
+import {
+  StyledCenteredFormItem,
+  StyledDivUpdatedAvatar,
+  StyledDivWrapper,
+  StyledFormItem,
+  StyledH3MarginTop,
+  StyledNewUsernameDiv,
+  StyledSpacedEvenlyDiv,
+} from './styles';
 
 const ChangeAvatar = ({ closeDrawer }) => {
   const [loading, setLoading] = useState(false);
@@ -151,6 +158,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
         ERROR,
         'Avatar must have a different color or animal'
       );
+      setLoading(false);
     } else {
       updateAvatar(values)
         .then(() => {
@@ -167,21 +175,23 @@ const ChangeAvatar = ({ closeDrawer }) => {
 
   return (
     <Form form={form} onFinish={onFinish}>
-      <StyledBasicDiv>Current Avatar</StyledBasicDiv>
-      <Form.Item noStyle>
-        <Avatar
-          avatar={{
-            avatarName: user.avatarURL,
-            avatarColor: user.avatarColor,
-          }}
-          size="large"
-        />
-      </Form.Item>
-      <StyledBasicDiv>Updated Avatar</StyledBasicDiv>
-      <StyledBasicDiv>Choose Animal</StyledBasicDiv>
+      <h1>Current Avatar</h1>
+      <StyledDivWrapper>
+        <Form.Item noStyle>
+          <Avatar
+            avatar={{
+              avatarName: user.avatarURL,
+              avatarColor: user.avatarColor,
+            }}
+            size="large"
+          />
+        </Form.Item>
+        <StyledH3MarginTop>Update Avatar</StyledH3MarginTop>
+        <h3>Choose Animal</h3>
+      </StyledDivWrapper>
       <Form.Item name="avatarURL">
-        <StyledRadioGroup onChange={handleAvatarChange}>
-          <Spin spinning={avatarLoading}>
+        <Spin spinning={avatarLoading}>
+          <StyledRadioGroup onChange={handleAvatarChange}>
             {avatarList.map((avatarIcon) => (
               <StyledRadioButton
                 key={avatarIcon.avatarURL}
@@ -198,8 +208,8 @@ const ChangeAvatar = ({ closeDrawer }) => {
                 />
               </StyledRadioButton>
             ))}
-          </Spin>
-        </StyledRadioGroup>
+          </StyledRadioGroup>
+        </Spin>
       </Form.Item>
       <Form.Item noStyle>
         <StyledPagination
@@ -211,7 +221,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
           onChange={(page) => getAvatarList(page)}
         />
       </Form.Item>
-      <Form.Item
+      <StyledFormItem
         name="avatarColor"
         rules={[
           {
@@ -226,16 +236,18 @@ const ChangeAvatar = ({ closeDrawer }) => {
         >
           Choose Random Background Color
         </StyledButton>
-      </Form.Item>
-      <Form.Item noStyle>
-        <Avatar
-          avatar={{
-            avatarName: userAvatar.avatarURL,
-            avatarColor: userBackgroundColor,
-          }}
-          size="large"
-        />
-      </Form.Item>
+      </StyledFormItem>
+      <StyledDivUpdatedAvatar>
+        <Form.Item noStyle>
+          <Avatar
+            avatar={{
+              avatarName: userAvatar.avatarURL,
+              avatarColor: userBackgroundColor,
+            }}
+            size="large"
+          />
+        </Form.Item>
+      </StyledDivUpdatedAvatar>
       {user.role === 'student' && (
         <Form.Item
           name="username"
@@ -253,25 +265,29 @@ const ChangeAvatar = ({ closeDrawer }) => {
           ]}
         >
           <Form.Item noStyle>
-            <StyledButton
-              onClick={getRandomAdjective}
-              type="primary"
-              placeholder="Username"
-            >
-              Choose Adjective
-            </StyledButton>
-            <StyledButton
-              onClick={selectUsernameNumbers}
-              type="primary"
-              placeholder="Username"
-            >
-              Choose Random Numbers
-            </StyledButton>
-            <StyledBasicSpan>{username}</StyledBasicSpan>
+            <StyledSpacedEvenlyDiv>
+              <StyledButton
+                onClick={getRandomAdjective}
+                type="primary"
+                placeholder="Username"
+              >
+                Random Adjective
+              </StyledButton>
+              <StyledButton
+                onClick={selectUsernameNumbers}
+                type="primary"
+                placeholder="Username"
+              >
+                Random Numbers
+              </StyledButton>
+            </StyledSpacedEvenlyDiv>
+            <StyledNewUsernameDiv>
+              New Username: {username}
+            </StyledNewUsernameDiv>
           </Form.Item>
         </Form.Item>
       )}
-      <Form.Item>
+      <StyledCenteredFormItem>
         <StyledButton
           loading={loading}
           larger="true"
@@ -280,7 +296,7 @@ const ChangeAvatar = ({ closeDrawer }) => {
         >
           Save Changes
         </StyledButton>
-      </Form.Item>
+      </StyledCenteredFormItem>
     </Form>
   );
 };

@@ -176,7 +176,8 @@ const RegisterAdult = () => {
               <Input.Password type="password" placeholder="Password" />
             </StyledFormItem>
           </Form.Item>
-          <Form.Item
+          <StyledFormItem
+            width="true"
             name="confirm"
             dependencies={['password']}
             hasFeedback
@@ -201,10 +202,11 @@ const RegisterAdult = () => {
             ]}
           >
             <Input.Password type="password" placeholder="Confirm Password" />
-          </Form.Item>
+          </StyledFormItem>
         </StyledDivCustom>
         <StyledDivCustom>
           <StyledFormItem
+            width="true"
             margin="right"
             name="forgotPasswordQuestion"
             hasFeedback
@@ -228,6 +230,7 @@ const RegisterAdult = () => {
             </Select>
           </StyledFormItem>
           <StyledFormItem
+            width="true"
             margin="right"
             name="forgotPasswordAnswer"
             hasFeedback

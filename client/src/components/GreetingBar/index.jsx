@@ -47,7 +47,7 @@ const GreetingBar = ({
           <StyledButton type="text" onClick={() => navigate(`/challenge/play`)}>
             Play Game
           </StyledButton>
-          <>Welcome {username}</>
+          <StyledAdultName>Welcome {username}</StyledAdultName>
         </StyledStudentGreetingContainer>
       )}
       {template && (

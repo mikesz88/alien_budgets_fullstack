@@ -25,7 +25,17 @@ import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useAvatarServiceProvider } from '../../../services/AvatarServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 import AlienImages from '../../../components/AlienImages';
-import { StyledAvatarBGColorWrapper, StyledDivWrapper } from './style';
+import {
+  Styled2ndRowContainer,
+  StyledAvatarBGColorWrapper,
+  StyledButton300,
+  StyledDivFlex,
+  StyledDivWrapper,
+  StyledFormItem,
+  StyledPasswordContainer,
+  StyledPasswordRules,
+  StyledUsernameWrapper,
+} from './style';
 
 const RegisterStudentPart2 = () => {
   const { registerStudent } = useAuthServiceProvider();
@@ -233,13 +243,12 @@ const RegisterStudentPart2 = () => {
                 },
               ]}
             >
-              <StyledButton
-                style={{ width: '300px' }}
+              <StyledButton300
                 onClick={() => handleBgColorChange(generateBgColor())}
                 type="primary"
               >
                 Choose Random Background Color
-              </StyledButton>
+              </StyledButton300>
             </Form.Item>
           </StyledAvatarBGColorWrapper>
           <Form.Item noStyle>
@@ -267,25 +276,16 @@ const RegisterStudentPart2 = () => {
             },
           ]}
         >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              marginTop: '1rem',
-            }}
-          >
+          <StyledUsernameWrapper>
             <Form.Item noStyle>
-              <div>
-                <StyledButton
-                  style={{ width: '300px' }}
+              <>
+                <StyledButton300
                   onClick={getRandomAdjective}
                   type="primary"
                   placeholder="Username"
                 >
                   Choose Adjective
-                </StyledButton>
+                </StyledButton300>
                 <StyledButton
                   style={{ width: '300px' }}
                   onClick={selectUsernameNumbers}
@@ -294,60 +294,26 @@ const RegisterStudentPart2 = () => {
                 >
                   Choose Random Numbers
                 </StyledButton>
-              </div>
-              <div style={{ display: 'flex' }}>
-                <div
-                  style={{
-                    width: '300px',
-                    padding: '1rem',
-                    fontWeight: 'bold',
-                    fontSize: '1rem',
-                    textAlign: 'center',
-                    marginRight: '1rem',
-                  }}
-                >
+              </>
+              <StyledDivFlex>
+                <Styled2ndRowContainer margin="right">
                   Username:
-                </div>
-                <div
-                  style={{
-                    width: '300px',
-                    padding: '1rem',
-                    fontWeight: 'bold',
-                    fontSize: '1rem',
-                    textAlign: 'center',
-                    marginRLeft: '1rem',
-                  }}
-                >
+                </Styled2ndRowContainer>
+                <Styled2ndRowContainer margin="left">
                   {username}
-                </div>
-              </div>
+                </Styled2ndRowContainer>
+              </StyledDivFlex>
             </Form.Item>
-          </div>
+          </StyledUsernameWrapper>
         </Form.Item>
-        <div
-          style={{
-            display: 'flex',
-            width: '500px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            margin: '0 auto',
-          }}
-        >
+        <StyledPasswordContainer>
           <Form.Item noStyle>
-            <div
-              style={{
-                fontSize: '0.75rem',
-                textAlign: 'center',
-                marginBottom: '1rem',
-              }}
-            >
+            <StyledPasswordRules>
               Password must be 8-20 characters, including: at least one capital
               letter, at least one small letter, one number and one special
               character - ! @ # $ % ^ & * ( ) _ +
-            </div>
-            <Form.Item
-              style={{ width: '300px' }}
+            </StyledPasswordRules>
+            <StyledFormItem
               name="password"
               hasFeedback
               register="true"
@@ -375,10 +341,9 @@ const RegisterStudentPart2 = () => {
               ]}
             >
               <Input.Password type="password" placeholder="Password" />
-            </Form.Item>
+            </StyledFormItem>
           </Form.Item>
-          <Form.Item
-            style={{ width: '300px' }}
+          <StyledFormItem
             name="confirm"
             dependencies={['password']}
             hasFeedback
@@ -403,9 +368,8 @@ const RegisterStudentPart2 = () => {
             ]}
           >
             <Input.Password type="password" placeholder="Confirm Password" />
-          </Form.Item>
-        </div>
-
+          </StyledFormItem>
+        </StyledPasswordContainer>
         <StyledCenteredFormItem register="true">
           <StyledBasicDiv>
             By signing up you agree to our terms and policies.
@@ -429,8 +393,8 @@ const RegisterStudentPart2 = () => {
               onCancel={closeModal}
               footer={null}
             >
-              <StyledRadioGroup onChange={handleAvatarChange}>
-                <Spin spinning={avatarLoading}>
+              <Spin spinning={avatarLoading}>
+                <StyledRadioGroup onChange={handleAvatarChange}>
                   {avatarList.map((avatarIcon) => (
                     <StyledRadioButton
                       key={avatarIcon.avatarURL}
@@ -447,8 +411,8 @@ const RegisterStudentPart2 = () => {
                       />
                     </StyledRadioButton>
                   ))}
-                </Spin>
-              </StyledRadioGroup>
+                </StyledRadioGroup>
+              </Spin>
               <StyledPagination
                 total={pagination.total}
                 simple

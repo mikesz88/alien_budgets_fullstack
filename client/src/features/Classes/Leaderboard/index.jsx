@@ -3,7 +3,7 @@ import GreetingBar from '../../../components/GreetingBar';
 import Avatar from '../../../components/Avatar';
 import Notification from '../../../components/Notification';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
-import { StyledDivContainer, StyledHeader } from './styles';
+import { StyledDivContainer } from './styles';
 import StyledTable from '../../../components/Table';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
@@ -92,13 +92,12 @@ const Leaderboard = () => {
     <StyledDivContainer>
       <AlienImages />
       <GreetingBar template={`Classroom: ${user.classroomCode}`} />
-      <StyledHeader>Classroom Leaderboard</StyledHeader>
       <StyledTable
         columns={columns}
         loading={loading}
         pagination={{
           pageSize: 10,
-          position: ['topCenter'],
+          position: ['bottomCenter'],
         }}
         dataSource={students}
       />

@@ -8,6 +8,7 @@ const UpdateProfile = ({ closeDrawer }) => {
 
   return (
     <>
+      <h1>Update Profile</h1>
       <div>Current Details</div>
       <div>FirstName: {user.firstName}</div>
       {user.role === 'student' ? (

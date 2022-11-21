@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { Button } from 'antd';
 
@@ -23,6 +22,10 @@ export const StyledTitleFont = styled.div`
 export const StyledAdultName = styled.div`
   font-family: ${({ theme }) => theme.fontFamily.hind};
   font-size: 32px;
+
+  @media (max-width: 838px) {
+    font-size: 24px;
+  }
 `;
 
 export const StyledStudentGreetingContainer = styled.div`

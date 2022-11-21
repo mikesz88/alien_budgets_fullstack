@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../../../components/PrimaryButton';
 import Notification from '../../../components/Notification';
-import StyledBasicHeader from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { ERROR, error, SUCCESS, success } from '../../../common/constants';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
@@ -96,7 +95,7 @@ const DeleteAccount = () => {
 
   return (
     <>
-      <StyledBasicHeader>Deleting Account</StyledBasicHeader>
+      <h1>Delete Account</h1>
       <StyledBasicDiv>
         There is no going back from this. You will need to create a new account
         in order to access Alien Budgets.

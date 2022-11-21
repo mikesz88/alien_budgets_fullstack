@@ -3,8 +3,10 @@ import { Form, Modal, Checkbox, Row, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '../../../components/Avatar';
 import {
+  StyledDivWrapper,
   StyledGradeLevelContainer,
   StyledRegisterPart2Container,
+  StyledCenteredFormItem,
 } from './styles';
 import StyledPagination from '../../../components/Pagination';
 import StyledRadioGroup from '../../../components/RadioGroup';
@@ -128,7 +130,7 @@ const RegisterAdultPart2 = () => {
   };
 
   return (
-    <>
+    <StyledDivWrapper>
       <AlienImages />
       <StyledTitle>NEW ADULT</StyledTitle>
       <Form form={form} id={form} onFinish={onFinish}>
@@ -164,27 +166,25 @@ const RegisterAdultPart2 = () => {
             />
           </Form.Item>
         </StyledRegisterPart2Container>
-        <StyledGradeLevelContainer>
-          <Form.Item
-            name="gradeLevel"
-            label="Grade Level"
-            rules={[
-              {
-                required: true,
-                message: 'Please select a grade level!',
-              },
-            ]}
-          >
-            <Checkbox.Group>
-              <Row>
-                <Checkbox value="4th">4th</Checkbox>
-                <Checkbox value="5th">5th</Checkbox>
-                <Checkbox value="6th">6th</Checkbox>
-              </Row>
-            </Checkbox.Group>
-          </Form.Item>
+        <StyledGradeLevelContainer
+          name="gradeLevel"
+          label="Grade Level"
+          rules={[
+            {
+              required: true,
+              message: 'Please select a grade level!',
+            },
+          ]}
+        >
+          <Checkbox.Group>
+            <Row>
+              <Checkbox value="4th">4th</Checkbox>
+              <Checkbox value="5th">5th</Checkbox>
+              <Checkbox value="6th">6th</Checkbox>
+            </Row>
+          </Checkbox.Group>
         </StyledGradeLevelContainer>
-        <Form.Item register="true" style={{ textAlign: 'center' }}>
+        <StyledCenteredFormItem register="true">
           <StyledBasicDiv>
             By signing up you agree to our terms and policies.
           </StyledBasicDiv>
@@ -196,7 +196,7 @@ const RegisterAdultPart2 = () => {
           >
             Register
           </StyledButton>
-        </Form.Item>
+        </StyledCenteredFormItem>
         <Form.Item name="avatarURL">
           <Form.Item noStyle>
             <Modal
@@ -207,8 +207,8 @@ const RegisterAdultPart2 = () => {
               onCancel={closeModal}
               footer={null}
             >
-              <StyledRadioGroup onChange={handleAvatarChange}>
-                <Spin spinning={avatarLoading}>
+              <Spin spinning={avatarLoading}>
+                <StyledRadioGroup onChange={handleAvatarChange}>
                   {avatarList.map((avatarIcon) => (
                     <StyledRadioButton
                       key={avatarIcon.avatarURL}
@@ -225,8 +225,8 @@ const RegisterAdultPart2 = () => {
                       />
                     </StyledRadioButton>
                   ))}
-                </Spin>
-              </StyledRadioGroup>
+                </StyledRadioGroup>
+              </Spin>
               <StyledPagination
                 total={pagination.total}
                 simple
@@ -239,7 +239,7 @@ const RegisterAdultPart2 = () => {
           </Form.Item>
         </Form.Item>
       </Form>
-    </>
+    </StyledDivWrapper>
   );
 };
 

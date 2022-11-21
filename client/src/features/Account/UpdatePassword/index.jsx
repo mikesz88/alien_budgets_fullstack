@@ -43,87 +43,90 @@ const UpdatePassword = ({ closeDrawer }) => {
   };
 
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      name="updatePassword"
-      onFinish={onFinish}
-    >
-      <Form.Item
-        label="Confirm Current Password"
-        name="currentPassword"
-        rules={[
-          {
-            required: true,
-            message: 'Please write your current password.',
-          },
-        ]}
+    <>
+      <h1>Update Password</h1>
+      <Form
+        form={form}
+        layout="vertical"
+        name="updatePassword"
+        onFinish={onFinish}
       >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item noStyle>
-        <StyledBasicDiv>
-          Password must be 8-20 characters, including: at least one capital
-          letter, at least one small letter, one number and one special
-          character - ! @ # $ % ^ & * ( ) _ +
-        </StyledBasicDiv>
         <Form.Item
-          label="New Password"
-          name="newPassword"
+          label="Confirm Current Password"
+          name="currentPassword"
           rules={[
             {
               required: true,
-              message: 'Please input your Password.',
-            },
-            {
-              min: 8,
-              message: 'Must be a minimum of 8 characters',
-            },
-            {
-              pattern: passwordRegex,
-              message:
-                'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+              message: 'Please write your current password.',
             },
           ]}
         >
-          <Input.Password type="password" />
+          <Input.Password />
         </Form.Item>
-      </Form.Item>
-      <Form.Item
-        label="Confirm  New Password"
-        name="confirm"
-        dependencies={['newPassword']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your  new password.',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('newPassword') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(
-                new Error('The two passwords that you entered do not match!')
-              );
+        <Form.Item noStyle>
+          <StyledBasicDiv>
+            Password must be 8-20 characters, including: at least one capital
+            letter, at least one small letter, one number and one special
+            character - ! @ # $ % ^ & * ( ) _ +
+          </StyledBasicDiv>
+          <Form.Item
+            label="New Password"
+            name="newPassword"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Password.',
+              },
+              {
+                min: 8,
+                message: 'Must be a minimum of 8 characters',
+              },
+              {
+                pattern: passwordRegex,
+                message:
+                  'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+              },
+            ]}
+          >
+            <Input.Password type="password" />
+          </Form.Item>
+        </Form.Item>
+        <Form.Item
+          label="Confirm  New Password"
+          name="confirm"
+          dependencies={['newPassword']}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Please confirm your  new password.',
             },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item>
-        <StyledButton
-          loading={loading}
-          larger="true"
-          type="primary"
-          htmlType="submit"
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('newPassword') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error('The two passwords that you entered do not match!')
+                );
+              },
+            }),
+          ]}
         >
-          Submit Changes
-        </StyledButton>
-      </Form.Item>
-    </Form>
+          <Input.Password />
+        </Form.Item>
+        <Form.Item>
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
+            Submit Changes
+          </StyledButton>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 

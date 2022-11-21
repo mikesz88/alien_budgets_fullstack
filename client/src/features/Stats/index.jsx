@@ -1,10 +1,10 @@
 import React from 'react';
-import { Table } from 'antd';
 import GreetingBar from '../../components/GreetingBar';
 import { withMoneySymbol } from '../../common/constants';
 import StyledDivWrapper from '../../components/DivWrapper';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 import AlienImages from '../../components/AlienImages';
+import StyledTable from './styles';
 
 const Stats = () => {
   const { user } = useAuthServiceProvider();
@@ -56,7 +56,14 @@ const Stats = () => {
     <StyledDivWrapper>
       <AlienImages />
       <GreetingBar template="My Stats" />
-      <Table pagination={false} dataSource={previousGames} columns={columns} />
+      <StyledTable
+        pagination={{
+          pageSize: 5,
+          position: ['bottomCenter'],
+        }}
+        dataSource={previousGames}
+        columns={columns}
+      />
     </StyledDivWrapper>
   );
 };

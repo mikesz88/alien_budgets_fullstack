@@ -30,13 +30,15 @@ const RegisterStudentPart1 = () => {
 
   const getAllClassCodes = useCallback(
     () =>
-      getAllClassrooms().catch(() =>
-        Notification(
-          error,
-          ERROR,
-          'Connection Error. Please refresh and try again.'
-        )
-      ),
+      getAllClassrooms()
+        .then(() => Notification(success, SUCCESS, 'Classroom Codes found.'))
+        .catch(() =>
+          Notification(
+            error,
+            ERROR,
+            'Connection Error. Please refresh and try again.'
+          )
+        ),
     []
   );
 
@@ -80,7 +82,7 @@ const RegisterStudentPart1 = () => {
 
   const isValidClassCode = useCallback(
     (classCode) => classroomCodes.includes(classCode),
-    []
+    [classroomCodes]
   );
 
   const onFinish = (values) => {

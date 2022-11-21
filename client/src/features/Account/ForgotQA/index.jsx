@@ -59,73 +59,81 @@ const ForgotQA = ({ closeDrawer }) => {
   };
 
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      name="Update Forgot Q&A"
-      onFinish={onFinish}
-    >
-      <StyledBasicDiv>Current Forgot Question</StyledBasicDiv>
-      <StyledBasicDiv>{currentQuestion}</StyledBasicDiv>
-      <Form.Item
-        label="Current Forgot Password Answer"
-        name="currentForgotAnswer"
-        rules={[
-          {
-            required: true,
-            message: 'Please select your question',
-          },
-        ]}
+    <>
+      <h1>
+        Update <br /> Forgot Q&A
+      </h1>
+      <Form
+        form={form}
+        layout="vertical"
+        name="Update Forgot Q&A"
+        onFinish={onFinish}
       >
-        <Input.Password type="password" placeholder="Forgot Password Answer" />
-      </Form.Item>
-      <Form.Item
-        label="New Forgot Password Question"
-        name="newForgotPasswordQuestion"
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please select your question',
-          },
-        ]}
-      >
-        <Select
-          placeholder="Forgot Password Question"
-          onChange={forgotPassQuestionChange}
-          allowClear
+        <StyledBasicDiv>Current Forgot Question</StyledBasicDiv>
+        <StyledBasicDiv>{currentQuestion}</StyledBasicDiv>
+        <Form.Item
+          label="Current Forgot Password Answer"
+          name="currentForgotAnswer"
+          rules={[
+            {
+              required: true,
+              message: 'Please select your question',
+            },
+          ]}
         >
-          {questionList.map((question) => (
-            <Select.Option key={question.id} value={question.id}>
-              {question.question}
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        label="New Forgot Password Answer"
-        name="newForgotPasswordAnswer"
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please write your answer.',
-          },
-        ]}
-      >
-        <Input type="text" placeholder="Forgot Password Answer" />
-      </Form.Item>
-      <Form.Item>
-        <StyledButton
-          loading={loading}
-          larger="true"
-          type="primary"
-          htmlType="submit"
+          <Input.Password
+            type="password"
+            placeholder="Forgot Password Answer"
+          />
+        </Form.Item>
+        <Form.Item
+          label="New Forgot Password Question"
+          name="newForgotPasswordQuestion"
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Please select your question',
+            },
+          ]}
         >
-          Submit Changes
-        </StyledButton>
-      </Form.Item>
-    </Form>
+          <Select
+            placeholder="Forgot Password Question"
+            onChange={forgotPassQuestionChange}
+            allowClear
+          >
+            {questionList.map((question) => (
+              <Select.Option key={question.id} value={question.id}>
+                {question.question}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="New Forgot Password Answer"
+          name="newForgotPasswordAnswer"
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Please write your answer.',
+            },
+          ]}
+        >
+          <Input type="text" placeholder="Forgot Password Answer" />
+        </Form.Item>
+        <Form.Item>
+          <StyledButton
+            loading={loading}
+            larger="true"
+            type="primary"
+            htmlType="submit"
+          >
+            Submit Changes
+          </StyledButton>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 

@@ -12,7 +12,7 @@ export const StyledDivCustom = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${({ marginTop }) => (marginTop === 'true' ? 'margin-top: 3rem' : '')}
+  ${({ marginTop }) => (marginTop === 'true' ? 'margin-top: 3rem;' : '')}
 `;
 
 export const StyledFormItem = styled(Form.Item)`
