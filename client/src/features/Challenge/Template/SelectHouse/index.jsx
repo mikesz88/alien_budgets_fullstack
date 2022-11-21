@@ -12,6 +12,9 @@ import Notification from '../../../../components/Notification';
 import StyledBasicDiv from '../../../../components/BasicDiv';
 import {
   StyledBoldTitle,
+  StyledDivWrapper,
+  StyledFormWrapper,
+  StyledH3Bolded,
   StyledHouseImg,
   StyledHouseRadioContainer,
   StyledRadioWrapper,
@@ -86,29 +89,33 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
 
   return (
     <>
-      <StyledBasicDiv>
-        The house must have enough for you and your household members
-      </StyledBasicDiv>
-      <StyledBasicDiv>
-        Amount of people to house (including yourself): {getHouseMembers() + 1}
-      </StyledBasicDiv>
-      {getSalary() ? (
-        <StyledBoldTitle>
-          <StyledBasicDiv>
-            Current Annual Salary {withMoneySymbol(getSalary())}
-          </StyledBasicDiv>
-          <StyledBasicDiv>
-            Hint: House monthly payment should not be more than half of your
-            monthly income
-          </StyledBasicDiv>
-        </StyledBoldTitle>
-      ) : (
-        <StyledBasicDiv>
-          Potential annual salary range: {lowEndSalary}-{highEndSalary}
-        </StyledBasicDiv>
-      )}
+      <StyledDivWrapper>
+        <h1>Select House</h1>
+        <StyledH3Bolded>
+          The house must have enough for you and your household members
+        </StyledH3Bolded>
+        <StyledH3Bolded>
+          Amount of people to house (including yourself):{' '}
+          {getHouseMembers() + 1}
+        </StyledH3Bolded>
+        {getSalary() ? (
+          <StyledBoldTitle>
+            <StyledH3Bolded>
+              Current Annual Salary {withMoneySymbol(getSalary())}
+            </StyledH3Bolded>
+            <StyledBasicDiv>
+              Hint: House monthly payment should not be more than half of your
+              monthly income
+            </StyledBasicDiv>
+          </StyledBoldTitle>
+        ) : (
+          <StyledH3Bolded>
+            Potential annual salary range: {lowEndSalary}-{highEndSalary}
+          </StyledH3Bolded>
+        )}
+      </StyledDivWrapper>
       <Spin spinning={loadingHouses}>
-        <Form
+        <StyledFormWrapper
           layout="vertical"
           form={form}
           name="Choose House"
@@ -116,7 +123,6 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
         >
           <Form.Item
             name="selectedHouse"
-            label="SelectHouse"
             rules={[
               {
                 required: true,
@@ -144,17 +150,17 @@ const SelectHouse = ({ goToSalary, backToBudget }) => {
               </StyledRadioWrapper>
             </Radio.Group>
           </Form.Item>
-          <Form.Item>
+          <Form.Item style={{ textAlign: 'center' }}>
             <StyledButton
               loading={loading}
-              larger="true"
+              size="large"
               type="primary"
               htmlType="submit"
             >
               Submit House
             </StyledButton>
           </Form.Item>
-        </Form>
+        </StyledFormWrapper>
       </Spin>
     </>
   );

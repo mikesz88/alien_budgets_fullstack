@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import StyledBasicDiv from '../../../../components/BasicDiv';
 import StyledButton from '../../../../components/PrimaryButton';
 import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
+import {
+  StyledDivText,
+  StyledDivWrapper,
+  StyledH1MarginBottom,
+  StyledH3Description,
+} from './styles';
 
 const SelectHouseMembers = ({ goToHouse }) => {
   const { setHouseholdMembers, setUtilities } = useGameServiceProvider();
@@ -29,32 +34,34 @@ const SelectHouseMembers = ({ goToHouse }) => {
   useEffect(() => chooseRandomNumber(), []);
 
   return (
-    <>
-      <StyledBasicDiv>SelectHouseMembers</StyledBasicDiv>
-      <StyledBasicDiv>
+    <StyledDivWrapper>
+      <StyledH1MarginBottom>Select House Members</StyledH1MarginBottom>
+      <StyledH3Description marginbottom="true">
         Each person uses about in 2.5% of the monthly payment in utilities
         (electricity, gas, water, sewer, and trash).
-      </StyledBasicDiv>
-      <StyledBasicDiv>
+      </StyledH3Description>
+      <StyledH3Description>
         Each person&apos;s internet cost is 1% of the monthly payment.
-      </StyledBasicDiv>
-      <StyledBasicDiv>
+      </StyledH3Description>
+      <StyledDivText>
         You have {tries === 1 ? '1 try left' : `${tries} tries left`}
-      </StyledBasicDiv>
+      </StyledDivText>
       <StyledButton
         disabled={tries === 0}
         type="primary"
+        size="large"
         onClick={changeHouseMemberAmount}
       >
         Choose Random Number
       </StyledButton>
-      <StyledBasicDiv>
-        How many house members: {selectedHouseMembers}
-      </StyledBasicDiv>
-      <StyledButton type="primary" onClick={onFinish}>
+      <StyledDivText>
+        How Many House Members:
+        <br /> {selectedHouseMembers}
+      </StyledDivText>
+      <StyledButton type="primary" size="large" onClick={onFinish}>
         Confirm House Numbers
       </StyledButton>
-    </>
+    </StyledDivWrapper>
   );
 };
 

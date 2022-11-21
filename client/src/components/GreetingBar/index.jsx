@@ -6,6 +6,7 @@ import {
   StyledAdultName,
   StyledStudentGreetingContainer,
   StyledButton,
+  StyledStudentTemplate,
 } from './styles';
 import { useAuthServiceProvider } from '../../services/AuthServiceProvider';
 
@@ -47,7 +48,7 @@ const GreetingBar = ({
           <StyledButton type="text" onClick={() => navigate(`/challenge/play`)}>
             Play Game
           </StyledButton>
-          <StyledAdultName>Welcome {username}</StyledAdultName>
+          <StyledStudentTemplate>{username}</StyledStudentTemplate>
         </StyledStudentGreetingContainer>
       )}
       {template && (

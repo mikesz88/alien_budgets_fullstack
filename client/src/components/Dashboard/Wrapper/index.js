@@ -4,8 +4,7 @@ const StyledDashboardWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
   height: 100vh;
   width: 100vw;
-  display: flex;
-  align-items: center;
+  padding-top: 6rem;
 `;
 
 export default StyledDashboardWrapper;

@@ -6,10 +6,15 @@ import {
   SUCCESS,
   withMoneySymbol,
 } from '../../../../common/constants';
-import StyledBasicDiv from '../../../../components/BasicDiv';
 import Notification from '../../../../components/Notification';
-import StyledButton from '../../../../components/PrimaryButton';
 import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
+import {
+  StyledButtonWidthMargin,
+  StyledDivWrapper,
+  StyledHeaderBolded,
+  StyledHeaderMarginBottom,
+  StyledRandomJobAndTries,
+} from './styles';
 
 const SelectJob = ({ goToHouseMembers }) => {
   const { getRandomJob: getARandomJob, setJob } = useGameServiceProvider();
@@ -53,26 +58,35 @@ const SelectJob = ({ goToHouseMembers }) => {
   useEffect(() => getRandomJob(), []);
 
   return (
-    <>
-      <StyledBasicDiv>SelectJob</StyledBasicDiv>
-      <StyledBasicDiv>
+    <StyledDivWrapper>
+      <StyledHeaderMarginBottom>Select Job</StyledHeaderMarginBottom>
+      <StyledRandomJobAndTries>
         You have {tries === 1 ? '1 try left' : `${tries} tries left`}
-      </StyledBasicDiv>
-      <StyledButton
+      </StyledRandomJobAndTries>
+      <StyledButtonWidthMargin
+        marginbottom="true"
         loading={loading}
         type="primary"
+        size="large"
         disabled={tries === 0}
         onClick={changeJob}
       >
         Select Random Job
-      </StyledButton>
-      <StyledBasicDiv>Your random job: {selectedJobTitle}</StyledBasicDiv>
-      <StyledBasicDiv>Low End Salary per year: {lowEndSalary}</StyledBasicDiv>
-      <StyledBasicDiv>High End Salary per year: {highEndSalary}</StyledBasicDiv>
-      <StyledButton type="primary" onClick={onFinish}>
+      </StyledButtonWidthMargin>
+      <StyledRandomJobAndTries>
+        Your Random Job:
+        <br /> {selectedJobTitle}
+      </StyledRandomJobAndTries>
+      <StyledHeaderBolded>
+        Low End Salary per year: {lowEndSalary}
+      </StyledHeaderBolded>
+      <StyledHeaderBolded>
+        High End Salary per year: {highEndSalary}
+      </StyledHeaderBolded>
+      <StyledButtonWidthMargin type="primary" size="large" onClick={onFinish}>
         Confirm Job Choice
-      </StyledButton>
-    </>
+      </StyledButtonWidthMargin>
+    </StyledDivWrapper>
   );
 };
 

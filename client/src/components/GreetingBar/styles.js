@@ -21,7 +21,16 @@ export const StyledTitleFont = styled.div`
 
 export const StyledAdultName = styled.div`
   font-family: ${({ theme }) => theme.fontFamily.hind};
-  font-size: 32px;
+  font-size: 40px;
+
+  @media (max-width: 838px) {
+    font-size: 24px;
+  }
+`;
+
+export const StyledStudentTemplate = styled.div`
+  font-family: ${({ theme }) => theme.fontFamily.hind};
+  font-size: 24px;
 
   @media (max-width: 838px) {
     font-size: 24px;
