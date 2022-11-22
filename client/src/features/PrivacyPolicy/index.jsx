@@ -1,12 +1,11 @@
 import React from 'react';
-import AlienImages from '../../components/AlienImages';
 import GreetingBar from '../../components/GreetingBar';
+import theme from '../../theme';
 
 const PrivacyPolicy = () => (
-  <>
-    <AlienImages />
+  <div style={{ backgroundColor: theme.colors.lightGrey }}>
     <GreetingBar template="Privacy Policy" />
-    <div style={{ marginTop: '6rem' }}>
+    <div style={{ paddingTop: '6rem' }}>
       <h1>Privacy Policy</h1>
       <p>Last updated November 6th, 2022</p>
       <div>
@@ -630,7 +629,7 @@ const PrivacyPolicy = () => (
         .
       </p>
     </div>
-  </>
+  </div>
 );
 
 export default PrivacyPolicy;

@@ -5,8 +5,8 @@ export const StyledCreateClassroomContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
   display: flex;
   justify-content: center;
-  padding: 8rem 0;
-  height: 100vh;
+  padding-top: 8rem;
+  min-height: 100vh;
 `;
 
 export const StyledSpacing = styled(Space)`
@@ -26,6 +26,7 @@ export const StyledRosterContainer = styled.div`
 export const StyledRosterHeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const StyledTitle = styled.h1`
@@ -41,9 +42,11 @@ export const StyledStudentListContainer = styled.div`
 `;
 
 export const StyledStudentCard = styled.div`
+  width: 350px;
+  margin: 1rem;
   border: 1px solid transparent;
   border-radius: 8px;
-  box-shadow: ${({ theme }) => `0px 10px 10px ${theme.colors.lightGrey}`};
+  box-shadow: ${({ theme }) => `0px 10px 10px ${theme.colors.black}`};
 `;
 
 export const StyledStudentListItems = styled.div`

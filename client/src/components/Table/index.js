@@ -6,7 +6,7 @@ const StyledTable = styled(Table)`
 
   @media (max-width: 1023px) {
     margin: 0 auto;
-    width: 640px;
+    width: 700px;
   }
 `;
 

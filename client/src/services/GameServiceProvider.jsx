@@ -73,13 +73,8 @@ export const GameServiceProvider = ({ children }) => {
 
   const getBonusOrFine = () => game.bonusOrFine;
 
-  const nextMonth = () => {
-    if (game.month === 0) {
-      setGame((prevState) => ({ ...prevState, month: prevState.month + 10 }));
-    } else {
-      setGame((prevState) => ({ ...prevState, month: prevState.month + 1 }));
-    }
-  };
+  const nextMonth = () =>
+    setGame((prevState) => ({ ...prevState, month: prevState.month + 1 }));
 
   const getMathFactScore = (mathFactResult) => {
     let total = 0;

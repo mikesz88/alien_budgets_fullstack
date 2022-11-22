@@ -159,12 +159,19 @@ const CreateClass = () => {
       <GreetingBar template="New Class" />
       {!newClassroomRoster && (
         <Form form={form} name="Create new class" onFinish={onFinish}>
-          <Form.Item name="classroomCode">
-            <StyledButton onClick={handleRandomClassroomCode}>
+          <h3 style={{ fontWeight: 'bold', textAlign: 'center' }}>
+            Pick your classroom code
+          </h3>
+          <Form.Item
+            style={{ width: '300px', textAlign: 'center' }}
+            name="classroomCode"
+          >
+            <StyledButton size="large" onClick={handleRandomClassroomCode}>
               {classroomCode}
             </StyledButton>
           </Form.Item>
           <Form.Item
+            style={{ display: 'flex', justifyContent: 'center' }}
             name="gradeLevel"
             label="Grade Level"
             rules={[
@@ -186,7 +193,11 @@ const CreateClass = () => {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
-                  <StyledSpacing key={key} align="baseline">
+                  <StyledSpacing
+                    style={{ width: '300px' }}
+                    key={key}
+                    align="baseline"
+                  >
                     <Form.Item
                       {...restField}
                       name={[name, 'firstName']}

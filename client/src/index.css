@@ -13,7 +13,7 @@ code {
     monospace;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1023px) {
   .ant-table-tbody > tr > td {
     padding: 10px;
   }

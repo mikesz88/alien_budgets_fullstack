@@ -134,6 +134,7 @@ const EditableCell = ({
 
 const MonthlyBudget = ({ changeView, findAnotherHouse, failedBudget }) => {
   const {
+    game,
     getHouse,
     getUtilities,
     getHouseMembers,
@@ -306,7 +307,8 @@ const MonthlyBudget = ({ changeView, findAnotherHouse, failedBudget }) => {
   useEffect(() => {
     if (
       postTaxMonthlyIncome + 1 <
-      +(mortgage + utilities + groceries).toFixed(2)
+        +(mortgage + utilities + groceries).toFixed(2) &&
+      game.month !== 0
     ) {
       failedBudget();
     }

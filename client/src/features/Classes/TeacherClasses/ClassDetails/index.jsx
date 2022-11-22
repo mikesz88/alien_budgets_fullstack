@@ -257,7 +257,6 @@ const ClassDetails = () => {
         }}
         dataSource={students}
       />
-
       <Modal
         open={openModal}
         title="Password has been reset"

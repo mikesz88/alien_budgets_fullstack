@@ -1,12 +1,11 @@
 import React from 'react';
-import AlienImages from '../../components/AlienImages';
 import GreetingBar from '../../components/GreetingBar';
+import theme from '../../theme';
 
 const TermsOfService = () => (
-  <>
-    <AlienImages />
+  <div style={{ backgroundColor: theme.colors.lightGrey }}>
     <GreetingBar template="Terms of Service" />
-    <div style={{ marginTop: '6rem' }}>
+    <div style={{ paddingTop: '6rem' }}>
       <h1>Terms of Service</h1>
       <p>Last updated November 6th, 2022</p>
       <h1>Table of Contents</h1>
@@ -583,7 +582,7 @@ const TermsOfService = () => (
         alienbudgets@hotmail.com
       </p>
     </div>
-  </>
+  </div>
 );
 
 export default TermsOfService;
