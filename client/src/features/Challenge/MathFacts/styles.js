@@ -1,8 +1,22 @@
 import { Input } from 'antd';
 import styled from 'styled-components';
+import StyledButton from '../../../components/PrimaryButton';
+
+export const StyledDivPaddingTop = styled.div`
+  padding-top: 4rem;
+  ${({ textAlign }) => (textAlign === 'center' ? 'text-align: center;' : '')};
+`;
+
+export const StyledH1Centered = styled.h1`
+  text-align: center;
+`;
 
 export const StyledQuestionHeader = styled.h1`
   text-align: center;
+`;
+
+export const StyledH3Bolded = styled.h3`
+  font-weight: bold;
 `;
 
 export const StyledMathFactWrapper = styled.div`
@@ -30,4 +44,8 @@ export const StyledInput = styled(Input)`
   padding: 1rem;
   font-size: 3rem;
   text-align: right;
+`;
+
+export const StyledButton300Width = styled(StyledButton)`
+  width: 300px;
 `;

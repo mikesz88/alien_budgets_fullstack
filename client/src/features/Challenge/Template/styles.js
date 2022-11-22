@@ -6,7 +6,7 @@ const StyledTemplateContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 6rem 0;
+  padding-top: 6rem;
 `;
 
 export default StyledTemplateContainer;

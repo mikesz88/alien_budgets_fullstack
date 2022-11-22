@@ -6,7 +6,7 @@ export const StyledDivContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 8rem 0;
+  padding-top: 8rem;
 `;
 
 export const StyledHeader = styled.h1`

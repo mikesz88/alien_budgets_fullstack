@@ -9,15 +9,17 @@ import StyledTable from './styles';
 const Stats = () => {
   const { user } = useAuthServiceProvider();
 
-  const previousGames = user.previousGames.map((game) => ({
-    key: game._id,
-    Job: game.job,
-    Dwelling: game.dwelling,
-    Salary: withMoneySymbol(game.salary),
-    averageMathFactScore: `${game.averageMathFactScore}%`,
-    averageBattleshipScore: game.averageBattleshipScore,
-    Score: game.score,
-  }));
+  const previousGames = user.previousGames
+    .map((game) => ({
+      key: game._id,
+      Job: game.job,
+      Dwelling: game.dwelling,
+      Salary: withMoneySymbol(game.salary),
+      averageMathFactScore: `${game.averageMathFactScore}%`,
+      averageBattleshipScore: game.averageBattleshipScore,
+      Score: game.score,
+    }))
+    .reverse();
 
   const columns = [
     {

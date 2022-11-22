@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media (max-width: 800px) {
+  .ant-table-tbody > tr > td {
+    padding: 10px;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 10px;
+  }
+}

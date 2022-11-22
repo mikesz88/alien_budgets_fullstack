@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Popconfirm, Modal } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import { useParams, useNavigate } from 'react-router-dom';
 import GreetingBar from '../../../../components/GreetingBar';
 import StyledButton from '../../../../components/PrimaryButton';
@@ -198,16 +199,21 @@ const ClassDetails = () => {
       sortDirections: ['descend'],
     },
     {
-      title: 'Edit Student',
+      title: 'Edit',
       dataIndex: 'editStudent',
       key: 'editStudent',
       render: (text) => (
         <StyledTableButton
-          style={{ margin: '0', minWidth: '0', padding: '5px 10px' }}
+          style={{
+            margin: '0',
+            minWidth: '0',
+            padding: '5px 10px',
+            boxShadow: 'none',
+          }}
           onClick={() => editStudentInfo(text)}
-          type="primary"
+          type="link"
         >
-          Edit
+          <EditOutlined />
         </StyledTableButton>
       ),
       width: '14%',
@@ -247,7 +253,7 @@ const ClassDetails = () => {
         loading={loading}
         pagination={{
           pageSize: 10,
-          position: ['topCenter'],
+          position: ['bottomCenter'],
         }}
         dataSource={students}
       />

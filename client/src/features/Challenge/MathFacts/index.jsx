@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import StyledButton from '../../../components/PrimaryButton';
 import {
+  StyledDivPaddingTop,
   StyledFirstNumber,
   StyledInput,
   StyledMathFactWrapper,
   StyledQuestionHeader,
   StyledXSecondNumber,
+  StyledH1Centered,
+  StyledH3Bolded,
+  StyledButton300Width,
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import { useGameServiceProvider } from '../../../services/GameServiceProvider';
@@ -95,7 +98,8 @@ const MathFacts = ({ changeView }) => {
   return (
     <>
       {count < 20 && (
-        <>
+        <StyledDivPaddingTop>
+          <StyledH1Centered>Math Facts</StyledH1Centered>
           <StyledQuestionHeader>
             Questions left: {20 - count}
           </StyledQuestionHeader>
@@ -119,35 +123,37 @@ const MathFacts = ({ changeView }) => {
               ref={inputRef}
             />
           </StyledMathFactWrapper>
-        </>
+        </StyledDivPaddingTop>
       )}
       {count === 20 && (
-        <>
-          <StyledBasicDiv>You did 20 questions!</StyledBasicDiv>
-          <StyledBasicDiv>Amount Correct:{percentages}%</StyledBasicDiv>
+        <StyledDivPaddingTop textAlign="center">
+          <h1>You did 20 questions!</h1>
+          <StyledH3Bolded>Amount Correct:{percentages}%</StyledH3Bolded>
           {getBonusOrFine() < 0 ? (
             <>
-              <StyledBasicDiv>
-                You have received {getBonusOrFine()} points! :(
-              </StyledBasicDiv>
-              <StyledBasicDiv>
+              <h1>You have received {getBonusOrFine()} points! :(</h1>
+              <StyledH3Bolded>
                 You have received a fine ${getBonusOrFine()}! :(
-              </StyledBasicDiv>
+              </StyledH3Bolded>
             </>
           ) : (
             <>
-              <StyledBasicDiv>
+              <StyledH3Bolded>
                 You have received {getBonusOrFine()} points! :)
-              </StyledBasicDiv>
-              <StyledBasicDiv>
+              </StyledH3Bolded>
+              <StyledH3Bolded>
                 You have received a bonus of ${getBonusOrFine()}! :)
-              </StyledBasicDiv>
+              </StyledH3Bolded>
             </>
           )}
-          <StyledButton type="primary" onClick={backToBudget}>
+          <StyledButton300Width
+            size="large"
+            type="primary"
+            onClick={backToBudget}
+          >
             Back to Budget Planning
-          </StyledButton>
-        </>
+          </StyledButton300Width>
+        </StyledDivPaddingTop>
       )}
     </>
   );

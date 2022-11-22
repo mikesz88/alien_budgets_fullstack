@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
-import StyledButton from '../../../components/PrimaryButton';
 import Notification from '../../../components/Notification';
 import {
   success,
@@ -9,10 +7,10 @@ import {
   ERROR,
   template,
 } from '../../../common/constants';
-import StyledBasicDiv from '../../../components/BasicDiv';
 import { useAuthServiceProvider } from '../../../services/AuthServiceProvider';
 import { useClassroomServiceProvider } from '../../../services/ClassroomServiceProvider';
 import { useGameServiceProvider } from '../../../services/GameServiceProvider';
+import { StyledButtonLargeWidth, StyledTable } from './styles';
 
 const BudgetSummary = ({ changeView }) => {
   const { updateStudentInClassroom } = useClassroomServiceProvider();
@@ -187,11 +185,19 @@ const BudgetSummary = ({ changeView }) => {
 
   return (
     <>
-      <StyledBasicDiv>Budget Summary</StyledBasicDiv>
-      <Table pagination={false} dataSource={dataSource} columns={columns} />
-      <StyledButton type="primary" onClick={() => changeView(template)}>
+      <h1 style={{ textAlign: 'center' }}>Budget Summary</h1>
+      <StyledTable
+        pagination={false}
+        dataSource={dataSource}
+        columns={columns}
+      />
+      <StyledButtonLargeWidth
+        size="large"
+        type="primary"
+        onClick={() => changeView(template)}
+      >
         Play Again
-      </StyledButton>
+      </StyledButtonLargeWidth>
     </>
   );
 };

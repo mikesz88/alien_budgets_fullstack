@@ -3,7 +3,6 @@ import React from 'react';
 const Header = () => (
   <header>
     <h1>Battleship</h1>
-
     <p className="subtitle">Can you beat the computer?</p>
     <p className="subtitle">
       The difference between winning and losing can reward or hurt your budget!

@@ -6,7 +6,7 @@ import React, {
   createContext,
   useMemo,
 } from 'react';
-import { Form, Input, Popconfirm, Table } from 'antd';
+import { Form, Input, Popconfirm } from 'antd';
 import StyledButton from '../../../components/PrimaryButton';
 import TestMyMath from './TestMyMath';
 import ScoreGuidelines from '../ScoreGuidelines';
@@ -35,6 +35,7 @@ import {
   StyledSubmitWrapper,
   StyledSpanBalanceColor,
   StyledBoldSpan,
+  StyledTable,
 } from './styles';
 import StyledBasicDiv from '../../../components/BasicDiv';
 import {
@@ -218,7 +219,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse, failedBudget }) => {
             <a>Delete</a>
           </Popconfirm>
         ) : (
-          <span>Unable to Delete</span>
+          <span>Cannot Delete</span>
         ),
     },
   ];
@@ -415,7 +416,7 @@ const MonthlyBudget = ({ changeView, findAnotherHouse, failedBudget }) => {
           Cannot be the same name as another budget item.
         </StyledRedDiv>
       ) : null}
-      <Table
+      <StyledTable
         components={components}
         rowClassName={() => 'editable-row'}
         bordered

@@ -1,4 +1,5 @@
 import React from 'react';
+import StyledButton from '../../../../components/PrimaryButton';
 import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
 const PlayerTips = ({
@@ -24,7 +25,7 @@ const PlayerTips = ({
     getMonth() !== 12 ? changeView('template') : changeView('budgetSummary');
 
   const gameOverPanel = (
-    <div>
+    <div style={{ width: '225px' }}>
       <div className="tip-box-title">Game Over!</div>
       <p className="player-tip">
         {winner === 'player'
@@ -32,21 +33,19 @@ const PlayerTips = ({
           : 'You lose 😭. Better luck next time! '}
       </p>
       {getBonusOrFine() < 0 ? (
-        <>
+        <div>
           <div>You have received {getBonusOrFine()} points! :(</div>
           <div>You have received a fine of ${getBonusOrFine()}! :(</div>
-        </>
+        </div>
       ) : (
         <>
           <div>You have received {getBonusOrFine()} points! :)</div>
           <div>You have received a bonus ${getBonusOrFine()}! :)</div>
         </>
       )}
-      <button type="button" onClick={backToGame}>
-        {getMonth() === 12
-          ? 'Game Over! Head to Summary!'
-          : 'Advance to the next month'}
-      </button>
+      <StyledButton type="primary" onClick={backToGame}>
+        {getMonth() === 12 ? 'Game Over! Go to Summary!' : 'On to your budget'}
+      </StyledButton>
     </div>
   );
 

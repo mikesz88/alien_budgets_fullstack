@@ -1,10 +1,9 @@
 @import './open-color.css';
 
 /* BOARD  */
-
 .board {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   border: 2px solid var(--oc-gray-4);
   margin: 1em 2em 2em 1em;
   display: flex;
@@ -42,7 +41,6 @@
 }
 
 /* SQUARE COLORS */
-
 /* Empty */
 .board .empty {
   background-color: var(--oc-gray-1);
@@ -52,7 +50,6 @@
 }
 
 /* Ship */
-
 .board .ship {
   background-color: var(--oc-indigo-5);
   border: 1px solid var(--oc-indigo-6);
@@ -63,21 +60,18 @@
 }
 
 /* Hit  */
-
 .board .hit {
   background-color: var(--oc-red-8);
   border: 1px solid var(--oc-red-9);
 }
 
 /* Miss */
-
 .board .miss {
   background-color: var(--oc-gray-4);
   border: 1px solid var(--oc-gray-2);
 }
 
 /* Sunk ship */
-
 .board .ship-sunk {
   background-color: var(--oc-gray-9);
   border: 1px solid var(--oc-gray-8);
@@ -85,7 +79,6 @@
 }
 
 /* Forbidden square  */
-
 .board .forbidden {
   background-color: var(--oc-red-2);
   border: 1px solid var(--oc-red-3);

@@ -6,7 +6,7 @@ const StyledDivWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 8rem 0;
+  padding-top: 7rem;
 `;
 
 export default StyledDivWrapper;

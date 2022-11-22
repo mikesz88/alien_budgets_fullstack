@@ -7,7 +7,6 @@
 }
 
 /* REPLICAS  */
-
 #replica-fleet {
   padding: var(--small-space);
 }
@@ -53,7 +52,6 @@
 }
 
 /* Each ship name */
-
 .replica-title {
   font-size: 14px;
   text-transform: capitalize;
@@ -69,7 +67,6 @@
 }
 
 /* Firing info */
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -81,7 +78,6 @@ li {
 }
 
 /* TODO: FIX THIS SCREEN SO THINGS FIT NICELY!!!  */
-
 @media screen and (max-width: 768px) {
   #replica-ships {
     max-width: 400px;

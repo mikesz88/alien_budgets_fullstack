@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Form, Table } from 'antd';
 import styled from 'styled-components';
 import StyledButton from '../../../components/PrimaryButton';
 
@@ -29,6 +29,11 @@ export const StyledTopInfoWrapper = styled.div`
   align-items: flex-start;
   font-size: 0.75rem;
   text-align: center;
+
+  @media (max-width: 1023px) {
+    font-size: 0.65rem;
+    margin: 0 2rem;
+  }
 `;
 
 export const StyledDirectionsWrapper = styled.div`
@@ -61,6 +66,8 @@ export const StyledDivWrapperCentered = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 640px;
+  margin: 0 auto;
 `;
 
 export const StyledAddRowButton = styled(StyledButton)`
@@ -90,4 +97,13 @@ export const StyledSpanBalanceColor = styled.span`
 
 export const StyledBoldSpan = styled.span`
   font-weight: bold;
+`;
+
+export const StyledTable = styled(Table)`
+  margin: 0 3rem;
+
+  @media (max-width: 1023px) {
+    margin: 0 auto;
+    width: 640px;
+  }
 `;

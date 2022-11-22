@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Dice from 'react-dice-roll';
-import StyledButton from '../../../../components/PrimaryButton';
 import {
   ERROR,
   error,
@@ -9,7 +8,15 @@ import {
   withMoneySymbol,
 } from '../../../../common/constants';
 import Notification from '../../../../components/Notification';
-import StyledMarginDiv from './styles';
+import {
+  StyledButtonNegMargin,
+  StyledDiceDiv,
+  StyledDivCentered,
+  StyledDivColumn,
+  StyledDivInfoContainer,
+  StyledH1Centered,
+  StyledH3BoldCenter,
+} from './styles';
 import { useAuthServiceProvider } from '../../../../services/AuthServiceProvider';
 import { useGameServiceProvider } from '../../../../services/GameServiceProvider';
 
@@ -117,81 +124,55 @@ const SelectSalary = ({ goToMonthlyBudget }) => {
 
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Select Salary</h1>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <h3 style={{ textAlign: 'left', fontWeight: 'bold' }}>
-          Here is your chance for your salary!
-        </h3>
-        <h3 style={{ textAlign: 'center', fontWeight: 'bold' }}>
-          You will get three tries.
-        </h3>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <h3 style={{ textAlign: 'left', fontWeight: 'bold' }}>
-          Each roll is a risk and can be the same number again!
-        </h3>
-        <h3 style={{ textAlign: 'center', fontWeight: 'bold' }}>
-          You have {tries === 1 ? '1 try left' : `${tries} tries left`}
-        </h3>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ textAlign: 'center' }}>
-          If you get a 6 you will get: Projected Salary:{' '}
-          {salaryBasedOnDiceRoll(6)}
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          If you get a 5 you will get: Projected Salary:{' '}
-          {salaryBasedOnDiceRoll(5)}
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          If you get a 3 or 4, you will get: Projected Salary:{' '}
-          {salaryBasedOnDiceRoll(3)}
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          If you get a 2 you will get: Projected Salary:{' '}
-          {salaryBasedOnDiceRoll(2)}
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          If you get a 1 you will get: Projected Salary:{' '}
-          {salaryBasedOnDiceRoll(1)}
-        </div>
-      </div>
-      <StyledMarginDiv>
+      <StyledH1Centered>Select Salary</StyledH1Centered>
+      <StyledH3BoldCenter>
+        Here is your chance for your salary! You will get three tries.
+      </StyledH3BoldCenter>
+      <StyledH3BoldCenter>
+        Each roll is a risk and can be the same number again!
+      </StyledH3BoldCenter>
+      <StyledH3BoldCenter>
+        You have {tries === 1 ? '1 try left' : `${tries} tries left`}
+      </StyledH3BoldCenter>
+      <StyledDivColumn>
+        {[6, 5, 3, 2, 1].map((salary) => {
+          if (salary === 3) {
+            return (
+              <StyledDivCentered key={salary}>
+                If you get a 3 or 4 you will get: Projected Salary:{' '}
+                {salaryBasedOnDiceRoll(salary)}
+              </StyledDivCentered>
+            );
+          }
+          return (
+            <StyledDivCentered key={salary}>
+              If you get a {salary} you will get: Projected Salary:{' '}
+              {salaryBasedOnDiceRoll(salary)}
+            </StyledDivCentered>
+          );
+        })}
+      </StyledDivColumn>
+      <StyledDiceDiv>
         <Dice defaultValue={1} disabled={tries === 0} onRoll={diceRoll} />
-      </StyledMarginDiv>
-      <h3 style={{ fontWeight: 'bold', textAlign: 'center' }}>
-        Your last roll was: {diceValue}
-      </h3>
-      <div
-        style={{
-          margin: '0 auto',
-          width: '300px',
-          textAlign: 'justify',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      </StyledDiceDiv>
+      <StyledH3BoldCenter>Your last roll was: {diceValue}</StyledH3BoldCenter>
+      <StyledDivInfoContainer>
         Do not forget this is a game! Salaries are not the same for everyone
         doing the same job! This is about budgeting with what money you have!
-        That is why you take the risk with the job!
-      </div>
-      <h3 style={{ fontWeight: 'bold', textAlign: 'center' }}>
+      </StyledDivInfoContainer>
+      <StyledH3BoldCenter>
         Salary:{' '}
         {diceValue ? salaryBasedOnDiceRoll(diceValue) : salaryBasedOnDiceRoll()}
-      </h3>{' '}
-      <div style={{ textAlign: 'center' }}>
-        <StyledButton disabled={tries === 3} type="primary" onClick={onFinish}>
+      </StyledH3BoldCenter>
+      <StyledDivCentered>
+        <StyledButtonNegMargin
+          disabled={tries === 3}
+          type="primary"
+          onClick={onFinish}
+        >
           Confirm Dice Roll
-        </StyledButton>
-      </div>
+        </StyledButtonNegMargin>
+      </StyledDivCentered>
     </>
   );
 };
